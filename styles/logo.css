@@ -1,0 +1,14 @@
+#page-logo {
+    font-size: 1rem;
+}
+
+h1 {
+    color: #000000;
+    font: 400 1.75em 'Mohave', sans-serif;
+    letter-spacing: 0.46em;
+    text-align: center;
+}
+
+h1 span {
+    color: var(--Bright-Red);
+}
