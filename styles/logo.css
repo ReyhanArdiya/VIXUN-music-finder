@@ -16,3 +16,17 @@ h1 {
 h1 span {
     color: var(--Bright-Red);
 }
+
+#page-logo svg, #page-logo svg * {
+    position: absolute;
+}
+
+#page-logo svg:first-of-type {
+    left: 0.25em;
+    bottom: -0.25em;
+}
+
+#page-logo svg:last-of-type {
+    right: 0.6em;
+    top: -0.4em;
+}
