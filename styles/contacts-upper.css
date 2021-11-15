@@ -1,0 +1,5 @@
+#page-header {
+    display: flex;
+    margin: 1em 0;
+    justify-content: center;
+}
