@@ -7,3 +7,7 @@
     --Dark-Gray: #585858;
     --Medium-Gray: #555454;
 }
+
+html {
+    font-size: 1em;
+}
