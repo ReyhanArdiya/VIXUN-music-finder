@@ -37,13 +37,13 @@ h1 span {
     top: -0.4em;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 48em) {
     #page-logo {
         font-size: 1.3rem;
     }
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 90em) {
     #page-logo {
         font-size: 2rem;
     }
