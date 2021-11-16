@@ -20,4 +20,10 @@
     flex-basis: 20%;
 }
 
+@media screen and (max-width: 47.9em) {
+    #page-header div:not(#page-logo) {
+        display: none;
+    }
+}
+
 /* #endregion #contacts-upper */
