@@ -1,5 +1,23 @@
+/* #region #page-header wrapper  */
+
 #page-header {
     display: flex;
     margin: 1em 0;
-    justify-content: center;
+    justify-content: space-evenly;
 }
+
+/* #endregion #page-header wrapper */
+
+/* #region #contacts-upper  */
+
+#contacts-upper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#contacts-upper, #page-header-dummy {
+    flex-basis: 20%;
+}
+
+/* #endregion #contacts-upper */
