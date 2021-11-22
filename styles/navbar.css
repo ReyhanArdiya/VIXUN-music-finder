@@ -12,13 +12,14 @@
 /* #region icons */
 
 #navbar-main svg[id^="icon"]:not(#icon-cart) {
-	width: 45%;
-	height: 45%;
+	/* width: 45%; */
+	height: 50%;
+	flex: 1;
 }
 
 #icon-cart {
-	width: 55%;
 	height: 55%;
+	flex: 1;
 }
 
 /* #endregion icons */
