@@ -40,8 +40,10 @@
 	font: 700 1.5em "Quicksand", sans-serif;
 	height: 180%;
 	justify-content: space-evenly;
-	position: relative;
+	position: absolute;
 	opacity: 0;
+	top: 0;
+	width: 100%;
 }
 
 @media screen and (min-width: 48em) {
