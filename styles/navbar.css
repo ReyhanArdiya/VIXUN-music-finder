@@ -28,6 +28,8 @@
 
 /* #endregion icons */
 
+/* #region #navbar-main-dropdown */
+
 #navbar-main-dropdown {
 	align-items: center;
 	background: var(--Pale-Black);
@@ -44,7 +46,15 @@
 	opacity: 0;
 	top: 0;
 	width: 100%;
+	transition: top 0.5s linear, opacity 0.5s linear;
 }
+
+.navbar-main-dropdown-show {
+	top: -180% !important;
+	opacity: 1 !important;
+}
+
+/* #endregion #navbar-main-dropdown */
 
 @media screen and (min-width: 48em) {
 	#navbar-main {
