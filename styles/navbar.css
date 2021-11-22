@@ -28,6 +28,22 @@
 
 /* #endregion icons */
 
+#navbar-main-dropdown {
+	align-items: center;
+	background: var(--Pale-Black);
+	border-top-left-radius: 0.21em;
+	border-top-right-radius: 0.21em;
+	box-shadow: 0px -0.045em 0.21em 0.045em #4c4c4c99;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	font: 700 1.5em "Quicksand", sans-serif;
+	height: 180%;
+	justify-content: space-evenly;
+	position: relative;
+	top: -50vh;
+}
+
 @media screen and (min-width: 48em) {
 	#navbar-main {
 		position: relative;
