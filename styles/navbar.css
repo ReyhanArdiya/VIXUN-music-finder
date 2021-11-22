@@ -22,3 +22,9 @@
 }
 
 /* #endregion icons */
+
+@media screen and (min-width: 48em) {
+	#navbar-main {
+		position: relative;
+	}
+}
