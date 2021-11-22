@@ -8,3 +8,17 @@
 	position: fixed;
 	width: 100%;
 }
+
+/* #region icons */
+
+#navbar-main svg[id^="icon"]:not(#icon-cart) {
+	width: 45%;
+	height: 45%;
+}
+
+#icon-cart {
+	width: 55%;
+	height: 55%;
+}
+
+/* #endregion icons */
