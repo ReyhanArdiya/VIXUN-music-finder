@@ -28,4 +28,7 @@
 	#navbar-main {
 		position: relative;
 	}
+	#icon-cart {
+		flex: 5;
+	}
 }
