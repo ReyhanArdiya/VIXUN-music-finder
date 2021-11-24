@@ -10,10 +10,24 @@ const navbarMain = {
 	dropdown: {
 		menu: document.querySelector("#navbar-main-dropdown"),
 		control() {
-			// console.log(this);
 			this.menu.classList.toggle("navbar-main-dropdown-show");
 		}
 	}
 };
 
-navbarMain.content.icons.hamburger.addEventListener("click", navbarMain.dropdown.control.bind(navbarMain.dropdown));
+navbarMain.content.icons.hamburger.addEventListener(
+	"click",
+	(() => {
+		let ongoing = false;
+		return () => {
+			console.log(ongoing);
+			if (!ongoing) {
+				navbarMain.dropdown.control();
+				ongoing = true;
+				setTimeout(() => {
+					ongoing = false;
+				}, 400);
+			}
+		};
+	})()
+);
