@@ -17,8 +17,9 @@
 
 /* #region icons */
 
-#navbar-main-content svg[id^="icon"] {
+#navbar-main-content svg[id^="icon"] path {
 	cursor: pointer;
+	user-select: none;
 }
 
 #navbar-main-content svg[id^="icon"]:not(#icon-cart) {
