@@ -17,6 +17,10 @@
 
 /* #region icons */
 
+#navbar-main-content svg[id^="icon"] {
+	cursor: pointer;
+}
+
 #navbar-main-content svg[id^="icon"]:not(#icon-cart) {
 	height: 50%;
 	flex: 1;
