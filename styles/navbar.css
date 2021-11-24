@@ -50,7 +50,6 @@
 	justify-content: space-evenly;
 	position: absolute;
 	top: 180%;
-	opacity: 0;
 	width: 100%;
 	transition: top 0.4s ease-in;
 	z-index: -3;
@@ -58,12 +57,6 @@
 
 .navbar-main-dropdown-show {
 	top: -179% !important;
-}
-
-@media screen and (max-width: 47.9em) {
-	#navbar-main-dropdown {
-		opacity: 1;
-	}
 }
 
 /* #endregion #navbar-main-dropdown */
@@ -74,5 +67,8 @@
 	}
 	#icon-cart {
 		flex: 5;
+	}
+	#navbar-main-dropdown {
+		display: none;
 	}
 }
