@@ -4,7 +4,7 @@ const navbarMain = {
 		icons: {
 			profile: document.querySelector("#icon-account path"),
 			cart: document.querySelector("#icon-cart path"),
-			hamburger: document.querySelector("#icon-hamburger path")
+			hamburger: document.querySelector("#icon-hamburger svg")
 		}
 	},
 	dropdown: {

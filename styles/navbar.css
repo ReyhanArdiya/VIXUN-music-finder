@@ -16,20 +16,26 @@
 }
 
 /* #region icons */
-
-#navbar-main-content svg[id^="icon"] path {
-	cursor: pointer;
-	user-select: none;
+#icon-cart {
+	height: 55%;
+	flex: 1;
 }
 
-#navbar-main-content svg[id^="icon"]:not(#icon-cart) {
+#icon-hamburger {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+#navbar-main-content [id^="icon"]:not(#icon-cart) {
 	height: 50%;
 	flex: 1;
 }
 
-#icon-cart {
-	height: 55%;
-	flex: 1;
+#navbar-main-content [id^="icon"] path,
+#icon-hamburger svg {
+	cursor: pointer;
+	user-select: none;
 }
 
 /* #endregion icons */
