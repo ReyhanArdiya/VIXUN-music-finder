@@ -36,6 +36,12 @@
 #icon-hamburger svg {
 	cursor: pointer;
 	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#navbar-main-content [id^="icon"] path:active,
+#icon-hamburger svg:active path {
+	fill: var(--Bright-Purple);
 }
 
 /* #endregion icons */
