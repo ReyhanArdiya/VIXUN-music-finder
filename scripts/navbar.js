@@ -47,3 +47,7 @@ navbarMain.content.icons.hamburger.addEventListener(
 		};
 	})()
 );
+
+window.addEventListener("resize", function () {
+	this.matchMedia("(min-width: 48em").matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
+});
