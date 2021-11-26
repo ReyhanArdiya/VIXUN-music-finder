@@ -4,11 +4,13 @@ const navbarMain = {
 		icons: {
 			profile: document.querySelector("#icon-account path"),
 			cart: document.querySelector("#icon-cart path"),
-			hamburger: document.querySelector("#icon-hamburger svg")
+			hamburger: document.querySelector("#icon-hamburger svg"),
+			hamburgerDiv: document.querySelector("#icon-hamburger")
 		}
 	},
 	dropdown: {
 		menu: document.querySelector("#navbar-main-dropdown"),
+		text: document.querySelectorAll("#navbar-main-dropdown p"),
 		control() {
 			this.menu.classList.toggle("navbar-main-dropdown-show");
 		}
