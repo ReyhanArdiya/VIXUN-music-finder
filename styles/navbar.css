@@ -20,6 +20,8 @@
 #navbar-main-content-text-container p {
 	color: white;
 	font: 700 1.75em "Mohave";
+	cursor: pointer;
+	user-select: none;
 }
 
 /* #region icons */
@@ -79,6 +81,11 @@
 
 .navbar-main-dropdown-show {
 	top: -179% !important;
+}
+
+#navbar-main-dropdown p {
+	cursor: pointer;
+	user-select: none;
 }
 
 /* #endregion #navbar-main-dropdown */
