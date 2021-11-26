@@ -3,6 +3,7 @@
 	bottom: 0;
 	height: 10vh;
 	position: fixed;
+	max-height: 64px;
 	width: 100%;
 }
 
