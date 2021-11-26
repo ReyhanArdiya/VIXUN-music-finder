@@ -6,6 +6,8 @@
 	width: 100%;
 }
 
+/* #region #navbar-main-content */
+
 #navbar-main-content {
 	align-items: center;
 	display: flex;
@@ -15,7 +17,13 @@
 	background: var(--Pale-Black);
 }
 
+#navbar-main-content-text-container p {
+	color: white;
+	font: 700 1.75em "Mohave";
+}
+
 /* #region icons */
+
 #icon-cart {
 	height: 55%;
 	flex: 1;
@@ -45,6 +53,8 @@
 }
 
 /* #endregion icons */
+
+/* #endregion #navbar-main-content */
 
 /* #region #navbar-main-dropdown */
 
@@ -77,8 +87,11 @@
 	#navbar-main {
 		position: relative;
 	}
-	#icon-cart {
+	#navbar-main-content-text-container {
 		flex: 5;
+		align-items: center;
+		display: flex;
+		justify-content: space-evenly;
 	}
 	#navbar-main-dropdown {
 		display: none;

@@ -6,7 +6,8 @@ const navbarMain = {
 			cart: document.querySelector("#icon-cart path"),
 			hamburger: document.querySelector("#icon-hamburger svg"),
 			hamburgerDiv: document.querySelector("#icon-hamburger")
-		}
+		},
+		textContainer: document.querySelector("#navbar-main-content-text-container")
 	},
 	dropdown: {
 		/**@type {HTMLDivElement}*/
@@ -22,7 +23,7 @@ const navbarMain = {
 		moveText(where = "content") {
 			if (where === "content") {
 				navbarMain.content.icons.hamburgerDiv?.remove();
-				document.querySelector("#icon-cart").before(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
+				navbarMain.content.textContainer.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
 			} else if (where === "dropdown") {
 				navbarMain.content.menu.append(navbarMain.content.icons.hamburgerDiv);
 				navbarMain.dropdown.menu.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
