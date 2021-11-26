@@ -9,10 +9,24 @@ const navbarMain = {
 		}
 	},
 	dropdown: {
+		/**@type {HTMLDivElement}*/
 		menu: document.querySelector("#navbar-main-dropdown"),
 		text: document.querySelectorAll("#navbar-main-dropdown p"),
 		control() {
 			this.menu.classList.toggle("navbar-main-dropdown-show");
+		},
+		/**
+		 * Method to move the text inside of {@link navbarMain.dropdown.menu} to {@link navbarMain.content.menu} and vice-versa.
+		 * @param {"content" |"dropdown"} [where = "content"]
+		 */
+		moveText(where = "content") {
+			if (where === "content") {
+				navbarMain.content.icons.hamburgerDiv?.remove();
+				document.querySelector("#icon-cart").before(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
+			} else if (where === "dropdown") {
+				navbarMain.content.menu.append(navbarMain.content.icons.hamburgerDiv);
+				navbarMain.dropdown.menu.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
+			}
 		}
 	}
 };
