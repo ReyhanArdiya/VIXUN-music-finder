@@ -106,6 +106,14 @@
 	user-select: none;
 }
 
+#navbar-main-dropdown p:hover {
+	color: var(--Bright-Red);
+}
+
+#navbar-main-dropdown p:active {
+	color: var(--Bright-Red-Active);
+}
+
 /* #endregion #navbar-main-dropdown */
 
 @media screen and (min-width: 48em) {
