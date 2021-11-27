@@ -25,7 +25,7 @@
 	user-select: none;
 }
 
-/* #region icons */
+/* #region navbar icons */
 
 #icon-cart {
 	height: 55%;
@@ -50,12 +50,17 @@
 	-webkit-tap-highlight-color: transparent;
 }
 
-#navbar-main-content [id^="icon"] path:active,
-#icon-hamburger svg:active path {
+#navbar-main-content [id^="icon"] path:hover,
+#icon-hamburger svg:hover path {
 	fill: var(--Bright-Purple);
 }
 
-/* #endregion icons */
+#navbar-main-content [id^="icon"] path:active,
+#icon-hamburger svg:active path {
+	fill: var(--Bright-Purple-Active);
+}
+
+/* #endregion navbar icons */
 
 /* #endregion #navbar-main-content */
 

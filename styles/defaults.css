@@ -1,7 +1,9 @@
 :root {
 	--Pale-Black: #212121;
 	--Bright-Red: #ff0000;
+	--Bright-Red-Active: #b10303;
 	--Bright-Purple: #a129ff;
+	--Bright-Purple-Active: #741fb4;
 	/* Add this variabel on the background property */
 	--Gradient-Purple-Red: radial-gradient(119.32% 933.69% at 100% 4.05%, #ff0000 0%, #ca1791 45.85%, #a129ff 99.23%);
 	--Dark-Gray: #585858;
