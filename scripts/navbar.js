@@ -32,6 +32,7 @@ const navbarMain = {
 	}
 };
 
+// Add listener for navbar dropdown menu reveal/hide
 navbarMain.content.icons.hamburger.addEventListener(
 	"click",
 	(() => {
@@ -49,6 +50,7 @@ navbarMain.content.icons.hamburger.addEventListener(
 	})()
 );
 
-window.addEventListener("resize", function () {
-	this.matchMedia("(min-width: 48em").matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
+// Add listener for navbar dropdown text move to content or vice-versa on medium breakpoint
+mediaQuery.medium.addEventListener("change", function (e) {
+	e.matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
 });
