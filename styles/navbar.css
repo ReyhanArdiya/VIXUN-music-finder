@@ -18,14 +18,7 @@
 	background: var(--Pale-Black);
 }
 
-#navbar-main-content-text-container p {
-	color: white;
-	font: 700 1.75em "Mohave";
-	cursor: pointer;
-	user-select: none;
-}
-
-/* #region navbar icons */
+/* #region navbar main content icons */
 
 #icon-cart {
 	height: 55%;
@@ -60,7 +53,26 @@
 	fill: var(--Bright-Purple-Active);
 }
 
-/* #endregion navbar icons */
+/* #endregion navbar main content icons */
+
+/* #region navbar main content text */
+
+#navbar-main-content-text-container p {
+	color: white;
+	font: 700 1.75em "Mohave";
+	cursor: pointer;
+	user-select: none;
+}
+
+#navbar-main-content-text-container p:hover {
+	color: var(--Bright-Red);
+}
+
+#navbar-main-content-text-container p:active {
+	color: var(--Bright-Red-Active);
+}
+
+/* #endregion navbar main content text */
 
 /* #endregion #navbar-main-content */
 
