@@ -1,3 +1,5 @@
+/* #region #navbar-main */
+
 #navbar-main {
 	background: var(--Pale-Black);
 	bottom: 0;
@@ -6,6 +8,15 @@
 	max-height: 64px;
 	width: 100%;
 }
+
+@media screen and (min-width: 90em) {
+	#navbar-main {
+		font-size: 1.5em;
+		max-height: 96px;
+	}
+}
+
+/* #endregion #navbar-main */
 
 /* #region #navbar-main-content */
 
