@@ -13,6 +13,8 @@ const navbarMain = {
 		/**@type {HTMLDivElement}*/
 		menu: document.querySelector("#navbar-main-dropdown"),
 		text: document.querySelectorAll("#navbar-main-dropdown p"),
+		/**@type {"content" | "dropdown"}*/
+		whereIsTextOnLoad: mediaQuery.medium.matches ? "content" : "dropdown",
 		control() {
 			this.menu.classList.toggle("navbar-main-dropdown-show");
 		},
@@ -53,4 +55,9 @@ navbarMain.content.icons.hamburger.addEventListener(
 // Add listener for navbar dropdown text move to content or vice-versa on medium breakpoint
 mediaQuery.medium.addEventListener("change", function (e) {
 	e.matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
+});
+
+// Move dropdown text on window load
+window.addEventListener("load", function () {
+	navbarMain.dropdown.moveText(navbarMain.dropdown.whereIsTextOnLoad);
 });
