@@ -1,4 +1,5 @@
 const navbarMain = {
+	menu: document.querySelector("#navbar-main"),
 	content: {
 		menu: document.querySelector("#navbar-main-content"),
 		icons: {
@@ -31,8 +32,21 @@ const navbarMain = {
 				navbarMain.dropdown.menu.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
 			}
 		}
-	}
+	},
+	shadowScroll: new IntersectionObserver(
+		function (entries) {
+			navbarMain.menu.classList.toggle("navbar-main-shadow");
+		},
+		{
+			root: null,
+			rootMargin: "-1px 0px 0px 0px",
+			threshold: 1
+		}
+	)
 };
+
+// Toggle navbar main shadow on sticky
+navbarMain.shadowScroll.observe(navbarMain.menu);
 
 // Add listener for navbar dropdown menu reveal/hide
 navbarMain.content.icons.hamburger.addEventListener(

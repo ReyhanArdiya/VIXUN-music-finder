@@ -9,6 +9,10 @@
 	width: 100%;
 }
 
+.navbar-main-shadow {
+	box-shadow: 0px 0.045em 0.21em 0.045em #4c4c4c99;
+}
+
 @media screen and (min-width: 90em) {
 	#navbar-main {
 		font-size: 1.5em;
@@ -130,6 +134,7 @@
 @media screen and (min-width: 48em) {
 	#navbar-main {
 		position: sticky;
+		top: 0;
 	}
 	#navbar-main-content-text-container {
 		flex: 5;
