@@ -77,6 +77,7 @@
 	font: 700 1.75em "Mohave";
 	cursor: pointer;
 	user-select: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #navbar-main-content-text-container p:hover {
@@ -119,6 +120,7 @@
 #navbar-main-dropdown p {
 	cursor: pointer;
 	user-select: none;
+	-webkit-tap-highlight-color: transparent;
 }
 
 #navbar-main-dropdown p:hover {
