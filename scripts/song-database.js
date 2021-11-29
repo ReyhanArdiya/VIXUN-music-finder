@@ -23,3 +23,12 @@ class Song {
 		this.isOnSale = isOnSale;
 	}
 }
+
+const songDatabase = {
+	songs: [],
+	getSongs() {},
+	setSongs() {},
+	addSong() {},
+	delSong() {},
+	extractData() {}
+};
