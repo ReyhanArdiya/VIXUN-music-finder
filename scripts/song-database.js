@@ -25,10 +25,25 @@ class Song {
 }
 
 const songDatabase = {
+	/** @type {Song[] | any[]} */
 	songs: [],
 	getSongs() {},
 	setSongs() {},
-	addSong() {},
+	/**
+	 * Adds a new {@link Song} object to {@link songDatabase.songs}.
+	 * @param {string} title
+	 * @param {string} artist
+	 * @param {string} album
+	 * @param {string} genre
+	 * @param {number} year
+	 * @param {number} price
+	 * @param {string} coverURL
+	 * @param {string} fileURL
+	 * @param {boolean} isOnSale
+	 */
+	addSong(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale = false) {
+		songDatabase.songs.push(new Song(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale));
+	},
 	delSong() {},
 	extractData() {}
 };
