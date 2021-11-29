@@ -25,7 +25,7 @@ class Song {
 }
 
 const songDatabase = {
-	/** @type {Song[] | any[]} */
+	/** @type {Song[]} */
 	songs: [],
 	getSongs() {},
 	setSongs() {},
@@ -44,6 +44,19 @@ const songDatabase = {
 	addSong(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale = false) {
 		songDatabase.songs.push(new Song(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale));
 	},
-	delSong() {},
+	/**
+	 * Removes a {@link Song} object from {@link songDatabase.songs} based on a {@link Song} property and its value.
+	 * @param {"title" | "artist" | "album" | "genre" | "year" | "price" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+	 * @param {any} propValue
+	 * @returns {Song | string} The deleted song
+	 */
+	delSong(whichProp, propValue) {
+		return (
+			this.songs.splice(
+				this.songs.findIndex(song => song[whichProp] === propValue),
+				1
+			)[0] || "Song Not Found :("
+		);
+	},
 	extractData() {}
 };
