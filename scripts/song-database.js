@@ -27,7 +27,13 @@ class Song {
 const songDatabase = {
 	/** @type {Song[]} */
 	songs: [],
-	getSongs() {},
+	/**
+	 * Gets {@link songDatabase.songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
+	 * @returns {Song[]}
+	 */
+	getSongs() {
+		return JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
+	},
 	/**
 	 * Set {@link songDatabase.songs} to localStorage.
 	 */
