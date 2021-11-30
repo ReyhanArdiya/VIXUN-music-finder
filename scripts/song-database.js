@@ -58,5 +58,20 @@ const songDatabase = {
 			)[0] || "Song Not Found :("
 		);
 	},
-	extractData() {}
+	/**
+	 * Returns a {@link Song} array filtered from {@link songDatabase.songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
+	 * @param {{ title: string,
+	 * artist?: string,
+	 * album?: string,
+	 * genre?: string,
+	 * year?: number,
+	 * price?: number,
+	 * coverURL?: string,
+	 * fileURL?: string,
+	 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
+	 * @returns {Song[]} The filtered {@link Song} array.
+	 */
+	extractSongs(options) {
+		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
+	}
 };
