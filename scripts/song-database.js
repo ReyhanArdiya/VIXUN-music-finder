@@ -29,10 +29,15 @@ const songDatabase = {
 	songs: [],
 	/**
 	 * Gets {@link songDatabase.songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
-	 * @returns {Song[]}
+	 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songDatabase.songs}, false to return it instead; defaults to true.
+	 * @returns {undefined | Song[]}
 	 */
-	getSongs() {
-		return JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
+	getSongs(setToSongs = true) {
+		if (setToSongs) {
+			this.songs = JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
+		} else {
+			return JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
+		}
 	},
 	/**
 	 * Set {@link songDatabase.songs} to localStorage.
@@ -86,9 +91,3 @@ const songDatabase = {
 		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
 	}
 };
-
-songDatabase.addSong("Alejandro", "Lady Gaga", "The Fame Monster", "Pop", 2009, 4.99, "img", "url");
-songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2009, 4.99, "img", "url");
-songDatabase.addSong("The Hours", "Beach House", "Bloom", "shoegaze", 2011, 4.99, "img", "url");
-songDatabase.addSong("On The Sea", "Beach House", "Bloom", "shoegaze", 2011, 4.99, "img", "url");
-songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "shoegaze", 2015, 4.99, "img", "url");
