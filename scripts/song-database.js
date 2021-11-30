@@ -6,18 +6,18 @@ class Song {
 	 * @param {string} album
 	 * @param {string} genre
 	 * @param {number} year
-	 * @param {number} price
+	 * @param {number} priceUSD
 	 * @param {string} coverURL
 	 * @param {string} fileURL
 	 * @param {boolean} isOnSale
 	 */
-	constructor(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale = false) {
+	constructor(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
 		this.title = title;
 		this.artist = artist;
 		this.album = album;
 		this.genre = genre;
 		this.year = year;
-		this.price = price;
+		this.priceUSD = priceUSD;
 		this.coverURL = coverURL;
 		this.fileURL = fileURL;
 		this.isOnSale = isOnSale;
@@ -36,17 +36,17 @@ const songDatabase = {
 	 * @param {string} album
 	 * @param {string} genre
 	 * @param {number} year
-	 * @param {number} price
+	 * @param {number} priceUSD
 	 * @param {string} coverURL
 	 * @param {string} fileURL
 	 * @param {boolean} isOnSale
 	 */
-	addSong(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale = false) {
-		songDatabase.songs.push(new Song(title, artist, album, genre, year, price, coverURL, fileURL, isOnSale));
+	addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
+		songDatabase.songs.push(new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale));
 	},
 	/**
 	 * Removes a {@link Song} object from {@link songDatabase.songs} based on a {@link Song} property and its value.
-	 * @param {"title" | "artist" | "album" | "genre" | "year" | "price" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+	 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
 	 * @param {any} propValue
 	 * @returns {Song | string} The deleted song
 	 */
@@ -65,7 +65,7 @@ const songDatabase = {
 	 * album?: string,
 	 * genre?: string,
 	 * year?: number,
-	 * price?: number,
+	 * priceUSD?: number,
 	 * coverURL?: string,
 	 * fileURL?: string,
 	 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
