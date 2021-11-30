@@ -25,8 +25,12 @@ class Song {
 }
 
 const songDatabase = {
-	/** @type {Song[]} */
-	songs: [],
+	/**
+	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
+	 * @type { Song[] | any[] }
+	 */
+	//@ts-expect-error
+	songs: localStorage.getItem("songs") ? setTimeout(() => songDatabase.getSongs(), 0) : [],
 	/**
 	 * Gets {@link songDatabase.songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
 	 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songDatabase.songs}, false to return it instead; defaults to true.
