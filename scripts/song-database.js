@@ -28,7 +28,12 @@ const songDatabase = {
 	/** @type {Song[]} */
 	songs: [],
 	getSongs() {},
-	setSongs() {},
+	/**
+	 * Set {@link songDatabase.songs} to localStorage.
+	 */
+	setSongs() {
+		localStorage.setItem("songs", JSON.stringify(songDatabase.songs));
+	},
 	/**
 	 * Adds a new {@link Song} object to {@link songDatabase.songs}.
 	 * @param {string} title
@@ -75,3 +80,9 @@ const songDatabase = {
 		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
 	}
 };
+
+songDatabase.addSong("Alejandro", "Lady Gaga", "The Fame Monster", "Pop", 2009, 4.99, "img", "url");
+songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2009, 4.99, "img", "url");
+songDatabase.addSong("The Hours", "Beach House", "Bloom", "shoegaze", 2011, 4.99, "img", "url");
+songDatabase.addSong("On The Sea", "Beach House", "Bloom", "shoegaze", 2011, 4.99, "img", "url");
+songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "shoegaze", 2015, 4.99, "img", "url");
