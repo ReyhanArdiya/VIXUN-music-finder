@@ -107,7 +107,13 @@ const songDatabase = {
 	 * isOnSale?: boolean }} options Object with keys like {@link Song} and boolean values to choose which properties will be compared during the sorting process.
 	 * @returns
 	 */
-	sortSongs(options) {}
+	sortSongs(options) {
+		const spreadedOptions = Object.entries(options)
+			.map(key => key[1] && key[0])
+			// @ts-expect-error
+			.filter(val => val !== false);
+		console.log(spreadedOptions);
+	}
 	/* # Pseudocode
     1. Take `options` object
     2. Extract the key-values so that it can be used in the `sort`
