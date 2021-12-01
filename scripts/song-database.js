@@ -12,15 +12,42 @@ class Song {
 	 * @param {boolean} isOnSale
 	 */
 	constructor(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
-		this.title = title;
-		this.artist = artist;
-		this.album = album;
-		this.genre = genre;
-		this.year = year;
-		this.priceUSD = priceUSD;
-		this.coverURL = coverURL;
-		this.fileURL = fileURL;
-		this.isOnSale = isOnSale;
+		this._title = title;
+		this._artist = artist;
+		this._album = album;
+		this._genre = genre;
+		this._year = year;
+		this._priceUSD = priceUSD;
+		this._coverURL = coverURL;
+		this._fileURL = fileURL;
+		this._isOnSale = isOnSale;
+	}
+	get title() {
+		return this._title;
+	}
+	get artist() {
+		return this._artist;
+	}
+	get album() {
+		return this._album;
+	}
+	get genre() {
+		return this._genre;
+	}
+	get year() {
+		return this._year;
+	}
+	get priceUSD() {
+		return this._priceUSD;
+	}
+	get coverURL() {
+		return this._coverURL;
+	}
+	get fileURL() {
+		return this._fileURL;
+	}
+	get isOnSale() {
+		return this._isOnSale;
 	}
 }
 
