@@ -93,5 +93,19 @@ const songDatabase = {
 	 */
 	extractSongs(options) {
 		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
+	},
+	/**
+	 * Returns a new sorted array of {@link songDatabase.songs}.
+	 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+	 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
+	 */
+	sortSongs(whichProp, ascOrDesc = "asc") {
+		return [...this.songs].sort((song1, song2) => {
+			if (typeof song1[whichProp] === "string") {
+				return ascOrDesc === "asc" ? (song1[whichProp] > song2[whichProp] ? 1 : -1) : song1[whichProp] < song2[whichProp] ? 1 : -1;
+			} else {
+				return ascOrDesc === "asc" ? song1[whichProp] - song2[whichProp] : song2[whichProp] - song1[whichProp];
+			}
+		});
 	}
 };
