@@ -93,5 +93,27 @@ const songDatabase = {
 	 */
 	extractSongs(options) {
 		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
-	}
+	},
+	/**
+	 * Returns a {@link Song} array sorted from {@link songDatabase.songs} based on ATLEAST one or more properties of {@link Song} that is chosen in the {@link options} parameter.
+	 * @param {{ title: boolean,
+	 * artist?: boolean,
+	 * album?: boolean,
+	 * genre?: boolean,
+	 * year?: boolean,
+	 * priceUSD?: boolean,
+	 * coverURL?: boolean,
+	 * fileURL?: boolean,
+	 * isOnSale?: boolean }} options Object with keys like {@link Song} and boolean values to choose which properties will be compared during the sorting process.
+	 * @returns
+	 */
+	sortSongs(options) {}
+	/* # Pseudocode
+    1. Take `options` object
+    2. Extract the key-values so that it can be used in the `sort`
+    3. Spread songs array
+    4. Sort new songs array based on all properties of `options`
+    5. Return new sorted songs array */
 };
+
+// PROG finish most of data structure, add sortSongs next
