@@ -89,10 +89,22 @@ const songDatabase = {
 	 * coverURL?: string,
 	 * fileURL?: string,
 	 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
+	 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
 	 * @returns {Song[]} The filtered {@link Song} array.
 	 */
-	extractSongs(options) {
-		return this.songs.filter(song => Object.entries(options).every(option => song[option[0]] === option[1]));
+	extractSongs(options, isCaseSensitive = true) {
+		let optionsEntries = Object.entries(options);
+		if (isCaseSensitive) {
+			return this.songs.filter(song => optionsEntries.every(option => song[option[0]] === option[1]));
+		} else {
+			return this.songs.filter(song =>
+				optionsEntries.every(option =>
+					typeof song[option[0]] === "string"
+						? song[option[0]].toLowerCase() === /**@type {string}*/ (option[1]).toLowerCase()
+						: song[option[0]] === option[1]
+				)
+			);
+		}
 	},
 	/**
 	 * Returns a new sorted array of {@link songDatabase.songs}.
