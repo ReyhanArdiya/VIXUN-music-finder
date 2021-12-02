@@ -203,7 +203,7 @@ const songDatabase = {
 		localStorage.setItem("songs", JSON.stringify(songDatabase.songs));
 	},
 	/**
-	 * Adds a new {@link Song} object to {@link songDatabase.songs}.
+	 * Adds a new {@link Song} object to {@link songDatabase.songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songDatabase.songs}.length.
 	 * @param {string} title
 	 * @param {string} artist
 	 * @param {string} album
@@ -215,7 +215,8 @@ const songDatabase = {
 	 * @param {boolean} isOnSale
 	 */
 	addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
-		songDatabase.songs.push(new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale));
+		const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
+		return newSong.validity.isValid ? console.log(songDatabase.songs.push(newSong)) : console.error(newSong.validity);
 	},
 	/**
 	 * Removes a {@link Song} object from {@link songDatabase.songs} based on a {@link Song} property and its value.
