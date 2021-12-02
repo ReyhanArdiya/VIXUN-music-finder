@@ -101,6 +101,69 @@ class Song {
 		}
 		return errorObj;
 	}
+	set title(val) {
+		if (typeof val === "string") {
+			this._title = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set artist(val) {
+		if (typeof val === "string") {
+			this._artist = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set album(val) {
+		if (typeof val === "string") {
+			this._album = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set genre(val) {
+		if (typeof val === "string") {
+			this._genre = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set year(val) {
+		if (typeof val === "number") {
+			this._year = val;
+		} else {
+			console.error("Wrong type! It should be number!");
+		}
+	}
+	set priceUSD(val) {
+		if (typeof val === "number") {
+			this._priceUSD = val;
+		} else {
+			console.error("Wrong type! It should be number!");
+		}
+	}
+	set coverURL(val) {
+		if (typeof val === "string") {
+			this._coverURL = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set fileURL(val) {
+		if (typeof val === "string") {
+			this._fileURL = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set isOnSale(val) {
+		if (typeof val === "boolean") {
+			this._isOnSale = val;
+		} else {
+			console.error("Wrong type! It should be boolean!");
+		}
+	}
 }
 
 // DBG
