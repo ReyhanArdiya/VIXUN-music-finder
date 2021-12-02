@@ -12,17 +12,170 @@ class Song {
 	 * @param {boolean} isOnSale
 	 */
 	constructor(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
-		this.title = title;
-		this.artist = artist;
-		this.album = album;
-		this.genre = genre;
-		this.year = year;
-		this.priceUSD = priceUSD;
-		this.coverURL = coverURL;
-		this.fileURL = fileURL;
-		this.isOnSale = isOnSale;
+		this._title = title;
+		this._artist = artist;
+		this._album = album;
+		this._genre = genre;
+		this._year = year;
+		this._priceUSD = priceUSD;
+		this._coverURL = coverURL;
+		this._fileURL = fileURL;
+		this._isOnSale = isOnSale;
+	}
+	get title() {
+		return this._title;
+	}
+	get artist() {
+		return this._artist;
+	}
+	get album() {
+		return this._album;
+	}
+	get genre() {
+		return this._genre;
+	}
+	get year() {
+		return this._year;
+	}
+	get priceUSD() {
+		return this._priceUSD;
+	}
+	get coverURL() {
+		return this._coverURL;
+	}
+	get fileURL() {
+		return this._fileURL;
+	}
+	get isOnSale() {
+		return this._isOnSale;
+	}
+	get validity() {
+		const errorObj = {
+			missingProps: [],
+			wrongTypes: {
+				simple: [],
+				verbose: []
+			},
+			isPriceRight: false,
+			isValid: false
+		};
+
+		const dummySong = new Song("this", "is", "a", "dummy", 1, 1, "object", "meow", false);
+		const songKeys = Object.keys(dummySong);
+		const thisValidKeys = Object.entries(this)
+			.filter(prop => prop[1] !== undefined)
+			.map(prop => prop[0]);
+
+		// Checks for missing properties
+		songKeys.forEach(key => {
+			if (!thisValidKeys.includes(key)) errorObj.missingProps.push(key);
+		});
+
+		// Checks for wrong value types
+		songKeys.forEach(key => {
+			if (typeof this[key] !== typeof dummySong[key]) errorObj.wrongTypes.simple.push(key);
+			switch (key) {
+				case "_title":
+				case "_artist":
+				case "_album":
+				case "_genre":
+				case "_coverURL":
+				case "_fileURL":
+					if (typeof this[key] !== "string") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be string!`);
+					break;
+				case "_year":
+				case "_priceUSD":
+					if (typeof this[key] !== "number") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be number!`);
+					break;
+				case "_isOnSale":
+					if (typeof this[key] !== "boolean") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be boolean!`);
+					break;
+			}
+		});
+
+		// Checks if price format is correct
+		errorObj.isPriceRight = new RegExp(/^\d+(?:.\d{2})?$/i).test(`${this.priceUSD}`);
+
+		if (!errorObj.missingProps.length && !errorObj.wrongTypes.simple.length && !errorObj.wrongTypes.verbose.length && errorObj.isPriceRight) {
+			errorObj.isValid = true;
+		}
+		return errorObj;
+	}
+	set title(val) {
+		if (typeof val === "string") {
+			this._title = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set artist(val) {
+		if (typeof val === "string") {
+			this._artist = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set album(val) {
+		if (typeof val === "string") {
+			this._album = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set genre(val) {
+		if (typeof val === "string") {
+			this._genre = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set year(val) {
+		if (typeof val === "number") {
+			this._year = val;
+		} else {
+			console.error("Wrong type! It should be number!");
+		}
+	}
+	set priceUSD(val) {
+		if (typeof val === "number") {
+			this._priceUSD = val;
+		} else {
+			console.error("Wrong type! It should be number!");
+		}
+	}
+	set coverURL(val) {
+		if (typeof val === "string") {
+			this._coverURL = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set fileURL(val) {
+		if (typeof val === "string") {
+			this._fileURL = val;
+		} else {
+			console.error("Wrong type! It should be string!");
+		}
+	}
+	set isOnSale(val) {
+		if (typeof val === "boolean") {
+			this._isOnSale = val;
+		} else {
+			console.error("Wrong type! It should be boolean!");
+		}
 	}
 }
+
+// DBG
+/**
+ *
+ * @param {(key: string) => unknown} callbackFn
+ */
+// const iterateOptionsKeys = callbackFn => {
+// 	for (let key in options) {
+// 		callbackFn(key);
+// 	}
+// };
 
 const songDatabase = {
 	/**
@@ -50,7 +203,7 @@ const songDatabase = {
 		localStorage.setItem("songs", JSON.stringify(songDatabase.songs));
 	},
 	/**
-	 * Adds a new {@link Song} object to {@link songDatabase.songs}.
+	 * Adds a new {@link Song} object to {@link songDatabase.songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songDatabase.songs}.length.
 	 * @param {string} title
 	 * @param {string} artist
 	 * @param {string} album
@@ -62,7 +215,8 @@ const songDatabase = {
 	 * @param {boolean} isOnSale
 	 */
 	addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
-		songDatabase.songs.push(new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale));
+		const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
+		return newSong.validity.isValid ? console.log(songDatabase.songs.push(newSong)) : console.error(newSong.validity);
 	},
 	/**
 	 * Removes a {@link Song} object from {@link songDatabase.songs} based on a {@link Song} property and its value.
@@ -121,3 +275,14 @@ const songDatabase = {
 		});
 	}
 };
+
+// DBG
+// songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("On the Sea", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("Myth", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("PPP", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Space Song", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Alice", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Replay", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
