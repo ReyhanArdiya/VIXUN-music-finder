@@ -49,7 +49,70 @@ class Song {
 	get isOnSale() {
 		return this._isOnSale;
 	}
+	get validity() {
+		const errorObj = {
+			missingProps: [],
+			wrongTypes: {
+				simple: [],
+				verbose: []
+			},
+			isPriceRight: false,
+			isValid: false
+		};
+
+		const dummySong = new Song("this", "is", "a", "dummy", 1, 1, "object", "meow", false);
+		const songKeys = Object.keys(dummySong);
+		const thisValidKeys = Object.entries(this)
+			.filter(prop => prop[1] !== undefined)
+			.map(prop => prop[0]);
+
+		// Checks for missing properties
+		songKeys.forEach(key => {
+			if (!thisValidKeys.includes(key)) errorObj.missingProps.push(key);
+		});
+
+		// Checks for wrong value types
+		songKeys.forEach(key => {
+			if (typeof this[key] !== typeof dummySong[key]) errorObj.wrongTypes.simple.push(key);
+			switch (key) {
+				case "_title":
+				case "_artist":
+				case "_album":
+				case "_genre":
+				case "_coverURL":
+				case "_fileURL":
+					if (typeof this[key] !== "string") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be string!`);
+					break;
+				case "_year":
+				case "_priceUSD":
+					if (typeof this[key] !== "number") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be number!`);
+					break;
+				case "_isOnSale":
+					if (typeof this[key] !== "boolean") errorObj.wrongTypes.verbose.push(`this.${key} is ${typeof this[key]}, it should be boolean!`);
+					break;
+			}
+		});
+
+		// Checks if price format is correct
+		errorObj.isPriceRight = new RegExp(/^\d+(?:.\d{2})?$/i).test(`${this.priceUSD}`);
+
+		if (!errorObj.missingProps.length && !errorObj.wrongTypes.simple.length && !errorObj.wrongTypes.verbose.length && errorObj.isPriceRight) {
+			errorObj.isValid = true;
+		}
+		return errorObj;
+	}
 }
+
+// DBG
+/**
+ *
+ * @param {(key: string) => unknown} callbackFn
+ */
+// const iterateOptionsKeys = callbackFn => {
+// 	for (let key in options) {
+// 		callbackFn(key);
+// 	}
+// };
 
 const songDatabase = {
 	/**
@@ -148,3 +211,14 @@ const songDatabase = {
 		});
 	}
 };
+
+// DBG
+// songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("On the Sea", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("Myth", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
+// songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("PPP", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Space Song", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
+// songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Alice", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
+// songDatabase.addSong("Replay", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
