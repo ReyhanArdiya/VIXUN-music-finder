@@ -1,3 +1,4 @@
+"use strict";
 const navbarMain = {
 	menu: document.querySelector("#navbar-main"),
 	content: {
