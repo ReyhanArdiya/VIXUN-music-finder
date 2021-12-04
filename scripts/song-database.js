@@ -170,7 +170,7 @@ class Song {
 class SongDatabase {
 	/**
 	 *
-	 * @param {number} keyNumber Use this number to search for a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
+	 * @param {number} keyNumber Use this number to get or set a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
 	 */
 	constructor(keyNumber) {
 		/**
@@ -186,11 +186,10 @@ class SongDatabase {
 		});
 		/**
 		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
-		 * @param {number} keyNumber Use this number to search for a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
 		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
 		 * @returns {undefined | Song[]}
 		 */
-		this.getSongs = function (keyNumber, setToSongs = true) {
+		this.getSongs = function (setToSongs = true) {
 			if (setToSongs) {
 				songs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
 					Object.setPrototypeOf(song, Song.prototype)
@@ -203,9 +202,8 @@ class SongDatabase {
 		};
 		/**
 		 * Set {@link songs} to localStorage.
-		 * @param {number} keyNumber Appends this number to the end of the localStorage key string to help identify if there are multiple {@link SongDatabase} in the domain.
 		 */
-		this.setSongs = function (keyNumber) {
+		this.setSongs = function () {
 			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
 		};
 		/**
@@ -284,6 +282,7 @@ class SongDatabase {
 }
 
 const songDatabase1 = new SongDatabase(1);
+const songDatabase2 = new SongDatabase(2);
 
 // DBG
 // songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
