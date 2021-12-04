@@ -1,4 +1,5 @@
 "use strict";
+// CMT should i move this into newSongDatabase??
 class Song {
 	/**
 	 *
@@ -167,29 +168,32 @@ class Song {
 	}
 }
 
-class SongDatabase {
+/**
+ * Creates a new {@link SongDatabase}, associate it with a certain localStorage songs database based on the {@link keyNumber} argument and return it.
+ * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase} if there are multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
+ * @returns {SongDatabase}
+ */
+function newSongDatabase(keyNumber) {
 	/**
-	 *
-	 * @param {number} keyNumber Use this number to get or set a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
+	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
+	 * @type { Song[] | any[] }
 	 */
-	constructor(keyNumber) {
-		/**
-		 * If localStorage songs database is available use that value for this property, else set the value to empty array.
-		 * @type { Song[] | any[] }
-		 */
-		//@ts-expect-error
-		let songs = localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(keyNumber), 0) : [];
-		Object.defineProperty(this, "songs", {
-			get() {
-				return songs;
-			}
-		});
+	let songs;
+	class SongDatabase {
+		constructor() {
+			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
+			Object.defineProperty(this, "songs", {
+				get() {
+					return songs;
+				}
+			});
+		}
 		/**
 		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
 		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
 		 * @returns {undefined | Song[]}
 		 */
-		this.getSongs = function (setToSongs = true) {
+		getSongs(setToSongs = true) {
 			if (setToSongs) {
 				songs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
 					Object.setPrototypeOf(song, Song.prototype)
@@ -199,13 +203,13 @@ class SongDatabase {
 					Object.setPrototypeOf(song, Song.prototype)
 				);
 			}
-		};
+		}
 		/**
 		 * Set {@link songs} to localStorage.
 		 */
-		this.setSongs = function () {
+		setSongs() {
 			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
-		};
+		}
 		/**
 		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
 		 * @param {string} title
@@ -218,24 +222,24 @@ class SongDatabase {
 		 * @param {string} fileURL
 		 * @param {boolean} isOnSale
 		 */
-		this.addSong = function (title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
+		addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
 			const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
 			return newSong.validity.isValid ? console.log(songs.push(newSong)) : console.error(newSong.validity);
-		};
+		}
 		/**
 		 * Removes a {@link Song} object from {@link songs} based on a {@link Song} property and its value.
 		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
 		 * @param {any} propValue
 		 * @returns {Song | string} The deleted song
 		 */
-		this.delSong = function (whichProp, propValue) {
+		delSong(whichProp, propValue) {
 			return (
 				songs.splice(
 					songs.findIndex(song => song[whichProp] === propValue),
 					1
 				)[0] || "Song Not Found :("
 			);
-		};
+		}
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
 		 * @param {{ title: string,
@@ -247,10 +251,10 @@ class SongDatabase {
 		 * coverURL?: string,
 		 * fileURL?: string,
 		 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
-		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
+		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song} defaults to true.
 		 * @returns {Song[]} The filtered {@link Song} array.
 		 */
-		this.extractSongs = function (options, isCaseSensitive = true) {
+		extractSongs(options, isCaseSensitive = true) {
 			let optionsEntries = Object.entries(options);
 			if (isCaseSensitive) {
 				return songs.filter(song => optionsEntries.every(option => song[option[0]] === option[1]));
@@ -263,13 +267,13 @@ class SongDatabase {
 					)
 				);
 			}
-		};
+		}
 		/**
 		 * Returns a new sorted array of {@link songs}.
 		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
 		 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
 		 */
-		this.sortSongs = function (whichProp, ascOrDesc = "asc") {
+		sortSongs(whichProp, ascOrDesc = "asc") {
 			return [...songs].sort((song1, song2) => {
 				if (typeof song1[whichProp] === "string") {
 					return ascOrDesc === "asc" ? (song1[whichProp] > song2[whichProp] ? 1 : -1) : song1[whichProp] < song2[whichProp] ? 1 : -1;
@@ -277,12 +281,13 @@ class SongDatabase {
 					return ascOrDesc === "asc" ? song1[whichProp] - song2[whichProp] : song2[whichProp] - song1[whichProp];
 				}
 			});
-		};
+		}
 	}
+	return new SongDatabase();
 }
 
-const songDatabase1 = new SongDatabase(1);
-const songDatabase2 = new SongDatabase(2);
+const songDatabase1 = newSongDatabase(1);
+const songDatabase2 = newSongDatabase(2);
 
 // DBG
 // songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
