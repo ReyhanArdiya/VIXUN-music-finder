@@ -167,115 +167,123 @@ class Song {
 	}
 }
 
-// DBG
-/**
- *
- * @param {(key: string) => unknown} callbackFn
- */
-// const iterateOptionsKeys = callbackFn => {
-// 	for (let key in options) {
-// 		callbackFn(key);
-// 	}
-// };
-
-const songDatabase = {
+class SongDatabase {
 	/**
-	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
-	 * @type { Song[] | any[] }
+	 *
+	 * @param {number} keyNumber Use this number to search for a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
 	 */
-	//@ts-expect-error
-	songs: localStorage.getItem("songs") ? setTimeout(() => songDatabase.getSongs(), 0) : [],
-	/**
-	 * Gets {@link songDatabase.songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
-	 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songDatabase.songs}, false to return it instead; defaults to true.
-	 * @returns {undefined | Song[]}
-	 */
-	getSongs(setToSongs = true) {
-		if (setToSongs) {
-			this.songs = JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
-		} else {
-			return JSON.parse(localStorage.getItem("songs")).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype));
-		}
-	},
-	/**
-	 * Set {@link songDatabase.songs} to localStorage.
-	 */
-	setSongs() {
-		localStorage.setItem("songs", JSON.stringify(songDatabase.songs));
-	},
-	/**
-	 * Adds a new {@link Song} object to {@link songDatabase.songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songDatabase.songs}.length.
-	 * @param {string} title
-	 * @param {string} artist
-	 * @param {string} album
-	 * @param {string} genre
-	 * @param {number} year
-	 * @param {number} priceUSD
-	 * @param {string} coverURL
-	 * @param {string} fileURL
-	 * @param {boolean} isOnSale
-	 */
-	addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
-		const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
-		return newSong.validity.isValid ? console.log(songDatabase.songs.push(newSong)) : console.error(newSong.validity);
-	},
-	/**
-	 * Removes a {@link Song} object from {@link songDatabase.songs} based on a {@link Song} property and its value.
-	 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
-	 * @param {any} propValue
-	 * @returns {Song | string} The deleted song
-	 */
-	delSong(whichProp, propValue) {
-		return (
-			this.songs.splice(
-				this.songs.findIndex(song => song[whichProp] === propValue),
-				1
-			)[0] || "Song Not Found :("
-		);
-	},
-	/**
-	 * Returns a {@link Song} array filtered from {@link songDatabase.songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
-	 * @param {{ title: string,
-	 * artist?: string,
-	 * album?: string,
-	 * genre?: string,
-	 * year?: number,
-	 * priceUSD?: number,
-	 * coverURL?: string,
-	 * fileURL?: string,
-	 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
-	 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
-	 * @returns {Song[]} The filtered {@link Song} array.
-	 */
-	extractSongs(options, isCaseSensitive = true) {
-		let optionsEntries = Object.entries(options);
-		if (isCaseSensitive) {
-			return this.songs.filter(song => optionsEntries.every(option => song[option[0]] === option[1]));
-		} else {
-			return this.songs.filter(song =>
-				optionsEntries.every(option =>
-					typeof song[option[0]] === "string"
-						? song[option[0]].toLowerCase() === /**@type {string}*/ (option[1]).toLowerCase()
-						: song[option[0]] === option[1]
-				)
-			);
-		}
-	},
-	/**
-	 * Returns a new sorted array of {@link songDatabase.songs}.
-	 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
-	 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
-	 */
-	sortSongs(whichProp, ascOrDesc = "asc") {
-		return [...this.songs].sort((song1, song2) => {
-			if (typeof song1[whichProp] === "string") {
-				return ascOrDesc === "asc" ? (song1[whichProp] > song2[whichProp] ? 1 : -1) : song1[whichProp] < song2[whichProp] ? 1 : -1;
-			} else {
-				return ascOrDesc === "asc" ? song1[whichProp] - song2[whichProp] : song2[whichProp] - song1[whichProp];
+	constructor(keyNumber) {
+		/**
+		 * If localStorage songs database is available use that value for this property, else set the value to empty array.
+		 * @type { Song[] | any[] }
+		 */
+		//@ts-expect-error
+		let songs = localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(keyNumber), 0) : [];
+		Object.defineProperty(this, "songs", {
+			get() {
+				return songs;
 			}
 		});
+		/**
+		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
+		 * @param {number} keyNumber Use this number to search for a certain localStorage songs database if there are multiple {@link SongDatabase} in the domain.
+		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
+		 * @returns {undefined | Song[]}
+		 */
+		this.getSongs = function (keyNumber, setToSongs = true) {
+			if (setToSongs) {
+				songs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
+					Object.setPrototypeOf(song, Song.prototype)
+				);
+			} else {
+				return JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
+					Object.setPrototypeOf(song, Song.prototype)
+				);
+			}
+		};
+		/**
+		 * Set {@link songs} to localStorage.
+		 * @param {number} keyNumber Appends this number to the end of the localStorage key string to help identify if there are multiple {@link SongDatabase} in the domain.
+		 */
+		this.setSongs = function (keyNumber) {
+			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+		};
+		/**
+		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
+		 * @param {string} title
+		 * @param {string} artist
+		 * @param {string} album
+		 * @param {string} genre
+		 * @param {number} year
+		 * @param {number} priceUSD
+		 * @param {string} coverURL
+		 * @param {string} fileURL
+		 * @param {boolean} isOnSale
+		 */
+		this.addSong = function (title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
+			const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
+			return newSong.validity.isValid ? console.log(songs.push(newSong)) : console.error(newSong.validity);
+		};
+		/**
+		 * Removes a {@link Song} object from {@link songs} based on a {@link Song} property and its value.
+		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+		 * @param {any} propValue
+		 * @returns {Song | string} The deleted song
+		 */
+		this.delSong = function (whichProp, propValue) {
+			return (
+				songs.splice(
+					songs.findIndex(song => song[whichProp] === propValue),
+					1
+				)[0] || "Song Not Found :("
+			);
+		};
+		/**
+		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
+		 * @param {{ title: string,
+		 * artist?: string,
+		 * album?: string,
+		 * genre?: string,
+		 * year?: number,
+		 * priceUSD?: number,
+		 * coverURL?: string,
+		 * fileURL?: string,
+		 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
+		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
+		 * @returns {Song[]} The filtered {@link Song} array.
+		 */
+		this.extractSongs = function (options, isCaseSensitive = true) {
+			let optionsEntries = Object.entries(options);
+			if (isCaseSensitive) {
+				return songs.filter(song => optionsEntries.every(option => song[option[0]] === option[1]));
+			} else {
+				return songs.filter(song =>
+					optionsEntries.every(option =>
+						typeof song[option[0]] === "string"
+							? song[option[0]].toLowerCase() === /**@type {string}*/ (option[1]).toLowerCase()
+							: song[option[0]] === option[1]
+					)
+				);
+			}
+		};
+		/**
+		 * Returns a new sorted array of {@link songs}.
+		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+		 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
+		 */
+		this.sortSongs = function (whichProp, ascOrDesc = "asc") {
+			return [...songs].sort((song1, song2) => {
+				if (typeof song1[whichProp] === "string") {
+					return ascOrDesc === "asc" ? (song1[whichProp] > song2[whichProp] ? 1 : -1) : song1[whichProp] < song2[whichProp] ? 1 : -1;
+				} else {
+					return ascOrDesc === "asc" ? song1[whichProp] - song2[whichProp] : song2[whichProp] - song1[whichProp];
+				}
+			});
+		};
 	}
-};
+}
+
+const songDatabase1 = new SongDatabase(1);
 
 // DBG
 // songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
