@@ -179,6 +179,12 @@ function newSongDatabase(keyNumber) {
 	 * @type { Song[] | any[] }
 	 */
 	let songs;
+	/**
+	 * Set {@link songs} to localStorage.
+	 */
+	const setSongs = () => {
+		localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+	};
 	class SongDatabase {
 		constructor() {
 			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
@@ -216,12 +222,7 @@ function newSongDatabase(keyNumber) {
 				return proxiedSongs;
 			}
 		}
-		/**
-		 * Set {@link songs} to localStorage.
-		 */
-		setSongs() {
-			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
-		}
+
 		/**
 		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
 		 * @param {string} title
