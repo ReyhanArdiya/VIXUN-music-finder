@@ -208,11 +208,12 @@ function newSongDatabase(keyNumber) {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
 					console.info(`${tar[prop]} has been changed to ${val}`);
+					setSongs();
 					return true;
 				},
 				deleteProperty(tar, prop) {
 					console.info(`${tar[prop]} has been deleted!`);
-
+					setSongs();
 					return true;
 				}
 			});
@@ -312,3 +313,106 @@ const songDatabase2 = newSongDatabase(2);
 // songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
 // songDatabase.addSong("Alice", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
 // songDatabase.addSong("Replay", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
+
+// DBG songs1 localStorage
+// [
+//     {
+//         "_title": "On the Sea",
+//         "_artist": "Beach House",
+//         "_album": "Bloom",
+//         "_genre": "Shoegaze",
+//         "_year": 2011,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Myth",
+//         "_artist": "Beach House",
+//         "_album": "Bloom",
+//         "_genre": "Shoegaze",
+//         "_year": 2011,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Beyond Love",
+//         "_artist": "Beach House",
+//         "_album": "Depression Cherry",
+//         "_genre": "Shoegaze",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "PPP",
+//         "_artist": "Beach House",
+//         "_album": "Depression Cherry",
+//         "_genre": "Shoegaze",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Space Song",
+//         "_artist": "Beach House",
+//         "_album": "Depression Cherry",
+//         "_genre": "Shoegaze",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "911",
+//         "_artist": "Lady Gaga",
+//         "_album": "Chromatica",
+//         "_genre": "Pop",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Alice",
+//         "_artist": "Lady Gaga",
+//         "_album": "Chromatica",
+//         "_genre": "Pop",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Replay",
+//         "_artist": "Lady Gaga",
+//         "_album": "Chromatica",
+//         "_genre": "Pop",
+//         "_year": 2015,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     },
+//     {
+//         "_title": "Myth",
+//         "_artist": "Beach House",
+//         "_album": "Bloom",
+//         "_genre": "Shoegaze",
+//         "_year": 2011,
+//         "_priceUSD": 4.99,
+//         "_coverURL": "url",
+//         "_fileURL": "file",
+//         "_isOnSale": false
+//     }
+// ]
