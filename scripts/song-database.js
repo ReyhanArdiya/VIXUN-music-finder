@@ -208,12 +208,12 @@ function newSongDatabase(keyNumber) {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
 					console.info(`${tar[prop]} has been changed to ${val}`);
-					setSongs();
+					confirm("Want to upload new changes?") && setSongs();
 					return true;
 				},
 				deleteProperty(tar, prop) {
 					console.info(`${tar[prop]} has been deleted!`);
-					setSongs();
+					confirm("Want to upload new changes?") && setSongs();
 					return true;
 				}
 			});
