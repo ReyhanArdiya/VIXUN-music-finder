@@ -194,14 +194,26 @@ function newSongDatabase(keyNumber) {
 		 * @returns {undefined | Song[]}
 		 */
 		getSongs(setToSongs = true) {
+			/**@type {Song[]}*/
+			const parsedSongs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
+				Object.setPrototypeOf(song, Song.prototype)
+			);
+			const proxiedSongs = new Proxy(parsedSongs, {
+				set(tar, prop, val) {
+					Reflect.set(tar, prop, val);
+					console.info(`${tar[prop]} has been changed to ${val}`);
+					return true;
+				},
+				deleteProperty(tar, prop) {
+					console.info(`${tar[prop]} has been deleted!`);
+
+					return true;
+				}
+			});
 			if (setToSongs) {
-				songs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
-					Object.setPrototypeOf(song, Song.prototype)
-				);
+				songs = proxiedSongs;
 			} else {
-				return JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
-					Object.setPrototypeOf(song, Song.prototype)
-				);
+				return proxiedSongs;
 			}
 		}
 		/**
