@@ -247,12 +247,12 @@ function newSongDatabase(keyNumber) {
 		 * @returns {Song | string} The deleted song
 		 */
 		delSong(whichProp, propValue) {
-			return (
-				songs.splice(
-					songs.findIndex(song => song[whichProp] === propValue),
-					1
-				)[0] || "Song Not Found :("
-			);
+			return songs.some(song => song[whichProp] === propValue)
+				? songs.splice(
+						songs.findIndex(song => song[whichProp] === propValue),
+						1
+				  )[0]
+				: "Song Not Found :(";
 		}
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
