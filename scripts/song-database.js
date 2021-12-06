@@ -256,7 +256,7 @@ function newSongDatabase(keyNumber) {
 		}
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
-		 * @param {{ title: string,
+		 * @param {{ title?: string,
 		 * artist?: string,
 		 * album?: string,
 		 * genre?: string,
