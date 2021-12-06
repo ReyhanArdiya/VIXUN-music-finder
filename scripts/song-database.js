@@ -302,8 +302,9 @@ function newSongDatabase(keyNumber) {
 		wrapSongProxy(Song) {
 			return new Proxy(Song, {
 				set(tar, prop, val) {
+					const previousTarPropVal = Reflect.get(tar, prop);
 					Reflect.set(tar, prop, val);
-					confirm("Want to upload new changes?") && setSongs();
+					previousTarPropVal !== Reflect.get(tar, prop) && confirm("Want to upload new changes?") && setSongs();
 					return true;
 				}
 			});
