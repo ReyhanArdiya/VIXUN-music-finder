@@ -1,5 +1,4 @@
 "use strict";
-// CMT should i move this into newSongDatabase??
 class Song {
 	/**
 	 *
@@ -293,6 +292,19 @@ function newSongDatabase(keyNumber) {
 					return ascOrDesc === "asc" ? (song1[whichProp] > song2[whichProp] ? 1 : -1) : song1[whichProp] < song2[whichProp] ? 1 : -1;
 				} else {
 					return ascOrDesc === "asc" ? song1[whichProp] - song2[whichProp] : song2[whichProp] - song1[whichProp];
+				}
+			});
+		}
+		/**
+		 * Wraps a {@link Song} object in a proxy and returns it.
+		 * @param {Song} Song
+		 */
+		addSongProxy(Song) {
+			return new Proxy(Song, {
+				set(tar, prop, val) {
+					Reflect.set(tar, prop, val);
+					confirm("Want to upload new changes?") && setSongs();
+					return true;
 				}
 			});
 		}
