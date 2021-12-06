@@ -265,10 +265,10 @@ function newSongDatabase(keyNumber) {
 		 * coverURL?: string,
 		 * fileURL?: string,
 		 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
-		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song} defaults to true.
+		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
 		 * @returns {Song[]} The filtered {@link Song} array.
 		 */
-		extractSongs(options, isCaseSensitive = true) {
+		searchSongs(options, isCaseSensitive = true) {
 			let optionsEntries = Object.entries(options);
 			if (isCaseSensitive) {
 				return songs.filter(song => optionsEntries.every(option => song[option[0]] === option[1]));
