@@ -299,7 +299,7 @@ function newSongDatabase(keyNumber) {
 		 * Wraps a {@link Song} object in a proxy and returns it.
 		 * @param {Song} Song
 		 */
-		addSongProxy(Song) {
+		wrapSongProxy(Song) {
 			return new Proxy(Song, {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
