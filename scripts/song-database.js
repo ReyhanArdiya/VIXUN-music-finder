@@ -237,7 +237,7 @@ function newSongDatabase(keyNumber) {
 		 */
 		addSong(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale = false) {
 			const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
-			return newSong.validity.isValid ? console.log(songs.push(newSong)) : console.error(newSong.validity);
+			return newSong.validity.isValid ? console.log(songs.push(this.wrapSongProxy(newSong))) : console.error(newSong.validity);
 		}
 		/**
 		 * Removes a {@link Song} object from {@link songs} based on a {@link Song} property and its value.
