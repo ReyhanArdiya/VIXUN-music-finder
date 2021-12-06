@@ -194,6 +194,7 @@ function newSongDatabase(keyNumber) {
 				}
 			});
 		}
+		// TODO update this doc
 		/**
 		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
 		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
@@ -201,10 +202,10 @@ function newSongDatabase(keyNumber) {
 		 */
 		getSongs(setToSongs = true) {
 			/**@type {Song[]}*/
-			const parsedSongs = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
+			const parsedSongsDatabase = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
 				Object.setPrototypeOf(song, Song.prototype)
 			);
-			const proxiedSongs = new Proxy(parsedSongs, {
+			const proxiedSongsDatabase = new Proxy(parsedSongsDatabase, {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
 					console.info(`${tar[prop]} has been changed to ${val}`);
@@ -218,12 +219,11 @@ function newSongDatabase(keyNumber) {
 				}
 			});
 			if (setToSongs) {
-				songs = proxiedSongs;
+				songs = proxiedSongsDatabase;
 			} else {
-				return proxiedSongs;
+				return proxiedSongsDatabase;
 			}
 		}
-
 		/**
 		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
 		 * @param {string} title
