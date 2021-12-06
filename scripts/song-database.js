@@ -186,7 +186,13 @@ function newSongDatabase(keyNumber) {
 	};
 	class SongDatabase {
 		constructor() {
-			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
+			songs = /**@type {Song[] | any[]}*/ (
+				localStorage.getItem(`songs${keyNumber}`)
+					? setTimeout(() => {
+							songs = this.getSongs(false).map(Song => this.wrapSongProxy(Song));
+					  }, 0)
+					: []
+			);
 			Object.defineProperty(this, "songs", {
 				get() {
 					return songs;
