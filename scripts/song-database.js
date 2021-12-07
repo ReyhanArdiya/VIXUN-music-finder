@@ -280,15 +280,16 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 			return newSong.validity.isValid ? console.log(songs.push(this.wrapSongProxy(newSong))) : console.error(newSong.validity);
 		}
 		/**
-		 * Removes a {@link Song} object from {@link songs} based on a {@link Song} property and its value.
-		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
-		 * @param {any} propValue
-		 * @returns {Song | string} The deleted song
+		 * Removes ONE {@link Song} object from {@link songs} based on properties passed to {@link options} object and returns it.
+		 * @param {options} options
+		 * @param {boolean} [isCaseSensitive = true]
+		 * @returns {Song | string} The deleted song or error message.
 		 */
-		delSong(whichProp, propValue) {
-			return songs.some(song => song[whichProp] === propValue)
+		delSong(options, isCaseSensitive = true) {
+			const searchedSong = this.searchSongs(options, isCaseSensitive)[0];
+			return songs.includes(searchedSong)
 				? songs.splice(
-						songs.findIndex(song => song[whichProp] === propValue),
+						songs.findIndex(song => song === searchedSong),
 						1
 				  )[0]
 				: "Song Not Found :(";
