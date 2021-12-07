@@ -187,7 +187,11 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	 * Set {@link songs} to localStorage.
 	 */
 	const setSongs = () => {
-		localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+		if (songs.every(Song => Song.validity.isValid)) {
+			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+		} else {
+			console.error("This database's songs has an invalid song! It won't be uploaded.");
+		}
 	};
 	const uploadDatabase = () => {
 		autoUploadChanges ? setSongs() : confirm("Want to upload current database?") && setSongs();
