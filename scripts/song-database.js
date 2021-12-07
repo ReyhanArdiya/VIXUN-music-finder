@@ -170,26 +170,44 @@ class Song {
 /**
  * Creates a new {@link SongDatabase}, associate it with a certain localStorage songs database based on the {@link keyNumber} argument and return it.
  * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase} if there are multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
+ * @param {boolean} autoUploadChanges Boolean to control automatic uploads whenever this {@link SongDatabase} is changed; defaults to true and can be changed through {@link SongDatabase.autoUploadChanges} getter and setter.
  * @returns {SongDatabase}
  */
-function newSongDatabase(keyNumber) {
+function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	/**
 	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
 	 * @type { Song[] | any[] }
 	 */
 	let songs;
+
 	/**
 	 * Set {@link songs} to localStorage.
 	 */
 	const setSongs = () => {
 		localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
 	};
+	const uploadDatabase = () => {
+		autoUploadChanges ? setSongs() : confirm("Want to upload current database?") && setSongs();
+	};
+
 	class SongDatabase {
 		constructor() {
 			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
 			Object.defineProperty(this, "songs", {
 				get() {
 					return songs;
+				}
+			});
+			Object.defineProperty(this, "autoUploadChanges", {
+				get() {
+					return autoUploadChanges;
+				},
+				set(val) {
+					if (typeof val === "boolean") {
+						autoUploadChanges = val;
+					} else {
+						console.error("Wrong type! It should be boolean!");
+					}
 				}
 			});
 		}
@@ -210,12 +228,12 @@ function newSongDatabase(keyNumber) {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
 					console.info(`${tar[prop]} has been changed to ${val}`);
-					confirm("Want to upload new changes?") && setSongs();
+					uploadDatabase();
 					return true;
 				},
 				deleteProperty(tar, prop) {
 					console.info(`${tar[prop]} has been deleted!`);
-					confirm("Want to upload new changes?") && setSongs();
+					uploadDatabase();
 					return true;
 				}
 			});
@@ -306,7 +324,7 @@ function newSongDatabase(keyNumber) {
 				set(tar, prop, val) {
 					const previousTarPropVal = Reflect.get(tar, prop);
 					Reflect.set(tar, prop, val);
-					previousTarPropVal !== Reflect.get(tar, prop) && confirm("Want to upload new changes?") && setSongs();
+					previousTarPropVal !== Reflect.get(tar, prop) && uploadDatabase();
 					return true;
 				}
 			});
