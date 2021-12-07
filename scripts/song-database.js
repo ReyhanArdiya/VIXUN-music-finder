@@ -219,7 +219,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 
 	class SongDatabase {
 		constructor() {
-			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
+			this.getSongs();
 			Object.defineProperty(this, "songs", {
 				get() {
 					return songs;
@@ -238,18 +238,21 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				}
 			});
 		}
-		// TODO update this doc
+
 		/**
-		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
-		 * @param {boolean} [wrapInProxy = true] True to wrap each Song in parsedSongsDatabase in a proxy through {@link wrapSongProxy}, false to not wrap; defaults to true.
-		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
-		 * @returns {undefined | Song[]}
+		 * Processes {@link songs} from localStorage and wrap the resulting array in a proxy.
+		 * @param {boolean} [wrapInProxy = true] True to wrap each Song in {@link parsedSongsDatabase} in a proxy through {@link wrapSongProxy}, false to not wrap; defaults to true.
+		 * @param {boolean} [setToSongs = true] True to set the {@link proxiedSongsDatabase} instantly to {@link songs}, false to return it instead; defaults to true.
+		 * @returns {undefined | any[] | Song[]}
 		 */
 		getSongs(wrapInProxy = true, setToSongs = true) {
-			/**@type {Song[]}*/
-			const parsedSongsDatabase = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
-				Object.setPrototypeOf(song, Song.prototype)
-			);
+			/**
+			 * If the corresponding database exist in localStorage, parse it to an array and set each {@link Song} object inside prototype to {@link Song} class. If not set it to an empty array instead. Both of these arrays will be wrapped in a proxy through {@link proxiedSongsDatabase}.
+			 * @type {Song[] | any[]}
+			 * */
+			const parsedSongsDatabase = localStorage.getItem(`songs${keyNumber}`)
+				? JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype))
+				: [];
 			wrapInProxy && parsedSongsDatabase.forEach((Song, i, arr) => arr.splice(i, 1, this.wrapSongProxy(Song)));
 			const proxiedSongsDatabase = new Proxy(parsedSongsDatabase, {
 				set(tar, prop, val) {
@@ -357,7 +360,6 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 }
 
 const songDatabase1 = newSongDatabase(1);
-const songDatabase2 = newSongDatabase(2);
 
 // DBG
 // songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
