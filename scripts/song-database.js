@@ -165,6 +165,9 @@ class Song {
 			console.error("Wrong type! It should be boolean!");
 		}
 	}
+	toString() {
+		return `Song with a title of ${this.title} by ${this.artist}`;
+	}
 }
 
 /**
@@ -324,7 +327,10 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				set(tar, prop, val) {
 					const previousTarPropVal = Reflect.get(tar, prop);
 					Reflect.set(tar, prop, val);
-					previousTarPropVal !== Reflect.get(tar, prop) && uploadDatabase();
+					if (previousTarPropVal !== Reflect.get(tar, prop)) {
+						console.log(`This Song's ${String(prop)} has been changed from ${previousTarPropVal} to ${val}`);
+						uploadDatabase();
+					}
 					return true;
 				}
 			});
