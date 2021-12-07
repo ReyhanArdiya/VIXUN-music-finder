@@ -21,6 +21,7 @@ class Song {
 		this._priceUSD = priceUSD;
 		this._coverURL = coverURL;
 		this._fileURL = fileURL;
+		this._downloads = 0;
 		this._isOnSale = isOnSale;
 	}
 	get title() {
@@ -46,6 +47,9 @@ class Song {
 	}
 	get fileURL() {
 		return this._fileURL;
+	}
+	get downloads() {
+		return this._downloads;
 	}
 	get isOnSale() {
 		return this._isOnSale;
@@ -164,6 +168,9 @@ class Song {
 		} else {
 			console.error("Wrong type! It should be boolean!");
 		}
+	}
+	addDownloads() {
+		return this._downloads++;
 	}
 	toString() {
 		return `Song with a title of ${this.title} by ${this.artist}`;
