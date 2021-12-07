@@ -178,6 +178,19 @@ class Song {
  */
 function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	/**
+	 * Object that matches {@link Song} properties to be used for configuration during processes on {@link songs}.
+	 * @typedef {{ title?: string,
+	 * artist?: string,
+	 * album?: string,
+	 * genre?: string,
+	 * year?: number,
+	 * priceUSD?: number,
+	 * coverURL?: string,
+	 * fileURL?: string,
+	 * isOnSale?: boolean }} options
+	 */
+
+	/**
 	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
 	 * @type { Song[] | any[] }
 	 */
@@ -282,15 +295,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 		}
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
-		 * @param {{ title?: string,
-		 * artist?: string,
-		 * album?: string,
-		 * genre?: string,
-		 * year?: number,
-		 * priceUSD?: number,
-		 * coverURL?: string,
-		 * fileURL?: string,
-		 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
+		 * @param {options} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
 		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
 		 * @returns {Song[]} The filtered {@link Song} array.
 		 */
