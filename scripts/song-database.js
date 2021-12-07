@@ -1,7 +1,10 @@
 "use strict";
+
+/**
+ * Creates a new Song object that contains information about a song.
+ */
 class Song {
 	/**
-	 *
 	 * @param {string} title
 	 * @param {string} artist
 	 * @param {string} album
@@ -54,6 +57,9 @@ class Song {
 	get isOnSale() {
 		return this._isOnSale;
 	}
+	/**
+	 * Use this property to check the validity of the song, e.g. properties with wrong value types, incomplete data, etc.
+	 */
 	get validity() {
 		const errorObj = {
 			missingProps: [],
@@ -179,8 +185,8 @@ class Song {
 
 /**
  * Creates a new {@link SongDatabase}, associate it with a certain localStorage songs database based on the {@link keyNumber} argument and return it.
- * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase} if there are multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
- * @param {boolean} autoUploadChanges Boolean to control automatic uploads whenever this {@link SongDatabase} is changed; defaults to true and can be changed through {@link SongDatabase.autoUploadChanges} getter and setter.
+ * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase}. Important to specify since there could be multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
+ * @param {boolean} autoUploadChanges Boolean to control automatic uploads whenever this {@link SongDatabase} is changed through any appropiate means; defaults to true and can be read/write through {@link SongDatabase.autoUploadChanges} getter/setter.
  * @returns {SongDatabase}
  */
 function newSongDatabase(keyNumber, autoUploadChanges = true) {
@@ -198,7 +204,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	 */
 
 	/**
-	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
+	 * Variable to store the song database which will be set later using {@link SongDatabase.getSongs} when a new {@link SongDatabase} is constructed. This variable will be stored in a closure enviroment for increased privacy.
 	 * @type { Song[] | any[] }
 	 */
 	let songs;
@@ -213,6 +219,9 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 			console.error("This database's songs has an invalid song! It won't be uploaded.");
 		}
 	};
+	/**
+	 * This function will only be useful when {@link autoUploadChanges} is false. It confirms wether you want to upload the changes before calling {@link setSongs}.
+	 */
 	const uploadDatabase = () => {
 		autoUploadChanges ? setSongs() : confirm("Want to upload current database?") && setSongs();
 	};
@@ -273,6 +282,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				return proxiedSongsDatabase;
 			}
 		}
+
 		/**
 		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
 		 * @param {string} title
@@ -289,6 +299,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 			const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
 			return newSong.validity.isValid ? console.log(songs.push(this.wrapSongProxy(newSong))) : console.error(newSong.validity);
 		}
+
 		/**
 		 * Removes ONE {@link Song} object from {@link songs} based on properties passed to {@link options} object and returns it.
 		 * @param {options} options
@@ -304,6 +315,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				  )[0]
 				: "Song Not Found :(";
 		}
+
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
 		 * @param {options} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
@@ -324,10 +336,12 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				);
 			}
 		}
+
 		/**
 		 * Returns a new sorted array of {@link songs}.
 		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
 		 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
+		 * @returns {Song[]}
 		 */
 		sortSongs(whichProp, ascOrDesc = "asc") {
 			return [...songs].sort((song1, song2) => {
@@ -338,9 +352,11 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 				}
 			});
 		}
+
 		/**
 		 * Wraps a {@link Song} object in a proxy and returns it.
 		 * @param {Song} Song
+		 * @returns {Song}
 		 */
 		wrapSongProxy(Song) {
 			return new Proxy(Song, {
@@ -356,121 +372,8 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 			});
 		}
 	}
+
 	return new SongDatabase();
 }
 
 const songDatabase1 = newSongDatabase(1);
-
-// DBG
-// songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("On the Sea", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("Myth", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("PPP", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Space Song", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Alice", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Replay", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-
-// DBG songs1 localStorage
-// [
-//     {
-//         "_title": "On the Sea",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Myth",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Beyond Love",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "PPP",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Space Song",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "911",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Alice",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Replay",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Myth",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     }
-// ]
