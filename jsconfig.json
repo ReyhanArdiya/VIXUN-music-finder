@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
 		"module": "commonjs",
-		"target": "ES2016",
+		"target": "ES2021",
 		"checkJs": true,
 		"allowJs": true,
 		"alwaysStrict": true,
 		"strict": true,
-		"strictNullChecks": false
+		"strictNullChecks": false,
+		"noImplicitAny": false
 	},
 	"exclude": ["node_modules"]
 }

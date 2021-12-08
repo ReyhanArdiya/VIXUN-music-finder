@@ -1,0 +1,12 @@
+.circle-decoration-purple circle:first-of-type {
+	fill: var(--Bright-Purple);
+}
+
+.circle-decoration-hollow circle:last-of-type {
+	fill: white;
+}
+
+svg[class^="circle-decoration"] path {
+	stroke: black;
+	stroke-linecap: round;
+}
