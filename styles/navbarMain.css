@@ -97,8 +97,8 @@
 #navbar-main-dropdown {
 	align-items: center;
 	background: var(--Pale-Black);
-	border-top-left-radius: 0.21em;
-	border-top-right-radius: 0.21em;
+	border-top-left-radius: var(--Rounded-Border-Radius);
+	border-top-right-radius: var(--Rounded-Border-Radius);
 	box-shadow: var(--Shadow-Floating-Box-Top);
 	color: white;
 	display: flex;
