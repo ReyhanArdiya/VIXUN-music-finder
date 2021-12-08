@@ -8,6 +8,8 @@
 	--Gradient-Purple-Red: radial-gradient(119.32% 933.69% at 100% 4.05%, #ff0000 0%, #ca1791 45.85%, #a129ff 99.23%);
 	--Dark-Gray: #585858;
 	--Medium-Gray: #555454;
+	--Shadow-Floating-Box-Top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
+	--Shadow-Floating-Box-Bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
 }
 
 html {
