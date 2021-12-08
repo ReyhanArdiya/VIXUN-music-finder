@@ -1,0 +1,24 @@
+#display-top-hits {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+/* #region top hits title */
+
+#display-top-hits-title {
+	align-items: center;
+	background: var(--Gradient-Purple-Red);
+	border-radius: var(--Rounded-Border-Radius);
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	display: flex;
+	justify-content: center;
+	padding: 5% 7%;
+}
+
+#display-top-hits-title h2 {
+	color: white;
+	font: 700 2em "Quicksand";
+}
+
+/* #endregion top hits title */
