@@ -10,6 +10,7 @@
 	--Medium-Gray: #555454;
 	--Shadow-Floating-Box-Top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
 	--Shadow-Floating-Box-Bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
+	--Rounded-Border-Radius: 5px;
 }
 
 html {
