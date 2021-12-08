@@ -1,7 +1,10 @@
 "use strict";
+
+/**
+ * Creates a new Song object that contains information about a song.
+ */
 class Song {
 	/**
-	 *
 	 * @param {string} title
 	 * @param {string} artist
 	 * @param {string} album
@@ -21,6 +24,7 @@ class Song {
 		this._priceUSD = priceUSD;
 		this._coverURL = coverURL;
 		this._fileURL = fileURL;
+		this._downloads = 0;
 		this._isOnSale = isOnSale;
 	}
 	get title() {
@@ -47,9 +51,15 @@ class Song {
 	get fileURL() {
 		return this._fileURL;
 	}
+	get downloads() {
+		return this._downloads;
+	}
 	get isOnSale() {
 		return this._isOnSale;
 	}
+	/**
+	 * Use this property to check the validity of the song, e.g. properties with wrong value types, incomplete data, etc.
+	 */
 	get validity() {
 		const errorObj = {
 			missingProps: [],
@@ -165,57 +175,104 @@ class Song {
 			console.error("Wrong type! It should be boolean!");
 		}
 	}
+	addDownloads() {
+		return this._downloads++;
+	}
+	toString() {
+		return `Song with a title of ${this.title} by ${this.artist}`;
+	}
 }
 
 /**
  * Creates a new {@link SongDatabase}, associate it with a certain localStorage songs database based on the {@link keyNumber} argument and return it.
- * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase} if there are multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
+ * @param {number} keyNumber Use this number to associate a certain localStorage songs database to the returned {@link SongDatabase}. Important to specify since there could be multiple {@link SongDatabase} in the project. The basic syntax of the localStorage songs database key is `songs${keyNumber}`.
+ * @param {boolean} autoUploadChanges Boolean to control automatic uploads whenever this {@link SongDatabase} is changed through any appropiate means; defaults to true and can be read/write through {@link SongDatabase.autoUploadChanges} getter/setter.
  * @returns {SongDatabase}
  */
-function newSongDatabase(keyNumber) {
+function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	/**
-	 * If localStorage songs database is available use that value for this property, else set the value to empty array.
+	 * Object that matches {@link Song} properties to be used for configuration during processes on {@link songs}.
+	 * @typedef {{ title?: string,
+	 * artist?: string,
+	 * album?: string,
+	 * genre?: string,
+	 * year?: number,
+	 * priceUSD?: number,
+	 * coverURL?: string,
+	 * fileURL?: string,
+	 * isOnSale?: boolean }} options
+	 */
+
+	/**
+	 * Variable to store the song database which will be set later using {@link SongDatabase.getSongs} when a new {@link SongDatabase} is constructed. This variable will be stored in a closure enviroment for increased privacy.
 	 * @type { Song[] | any[] }
 	 */
 	let songs;
+
 	/**
 	 * Set {@link songs} to localStorage.
 	 */
 	const setSongs = () => {
-		localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+		if (songs.every(Song => Song.validity.isValid)) {
+			localStorage.setItem(`songs${keyNumber}`, JSON.stringify(songs));
+		} else {
+			console.error("This database's songs has an invalid song! It won't be uploaded.");
+		}
 	};
+	/**
+	 * This function will only be useful when {@link autoUploadChanges} is false. It confirms wether you want to upload the changes before calling {@link setSongs}.
+	 */
+	const uploadDatabase = () => {
+		autoUploadChanges ? setSongs() : confirm("Want to upload current database?") && setSongs();
+	};
+
 	class SongDatabase {
 		constructor() {
-			songs = /**@type {Song[] | any[]}*/ (localStorage.getItem(`songs${keyNumber}`) ? setTimeout(() => this.getSongs(), 0) : []);
+			this.getSongs();
 			Object.defineProperty(this, "songs", {
 				get() {
 					return songs;
 				}
 			});
+			Object.defineProperty(this, "autoUploadChanges", {
+				get() {
+					return autoUploadChanges;
+				},
+				set(val) {
+					if (typeof val === "boolean") {
+						autoUploadChanges = val;
+					} else {
+						console.error("Wrong type! It should be boolean!");
+					}
+				}
+			});
 		}
-		// TODO update this doc
+
 		/**
-		 * Gets {@link songs} from localStorage and returns a {@link Song} array after setting each parsed {@link Song}'s prototype to {@link Song}.prototype.
-		 * @param {boolean} [wrapInProxy = true] True to wrap each Song in parsedSongsDatabase in a proxy through {@link wrapSongProxy}, false to not wrap; defaults to true.
-		 * @param {boolean} [setToSongs = true] True to set the Song array instantly to {@link songs}, false to return it instead; defaults to true.
-		 * @returns {undefined | Song[]}
+		 * Processes {@link songs} from localStorage and wrap the resulting array in a proxy.
+		 * @param {boolean} [wrapInProxy = true] True to wrap each Song in {@link parsedSongsDatabase} in a proxy through {@link wrapSongProxy}, false to not wrap; defaults to true.
+		 * @param {boolean} [setToSongs = true] True to set the {@link proxiedSongsDatabase} instantly to {@link songs}, false to return it instead; defaults to true.
+		 * @returns {undefined | any[] | Song[]}
 		 */
 		getSongs(wrapInProxy = true, setToSongs = true) {
-			/**@type {Song[]}*/
-			const parsedSongsDatabase = JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) =>
-				Object.setPrototypeOf(song, Song.prototype)
-			);
+			/**
+			 * If the corresponding database exist in localStorage, parse it to an array and set each {@link Song} object inside prototype to {@link Song} class. If not set it to an empty array instead. Both of these arrays will be wrapped in a proxy through {@link proxiedSongsDatabase}.
+			 * @type {Song[] | any[]}
+			 * */
+			const parsedSongsDatabase = localStorage.getItem(`songs${keyNumber}`)
+				? JSON.parse(localStorage.getItem(`songs${keyNumber}`)).map((/** @type {Song} */ song) => Object.setPrototypeOf(song, Song.prototype))
+				: [];
 			wrapInProxy && parsedSongsDatabase.forEach((Song, i, arr) => arr.splice(i, 1, this.wrapSongProxy(Song)));
 			const proxiedSongsDatabase = new Proxy(parsedSongsDatabase, {
 				set(tar, prop, val) {
 					Reflect.set(tar, prop, val);
 					console.info(`${tar[prop]} has been changed to ${val}`);
-					confirm("Want to upload new changes?") && setSongs();
+					uploadDatabase();
 					return true;
 				},
 				deleteProperty(tar, prop) {
 					console.info(`${tar[prop]} has been deleted!`);
-					confirm("Want to upload new changes?") && setSongs();
+					uploadDatabase();
 					return true;
 				}
 			});
@@ -225,6 +282,7 @@ function newSongDatabase(keyNumber) {
 				return proxiedSongsDatabase;
 			}
 		}
+
 		/**
 		 * Adds a new {@link Song} object to {@link songs}. Arguments must be valid, if not it will console.error the new song's {@link Song.validity}; else it will console.log the new {@link songs}.length.
 		 * @param {string} title
@@ -241,31 +299,26 @@ function newSongDatabase(keyNumber) {
 			const newSong = new Song(title, artist, album, genre, year, priceUSD, coverURL, fileURL, isOnSale);
 			return newSong.validity.isValid ? console.log(songs.push(this.wrapSongProxy(newSong))) : console.error(newSong.validity);
 		}
+
 		/**
-		 * Removes a {@link Song} object from {@link songs} based on a {@link Song} property and its value.
-		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
-		 * @param {any} propValue
-		 * @returns {Song | string} The deleted song
+		 * Removes ONE {@link Song} object from {@link songs} based on properties passed to {@link options} object and returns it.
+		 * @param {options} options
+		 * @param {boolean} [isCaseSensitive = true]
+		 * @returns {Song | string} The deleted song or error message.
 		 */
-		delSong(whichProp, propValue) {
-			return songs.some(song => song[whichProp] === propValue)
+		delSong(options, isCaseSensitive = true) {
+			const searchedSong = this.searchSongs(options, isCaseSensitive)[0];
+			return songs.includes(searchedSong)
 				? songs.splice(
-						songs.findIndex(song => song[whichProp] === propValue),
+						songs.findIndex(song => song === searchedSong),
 						1
 				  )[0]
 				: "Song Not Found :(";
 		}
+
 		/**
 		 * Returns a {@link Song} array filtered from {@link songs} based on ATLEAST one or more key-value pairs of each {@link Song} that is sent in the {@link options} parameter.
-		 * @param {{ title?: string,
-		 * artist?: string,
-		 * album?: string,
-		 * genre?: string,
-		 * year?: number,
-		 * priceUSD?: number,
-		 * coverURL?: string,
-		 * fileURL?: string,
-		 * isOnSale?: boolean }} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
+		 * @param {options} options Object that contains key-value pairs like {@link Song} that is used during the filtering process.
 		 * @param {boolean} [isCaseSensitive = true] If it is true, the values on each {@link options} properties is case sensitive when checked againts the same properties in a {@link Song}; defaults to true.
 		 * @returns {Song[]} The filtered {@link Song} array.
 		 */
@@ -283,10 +336,12 @@ function newSongDatabase(keyNumber) {
 				);
 			}
 		}
+
 		/**
 		 * Returns a new sorted array of {@link songs}.
 		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
 		 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
+		 * @returns {Song[]}
 		 */
 		sortSongs(whichProp, ascOrDesc = "asc") {
 			return [...songs].sort((song1, song2) => {
@@ -297,137 +352,28 @@ function newSongDatabase(keyNumber) {
 				}
 			});
 		}
+
 		/**
 		 * Wraps a {@link Song} object in a proxy and returns it.
 		 * @param {Song} Song
+		 * @returns {Song}
 		 */
 		wrapSongProxy(Song) {
 			return new Proxy(Song, {
 				set(tar, prop, val) {
 					const previousTarPropVal = Reflect.get(tar, prop);
 					Reflect.set(tar, prop, val);
-					previousTarPropVal !== Reflect.get(tar, prop) && confirm("Want to upload new changes?") && setSongs();
+					if (previousTarPropVal !== Reflect.get(tar, prop)) {
+						console.log(`This Song's ${String(prop)} has been changed from ${previousTarPropVal} to ${val}`);
+						uploadDatabase();
+					}
 					return true;
 				}
 			});
 		}
 	}
+
 	return new SongDatabase();
 }
 
 const songDatabase1 = newSongDatabase(1);
-const songDatabase2 = newSongDatabase(2);
-
-// DBG
-// songDatabase.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("On the Sea", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("Myth", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "file");
-// songDatabase.addSong("Beyond Love", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("PPP", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Space Song", "Beach House", "Depression Cherry", "Shoegaze", 2015, 4.99, "url", "file");
-// songDatabase.addSong("911", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Alice", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-// songDatabase.addSong("Replay", "Lady Gaga", "Chromatica", "Pop", 2015, 4.99, "url", "file");
-
-// DBG songs1 localStorage
-// [
-//     {
-//         "_title": "On the Sea",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Myth",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Beyond Love",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "PPP",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Space Song",
-//         "_artist": "Beach House",
-//         "_album": "Depression Cherry",
-//         "_genre": "Shoegaze",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "911",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Alice",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Replay",
-//         "_artist": "Lady Gaga",
-//         "_album": "Chromatica",
-//         "_genre": "Pop",
-//         "_year": 2015,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     },
-//     {
-//         "_title": "Myth",
-//         "_artist": "Beach House",
-//         "_album": "Bloom",
-//         "_genre": "Shoegaze",
-//         "_year": 2011,
-//         "_priceUSD": 4.99,
-//         "_coverURL": "url",
-//         "_fileURL": "file",
-//         "_isOnSale": false
-//     }
-// ]
