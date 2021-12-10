@@ -1,7 +1,10 @@
 #display-top-hits {
 	align-items: center;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	flex-direction: column;
+	height: max-content;
+	margin: 1em 0;
 }
 
 /* #region top hits title */
@@ -14,6 +17,7 @@
 	display: flex;
 	justify-content: center;
 	padding: 5% 7%;
+	margin-bottom: 1em;
 }
 
 #display-top-hits-title h2 {
@@ -22,3 +26,31 @@
 }
 
 /* #endregion top hits title */
+
+/* #region top hits grid */
+
+.display-top-hits-grid-item {
+	background: url("../Images/Beach_House_-_Bloom.png");
+	background-size: cover;
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	/* border: 10px solid red; */
+}
+
+#display-top-hits-grid {
+	width: 80%;
+	overflow: auto;
+	height: 300px;
+}
+
+#display-top-hits-grid-wrapper {
+	display: grid;
+	gap: 10px;
+	grid-auto-flow: row dense;
+	grid-auto-rows: 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
+	height: max-content;
+	min-height: 500px;
+	width: 100%;
+}
+
+/* #endregion top hits grid */
