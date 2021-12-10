@@ -29,17 +29,14 @@
 
 /* #region top hits grid */
 
-.display-top-hits-grid-item {
-	background: url("../Images/placeholder.png");
-	background-size: cover;
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	/* border: 10px solid red; */
-}
-
 #display-top-hits-grid {
 	width: 80%;
-	overflow: auto;
+	overflow: scroll;
 	height: 300px;
+}
+
+#display-top-hits-grid::-webkit-scrollbar {
+	display: none;
 }
 
 #display-top-hits-grid-wrapper {
@@ -51,6 +48,13 @@
 	height: max-content;
 	min-height: 500px;
 	width: 100%;
+}
+
+.display-top-hits-grid-item {
+	background: url("../Images/placeholder.png");
+	background-size: cover;
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	/* border: 10px solid red; */
 }
 
 /* #endregion top hits grid */
