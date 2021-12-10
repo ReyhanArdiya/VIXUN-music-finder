@@ -41,14 +41,15 @@
 
 #display-top-hits-grid-wrapper {
 	display: grid;
-	gap: 10px;
 	grid-auto-flow: row dense;
 	grid-auto-rows: 1fr;
 	grid-template-columns: 1fr 1fr 1fr;
 	height: max-content;
 	min-height: 500px;
-	width: 100%;
 	padding: 0.2em;
+	row-gap: 1em;
+	column-gap: 0.75em;
+	width: 100%;
 }
 
 .display-top-hits-grid-item {
