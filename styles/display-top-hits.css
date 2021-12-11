@@ -32,7 +32,7 @@
 #display-top-hits-grid {
 	column-gap: 0.75em;
 	display: grid;
-	grid-auto-flow: row dense;
+	grid-auto-flow: row;
 	grid-auto-rows: 20%;
 	grid-template-columns: 1fr 1fr 1fr;
 	height: 300px;
@@ -50,7 +50,18 @@
 	background: url("../Images/placeholder.png") center;
 	background-size: cover;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	/* border: 10px solid red; */
+}
+
+.top-hits-item.top-hits-item-SM {
+	grid-area: span 1 / span 1;
+}
+
+.top-hits-item.top-hits-item-MD {
+	grid-area: span 1 / span 2;
+}
+
+.top-hits-item.top-hits-item-LG {
+	grid-area: span 3 / span 3;
 }
 
 /* #endregion TOP HITS GRID */
