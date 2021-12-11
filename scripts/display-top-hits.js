@@ -1,15 +1,20 @@
 const displayTopHits = {
 	grid: document.querySelector("#display-top-hits-grid"),
+
 	/**
-	 *
-	 * @param { "SM" | "MD" | "LG" } size
+	 * Add a song card to top hits grid based on the {@link Song} object that is passed.
+	 * @param {Song} Song {@link Song} object whose coverURL and fileURL property will be used for the card.
+	 * @param { "SM" | "MD" | "LG" } [size = "SM"]
 	 */
-	addSongCard(size = "SM") {
-		const songCardTemplate = /**@type {HTMLTemplateElement}*/ (
-			document.querySelector("#top-hits-item-template")
-		).content.firstElementChild.cloneNode(true);
-		//@ts-expect-error
+	addSongCard(Song, size = "SM") {
+		const songCardTemplate = /**@type {HTMLDivElement}*/ (
+			/**@type {HTMLTemplateElement}*/ (document.querySelector("#top-hits-item-template")).content.firstElementChild.cloneNode(true)
+		);
 		songCardTemplate.classList.add(`top-hits-item-${size.toUpperCase()}`);
+		songCardTemplate.style.backgroundImage = `url(${Song.coverURL})`;
+		songCardTemplate.addEventListener("click", function () {
+			window.open(Song.fileURL);
+		});
 		this.grid.append(songCardTemplate);
 	}
 };
