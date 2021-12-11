@@ -200,6 +200,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	 * priceUSD?: number,
 	 * coverURL?: string,
 	 * fileURL?: string,
+	 * downloads?: number,
 	 * isOnSale?: boolean }} options
 	 */
 
