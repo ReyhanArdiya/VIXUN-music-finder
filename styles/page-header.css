@@ -1,4 +1,4 @@
-/* #region #page-header */
+/* #region PAGE HEADER */
 
 #page-header {
 	display: flex;
@@ -18,9 +18,9 @@
 	}
 }
 
-/* #endregion #page-header */
+/* #endregion PAGE HEADER */
 
-/* #region #contacts-upper  */
+/* #region CONTACTS UPPER  */
 
 #contacts-upper {
 	display: flex;
@@ -49,9 +49,9 @@
 	}
 }
 
-/* #endregion #contacts-upper */
+/* #endregion CONTACTS UPPER */
 
-/* #region #page-logo */
+/* #region PAGE LOGO */
 
 #page-logo {
 	font-size: 1em;
@@ -89,4 +89,4 @@ h1 span {
 	top: -13px;
 }
 
-/* #endregion #page-logo */
+/* #endregion PAGE LOGO */

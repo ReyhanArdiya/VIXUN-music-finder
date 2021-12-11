@@ -7,7 +7,7 @@
 	margin: 1em 0;
 }
 
-/* #region top hits title */
+/* #region TOP HITS TITLE */
 
 #display-top-hits-title {
 	align-items: center;
@@ -25,9 +25,9 @@
 	font: 700 2em "Quicksand";
 }
 
-/* #endregion top hits title */
+/* #endregion TOP HITS TITLE */
 
-/* #region top hits grid */
+/* #region TOP HITS GRID */
 
 #display-top-hits-grid {
 	column-gap: 0.75em;
@@ -53,4 +53,4 @@
 	/* border: 10px solid red; */
 }
 
-/* #endregion top hits grid */
+/* #endregion TOP HITS GRID */
