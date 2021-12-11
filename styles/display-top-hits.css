@@ -9,6 +9,18 @@
 	min-width: 200px;
 }
 
+@media screen and (min-width: 48em) {
+	#display-top-hits {
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-top-hits {
+		font-size: 2em;
+	}
+}
+
 /* #region TOP HITS TITLE */
 
 #display-top-hits-title {
@@ -70,15 +82,3 @@
 }
 
 /* #endregion TOP HITS GRID */
-
-@media screen and (min-width: 48em) {
-	#display-top-hits-title {
-		font-size: 1.5em;
-	}
-}
-
-@media screen and (min-width: 90em) {
-	#display-top-hits-title {
-		font-size: 2em;
-	}
-}
