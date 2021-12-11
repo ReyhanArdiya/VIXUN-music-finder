@@ -46,8 +46,8 @@
 	display: none;
 }
 
-.display-top-hits-grid-item {
-	background: url("../Images/placeholder.png");
+.top-hits-item {
+	background: url("../Images/placeholder.png") center;
 	background-size: cover;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
 	/* border: 10px solid red; */
