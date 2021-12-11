@@ -22,7 +22,8 @@
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
 	display: flex;
 	justify-content: center;
-	padding: 5% 7%;
+	padding: 1em 7%;
+	font-size: 1em;
 	margin-bottom: 1em;
 }
 
@@ -71,3 +72,15 @@
 }
 
 /* #endregion TOP HITS GRID */
+
+@media screen and (min-width: 48em) {
+	#display-top-hits-title {
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-top-hits-title {
+		font-size: 2em;
+	}
+}
