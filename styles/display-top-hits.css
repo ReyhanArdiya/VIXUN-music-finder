@@ -81,4 +81,20 @@
 	grid-area: span 3 / span 3;
 }
 
+@media screen and (min-width: 48em) {
+	#display-top-hits-grid {
+		grid-auto-columns: 20%;
+		grid-auto-flow: column;
+		grid-template-columns: none;
+		grid-template-rows: 1fr 1fr 1fr;
+		height: 400px;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-top-hits-grid {
+		height: 500px;
+	}
+}
+
 /* #endregion TOP HITS GRID */
