@@ -5,6 +5,12 @@
 	flex-direction: column;
 	height: max-content;
 	margin: 1em 0;
+	width: 100%;
+}
+
+#display-top-hits-title,
+#display-top-hits-grid {
+	min-width: 200px;
 }
 
 /* #region TOP HITS TITLE */
@@ -39,7 +45,6 @@
 	overflow: scroll;
 	padding: 0.2em;
 	row-gap: 1em;
-	width: 80%;
 }
 
 #display-top-hits-grid::-webkit-scrollbar {
@@ -50,6 +55,7 @@
 	background: url("../Images/placeholder.png") center;
 	background-size: cover;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	border-radius: var(--Rounded-Border-Radius);
 }
 
 .top-hits-item.top-hits-item-SM {
