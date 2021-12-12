@@ -16,6 +16,66 @@ const displayTopHits = {
 			window.open(fileURL);
 		});
 		this.grid.append(songCardTemplate);
+	},
+
+	/**
+	 * Automatically add song cards from a {@link Song} database. For manual version use {@link displayTopHits.addSongCard}.
+	 * @param {{sortSongs(whichProp: string, ascOrDesc: string): Song[]}} songDatabase A {@link SongDatabase} created from {@link newSongDatabase}.
+	 */
+	addDatabaseSongs(songDatabase) {
+		const sortedSongs = songDatabase.sortSongs("downloads", "desc");
+		const layout = {
+			xl: ["XL"],
+			smmd: ["SM", "MD"],
+			mdsm: ["MD", "SM"],
+			smsmsm: ["SM", "SM", "SM"],
+			lgsmsm: ["LG", "SM", "SM"],
+			smlgsm: ["SM", "LG", "SM"]
+		};
+		const layoutKeys = Object.keys(layout);
+		let chosenLayout;
+		let prevLayout;
+
+		for (let i = 0; i < sortedSongs.length; i++) {
+			const useLayout = (song, layout) => {
+				for (let size of layout) {
+					this.addSongCard(song, size);
+				}
+			};
+			const excludeThenChooseLayout = layoutKey => {
+				const splicedLayoutKeys = [...layoutKeys];
+				splicedLayoutKeys.splice(layoutKeys.indexOf(layoutKey), 1);
+				return layout[splicedLayoutKeys[Math.floor(Math.random() * splicedLayoutKeys.length)]];
+			};
+
+			if (i === 0) {
+				chosenLayout = layout.xl;
+			}
+			switch (prevLayout) {
+				case layout.xl:
+					chosenLayout = excludeThenChooseLayout("xl");
+					break;
+				case layout.smmd:
+					chosenLayout = excludeThenChooseLayout("smmd");
+					break;
+				case layout.mdsm:
+					chosenLayout = excludeThenChooseLayout("mdsm");
+					break;
+				case layout.smsmsm:
+					chosenLayout = excludeThenChooseLayout("smsmsm");
+					break;
+				case layout.lgsmsm:
+					chosenLayout = excludeThenChooseLayout("lgsmsm");
+					break;
+				case layout.smlgsm:
+					chosenLayout = excludeThenChooseLayout("smlgsm");
+					break;
+			}
+
+			useLayout(sortedSongs[i]), chosenLayout;
+			prevLayout = chosenLayout;
+		}
 	}
 };
-// TODO make manual and automatic add song
+
+displayTopHits.addDatabaseSongs(songDatabase1);
