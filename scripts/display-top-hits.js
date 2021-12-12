@@ -36,10 +36,15 @@ const displayTopHits = {
 		let chosenLayout;
 		let prevLayout;
 
-		for (let i = 0; i < sortedSongs.length; i++) {
-			const useLayout = (song, layout) => {
+		for (let i = 0; i < sortedSongs.length; ) {
+			const useLayout = layout => {
 				for (let size of layout) {
-					this.addSongCard(song, size);
+					try {
+						this.addSongCard(sortedSongs[i], size);
+						i++;
+					} catch (error) {
+						console.log("END ADDING SONGS", i);
+					}
 				}
 			};
 			const excludeThenChooseLayout = layoutKey => {
@@ -72,7 +77,7 @@ const displayTopHits = {
 					break;
 			}
 
-			useLayout(sortedSongs[i], chosenLayout);
+			useLayout(chosenLayout);
 			prevLayout = chosenLayout;
 		}
 	}
