@@ -112,7 +112,7 @@
 @media screen and (min-width: 48em) {
 	#display-top-hits-grid {
 		grid-auto-columns: 20%;
-		grid-auto-flow: column;
+		grid-auto-flow: column dense;
 		grid-template-columns: none;
 		grid-template-rows: 1fr 1fr 1fr;
 		height: 400px;
