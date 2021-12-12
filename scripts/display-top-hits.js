@@ -4,7 +4,7 @@ const displayTopHits = {
 	/**
 	 * Add a song card to top hits grid based on the {@link Song} object that is passed.
 	 * @param {Song} Song {@link Song} object whose coverURL and fileURL property will be used for the card.
-	 * @param { "SM" | "MD" | "LG" } [size = "SM"]
+	 * @param { "SM" | "MD" | "LG" | "XL" } [size = "SM"]
 	 */
 	addSongCard({ coverURL, fileURL }, size = "SM") {
 		const songCardTemplate = /**@type {HTMLDivElement}*/ (

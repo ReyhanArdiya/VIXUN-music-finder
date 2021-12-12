@@ -102,6 +102,10 @@
 }
 
 .top-hits-item.top-hits-item-LG {
+	grid-area: span 2 / span 2;
+}
+
+.top-hits-item.top-hits-item-XL {
 	grid-area: span 3 / span 3;
 }
 
