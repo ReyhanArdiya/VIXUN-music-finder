@@ -340,7 +340,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 
 		/**
 		 * Returns a new sorted array of {@link songs}.
-		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "isOnSale"} whichProp
+		 * @param {"title" | "artist" | "album" | "genre" | "year" | "priceUSD" | "coverURL" | "fileURL" | "downloads" |"isOnSale" } whichProp
 		 * @param {"asc" | "desc"} [ascOrDesc = "asc"]
 		 * @returns {Song[]}
 		 */
@@ -378,3 +378,13 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 }
 
 const songDatabase1 = newSongDatabase(1);
+
+// DBG
+// songDatabase1.addSong("The Hours", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "url");
+// songDatabase1.addSong("On the Sea", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "url");
+// songDatabase1.addSong("Peoples", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "url");
+// songDatabase1.addSong("Myth", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "url");
+// songDatabase1.addSong("Lazuli", "Beach House", "Bloom", "Shoegaze", 2011, 4.99, "url", "url");
+// songDatabase1.addSong("911", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");
+// songDatabase1.addSong("Alice", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");
+// songDatabase1.addSong("Babylon", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");

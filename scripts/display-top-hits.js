@@ -72,7 +72,7 @@ const displayTopHits = {
 					break;
 			}
 
-			useLayout(sortedSongs[i]), chosenLayout;
+			useLayout(sortedSongs[i], chosenLayout);
 			prevLayout = chosenLayout;
 		}
 	}
