@@ -6,14 +6,14 @@ const displayTopHits = {
 	 * @param {Song} Song {@link Song} object whose coverURL and fileURL property will be used for the card.
 	 * @param { "SM" | "MD" | "LG" } [size = "SM"]
 	 */
-	addSongCard(Song, size = "SM") {
+	addSongCard({ coverURL, fileURL }, size = "SM") {
 		const songCardTemplate = /**@type {HTMLDivElement}*/ (
 			/**@type {HTMLTemplateElement}*/ (document.querySelector("#top-hits-item-template")).content.firstElementChild.cloneNode(true)
 		);
 		songCardTemplate.classList.add(`top-hits-item-${size.toUpperCase()}`);
-		songCardTemplate.style.backgroundImage = `url(${Song.coverURL})`;
+		songCardTemplate.style.backgroundImage = `url(${coverURL})`;
 		songCardTemplate.addEventListener("click", function () {
-			window.open(Song.fileURL);
+			window.open(fileURL);
 		});
 		this.grid.append(songCardTemplate);
 	}
