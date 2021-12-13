@@ -52,7 +52,8 @@
 	grid-auto-flow: row;
 	grid-auto-rows: 20%;
 	grid-template-columns: 1fr 1fr 1fr;
-	height: 300px;
+	height: 30vw;
+	min-height: 300px;
 	overflow: scroll;
 	padding: 0.2em;
 	row-gap: 1em;
@@ -115,14 +116,6 @@
 		grid-auto-flow: column dense;
 		grid-template-columns: none;
 		grid-template-rows: 1fr 1fr 1fr;
-		height: 30vw;
-		max-height: 400px;
-	}
-}
-
-@media screen and (min-width: 90em) {
-	#display-top-hits-grid {
-		max-height: 1000px;
 	}
 }
 
