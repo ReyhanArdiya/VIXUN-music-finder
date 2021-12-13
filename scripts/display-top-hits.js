@@ -1,3 +1,5 @@
+"use strict";
+// XXX rewrite this, it's super baddddddd; check notion Database transitiong group
 const displayTopHits = {
 	grid: document.querySelector("#display-top-hits-grid"),
 
@@ -7,9 +9,8 @@ const displayTopHits = {
 	 * @param { "SM" | "MD" | "LG" | "XL" } [size = "SM"]
 	 */
 	addSongCard({ coverURL, fileURL }, size = "SM") {
-		const songCardTemplate = /**@type {HTMLDivElement}*/ (
-			/**@type {HTMLTemplateElement}*/ (document.querySelector("#top-hits-item-template")).content.firstElementChild.cloneNode(true)
-		);
+		/**@type {HTMLDivElement}*/
+		const songCardTemplate = document.querySelector("#top-hits-item-template").content.firstElementChild.cloneNode(true);
 		songCardTemplate.classList.add(`top-hits-item-${size.toUpperCase()}`);
 		songCardTemplate.style.backgroundImage = `url(${coverURL})`;
 		songCardTemplate.addEventListener("click", function () {
@@ -84,3 +85,4 @@ const displayTopHits = {
 };
 
 displayTopHits.addDatabaseSongs(songDatabase1);
+// PROG finish adding add grid song card logic
