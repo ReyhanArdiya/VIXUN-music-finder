@@ -2,6 +2,10 @@
 	fill: var(--Bright-Purple);
 }
 
+.circle-decoration-red circle:first-of-type {
+	fill: var(--Bright-Red);
+}
+
 .circle-decoration-hollow circle:last-of-type {
 	fill: white;
 }
