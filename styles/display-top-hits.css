@@ -152,10 +152,37 @@
 	left: -18%;
 	bottom: 13%;
 }
+
 #display-top-hits svg:nth-of-type(4) {
 	font-size: 3em;
 	right: -22%;
 	bottom: -10%;
+}
+
+@media screen and (min-width: 48em) {
+	#display-top-hits svg:nth-of-type(1) {
+		font-size: 4em;
+		left: -9%;
+		top: 10%;
+	}
+
+	#display-top-hits svg:nth-of-type(2) {
+		font-size: 3em;
+		right: -8%;
+		top: 40%;
+	}
+
+	#display-top-hits svg:nth-of-type(3) {
+		font-size: 2.6em;
+		left: -7%;
+		bottom: 15%;
+	}
+
+	#display-top-hits svg:nth-of-type(4) {
+		font-size: 4em;
+		right: -11%;
+		bottom: -12%;
+	}
 }
 
 /* #endregion TOP HITS CIRCLE DECORATIONS */
