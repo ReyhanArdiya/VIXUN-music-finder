@@ -71,12 +71,6 @@ h1 span {
 	color: var(--Bright-Red);
 }
 
-#page-logo svg {
-	width: 1.25em;
-	height: 1.25em;
-	position: absolute;
-}
-
 #page-logo svg:first-of-type {
 	font-size: 0.8em;
 	left: -4px;
