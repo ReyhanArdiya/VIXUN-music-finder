@@ -21,3 +21,7 @@ svg[class^="circle-decoration"] path {
 	stroke: black;
 	stroke-linecap: round;
 }
+
+.circle-decoration-parallax {
+	transition: transform 0.25s ease-in-out;
+}
