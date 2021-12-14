@@ -117,6 +117,13 @@
 		grid-auto-flow: column dense;
 		grid-template-columns: none;
 		grid-template-rows: 1fr 1fr 1fr;
+		min-height: 450px;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-top-hits-grid {
+		min-height: 600px;
 	}
 }
 
