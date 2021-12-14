@@ -7,6 +7,7 @@
 	margin: 1em auto;
 	width: 50%;
 	min-width: 200px;
+	position: relative;
 }
 
 @media screen and (min-width: 48em) {
@@ -120,3 +121,34 @@
 }
 
 /* #endregion TOP HITS GRID */
+
+/* #region TOP HITS CIRCLE DECORATIONS */
+
+#display-top-hits svg {
+	z-index: -1;
+}
+
+#display-top-hits svg:nth-of-type(1) {
+	font-size: 1.25em;
+	left: -15%;
+	top: 20%;
+}
+
+#display-top-hits svg:nth-of-type(2) {
+	font-size: 2.5em;
+	right: -14%;
+	top: 40%;
+}
+
+#display-top-hits svg:nth-of-type(3) {
+	font-size: 1em;
+	left: -18%;
+	bottom: 13%;
+}
+#display-top-hits svg:nth-of-type(4) {
+	font-size: 3em;
+	right: -22%;
+	bottom: -10%;
+}
+
+/* #endregion TOP HITS CIRCLE DECORATIONS */
