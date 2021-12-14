@@ -85,4 +85,3 @@ const displayTopHits = {
 };
 
 displayTopHits.addDatabaseSongs(songDatabase1);
-// PROG finish adding add grid song card logic
