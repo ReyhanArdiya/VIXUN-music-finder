@@ -66,3 +66,6 @@ const circleDecorations = {
 		});
 	}
 };
+
+// Add parallax to display top hits' circle decorations.
+circleDecorations.addParallax(displayTopHits.grid, circleDecorations.topHitsGrid, 0.05);
