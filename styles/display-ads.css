@@ -43,6 +43,7 @@
 	height: 100%;
 	scroll-snap-stop: always;
 	scroll-snap-align: center;
+	object-fit: cover;
 }
 
 /* #endregion DISPLAY ADS CONTENT */
