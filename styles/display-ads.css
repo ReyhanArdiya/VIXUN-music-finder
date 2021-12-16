@@ -1,3 +1,5 @@
+/* #region DISPLAY ADS CONTAINER */
+
 #display-ads {
 	background: var(--Gradient-Purple-Red);
 	width: 100%;
@@ -12,11 +14,21 @@
 	padding: 1em;
 }
 
+@media screen and (min-width: 48em) {
+	#display-ads {
+		font-size: 1em;
+		margin-top: 6em;
+	}
+}
+
+/* #endregion DISPLAY ADS CONTAINER */
+
 /* #region DISPLAY ADS CONTENT */
 
 #display-ads-content {
 	width: 100%;
 	height: 100%;
+	max-width: 768px;
 	background-color: white;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
 	border-radius: var(--Rounded-Border-Radius);
@@ -24,9 +36,4 @@
 
 /* #endregion DISPLAY ADS CONTENT */
 
-@media screen and (min-width: 48em) {
-	#display-ads {
-		font-size: 1em;
-		margin-top: 6em;
-	}
-}
+/* PROG styling display ads */

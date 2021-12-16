@@ -1,4 +1,4 @@
-/* #region NAVBAR MAIN */
+/* #region NAVBAR MAIN CONTAINER */
 
 #navbar-main {
 	background: var(--Pale-Black);
@@ -21,7 +21,7 @@
 	}
 }
 
-/* #endregion NAVBAR MAIN */
+/* #endregion NAVBAR MAIN CONTAINER */
 
 /* #region NAVBAR MAIN CONTENT */
 

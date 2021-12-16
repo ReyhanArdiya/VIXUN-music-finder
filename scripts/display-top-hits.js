@@ -1,4 +1,5 @@
 "use strict";
+
 // XXX rewrite this, it's super baddddddd; check notion Database transitiong group
 const displayTopHits = {
 	grid: document.querySelector("#display-top-hits-grid"),
