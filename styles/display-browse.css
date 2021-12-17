@@ -13,6 +13,8 @@
 /* #region DISPLAY BROWSE TITLE */
 
 #display-browse-title {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
 }
 
 /* #endregion DISPLAY BROWSE TITLE */
