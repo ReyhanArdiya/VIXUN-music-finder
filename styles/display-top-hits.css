@@ -1,3 +1,5 @@
+/* #region TOP HITS CONTAINER */
+
 #display-top-hits {
 	align-items: center;
 	display: flex;
@@ -5,7 +7,7 @@
 	flex-direction: column;
 	height: max-content;
 	margin: 1em auto;
-	width: 50%;
+	width: 70%;
 	min-width: 200px;
 	position: relative;
 }
@@ -22,6 +24,8 @@
 		font-size: 2em;
 	}
 }
+
+/* #endregion TOP HITS CONTAINER */
 
 /* #region TOP HITS TITLE */
 

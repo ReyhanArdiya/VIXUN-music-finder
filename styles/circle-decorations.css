@@ -1,9 +1,21 @@
+/* #region CIRCLE DECORATIONS DEFAULT STYLES */
+
 /* CMT To change the size of any circle decorations, just change its font-size property and use em */
 svg[class^="circle-decoration"] {
 	width: 1.25em;
 	height: 1.25em;
 	position: absolute;
 }
+
+/* Default styles for every circle decorations squiggly lines */
+svg[class^="circle-decoration"] path {
+	stroke: black;
+	stroke-linecap: round;
+}
+
+/* #endregion CIRCLE DECORATIONS DEFAULT STYLES */
+
+/* #region CIRCLE DECORATIONS COLORS */
 
 .circle-decoration-purple circle:first-of-type {
 	fill: var(--Bright-Purple);
@@ -13,15 +25,16 @@ svg[class^="circle-decoration"] {
 	fill: var(--Bright-Red);
 }
 
-.circle-decoration-hollow circle:last-of-type {
-	fill: white;
-}
+/* #endregion CIRCLE DECORATIONS COLORS */
 
-svg[class^="circle-decoration"] path {
-	stroke: black;
-	stroke-linecap: round;
-}
+/* #region CIRCLE DECORATIONS EFFECTS */
 
 .circle-decoration-parallax {
 	transition: transform 0.1s ease-out;
 }
+
+.circle-decoration-hollow circle:last-of-type {
+	fill: white;
+}
+
+/* #endregion CIRCLE DECORATIONS EFFECTS */

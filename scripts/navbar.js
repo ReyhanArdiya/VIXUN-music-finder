@@ -72,7 +72,7 @@ mediaQuery.medium.addEventListener("change", function (e) {
 	e.matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
 });
 
-// Move dropdown text on window load
+// Move dropdown text on window load on larger screens
 window.addEventListener("load", function () {
 	navbarMain.dropdown.moveText(navbarMain.dropdown.whereIsTextOnLoad);
 });

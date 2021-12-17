@@ -17,9 +17,11 @@
 		<link rel="stylesheet" href="styles/navbarMain.css" />
 		<link rel="stylesheet" href="styles/circle-decorations.css" />
 		<link rel="stylesheet" href="styles/display-top-hits.css" />
+		<link rel="stylesheet" href="styles/display-ads.css" />
 	</head>
 
 	<body>
+		<!-- PAGE HEADER -->
 		<header id="page-header">
 			<div id="contacts-upper">
 				<svg width="166" height="26" viewBox="0 0 166 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,6 +126,8 @@
 			</div>
 			<div id="page-header-dummy"></div>
 		</header>
+
+		<!-- MAIN NAVBAR WITH DROPDOWN -->
 		<nav id="navbar-main" class="navbar-main-shadow">
 			<nav id="navbar-main-content">
 				<svg id="icon-account" width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,6 +159,8 @@
 				<p>BROWSE</p>
 			</nav>
 		</nav>
+
+		<!-- DISPLAY TOP HITS SONGS -->
 		<section id="display-top-hits">
 			<header id="display-top-hits-title">
 				<h2>TOP HITS</h2>
@@ -231,12 +237,26 @@
 				/>
 			</svg>
 		</section>
+
+		<!-- DISPLAY ADS PANEL CAROUSEL -->
+		<section id="display-ads">
+			<section id="display-ads-content">
+				<template id="display-ads-item-template">
+					<img src="" class="display-ads-item"></img>
+				</template>
+			</section>
+		</section>
+
 		<main></main>
 		<footer></footer>
+
+		<!-- #region SCRIPTS -->
 		<script src="scripts/song-database.js" defer></script>
 		<script src="scripts/media-queries.js" defer></script>
 		<script src="scripts/navbar.js" defer></script>
 		<script src="scripts/display-top-hits.js" defer></script>
 		<script src="scripts/circle-decorations-parallax.js" defer></script>
+		<script src="scripts/display-ads.js" defer></script>
+		<!-- #endregion SCRIPTS -->
 	</body>
 </html>

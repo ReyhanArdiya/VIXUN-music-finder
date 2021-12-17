@@ -1,4 +1,4 @@
-/* #region PAGE HEADER */
+/* #region PAGE HEADER CONTAINER */
 
 #page-header {
 	display: flex;
@@ -18,7 +18,7 @@
 	}
 }
 
-/* #endregion PAGE HEADER */
+/* #endregion PAGE HEADER CONTAINER */
 
 /* #region CONTACTS UPPER  */
 
