@@ -37,6 +37,10 @@
 	scroll-snap-type: both mandatory;
 }
 
+#display-ads-content::-webkit-scrollbar {
+	display: none;
+}
+
 .display-ads-item {
 	flex-shrink: 0;
 	width: 100%;
