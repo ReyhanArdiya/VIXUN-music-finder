@@ -14,40 +14,11 @@
 
 @media screen and (min-width: 48em) {
 	#display-top-hits {
-		font-size: 1.5em;
 		width: 82.5%;
 	}
 }
 
-@media screen and (min-width: 90em) {
-	#display-top-hits {
-		font-size: 2em;
-	}
-}
-
 /* #endregion TOP HITS CONTAINER */
-
-/* #region TOP HITS TITLE */
-
-#display-top-hits-title {
-	align-items: center;
-	background: var(--Gradient-Purple-Red);
-	border-radius: var(--Rounded-Border-Radius);
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	display: flex;
-	justify-content: center;
-	padding: 1em 7%;
-	font-size: 1em;
-	margin-bottom: 1em;
-	width: 100%;
-}
-
-#display-top-hits-title h2 {
-	color: white;
-	font: 700 2em "Quicksand";
-}
-
-/* #endregion TOP HITS TITLE */
 
 /* #region TOP HITS GRID */
 
