@@ -1,0 +1,27 @@
+/* #region DISPLAY BROWSE CONTAINER */
+
+#display-browse {
+	width: 100%;
+	font-size: 1rem;
+	display: flex;
+	justify-content: center;
+	margin-top: 5em;
+}
+
+/* #endregion DISPLAY BROWSE CONTAINER */
+
+/* #region DISPLAY BROWSE TITLE */
+
+#display-browse-title {
+	font: 700 2.25em "Quicksand";
+	color: white;
+	background: var(--Gradient-Purple-Red);
+	width: 100%;
+	padding: 0.5em 0;
+	text-align: center;
+	border-top-left-radius: var(--Rounded-Border-Radius);
+	border-top-right-radius: var(--Rounded-Border-Radius);
+	box-shadow: var(--Shadow-Floating-Box-Top);
+}
+
+/* #endregion DISPLAY BROWSE TITLE */
