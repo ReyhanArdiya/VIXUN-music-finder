@@ -6,6 +6,7 @@ const displayBrowse = {
 		addIcon(imgURL, label = "Type") {
 			/**@type {HTMLDivElement}*/
 			const icon = this.iconTemplate.content.firstElementChild.cloneNode(true);
+			label = `${label[0].toUpperCase()}${label.slice(1).toLowerCase()}`;
 			icon.lastElementChild.innerText = label;
 			icon.firstElementChild.style.background = `url(${imgURL})`;
 			console.log(icon);
