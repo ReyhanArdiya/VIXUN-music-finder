@@ -53,6 +53,7 @@
 .icon-category p {
 	font: 700 1em "Quicksand";
 	color: white;
+	width: max-content;
 }
 
 /* #endregion DISPLAY BROWSE CATEGORIES */
