@@ -43,9 +43,11 @@
 	margin: 0 0.5em;
 }
 
-.icon-category svg {
+.icon-category img {
 	width: 1.9em;
 	height: 1.9em;
+	object-fit: cover;
+	border-radius: 50%;
 }
 
 .icon-category p {
