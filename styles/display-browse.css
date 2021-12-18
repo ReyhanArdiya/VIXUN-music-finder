@@ -6,6 +6,7 @@
 	display: flex;
 	justify-content: center;
 	margin-top: 5em;
+	flex-direction: column;
 }
 
 /* #endregion DISPLAY BROWSE CONTAINER */
@@ -15,6 +16,41 @@
 #display-browse-title {
 	border-bottom-left-radius: 0px;
 	border-bottom-right-radius: 0px;
+	margin: 0;
 }
 
 /* #endregion DISPLAY BROWSE TITLE */
+
+/* #region DISPLAY BROWSE CATEGORIES */
+
+#display-browse-categories {
+	background: var(--Pale-Black);
+	min-height: 58px;
+	overflow-x: auto;
+	font-size: 1em;
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	padding: 0 0.5em;
+}
+
+.icon-category {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	font-size: 1em;
+	margin: 0 0.5em;
+}
+
+.icon-category svg {
+	width: 1.9em;
+	height: 1.9em;
+}
+
+.icon-category p {
+	font: 700 1em "Quicksand";
+	color: white;
+}
+
+/* #endregion DISPLAY BROWSE CATEGORIES */
