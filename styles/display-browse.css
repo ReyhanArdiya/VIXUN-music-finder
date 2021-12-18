@@ -34,6 +34,10 @@
 	padding: 0 0.5em;
 }
 
+#display-browse-categories::-webkit-scrollbar {
+	display: none;
+}
+
 .icon-category {
 	align-items: center;
 	display: flex;
