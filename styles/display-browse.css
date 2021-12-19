@@ -32,6 +32,7 @@
 	display: flex;
 	justify-content: flex-start;
 	padding: 0.5em;
+	user-select: none;
 }
 
 #display-browse-categories::-webkit-scrollbar {
@@ -45,6 +46,10 @@
 	flex-direction: column;
 	font-size: 1em;
 	margin: 0 0.5em;
+}
+
+.icon-category * {
+	cursor: pointer;
 }
 
 .icon-category img {
