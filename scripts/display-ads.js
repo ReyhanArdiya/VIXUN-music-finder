@@ -35,7 +35,7 @@ const displayAds = {
 	/**
 	 * Only call this method ONCE to track {@link displayAds._currentDisplayedAd}.
 	 */
-	addObserverForScrollLoc() {
+	trackCurrentDisplayedAd() {
 		const observer = new IntersectionObserver(
 			entries => {
 				for (let i = 0; i < this.currentAds.length; i++) {
@@ -64,5 +64,5 @@ displayAds.appendNewAd("https://placekitten.com/400/300");
 displayAds.appendNewAd("https://placekitten.com/300/400");
 displayAds.appendNewAd("https://placekitten.com/500/500");
 
-displayAds.addObserverForScrollLoc();
+displayAds.trackCurrentDisplayedAd();
 // displayAds.autoScroll(5000);
