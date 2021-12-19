@@ -14,6 +14,12 @@ const displayAds = {
 
 	getAdObj(adNumber) {
 		return document.querySelector(`.display-ads-item:nth-of-type(${adNumber})`);
+	},
+
+	autoScroll(delay) {
+		setInterval(() => {
+			this.contentContainer.scrollBy({ left: 300, behavior: "smooth" });
+		}, delay);
 	}
 };
 
@@ -24,3 +30,5 @@ displayAds.appendNewAd("https://placekitten.com/300/300");
 displayAds.appendNewAd("https://placekitten.com/400/300");
 displayAds.appendNewAd("https://placekitten.com/300/400");
 displayAds.appendNewAd("https://placekitten.com/500/500");
+
+displayAds.autoScroll(5000);
