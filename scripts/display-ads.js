@@ -20,6 +20,10 @@ const displayAds = {
 		setInterval(() => {
 			this.contentContainer.scrollBy({ left: 300, behavior: "smooth" });
 		}, delay);
+	},
+
+	scrollToAd(adNumber) {
+		this.contentContainer.scrollLeft = this.getAdObj(adNumber).offsetLeft;
 	}
 };
 

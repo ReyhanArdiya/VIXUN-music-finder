@@ -11,7 +11,6 @@ const displayBrowse = {
 			}
 			icon.lastElementChild.innerText = label;
 			icon.firstElementChild.src = imgURL;
-			console.log(icon);
 			this.container.append(icon);
 		}
 	},
