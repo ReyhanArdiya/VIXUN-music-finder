@@ -34,39 +34,43 @@ const animationEffects = {
 		let currentTranslateVal = 0;
 		const detectScroll = animationEffects.detectScrollDirectionMaker(scrollingEl, "breakpointMedium");
 
-		scrollingEl.addEventListener("scroll", function (e) {
-			if ((e.target.scrollTop === 0 && !mediaQuery.medium.matches) || (e.target.scrollLeft === 0 && mediaQuery.medium.matches)) {
-				currentTranslateVal = 0;
-			}
-
-			/**
-			 *
-			 * @param {"up" | "right" | "down" | "left"} direction
-			 */
-			const moveCircles = direction => {
-				for (let parallaxedItem of parallaxedItemsArr) {
-					switch (direction) {
-						case "down":
-							currentTranslateVal -= speed;
-							parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
-							break;
-						case "up":
-							currentTranslateVal += speed;
-							parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
-							break;
-						case "left":
-							currentTranslateVal += speed;
-							parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
-							break;
-						case "right":
-							currentTranslateVal -= speed;
-							parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
-							break;
-					}
+		scrollingEl.addEventListener(
+			"scroll",
+			function (e) {
+				if ((e.target.scrollTop === 0 && !mediaQuery.medium.matches) || (e.target.scrollLeft === 0 && mediaQuery.medium.matches)) {
+					currentTranslateVal = 0;
 				}
-			};
+
+				/**
+				 *
+				 * @param {"up" | "right" | "down" | "left"} direction
+				 */
+				const moveCircles = direction => {
+					for (let parallaxedItem of parallaxedItemsArr) {
+						switch (direction) {
+							case "down":
+								currentTranslateVal -= speed;
+								parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
+								break;
+							case "up":
+								currentTranslateVal += speed;
+								parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
+								break;
+							case "left":
+								currentTranslateVal += speed;
+								parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
+								break;
+							case "right":
+								currentTranslateVal -= speed;
+								parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
+								break;
+						}
+					}
+				};
 
 			moveCircles(detectScroll());
-		});
+			},
+			{ passive: true }
+		);
 	}
 };
