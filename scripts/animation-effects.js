@@ -29,10 +29,11 @@ const animationEffects = {
 	 * @param {HTMLElement} scrollingEl Any element that is scrollable, can be the container of the {@link parallaxedItemsArr} or any scrollable element.
 	 * @param {HTMLElement[]} parallaxedItemsArr Array of any HTMLObject reference that will be parallaxed.
 	 * @param {HTMLElement[]} speed Number to configure {@link parallaxedItemsArr}'s parallax speed.
+	 * @param {"horizontal" | "vertical" | "breakpointMedium"} trackDirection String to set which scroll direction on {@link scrollingEl} to track and activate the parallax effect. The way it works is by passing this argument to {@link animationEffects.detectScrollDirectionMaker} and calling the returned function to get the tracked direction and move the parallaxed items based on the direction.
 	 */
-	addParallax(scrollingEl, parallaxedItemsArr, speed) {
+	addParallax(scrollingEl, parallaxedItemsArr, speed, trackDirection) {
 		let currentTranslateVal = 0;
-		const detectScroll = animationEffects.detectScrollDirectionMaker(scrollingEl, "breakpointMedium");
+		const detectScroll = animationEffects.detectScrollDirectionMaker(scrollingEl, trackDirection);
 
 		scrollingEl.addEventListener(
 			"scroll",
