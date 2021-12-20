@@ -1,20 +1,20 @@
 const animationEffects = {
 	/**
-	 * This is a factory function which returns a function that will automatically detect the scrolling direction of {@link scrollingEl} both for vertical and horizontal scrolling based on the {@link mediaQuery.medium} matches property.
+	 * This is a factory function which returns a function that will automatically detect the scrolling direction of {@link scrollingEl} both for vertical and horizontal scrolling or based on the {@link mediaQuery.medium} matches property.
 	 * @param {HTMLElement} scrollingEl Any scrolling element to detect the direction of.
+	 * @param {"horizontal" | "vertical" | "breakpointMedium"} trackDirection Track scrolling direction horizontally, vertically or based on {@link mediaQuery.medium} matches property. If "breakpointMedium" is chosen, if the matches property is false it will detect vertical scrolling and return either "down" or "up". If matches property is true, it will detect horizontal scrolling direction and return either "right" or "left".
 	 * @returns {() => "up" | "right" | "down" | "left"}
 	 */
-	detectScrollDirectionMaker(scrollingEl) {
+	detectScrollDirectionMaker(scrollingEl, trackDirection) {
 		let prevScrollPos = 0;
 		let currentScrollPos = 0;
 
 		return () => {
 			let direction = "unknown";
-
-			if (mediaQuery.medium.matches) {
+			if (trackDirection === "horizontal" || (trackDirection === "breakpointMedium" && mediaQuery.medium.matches)) {
 				currentScrollPos = scrollingEl.scrollLeft;
 				direction = currentScrollPos >= prevScrollPos ? "right" : "left";
-			} else {
+			} else if (trackDirection === "vertical" || (trackDirection === "breakpointMedium" && !mediaQuery.medium.matches)) {
 				currentScrollPos = scrollingEl.scrollTop;
 				direction = currentScrollPos >= prevScrollPos ? "down" : "up";
 			}
@@ -32,7 +32,7 @@ const animationEffects = {
 	 */
 	addParallax(scrollingEl, parallaxedItemsArr, speed) {
 		let currentTranslateVal = 0;
-		const detectScroll = animationEffects.detectScrollDirectionMaker(scrollingEl);
+		const detectScroll = animationEffects.detectScrollDirectionMaker(scrollingEl, "breakpointMedium");
 
 		scrollingEl.addEventListener("scroll", function (e) {
 			if ((e.target.scrollTop === 0 && !mediaQuery.medium.matches) || (e.target.scrollLeft === 0 && mediaQuery.medium.matches)) {
