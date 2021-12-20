@@ -3,6 +3,7 @@
 // XXX rewrite this, it's super baddddddd; check notion Database transitiong group
 const displayTopHits = {
 	grid: document.querySelector("#display-top-hits-grid"),
+	gridCircleDecorations: document.querySelectorAll("#display-top-hits svg"),
 
 	/**
 	 * Add a song card to top hits grid based on the {@link Song} object that is passed.
@@ -86,3 +87,6 @@ const displayTopHits = {
 };
 
 displayTopHits.addDatabaseSongs(songDatabase1);
+
+// Add parallax to display top hits' circle decorations.
+animationEffects.addParallax(displayTopHits.grid, displayTopHits.gridCircleDecorations, 0.05);
