@@ -1,5 +1,7 @@
 "use strict";
 
+// #region SONG DATABASE
+
 /**
  * Creates a new Song object that contains information about a song.
  */
@@ -388,3 +390,227 @@ const songDatabase1 = newSongDatabase(1);
 // songDatabase1.addSong("911", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");
 // songDatabase1.addSong("Alice", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");
 // songDatabase1.addSong("Babylon", "Lady Gaga", "Chromatice", "Pop", 2020, 4.99, "url", "url");
+
+// #endregion SONG DATABASE
+
+// #region ANIMATION UTILITIES
+
+/**
+ * Use to store mediaQueryList objects for this website's media queries that needs behavior based on breakpoints.
+ */
+const mediaQuery = {
+	medium: window.matchMedia("(min-width: 48em")
+};
+
+const animationEffects = {
+	/**
+	 * Adds parallax effect to an element based on a scrollable element.
+	 * @param {HTMLElement} scrollingEl Any element that is scrollable, can be the container of the {@link parallaxedItemsArr} or any scrollable element.
+	 * @param {HTMLElement[]} parallaxedItemsArr Array of any HTMLObject reference that will be parallaxed.
+	 * @param {HTMLElement[]} speed Number to configure {@link parallaxedItemsArr}'s parallax speed.
+	 * @param {"horizontal" | "vertical" | "breakpointMedium"} trackDirection String to set which scroll direction on {@link scrollingEl} to track and activate the parallax effect. The way it works is by passing this argument to {@link movementDetector.detectScrollDirectionMaker} and calling the returned function to get the tracked direction and move the parallaxed items based on the direction.
+	 */
+	addParallax(scrollingEl, parallaxedItemsArr, speed, trackDirection) {
+		let currentTranslateVal = 0;
+		const detectScroll = movementDetector.detectScrollDirectionMaker(scrollingEl, trackDirection);
+
+		scrollingEl.addEventListener(
+			"scroll",
+			function (e) {
+				if ((e.target.scrollTop === 0 && !mediaQuery.medium.matches) || (e.target.scrollLeft === 0 && mediaQuery.medium.matches)) {
+					currentTranslateVal = 0;
+				}
+
+				/**
+				 *
+				 * @param {"up" | "right" | "down" | "left"} direction
+				 */
+				const moveCircles = direction => {
+					for (let parallaxedItem of parallaxedItemsArr) {
+						switch (direction) {
+							case "down":
+								currentTranslateVal -= speed;
+								parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
+								break;
+							case "up":
+								currentTranslateVal += speed;
+								parallaxedItem.style.transform = `translateY(${currentTranslateVal}px)`;
+								break;
+							case "left":
+								currentTranslateVal += speed;
+								parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
+								break;
+							case "right":
+								currentTranslateVal -= speed;
+								parallaxedItem.style.transform = `translateX(${currentTranslateVal}px)`;
+								break;
+						}
+					}
+				};
+
+				moveCircles(detectScroll());
+			},
+			{ passive: true }
+		);
+	}
+};
+
+const movementDetector = {
+	/**
+	 * Calls a callback when the user swipes on `target` and sends the swipe direction string as the first argument to the callback.
+	 * @param {HTMLElement} target
+	 * @param {"horizontal" | "vertical"} trackDirection
+	 * @param {(direction: string, e?: TouchEvent) => {}} callback
+	 */
+	addTouchDirectionHandler(target, trackDirection, callback) {
+		let currentTouchPos = 0;
+		let prevTouchPos = 0;
+		let direction = "unknown";
+
+		target.addEventListener(
+			"touchmove",
+			function (e) {
+				if (trackDirection === "horizontal") {
+					currentTouchPos = e.targetTouches[0].pageX;
+					direction = currentTouchPos >= prevTouchPos ? "right" : "left";
+				} else if (trackDirection === "vertical") {
+					currentTouchPos = e.targetTouches[0].pageY;
+					direction = currentTouchPos >= prevTouchPos ? "down" : "up";
+				}
+
+				prevTouchPos = currentTouchPos;
+				callback(direction, e);
+			},
+			{ passive: true }
+		);
+	},
+
+	/**
+	 * This is a factory function which returns a function that will automatically detect the scrolling direction of {@link scrollingEl} both for vertical and horizontal scrolling or based on the {@link mediaQuery.medium} matches property.
+	 * @param {HTMLElement} scrollingEl Any scrolling element to detect the direction of.
+	 * @param {"horizontal" | "vertical" | "breakpointMedium"} trackDirection Track scrolling direction horizontally, vertically or based on {@link mediaQuery.medium} matches property. If "breakpointMedium" is chosen, if the matches property is false it will detect vertical scrolling and return either "down" or "up". If matches property is true, it will detect horizontal scrolling direction and return either "right" or "left".
+	 * @returns {() => "up" | "right" | "down" | "left"}
+	 */
+	detectScrollDirectionMaker(scrollingEl, trackDirection) {
+		let prevScrollPos = 0;
+		let currentScrollPos = 0;
+
+		return () => {
+			let direction = "unknown";
+			if (trackDirection === "horizontal" || (trackDirection === "breakpointMedium" && mediaQuery.medium.matches)) {
+				currentScrollPos = scrollingEl.scrollLeft;
+				direction = currentScrollPos >= prevScrollPos ? "right" : "left";
+			} else if (trackDirection === "vertical" || (trackDirection === "breakpointMedium" && !mediaQuery.medium.matches)) {
+				currentScrollPos = scrollingEl.scrollTop;
+				direction = currentScrollPos >= prevScrollPos ? "down" : "up";
+			}
+
+			prevScrollPos = currentScrollPos;
+			return direction;
+		};
+	}
+};
+
+// #endregion ANIMATION UTILITIES
+
+// #region REUSED HTML ELEMENTS
+
+/**
+ * If `#navbar-main` exist on the page, then this will become the object version for it and automatically add all the necessary logic. Else it will become a string warning and `console.error` it.
+ * @type {{} | string}
+ */
+const navbarMain = (() => {
+	if (document.querySelector("#navbar-main")) {
+		// Make the object
+		const navbarMain = {
+			menu: document.querySelector("#navbar-main"),
+			content: {
+				menu: document.querySelector("#navbar-main-content"),
+				icons: {
+					profile: document.querySelector("#icon-account path"),
+					cart: document.querySelector("#icon-cart path"),
+					hamburger: document.querySelector("#icon-hamburger svg"),
+					hamburgerDiv: document.querySelector("#icon-hamburger")
+				},
+				textContainer: document.querySelector("#navbar-main-content-text-container")
+			},
+			dropdown: {
+				/**@type {HTMLDivElement}*/
+				menu: document.querySelector("#navbar-main-dropdown"),
+				text: document.querySelectorAll("#navbar-main-dropdown p"),
+				/**@type {"content" | "dropdown"}*/
+				whereIsTextOnLoad: mediaQuery.medium.matches ? "content" : "dropdown",
+				control() {
+					this.menu.classList.toggle("navbar-main-dropdown-show");
+				},
+				/**
+				 * Method to move the text inside of {@link navbarMain.dropdown.menu} to {@link navbarMain.content.menu} and vice-versa.
+				 * @param {"content" |"dropdown"} [where = "content"]
+				 */
+				moveText(where = "content") {
+					if (where === "content") {
+						navbarMain.content.icons.hamburgerDiv?.remove();
+						navbarMain.content.textContainer.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
+					} else if (where === "dropdown") {
+						navbarMain.content.menu.append(navbarMain.content.icons.hamburgerDiv);
+						navbarMain.dropdown.menu.append(navbarMain.dropdown.text[0], navbarMain.dropdown.text[1]);
+					}
+				}
+			},
+			shadowScroll: new IntersectionObserver(
+				function (entries) {
+					navbarMain.menu.classList.toggle("navbar-main-shadow");
+				},
+				{
+					root: null,
+					rootMargin: "-1px 0px 0px 0px",
+					threshold: 1
+				}
+			)
+		};
+
+		// #region ADD NAVBARMAIN LOGIC
+
+		// Toggle navbar main shadow on sticky
+		navbarMain.shadowScroll.observe(navbarMain.menu);
+
+		// Add listener for navbar dropdown menu reveal/hide
+		navbarMain.content.icons.hamburger.addEventListener(
+			"click",
+			(() => {
+				let ongoing = false;
+				return () => {
+					console.log(ongoing);
+					if (!ongoing) {
+						navbarMain.dropdown.control();
+						ongoing = true;
+						setTimeout(() => {
+							ongoing = false;
+						}, 400);
+					}
+				};
+			})()
+		);
+
+		// Add listener for navbar dropdown text move to content or vice-versa on medium breakpoint
+		mediaQuery.medium.addEventListener("change", function (e) {
+			e.matches ? navbarMain.dropdown.moveText("content") : navbarMain.dropdown.moveText("dropdown");
+		});
+
+		// Move dropdown text on window load on larger screens
+		window.addEventListener("load", function () {
+			navbarMain.dropdown.moveText(navbarMain.dropdown.whereIsTextOnLoad);
+		});
+
+		// #endregion ADD NAVBARMAIN LOGIC
+
+		// Return the object
+		return navbarMain;
+	} else {
+		const msg = "#navbar-main not found! Remember to add it if needed, else just ignore this message :)";
+		console.warn(msg);
+		return msg;
+	}
+})();
+
+// #endregion REUSED HTML ELEMENTS
