@@ -53,6 +53,35 @@ const animationEffects = {
 
 const movementDetector = {
 	/**
+	 * Calls a callback when the user swipes on `target` and sends the swipe direction string as the first argument to the callback.
+	 * @param {HTMLElement} target
+	 * @param {"horizontal" | "vertical"} trackDirection
+	 * @param {(direction: string, e?: TouchEvent) => {}} callback
+	 */
+	addTouchDirectionHandler(target, trackDirection, callback) {
+		let currentTouchPos = 0;
+		let prevTouchPos = 0;
+		let direction = "unknown";
+
+		target.addEventListener(
+			"touchmove",
+			function (e) {
+				if (trackDirection === "horizontal") {
+					currentTouchPos = e.targetTouches[0].pageX;
+					direction = currentTouchPos >= prevTouchPos ? "right" : "left";
+				} else if (trackDirection === "vertical") {
+					currentTouchPos = e.targetTouches[0].pageY;
+					direction = currentTouchPos >= prevTouchPos ? "down" : "up";
+				}
+
+				prevTouchPos = currentTouchPos;
+				callback(direction, e);
+			},
+			{ passive: true }
+		);
+	},
+
+	/**
 	 * This is a factory function which returns a function that will automatically detect the scrolling direction of {@link scrollingEl} both for vertical and horizontal scrolling or based on the {@link mediaQuery.medium} matches property.
 	 * @param {HTMLElement} scrollingEl Any scrolling element to detect the direction of.
 	 * @param {"horizontal" | "vertical" | "breakpointMedium"} trackDirection Track scrolling direction horizontally, vertically or based on {@link mediaQuery.medium} matches property. If "breakpointMedium" is chosen, if the matches property is false it will detect vertical scrolling and return either "down" or "up". If matches property is true, it will detect horizontal scrolling direction and return either "right" or "left".
