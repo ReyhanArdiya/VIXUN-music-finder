@@ -1,6 +1,6 @@
 "use strict";
 
-// #region DISPLAY OBJECTS
+// #region DISPLAY OBJECTS------------------------------------------------------
 
 /* XXX rewrite this, it's super baddddddd; check notion Database
 transitiong group */
@@ -353,10 +353,10 @@ const displayBrowse = {
 	songs     : document.querySelector("#display-browse-songs")
 };
 
-// #endregion DISPLAY OBJECTS
+// #endregion DISPLAY OBJECTS===================================================
 
 
-// #region DISPLAY TOP HITS LOGIC
+// #region DISPLAY TOP HITS LOGIC-----------------------------------------------
 
 // Add song cards from database to top hits grid
 displayTopHits.addDatabaseSongs(songDatabase1);
@@ -369,10 +369,10 @@ animationEffects.addParallax(
 	"breakpointMedium"
 );
 
-// #endregion DISPLAY TOP HITS LOGIC
+// #endregion DISPLAY TOP HITS LOGIC============================================
 
 
-// #region DISPLAY ADS LOGIC
+// #region DISPLAY ADS LOGIC----------------------------------------------------
 
 // DBG cute kitty placeholders :3
 displayAds.appendNewAd("https://placekitten.com/200/300");
@@ -386,10 +386,10 @@ displayAds.trackCurrentDisplayedAd();
 
 // DisplayAds.autoScroll(5000);
 
-// #endregion DISPLAY ADS LOGIC
+// #endregion DISPLAY ADS LOGIC=================================================
 
 
-// #region DISPLAY BROWSE LOGIC
+// #region DISPLAY BROWSE LOGIC-------------------------------------------------
 
 // DBG Add placeholder icons
 displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
@@ -413,4 +413,4 @@ displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
 displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
 displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
 
-// #endregion DISPLAY BROWSE LOGIC
+// #endregion DISPLAY BROWSE LOGIC==============================================

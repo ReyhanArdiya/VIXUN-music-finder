@@ -1,6 +1,6 @@
 "use strict";
 
-// #region SONG DATABASE
+// #region SONG DATABASE--------------------------------------------------------
 
 /**
  * Creates a new Song object that contains information about a song.
@@ -826,10 +826,10 @@ const songDatabase1 = newSongDatabase(1);
 // 	"url"
 // );
 
-// #endregion SONG DATABASE
+// #endregion SONG DATABASE=====================================================
 
 
-// #region ANIMATION UTILITIES
+// #region ANIMATION UTILITIES--------------------------------------------------
 
 /**
  * Use to store mediaQueryList objects for this website's
@@ -1066,10 +1066,10 @@ const animationEffects = {
 	}
 };
 
-// #endregion ANIMATION UTILITIES
+// #endregion ANIMATION UTILITIES===============================================
 
 
-// #region REUSED HTML ELEMENTS
+// #region REUSED HTML ELEMENTS-------------------------------------------------
 
 /**
  * If `#navbar-main` exist on the page, then this will become the object for it
@@ -1215,5 +1215,5 @@ const navbarMain = (() => {
 	}
 })();
 
-// #endregion REUSED HTML ELEMENTS
+// #endregion REUSED HTML ELEMENTS==============================================
 
