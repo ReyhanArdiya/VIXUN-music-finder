@@ -10,14 +10,19 @@
 		<meta name="description" content="Description" />
 		<meta name="keywords" content="HTML, CSS, JavaScript, and_so_on" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- #region CSS STYLESHEETS -->
 		<link rel="stylesheet" href="styles/css-reset.css" />
 		<link rel="stylesheet" href="styles/defaults.css" />
 		<link rel="stylesheet" href="styles/fonts.css" />
 		<link rel="stylesheet" href="styles/page-header.css" />
-		<link rel="stylesheet" href="styles/navbarMain.css" />
+		<link rel="stylesheet" href="styles/navbar-main.css" />
 		<link rel="stylesheet" href="styles/circle-decorations.css" />
+		<link rel="stylesheet" href="styles/title-card.css" />
 		<link rel="stylesheet" href="styles/display-top-hits.css" />
 		<link rel="stylesheet" href="styles/display-ads.css" />
+		<link rel="stylesheet" href="styles/display-browse.css">
+		<!-- #endregion CSS STYLESHEETS -->
 	</head>
 
 	<body>
@@ -162,7 +167,7 @@
 
 		<!-- DISPLAY TOP HITS SONGS -->
 		<section id="display-top-hits">
-			<header id="display-top-hits-title">
+			<header id="display-top-hits-title" class="title-card">
 				<h2>TOP HITS</h2>
 			</header>
 			<section id="display-top-hits-grid">
@@ -247,16 +252,32 @@
 			</section>
 		</section>
 
-		<main></main>
+		<!-- DISPLAY BROWSE SONGS -->
+		<main id="display-browse">
+			<header id="display-browse-title" class="title-card">
+				<h2>BROWSE</h2>
+			</header>
+			<section id="display-browse-categories">
+				<template id="icon-category-template">
+					<div class="icon-category">
+						<img src="https://placekitten.com/100/100" alt="icon-category-picture">
+						<p>Type</p>
+					</div>
+				</template>
+			</section>
+			<section id="display-browse-searchbar">
+
+			</section>
+			<section id="display-browse-songs">
+
+			</section>
+		</main>
+
 		<footer></footer>
 
 		<!-- #region SCRIPTS -->
-		<script src="scripts/song-database.js" defer></script>
-		<script src="scripts/media-queries.js" defer></script>
-		<script src="scripts/navbar.js" defer></script>
-		<script src="scripts/display-top-hits.js" defer></script>
-		<script src="scripts/circle-decorations-parallax.js" defer></script>
-		<script src="scripts/display-ads.js" defer></script>
+		<script src="scripts/core.js" defer></script>
+		<script src="scripts/index.js" defer></script>
 		<!-- #endregion SCRIPTS -->
 	</body>
 </html>

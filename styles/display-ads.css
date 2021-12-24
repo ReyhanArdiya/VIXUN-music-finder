@@ -35,6 +35,11 @@
 	display: flex;
 	overflow-x: auto;
 	scroll-snap-type: both mandatory;
+	scroll-behavior: smooth;
+}
+
+#display-ads-content::-webkit-scrollbar {
+	display: none;
 }
 
 .display-ads-item {
