@@ -230,10 +230,16 @@ const displayAds = {
 	 */
 	autoScroll(delay) {
 		return setInterval(() => {
-			this.contentContainer.scrollBy({
-				left     : 300,
-				behavior : "smooth"
-			});
+
+			// Scroll back to start after reaching the last ad, else just scroll
+			if (this.currentDisplayedAd === this.currentAds.length) {
+				this.scrollToAd(1);
+			} else {
+				this.contentContainer.scrollBy({
+					left     : 300,
+					behavior : "smooth"
+				});
+			}
 		}, delay);
 	},
 
@@ -384,7 +390,8 @@ displayAds.appendNewAd("https://placekitten.com/500/500");
 
 displayAds.trackCurrentDisplayedAd();
 
-// DisplayAds.autoScroll(5000);
+displayAds.autoScroll(5000);
+
 
 // #endregion ================DISPLAY ADS LOGIC=================================
 
