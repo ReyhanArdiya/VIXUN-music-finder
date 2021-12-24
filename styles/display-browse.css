@@ -106,7 +106,8 @@
 }
 
 #browse-searchbar-input input,
-#browse-searchbar-input button {
+#browse-searchbar-input button,
+#browse-searchbar-input button::before {
 	border-radius: inherit;
 	border: none;
 	outline: none;
@@ -138,6 +139,8 @@
 	opacity: 0;
 	background-color: var(--Pale-Black);
 	transition: opacity 0.25s linear;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
 }
 
 #browse-searchbar-input button:hover::before {
