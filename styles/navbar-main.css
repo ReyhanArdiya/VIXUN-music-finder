@@ -1,4 +1,4 @@
-/* #region #navbar-main */
+/* #region NAVBAR MAIN CONTAINER */
 
 #navbar-main {
 	background: var(--Pale-Black);
@@ -7,10 +7,11 @@
 	position: fixed;
 	max-height: 64px;
 	width: 100%;
+	z-index: 10;
 }
 
 .navbar-main-shadow {
-	box-shadow: 0px 0.045em 0.21em 0.045em #4c4c4c99;
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
 }
 
 @media screen and (min-width: 90em) {
@@ -20,9 +21,9 @@
 	}
 }
 
-/* #endregion #navbar-main */
+/* #endregion NAVBAR MAIN CONTAINER */
 
-/* #region #navbar-main-content */
+/* #region NAVBAR MAIN CONTENT */
 
 #navbar-main-content {
 	align-items: center;
@@ -33,7 +34,7 @@
 	background: var(--Pale-Black);
 }
 
-/* #region navbar main content icons */
+/* #region NAVBAR MAIN CONTENT ICONS */
 
 #icon-cart {
 	height: 55%;
@@ -68,9 +69,9 @@
 	fill: var(--Bright-Purple-Active);
 }
 
-/* #endregion navbar main content icons */
+/* #endregion NAVBAR MAIN CONTENT ICONS */
 
-/* #region navbar main content text */
+/* #region NAVBAR MAIN CONTENT TEXT */
 
 #navbar-main-content-text-container p {
 	color: white;
@@ -88,18 +89,18 @@
 	color: var(--Bright-Red-Active);
 }
 
-/* #endregion navbar main content text */
+/* #endregion NAVBAR MAIN CONTENT TEXT */
 
-/* #endregion #navbar-main-content */
+/* #endregion NAVBAR MAIN CONTENT */
 
-/* #region #navbar-main-dropdown */
+/* #region NAVBAR MAIN DROPDOWN */
 
 #navbar-main-dropdown {
 	align-items: center;
 	background: var(--Pale-Black);
-	border-top-left-radius: 0.21em;
-	border-top-right-radius: 0.21em;
-	box-shadow: 0px -0.045em 0.21em 0.045em #4c4c4c99;
+	border-top-left-radius: var(--Rounded-Border-Radius);
+	border-top-right-radius: var(--Rounded-Border-Radius);
+	box-shadow: var(--Shadow-Floating-Box-Top);
 	color: white;
 	display: flex;
 	flex-direction: column;
@@ -114,7 +115,7 @@
 }
 
 .navbar-main-dropdown-show {
-	top: -179% !important;
+	top: -178% !important;
 }
 
 #navbar-main-dropdown p {
@@ -131,7 +132,7 @@
 	color: var(--Bright-Red-Active);
 }
 
-/* #endregion #navbar-main-dropdown */
+/* #endregion NAVBAR MAIN DROPDOWN */
 
 @media screen and (min-width: 48em) {
 	#navbar-main {

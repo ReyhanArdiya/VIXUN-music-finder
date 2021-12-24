@@ -1,4 +1,4 @@
-/* #region #page-header */
+/* #region PAGE HEADER CONTAINER */
 
 #page-header {
 	display: flex;
@@ -18,9 +18,9 @@
 	}
 }
 
-/* #endregion #page-header */
+/* #endregion PAGE HEADER CONTAINER */
 
-/* #region #contacts-upper  */
+/* #region CONTACTS UPPER  */
 
 #contacts-upper {
 	display: flex;
@@ -49,9 +49,9 @@
 	}
 }
 
-/* #endregion #contacts-upper */
+/* #endregion CONTACTS UPPER */
 
-/* #region #page-logo */
+/* #region PAGE LOGO */
 
 #page-logo {
 	font-size: 1em;
@@ -71,12 +71,6 @@ h1 span {
 	color: var(--Bright-Red);
 }
 
-#page-logo svg {
-	width: 1.25em;
-	height: 1.25em;
-	position: absolute;
-}
-
 #page-logo svg:first-of-type {
 	font-size: 0.8em;
 	left: -4px;
@@ -89,4 +83,4 @@ h1 span {
 	top: -13px;
 }
 
-/* #endregion #page-logo */
+/* #endregion PAGE LOGO */
