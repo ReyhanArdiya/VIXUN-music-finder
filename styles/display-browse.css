@@ -204,6 +204,7 @@
 	justify-content: space-between;
 	text-align: center;
 	width: 90%;
+	max-width: 385px;
 }
 
 .browse-sort-label {
@@ -227,6 +228,25 @@
 .browse-sort-label-arrow svg {
 	width: 100%;
 	height: 100%;
+}
+
+@media screen and (min-width: 48em) {
+	#browse-searchbar-sorts {
+		font-size: 2em;
+		max-width: 640px;
+	}
+	.browse-sort-label {
+		grid-template-columns: 1fr 30px;
+	}
+}
+@media screen and (min-width: 90em) {
+	#browse-searchbar-sorts {
+		font-size: 3em;
+		max-width: 1000px;
+	}
+	.browse-sort-label {
+		grid-template-columns: 1fr 42px;
+	}
 }
 
 /* #endregion ================BROWSE SEARCHBAR SORT LABELS=================== */
