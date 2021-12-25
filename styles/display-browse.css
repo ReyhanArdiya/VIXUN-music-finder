@@ -106,7 +106,7 @@
 	align-items: center;
 	display: flex;
 	height: max-content;
-	justify-content: center;
+	justify-content: space-between;
 	padding: 1em 0;
 	width: 100%;
 	flex-direction: column;
@@ -125,6 +125,7 @@
 	height: 100vw;
 	max-height: 42px;
 	width: 80%;
+	margin-bottom: 1em;
 	max-width: 80%;
 }
 
