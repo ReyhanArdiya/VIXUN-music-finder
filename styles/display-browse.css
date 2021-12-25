@@ -156,7 +156,7 @@
 	position: relative;
 }
 
-/* Browse Searchbar Input Button Overlay on Hover/Active */
+/* Browse searchbar input button overlay on hover/active */
 #browse-searchbar-input button::before {
 	content: "";
 	width: 100%;
@@ -227,14 +227,29 @@
 	grid-template-rows: 1fr;
 }
 
+.browse-sort-label p {
+	margin-right: 0.25em;
+}
+
 .browse-sort-label-arrow {
 	align-items: center;
 	display: flex;
 	justify-content: center;
 }
 
-.browse-sort-label p {
-	margin-right: 0.25em;
+/* Sort label and arrow hover effect */
+.browse-sort-label p,
+.browse-sort-label-arrow {
+	transition: all 0.15s linear;
+	cursor: pointer;
+}
+
+.browse-sort-label p:hover {
+	color: var(--Pale-Black);
+}
+
+.browse-sort-label-arrow:hover path {
+	fill: var(--Pale-Black);
 }
 
 .browse-sort-label-arrow svg {
