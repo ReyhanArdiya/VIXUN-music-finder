@@ -355,8 +355,15 @@ const displayBrowse = {
 		}
 	},
 
-	searchBar : document.querySelector("#display-browse-searchbar"),
-	songs     : document.querySelector("#display-browse-songs")
+	search : {
+		input      : document.querySelector("#display-browse-searchbar"),
+		sortLabels : {
+			container : document.querySelector("#browse-searchbar-sorts"),
+			labels    : document.querySelectorAll(".browse-sort-label")
+		}
+	},
+
+	songs : document.querySelector("#display-browse-songs")
 };
 
 // #endregion ================DISPLAY OBJECTS===================================
