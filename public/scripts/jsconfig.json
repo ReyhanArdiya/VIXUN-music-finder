@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "ES6",
 		"target": "ES2021",
 		"checkJs": false,
 		"allowJs": true,
@@ -10,5 +10,5 @@
 		"noImplicitAny": false
 	},
 	"exclude": ["node_modules"],
-	"typeAcquisition": { "include": ["node"] }
+	"typeAcquisition": { "exclude": ["node"] }
 }

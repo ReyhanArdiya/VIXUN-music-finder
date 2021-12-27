@@ -1,0 +1,279 @@
+/* #region DISPLAY BROWSE CONTAINER */
+
+#display-browse {
+	width: 100%;
+	font-size: 1rem;
+	display: flex;
+	justify-content: center;
+	margin-top: 5em;
+	flex-direction: column;
+}
+
+/* #endregion DISPLAY BROWSE CONTAINER */
+
+/* #region DISPLAY BROWSE TITLE */
+
+#display-browse-title {
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+	margin: 0;
+}
+
+/* #endregion DISPLAY BROWSE TITLE */
+
+/* #region DISPLAY BROWSE CATEGORIES */
+
+#display-browse-categories {
+	background: var(--Pale-Black);
+	min-height: 58px;
+	overflow-x: auto;
+	font-size: 1em;
+	align-items: center;
+	display: flex;
+	justify-content: flex-start;
+	padding: 0.5em;
+	user-select: none;
+}
+
+#display-browse-categories::-webkit-scrollbar {
+	display: none;
+}
+
+.icon-category {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	font-size: 1em;
+	margin: 0 0.5em;
+}
+
+.icon-category * {
+	cursor: pointer;
+}
+
+.icon-category img {
+	width: 1.9em;
+	height: 1.9em;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.icon-category p {
+	font: 700 1em "Quicksand";
+	color: white;
+	width: max-content;
+	transition: color 0.2s linear;
+}
+
+/* Hover effect for icon's text  */
+.icon-category:active p {
+	transition: color 0.1s linear;
+}
+
+.icon-category:nth-of-type(odd):hover p {
+	color: var(--Bright-Red);
+}
+
+.icon-category:nth-of-type(odd):active p {
+	color: var(--Bright-Red-Active);
+}
+
+.icon-category:nth-of-type(even):hover p {
+	color: var(--Bright-Purple);
+}
+
+.icon-category:nth-of-type(even):active p {
+	color: var(--Bright-Purple-Active);
+}
+
+@media screen and (min-width: 48em) {
+	#display-browse-categories {
+		font-size: 1.5em;
+	}
+}
+@media screen and (min-width: 90em) {
+	#display-browse-categories {
+		font-size: 2em;
+	}
+}
+
+/* #endregion DISPLAY BROWSE CATEGORIES */
+
+/* #region -------------------DISPLAY BROWSE SEARCHBAR CONTAINER------------- */
+
+#display-browse-searchbar {
+	align-items: center;
+	display: flex;
+	height: max-content;
+	justify-content: space-between;
+	padding: 1em 0;
+	width: 100%;
+	flex-direction: column;
+}
+
+/* #endregion ================DISPLAY BROWSE SEARCHBAR CONTAINER============= */
+
+/* #region -------------------BROWSE SEARCHBAR INPUT------------------- */
+
+#browse-searchbar-input {
+	border-radius: 0.35em;
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	display: grid;
+	grid-template-columns: 0.8fr 0.2fr;
+	grid-template-rows: 1fr;
+	height: 100vw;
+	width: 80%;
+	margin-bottom: 1em;
+}
+
+#browse-searchbar-input,
+#browse-searchbar-input input,
+#browse-searchbar-input button {
+	max-height: 42px;
+}
+
+#browse-searchbar-input input,
+#browse-searchbar-input button,
+#browse-searchbar-input button::before {
+	border-radius: inherit;
+	border: none;
+	outline: none;
+}
+
+#browse-searchbar-input input {
+	border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	font: 700 1em "Quicksand";
+	padding: 0 0.5em;
+}
+
+#browse-searchbar-input button {
+	cursor: pointer;
+	background: var(--Gradient-Purple-Red);
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	position: relative;
+}
+
+/* Browse searchbar input button overlay on hover/active */
+#browse-searchbar-input button::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: var(--Pale-Black);
+	transition: opacity 0.25s linear;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+}
+
+#browse-searchbar-input button:hover::before {
+	opacity: 0.2;
+}
+
+#browse-searchbar-input button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+#browse-searchbar-input button svg {
+	width: 50%;
+	height: 50%;
+}
+
+@media screen and (min-width: 48em) {
+	#browse-searchbar-input {
+		font-size: 2em;
+	}
+	#browse-searchbar-input,
+	#browse-searchbar-input input,
+	#browse-searchbar-input button {
+		max-height: 100px;
+	}
+}
+@media screen and (min-width: 90em) {
+	#browse-searchbar-input {
+		font-size: 3em;
+	}
+	#browse-searchbar-input,
+	#browse-searchbar-input input,
+	#browse-searchbar-input button {
+		max-height: 150px;
+	}
+}
+
+/* #endregion ================BROWSE SEARCHBAR INPUT=================== */
+
+/* #region -------------------BROWSE SEARCHBAR SORT LABELS------------------- */
+
+#browse-searchbar-sorts {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	text-align: center;
+	width: 90%;
+	max-width: 385px;
+}
+
+.browse-sort-label {
+	color: var(--Medium-Gray);
+	font: 500 1.1em "Mohave";
+	display: grid;
+	grid-template-columns: 1fr 18px;
+	grid-template-rows: 1fr;
+}
+
+.browse-sort-label p {
+	margin-right: 0.25em;
+}
+
+.browse-sort-label-arrow {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+}
+
+/* Sort label and arrow hover effect */
+.browse-sort-label p,
+.browse-sort-label-arrow {
+	transition: all 0.15s linear;
+	cursor: pointer;
+}
+
+.browse-sort-label p:hover {
+	color: var(--Pale-Black);
+}
+
+.browse-sort-label-arrow:hover path {
+	fill: var(--Pale-Black);
+}
+
+.browse-sort-label-arrow svg {
+	width: 100%;
+	height: 100%;
+}
+
+@media screen and (min-width: 48em) {
+	#browse-searchbar-sorts {
+		font-size: 2em;
+		max-width: 640px;
+	}
+	.browse-sort-label {
+		grid-template-columns: 1fr 30px;
+	}
+}
+@media screen and (min-width: 90em) {
+	#browse-searchbar-sorts {
+		font-size: 3em;
+		max-width: 1000px;
+	}
+	.browse-sort-label {
+		grid-template-columns: 1fr 42px;
+	}
+}
+
+/* #endregion ================BROWSE SEARCHBAR SORT LABELS=================== */
