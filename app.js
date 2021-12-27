@@ -1,6 +1,5 @@
 const express = require("express");
 const path = require("path");
-const sendFile = require("./routes/send-files");
 
 const app = express();
 const port = 9000;
