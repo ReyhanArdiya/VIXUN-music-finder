@@ -1,6 +1,3 @@
-"use strict";
-export default { itWorks : true };
-
 // #region -------------------DISPLAY OBJECTS-----------------------------------
 
 /* XXX rewrite this, it's super baddddddd; check notion Database
