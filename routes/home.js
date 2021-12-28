@@ -1,4 +1,4 @@
-const path = require("path");
+import { dirname, join } from "path";
 
 /**
  *
@@ -6,14 +6,15 @@ const path = require("path");
  *
  * @example
  */
-module.exports = app => {
+export default app => {
 	app.get("/", (req, res) => {
 		res.render("index");
 	});
 
 	app.get("/public/:dir/:file", (req, res) => {
 		const { dir, file } = req.params;
-		const pathToPublic = path.join(__dirname, "..", "public", dir, file);
+		const pathToPublic = join(dirname, "..", "public", dir, file);
 		res.sendFile(pathToPublic);
 	});
 };
+
