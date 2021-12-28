@@ -1,5 +1,6 @@
 import express from "express";
 import { fileURLToPath } from "url";
+import fs from "fs";
 import routesHome from "./routes/home.js";
 import { dirname, join } from "path";
 
@@ -10,7 +11,24 @@ const port = 9000;
 const app = express();
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "views"));
+
 app.use(express.static(join(__dirname, "public")));
+
+// Request logger
+app.use((req, res, next) => {
+	const date = new Date();
+	const log =
+        "🌟 You got a new request! ( 🌸≧◡≦)~💌 \\(￣▽￣* )ゞ 🌟" +
+        `⌚ ${date.toLocaleString()} ⌚`;
+	console.log(log);
+	fs.appendFile(join(__dirname, "request-log.txt"), `${log}\n`, err => {
+		if (err) {
+			throw err;
+		}
+		console.log("A new request has been logged! 📝");
+	});
+	next();
+});
 
 // TODO learn and use Route objects
 // Set the routes for homepage
