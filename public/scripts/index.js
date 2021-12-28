@@ -1,4 +1,5 @@
 "use strict";
+export default { itWorks : true };
 
 // #region -------------------DISPLAY OBJECTS-----------------------------------
 
@@ -358,8 +359,40 @@ const displayBrowse = {
 	search : {
 		input      : document.querySelector("#display-browse-searchbar"),
 		sortLabels : {
-			container : document.querySelector("#browse-searchbar-sorts"),
-			labels    : document.querySelectorAll(".browse-sort-label")
+			container   : document.querySelector("#browse-searchbar-sorts"),
+			labels      : document.querySelectorAll(".browse-sort-label"),
+			activeLabel : null,
+
+
+			/**
+			 * @param {HTMLDivElement} sortLabel
+			 *
+			 * @param deactivate
+			 *
+			 * @example
+			 */
+			toggleStatus(sortLabel, deactivate) {
+				const { classList: labelStatus } = sortLabel;
+
+				if (deactivate) {
+					labelStatus.remove(
+						"browse-sort-label-asc",
+						"browse-sort-label-desc"
+					);
+
+					return null;
+				} else if (
+					!labelStatus.contains("browse-sort-label-asc") &&
+					!labelStatus.contains("browse-sort-label-desc")
+				) {
+					labelStatus.toggle("browse-sort-label-asc");
+				} else {
+					labelStatus.toggle("browse-sort-label-asc");
+					labelStatus.toggle("browse-sort-label-desc");
+				}
+
+				return sortLabel;
+			}
 		}
 	},
 
@@ -426,5 +459,15 @@ displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
 displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
 displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
 displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
+
+displayBrowse.search.sortLabels.container.addEventListener("click", e => {
+	const label = e.target.parentElement;
+	const { search: { sortLabels } } = displayBrowse;
+	const { toggleStatus } = sortLabels;
+
+	sortLabels.activeLabel = toggleStatus(label);
+
+	// TODO making delegation to change active sort status
+});
 
 // #endregion ================DISPLAY BROWSE LOGIC==============================

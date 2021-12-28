@@ -257,6 +257,23 @@
 	height: 100%;
 }
 
+/* Sort label status */
+.browse-sort-label-asc p {
+	color: var(--Bright-Red);
+}
+
+.browse-sort-label-asc path {
+	fill: var(--Bright-Red);
+}
+
+.browse-sort-label-desc p {
+	color: var(--Bright-Purple);
+}
+
+.browse-sort-label-desc path {
+	fill: var(--Bright-Purple);
+}
+
 @media screen and (min-width: 48em) {
 	#browse-searchbar-sorts {
 		font-size: 2em;
