@@ -12,7 +12,7 @@ app.set("views", join(__dirname, "/views"));
 
 const port = 9000;
 
-// Set the routes for homepage
+// TODO learn and use Route objects
 // Set the routes for homepage
 routesHome(app);
 
