@@ -1,6 +1,6 @@
 /* XXX rewrite this, it's super baddddddd; check notion Database
 transitiong group */
-const displayTopHits = {
+export const displayTopHits = {
 	grid                  : document.querySelector("#display-top-hits-grid"),
 	gridCircleDecorations : document.querySelectorAll("#display-top-hits svg"),
 
@@ -137,7 +137,7 @@ const displayTopHits = {
 	}
 };
 
-const displayAds = {
+export const displayAds = {
 	contentContainer : document.querySelector("#display-ads-content"),
 
 	/**
@@ -303,7 +303,7 @@ const displayAds = {
 	}
 };
 
-const displayBrowse = {
+export const displayBrowse = {
 	categories : {
 		container    : document.querySelector("#display-browse-categories"),
 		iconTemplate : document.querySelector("#icon-category-template"),
@@ -394,4 +394,8 @@ const displayBrowse = {
 	songs : document.querySelector("#display-browse-songs")
 };
 
-
+export default {
+	displayTopHits,
+	displayAds,
+	displayBrowse
+};
