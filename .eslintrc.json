@@ -216,7 +216,10 @@
 		"semi": "error",
 		"semi-spacing": "error",
 		"semi-style": "error",
-		"sort-imports": "warn",
+		"sort-imports": [
+			"warn",
+			{ "memberSyntaxSortOrder": ["none", "single", "multiple", "all"] }
+		],
 		"space-before-blocks": "error",
 		"space-before-function-paren": ["warn", "never"],
 		"space-in-parens": ["warn", "never"],
@@ -228,10 +231,5 @@
 		"template-tag-spacing": "error",
 		"vars-on-top": "error",
 		"wrap-iife": ["warn", "inside"]
-	},
-	"globals": {
-		"songDatabase1": "readonly",
-		"animationEffects": "readonly",
-		"navbarMain": "readonly"
 	}
 }

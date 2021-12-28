@@ -1,10 +1,6 @@
-"use strict";
-
-// #region -------------------DISPLAY OBJECTS-----------------------------------
-
 /* XXX rewrite this, it's super baddddddd; check notion Database
 transitiong group */
-const displayTopHits = {
+export const displayTopHits = {
 	grid                  : document.querySelector("#display-top-hits-grid"),
 	gridCircleDecorations : document.querySelectorAll("#display-top-hits svg"),
 
@@ -141,7 +137,7 @@ const displayTopHits = {
 	}
 };
 
-const displayAds = {
+export const displayAds = {
 	contentContainer : document.querySelector("#display-ads-content"),
 
 	/**
@@ -307,7 +303,7 @@ const displayAds = {
 	}
 };
 
-const displayBrowse = {
+export const displayBrowse = {
 	categories : {
 		container    : document.querySelector("#display-browse-categories"),
 		iconTemplate : document.querySelector("#icon-category-template"),
@@ -358,73 +354,48 @@ const displayBrowse = {
 	search : {
 		input      : document.querySelector("#display-browse-searchbar"),
 		sortLabels : {
-			container : document.querySelector("#browse-searchbar-sorts"),
-			labels    : document.querySelectorAll(".browse-sort-label")
+			container   : document.querySelector("#browse-searchbar-sorts"),
+			labels      : document.querySelectorAll(".browse-sort-label"),
+			activeLabel : null,
+
+
+			/**
+			 * @param {HTMLDivElement} sortLabel
+			 *
+			 * @param deactivate
+			 *
+			 * @example
+			 */
+			toggleStatus(sortLabel, deactivate) {
+				const { classList: labelStatus } = sortLabel;
+
+				if (deactivate) {
+					labelStatus.remove(
+						"browse-sort-label-asc",
+						"browse-sort-label-desc"
+					);
+
+					return null;
+				} else if (
+					!labelStatus.contains("browse-sort-label-asc") &&
+					!labelStatus.contains("browse-sort-label-desc")
+				) {
+					labelStatus.toggle("browse-sort-label-asc");
+				} else {
+					labelStatus.toggle("browse-sort-label-asc");
+					labelStatus.toggle("browse-sort-label-desc");
+				}
+
+				return sortLabel;
+			}
 		}
 	},
 
 	songs : document.querySelector("#display-browse-songs")
 };
 
-// #endregion ================DISPLAY OBJECTS===================================
-
-
-// #region -------------------DISPLAY TOP HITS LOGIC----------------------------
-
-// Add song cards from database to top hits grid
-displayTopHits.addDatabaseSongs(songDatabase1);
-
-// Add parallax to display top hits' circle decorations.
-animationEffects.addParallax(
-	displayTopHits.grid,
-	displayTopHits.gridCircleDecorations,
-	0.05,
-	"breakpointMedium"
-);
-
-// #endregion ================DISPLAY TOP HITS LOGIC============================
-
-
-// #region -------------------DISPLAY ADS LOGIC---------------------------------
-
-// DBG cute kitty placeholders :3
-displayAds.appendNewAd("https://placekitten.com/200/300");
-displayAds.appendNewAd("https://placekitten.com/300/200");
-displayAds.appendNewAd("https://placekitten.com/300/300");
-displayAds.appendNewAd("https://placekitten.com/400/300");
-displayAds.appendNewAd("https://placekitten.com/300/400");
-displayAds.appendNewAd("https://placekitten.com/500/500");
-
-displayAds.trackCurrentDisplayedAd();
-
-displayAds.autoScroll(5000);
-
-
-// #endregion ================DISPLAY ADS LOGIC=================================
-
-
-// #region -------------------DISPLAY BROWSE LOGIC------------------------------
-
-// DBG Add placeholder icons
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-
-// #endregion ================DISPLAY BROWSE LOGIC==============================
+export default {
+	displayTopHits,
+	displayAds,
+	displayBrowse
+};
