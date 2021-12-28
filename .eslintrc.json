@@ -216,7 +216,10 @@
 		"semi": "error",
 		"semi-spacing": "error",
 		"semi-style": "error",
-		"sort-imports": "warn",
+		"sort-imports": [
+			"warn",
+			{ "memberSyntaxSortOrder": ["none", "single", "multiple", "all"] }
+		],
 		"space-before-blocks": "error",
 		"space-before-function-paren": ["warn", "never"],
 		"space-in-parens": ["warn", "never"],

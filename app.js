@@ -1,5 +1,10 @@
 import express from "express";
-import { join } from "path";
+import { fileURLToPath } from "url";
+import routesHome from "./routes/home.js";
+import { dirname, join } from "path";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 app.set("view engine", "ejs");
@@ -9,7 +14,6 @@ const port = 9000;
 
 // Set the routes for homepage
 // Set the routes for homepage
-require("./routes/home")
-	.default(app);
+routesHome(app);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
