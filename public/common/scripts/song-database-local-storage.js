@@ -1,9 +1,7 @@
-
-
 /**
  * Creates a new Song object that contains information about a song.
  */
-class Song {
+export class Song {
 
 	/**
 	 * Constructs the {@link Song} object.
@@ -323,7 +321,7 @@ class Song {
  *  newSongDatabase(1)
  * ```
  */
-function newSongDatabase(keyNumber, autoUploadChanges = true) {
+export function newSongDatabase(keyNumber, autoUploadChanges = true) {
 
 	/**
 	 * Object that matches {@link Song} properties
@@ -739,8 +737,7 @@ function newSongDatabase(keyNumber, autoUploadChanges = true) {
 	return new SongDatabase();
 }
 
-// eslint-disable-next-line no-unused-vars
-const songDatabase1 = newSongDatabase(1);
+export const songDatabase1 = newSongDatabase(1);
 
 // DBG
 // SongDatabase1.addSong(
@@ -824,4 +821,5 @@ const songDatabase1 = newSongDatabase(1);
 // 	"url"
 // );
 
+export default songDatabase1;
 

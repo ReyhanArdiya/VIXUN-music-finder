@@ -2,10 +2,9 @@
  * Use to store mediaQueryList objects for this website's
  * media queries that needs behavior based on breakpoints.
  */
-const mediaQuery = { medium : window.matchMedia("(min-width: 48em") };
+export const mediaQuery = { medium : window.matchMedia("(min-width: 48em") };
 
-const movementDetector = {
-
+export const movementDetector = {
 
 	/**
 	 * Calls `callback` when the user swipes on `target` and sends the swipe
@@ -129,8 +128,7 @@ const movementDetector = {
 	}
 };
 
-// eslint-disable-next-line no-unused-vars
-const animationEffects = {
+export const animationEffects = {
 
 	/**
 	 * Adds parallax effect to an element based on a scrollable element.
@@ -233,4 +231,8 @@ const animationEffects = {
 	}
 };
 
-
+export default {
+	mediaQuery,
+	movementDetector,
+	animationEffects
+};
