@@ -30,8 +30,9 @@ app.use((req, res, next) => {
 	next();
 });
 
-// TODO learn and use Route objects
 // Set the routes for homepage
 routesHome(app);
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
+
+// TODO make basic express project template once all is set
