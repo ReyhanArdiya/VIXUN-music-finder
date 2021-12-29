@@ -116,7 +116,12 @@
 		"max-statements-per-line": "warn",
 		"multiline-comment-style": "off",
 		"multiline-ternary": ["warn", "always-multiline"],
-		"new-cap": "warn",
+		"new-cap": [
+			"warn",
+			{
+				"capIsNew": false
+			}
+		],
 		"new-parens": ["warn", "always"],
 		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 1 }],
 		"no-duplicate-imports": "warn",
