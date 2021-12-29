@@ -28,23 +28,22 @@ export const toggleStatus = (element, {
 	statusOff,
 	deactivate = false
 }) => {
-	const { classList: { remove, contains, toggle } } = element;
-
+	const { classList } = element;
 	if (deactivate) {
-		remove(
+		classList.remove(
 			statusOn,
 			statusOff
 		);
 
 		return null;
 	} else if (
-		!contains(statusOn) &&
-        !contains(statusOff)
+		!classList.contains(statusOn) &&
+        !classList.contains(statusOff)
 	) {
-		toggle(statusOn);
+		classList.toggle(statusOn);
 	} else {
-		toggle(statusOn);
-		toggle(statusOff);
+		classList.toggle(statusOn);
+		classList.toggle(statusOff);
 	}
 
 	return element;
