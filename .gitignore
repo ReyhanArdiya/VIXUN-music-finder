@@ -1,3 +1,4 @@
 .vscode/
 *.drawio
 node_modules/
+request-log.txt
