@@ -1,22 +1,8 @@
-// CMT put get and set and etc in here too
-/**
- * Call this function to set all `app` routes for the homepage.
- *
- * @param {import("express").Express} app The express `app`.
- *
- * @example
- * ```
- * import routesHome from "./routes/home.js";
- * // Set the routes for homepage
- * routesHome(app);
- * ```
- */
-export default app => {
+import express from "express";
+const routerHome = express.Router();
 
-	// Route to the home page
-	app.get("/", (req, res) => {
-		res.render("home");
-	});
+routerHome.get("/", (req, res) => {
+	res.render("home");
+});
 
-};
-
+export default routerHome;
