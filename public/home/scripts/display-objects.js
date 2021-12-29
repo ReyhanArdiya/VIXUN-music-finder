@@ -356,50 +356,7 @@ export const displayBrowse = {
 		sortLabels : {
 			container   : document.querySelector("#browse-searchbar-sorts"),
 			labels      : document.querySelectorAll(".browse-sort-label"),
-			activeLabel : null,
-
-			/**
-			 * Changes a label's class status which changes its color.
-			 *
-			 * @param {HTMLDivElement} sortLabel
-			 * The label to be changed.
-			 *
-			 * @param {boolean} deactivate
-			 * Use this to deactivate the label as in removing the status class
-			 * and making it gray again.
-			 *
-			 * @returns {null | sortLabel}
-			 * Returns `sortLabel` or `null` if deactivated.
-			 *
-			 * @example
-			 * ```
-			 * // Deactivate the active label
-			 * const active = displayBrowse.search.sortLabels.activeLabel;
-			 * displayBrowse.search.sortLabels.toggleStatus(active, false);
-			 * ```
-			 */
-			toggleStatus(sortLabel, deactivate) {
-				const { classList: labelStatus } = sortLabel;
-
-				if (deactivate) {
-					labelStatus.remove(
-						"browse-sort-label-asc",
-						"browse-sort-label-desc"
-					);
-
-					return null;
-				} else if (
-					!labelStatus.contains("browse-sort-label-asc") &&
-					!labelStatus.contains("browse-sort-label-desc")
-				) {
-					labelStatus.toggle("browse-sort-label-asc");
-				} else {
-					labelStatus.toggle("browse-sort-label-asc");
-					labelStatus.toggle("browse-sort-label-desc");
-				}
-
-				return sortLabel;
-			}
+			activeLabel : null
 		}
 	},
 

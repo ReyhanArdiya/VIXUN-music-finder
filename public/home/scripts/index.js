@@ -1,4 +1,6 @@
 import core from "../../common/scripts/index.js";
+import toggleStatus from "./toggle-status.js";
+
 const { animation: { animationEffects }, localSongDatabase } = core;
 
 import {
@@ -65,11 +67,9 @@ displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 	const label = e.target.parentElement;
 	const { search: { sortLabels } } = displayBrowse;
-	const { toggleStatus } = sortLabels;
-
 	sortLabels.activeLabel = toggleStatus(label);
+	console.log(sortLabels.activeLabel);
 
-	// TODO make delegation to change active sort status
 });
 
 // #endregion ================DISLPAY BROWSE LOGIC==============================
