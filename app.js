@@ -1,7 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import fs from "fs";
-import routesHome from "./routes/home.js";
+import routerHome from "./routes/home.js";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -30,8 +30,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-// Set the routes for homepage
-routesHome(app);
+app.use(routerHome);
+
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
