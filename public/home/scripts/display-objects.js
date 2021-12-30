@@ -304,52 +304,7 @@ export const displayAds = {
 };
 
 export const displayBrowse = {
-	categories : {
-		container    : document.querySelector("#display-browse-categories"),
-		iconTemplate : document.querySelector("#icon-category-template"),
-
-		/**
-		 * Add a category icon and its text to
-		 * {@link displayBrowse.categories.container}.
-		 *
-		 * @param {string} label
-		 * The text for the icon where the casing will be automatically turned
-		 * to something like these:
-		 * - "FOO" => "Foo"
-		 * - "bAR" => "Bar".
-		 *
-		 * Defaults to "Type".
-		 *
-		 * @param {string} imgURL
-		 * URL to the icon's image, defaults to a cute cate image :D.
-		 *
-		 * @example
-		 * ```
-		 * // Adds an icon for "pop" category
-		 * displayBrowse.categories.addIcon("Pop", "link/to/mic.png")
-		 * ```
-		 */
-		addIcon(label = "Type", imgURL = "https://placekitten.com/100/100") {
-
-			/**
-			 * @type {HTMLDivElement}
-			 */
-			const icon = this.iconTemplate.content.firstElementChild.cloneNode(
-				true
-			);
-
-			// Change the label's casing
-			if (label.length) {
-				label = `${label[0].toUpperCase()}${label.slice(1)
-					.toLowerCase()}`;
-			}
-
-			icon.lastElementChild.innerText = label;
-			icon.firstElementChild.src = imgURL;
-
-			this.container.append(icon);
-		}
-	},
+	categories : { container : document.querySelector("#display-browse-categories") },
 
 	search : {
 		input      : document.querySelector("#display-browse-searchbar"),

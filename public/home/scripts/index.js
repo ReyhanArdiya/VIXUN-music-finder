@@ -42,28 +42,6 @@ displayAds.autoScroll(5000);
 
 // #region -------------------DISLPAY BROWSE LOGIC------------------------------
 
-// DBG Add placeholder icons
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-
 
 // Toggler for sort label status colors
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {

@@ -247,15 +247,16 @@
 				<h2>BROWSE</h2>
 			</header>
 			<section id="display-browse-categories">
-				<template id="icon-category-template">
-					<div class="icon-category">
-						<img
-							src="https://placekitten.com/100/100"
-							alt="icon-category-picture"
-						/>
-						<p>Type</p>
-					</div>
-				</template>
+				<% for (let icon of categoryIcons) { %>
+				<div class="icon-category">
+					<img
+						src="<%= icon.imgURL %>"
+						alt="<%= `${icon.label} Category` %> "
+						title="<%= `${icon.label} Category` %> "
+					/>
+					<p><%= icon.label %></p>
+				</div>
+				<% } %>
 			</section>
 			<section id="display-browse-searchbar">
 				<form id="browse-searchbar-input">
