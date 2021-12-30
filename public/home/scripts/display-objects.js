@@ -304,7 +304,11 @@ export const displayAds = {
 };
 
 export const displayBrowse = {
-	categories : { container : document.querySelector("#display-browse-categories") },
+	categories : {
+		container  : document.querySelector("#display-browse-categories"),
+		icons      : document.querySelectorAll(".icon-category"),
+		activeIcon : null
+	},
 
 	search : {
 		input      : document.querySelector("#display-browse-searchbar"),
@@ -317,6 +321,8 @@ export const displayBrowse = {
 
 	songs : document.querySelector("#display-browse-songs")
 };
+
+window.displayBrowse = displayBrowse.categories.icons;
 
 export default {
 	displayTopHits,

@@ -42,6 +42,31 @@ displayAds.autoScroll(5000);
 
 // #region -------------------DISLPAY BROWSE LOGIC------------------------------
 
+/* CMT the toggler for icons and labels seem to have a very similar structure,
+could refactor it probably */
+// Toggler for category icons status colors
+displayBrowse.categories.container.addEventListener("click", e => {
+	if (!e.target.classList.contains("icon-category")) {
+		const icon = e.target.parentElement;
+		const { categories } = displayBrowse;
+		const iconToggler = makeStatusToggler(icon, {
+			statusOn  : "icon-category-on",
+			statusOff : "icon-category-off",
+		});
+
+		categories.activeLabel = iconToggler();
+
+		for (const icon of categories.icons) {
+			if (icon !== categories.activeLabel) {
+				makeStatusToggler(icon, {
+					statusOn  : "icon-category-on",
+					statusOff : "icon-category-off",
+				})(true);
+			}
+		}
+	}
+});
+
 
 // Toggler for sort label status colors
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
@@ -67,10 +92,9 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 		});
 
 		sortLabels.activeLabel = labelToggler();
-		console.log(sortLabels.activeLabel);
+
 		for (const label of sortLabels.labels) {
 			if (label !== sortLabels.activeLabel) {
-				console.log("In loop");
 				makeStatusToggler(label, {
 					statusOn  : "browse-sort-label-asc",
 					statusOff : "browse-sort-label-desc",
