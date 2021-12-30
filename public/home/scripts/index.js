@@ -1,5 +1,5 @@
 import core from "../../common/scripts/index.js";
-import toggleStatus from "./toggle-status.js";
+import makeStatusToggler from "./toggle-status.js";
 
 const { animation: { animationEffects }, localSongDatabase } = core;
 
@@ -65,11 +65,41 @@ displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
 displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
 
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
-	const label = e.target.parentElement;
-	const { search: { sortLabels } } = displayBrowse;
-	sortLabels.activeLabel = toggleStatus(label);
-	console.log(sortLabels.activeLabel);
+	let label;
 
+	// XXX this works but it looks so weird tho, fiind another way if you can
+	/* This if else is to target the e.target's parent that is
+	   #browse-sort-label. The if is when the user clicks on the paragraph while
+	   the else is when the user clicks on the arrow svg. If the else wasn't
+	   used, clicking the arrow svg would change #browse-sort-label-arrow div
+	   which only causes the arrow color to change and not the entire label */
+	if (e.target.parentElement.classList.contains("browse-sort-label")) {
+		label = e.target.parentElement;
+	} else {
+		label = e.target.parentElement.parentElement;
+	}
+
+	if (label.classList.contains("browse-sort-label")) {
+		const { search: { sortLabels } } = displayBrowse;
+		const labelToggler = makeStatusToggler(label, {
+			statusOn  : "browse-sort-label-asc",
+			statusOff : "browse-sort-label-desc",
+		});
+
+		sortLabels.activeLabel = labelToggler();
+		console.log(sortLabels.activeLabel);
+		for (const label of sortLabels.labels) {
+			if (label !== sortLabels.activeLabel) {
+				console.log("In loop");
+				makeStatusToggler(label, {
+					statusOn  : "browse-sort-label-asc",
+					statusOff : "browse-sort-label-desc",
+				})(true);
+			}
+		}
+
+	}
 });
+
 
 // #endregion ================DISLPAY BROWSE LOGIC==============================
