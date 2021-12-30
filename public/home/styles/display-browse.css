@@ -225,6 +225,7 @@
 	display: grid;
 	grid-template-columns: 1fr 18px;
 	grid-template-rows: 1fr;
+	user-select: none;
 }
 
 .browse-sort-label p {

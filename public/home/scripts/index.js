@@ -64,6 +64,8 @@ displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
 displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
 displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
 
+
+// Toggler for sort label status colors
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 	let label;
 
