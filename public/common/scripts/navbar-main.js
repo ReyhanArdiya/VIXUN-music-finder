@@ -87,6 +87,13 @@ const navbarMain = {
 // Toggle navbar main shadow on sticky
 navbarMain.shadowScroll.observe(navbarMain.menu);
 
+// Toggle navbar main shadow when not on original position on load
+window.addEventListener("load", () => {
+	if (window.scrollY) {
+		navbarMain.menu.classList.toggle("navbar-main-shadow");
+	}
+});
+
 // Add listener for navbar dropdown menu reveal/hide
 navbarMain.content.icons.hamburger.addEventListener(
 	"click",
@@ -126,7 +133,7 @@ window.addEventListener("load", () => {
  *
  * @example
  * ```
- * // Expect navbar-main to exitst
+ * // Expect navbar-main to exist
  * import checkNavbar from "./navbar-main.js";
  * const navbarMain = checkNavbar(); // Returns the navbarMain object
  * ```

@@ -67,7 +67,6 @@ displayBrowse.categories.container.addEventListener("click", e => {
 	}
 });
 
-
 // Toggler for sort label status colors
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 	let label;

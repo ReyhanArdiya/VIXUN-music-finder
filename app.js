@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(routerHome);
+app.use("/", routerHome);
 
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
