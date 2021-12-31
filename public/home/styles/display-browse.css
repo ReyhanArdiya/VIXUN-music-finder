@@ -71,20 +71,28 @@
 	transition: color 0.1s linear;
 }
 
-.icon-category:nth-of-type(odd):hover p {
+.icon-category:hover p {
 	color: var(--Bright-Red);
 }
 
-.icon-category:nth-of-type(odd):active p {
+.icon-category:active p {
 	color: var(--Bright-Red-Active);
 }
 
-.icon-category:nth-of-type(even):hover p {
+.icon-category.icon-category-off:hover p {
 	color: var(--Bright-Purple);
 }
 
-.icon-category:nth-of-type(even):active p {
+.icon-category.icon-category-off:active p {
 	color: var(--Bright-Purple-Active);
+}
+
+/* Color status class for currently active icon */
+.icon-category-on p {
+	color: var(--Bright-Red);
+}
+.icon-category-off p {
+	color: var(--Bright-Purple);
 }
 
 @media screen and (min-width: 48em) {
@@ -225,6 +233,7 @@
 	display: grid;
 	grid-template-columns: 1fr 18px;
 	grid-template-rows: 1fr;
+	user-select: none;
 }
 
 .browse-sort-label p {
@@ -272,6 +281,22 @@
 
 .browse-sort-label-desc path {
 	fill: var(--Bright-Purple);
+}
+
+.browse-sort-label.browse-sort-label-asc p:hover {
+	color: var(--Bright-Red-Active);
+}
+
+.browse-sort-label-asc .browse-sort-label-arrow:hover path {
+	fill: var(--Bright-Red-Active);
+}
+
+.browse-sort-label.browse-sort-label-desc p:hover {
+	color: var(--Bright-Purple-Active);
+}
+
+.browse-sort-label-desc .browse-sort-label-arrow:hover path {
+	fill: var(--Bright-Purple-Active);
 }
 
 @media screen and (min-width: 48em) {

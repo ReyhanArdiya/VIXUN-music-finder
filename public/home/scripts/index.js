@@ -1,4 +1,6 @@
 import core from "../../common/scripts/index.js";
+import makeStatusToggler from "./toggle-status.js";
+
 const { animation: { animationEffects }, localSongDatabase } = core;
 
 import {
@@ -40,36 +42,67 @@ displayAds.autoScroll(5000);
 
 // #region -------------------DISLPAY BROWSE LOGIC------------------------------
 
-// DBG Add placeholder icons
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
+/* CMT the toggler for icons and labels seem to have a very similar structure,
+could refactor it probably */
+// Toggler for category icons status colors
+displayBrowse.categories.container.addEventListener("click", e => {
+	if (!e.target.classList.contains("icon-category")) {
+		const icon = e.target.parentElement;
+		const { categories } = displayBrowse;
+		const iconToggler = makeStatusToggler(icon, {
+			statusOn  : "icon-category-on",
+			statusOff : "icon-category-off",
+		});
 
-displayBrowse.search.sortLabels.container.addEventListener("click", e => {
-	const label = e.target.parentElement;
-	const { search: { sortLabels } } = displayBrowse;
-	const { toggleStatus } = sortLabels;
+		categories.activeLabel = iconToggler();
 
-	sortLabels.activeLabel = toggleStatus(label);
-
-	// TODO make delegation to change active sort status
+		for (const icon of categories.icons) {
+			if (icon !== categories.activeLabel) {
+				makeStatusToggler(icon, {
+					statusOn  : "icon-category-on",
+					statusOff : "icon-category-off",
+				})(true);
+			}
+		}
+	}
 });
+
+// Toggler for sort label status colors
+displayBrowse.search.sortLabels.container.addEventListener("click", e => {
+	let label;
+
+	// XXX this works but it looks so weird tho, fiind another way if you can
+	/* This if else is to target the e.target's parent that is
+	   #browse-sort-label. The if is when the user clicks on the paragraph while
+	   the else is when the user clicks on the arrow svg. If the else wasn't
+	   used, clicking the arrow svg would change #browse-sort-label-arrow div
+	   which only causes the arrow color to change and not the entire label */
+	if (e.target.parentElement.classList.contains("browse-sort-label")) {
+		label = e.target.parentElement;
+	} else {
+		label = e.target.parentElement.parentElement;
+	}
+
+	if (label.classList.contains("browse-sort-label")) {
+		const { search: { sortLabels } } = displayBrowse;
+		const labelToggler = makeStatusToggler(label, {
+			statusOn  : "browse-sort-label-asc",
+			statusOff : "browse-sort-label-desc",
+		});
+
+		sortLabels.activeLabel = labelToggler();
+
+		for (const label of sortLabels.labels) {
+			if (label !== sortLabels.activeLabel) {
+				makeStatusToggler(label, {
+					statusOn  : "browse-sort-label-asc",
+					statusOff : "browse-sort-label-desc",
+				})(true);
+			}
+		}
+
+	}
+});
+
 
 // #endregion ================DISLPAY BROWSE LOGIC==============================

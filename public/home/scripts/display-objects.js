@@ -305,50 +305,9 @@ export const displayAds = {
 
 export const displayBrowse = {
 	categories : {
-		container    : document.querySelector("#display-browse-categories"),
-		iconTemplate : document.querySelector("#icon-category-template"),
-
-		/**
-		 * Add a category icon and its text to
-		 * {@link displayBrowse.categories.container}.
-		 *
-		 * @param {string} label
-		 * The text for the icon where the casing will be automatically turned
-		 * to something like these:
-		 * - "FOO" => "Foo"
-		 * - "bAR" => "Bar".
-		 *
-		 * Defaults to "Type".
-		 *
-		 * @param {string} imgURL
-		 * URL to the icon's image, defaults to a cute cate image :D.
-		 *
-		 * @example
-		 * ```
-		 * // Adds an icon for "pop" category
-		 * displayBrowse.categories.addIcon("Pop", "link/to/mic.png")
-		 * ```
-		 */
-		addIcon(label = "Type", imgURL = "https://placekitten.com/100/100") {
-
-			/**
-			 * @type {HTMLDivElement}
-			 */
-			const icon = this.iconTemplate.content.firstElementChild.cloneNode(
-				true
-			);
-
-			// Change the label's casing
-			if (label.length) {
-				label = `${label[0].toUpperCase()}${label.slice(1)
-					.toLowerCase()}`;
-			}
-
-			icon.lastElementChild.innerText = label;
-			icon.firstElementChild.src = imgURL;
-
-			this.container.append(icon);
-		}
+		container  : document.querySelector("#display-browse-categories"),
+		icons      : document.querySelectorAll(".icon-category"),
+		activeIcon : null
 	},
 
 	search : {
@@ -356,43 +315,14 @@ export const displayBrowse = {
 		sortLabels : {
 			container   : document.querySelector("#browse-searchbar-sorts"),
 			labels      : document.querySelectorAll(".browse-sort-label"),
-			activeLabel : null,
-
-
-			/**
-			 * @param {HTMLDivElement} sortLabel
-			 *
-			 * @param deactivate
-			 *
-			 * @example
-			 */
-			toggleStatus(sortLabel, deactivate) {
-				const { classList: labelStatus } = sortLabel;
-
-				if (deactivate) {
-					labelStatus.remove(
-						"browse-sort-label-asc",
-						"browse-sort-label-desc"
-					);
-
-					return null;
-				} else if (
-					!labelStatus.contains("browse-sort-label-asc") &&
-					!labelStatus.contains("browse-sort-label-desc")
-				) {
-					labelStatus.toggle("browse-sort-label-asc");
-				} else {
-					labelStatus.toggle("browse-sort-label-asc");
-					labelStatus.toggle("browse-sort-label-desc");
-				}
-
-				return sortLabel;
-			}
+			activeLabel : null
 		}
 	},
 
 	songs : document.querySelector("#display-browse-songs")
 };
+
+window.displayBrowse = displayBrowse.categories.icons;
 
 export default {
 	displayTopHits,

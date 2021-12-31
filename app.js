@@ -30,9 +30,10 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(routerHome);
+app.use("/", routerHome);
 
 
-app.listen(port, () => console.log(`Listening on port ${port}`));
+app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
 // TODO make basic express project template once all is set
+
