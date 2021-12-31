@@ -283,6 +283,22 @@
 	fill: var(--Bright-Purple);
 }
 
+.browse-sort-label.browse-sort-label-asc p:hover {
+	color: var(--Bright-Red-Active);
+}
+
+.browse-sort-label-asc .browse-sort-label-arrow:hover path {
+	fill: var(--Bright-Red-Active);
+}
+
+.browse-sort-label.browse-sort-label-desc p:hover {
+	color: var(--Bright-Purple-Active);
+}
+
+.browse-sort-label-desc .browse-sort-label-arrow:hover path {
+	fill: var(--Bright-Purple-Active);
+}
+
 @media screen and (min-width: 48em) {
 	#browse-searchbar-sorts {
 		font-size: 2em;
