@@ -1,0 +1,47 @@
+#display-browse-songs {
+	display: grid;
+	height: max-content;
+	grid-auto-rows: max-content;
+	justify-content: center;
+	width: 100%;
+	grid-template-columns: 80%;
+	font: 700 1em "Mohave";
+}
+
+.song-card {
+	display: grid;
+	grid-auto-columns: 1fr;
+	grid-auto-rows: 1fr;
+	grid-template-areas:
+		"title title"
+		"info  price";
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	height: 100vw;
+	max-height: 80px;
+	padding: 0 0.5em 0 1.3em;
+	border-radius: 0.35em;
+	/* TODO make new var for relative border rad using 0.35em */
+}
+
+.song-card-artist {
+	grid-area: title;
+	text-align: center;
+}
+
+.song-card-info {
+	grid-area: info;
+	font: 100 1em "Quicksand";
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+}
+
+.song-card-price {
+	grid-area: price;
+	text-align: right;
+}
+
+.song-card-artist,
+.song-card-price {
+	font-size: 1.9em;
+}
