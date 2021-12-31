@@ -4,7 +4,7 @@
 	grid-auto-rows: max-content;
 	justify-content: center;
 	width: 100%;
-	grid-template-columns: 80%;
+	grid-template-columns: 95%;
 	font: 700 1em "Mohave";
 }
 
@@ -17,10 +17,25 @@
 		"info  price";
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
 	height: 100vw;
-	max-height: 80px;
+	max-height: 78px;
 	padding: 0 0.5em 0 1.3em;
+	position: relative;
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
+}
+
+.song-card::before {
+	background-size: cover;
+	background: url("../../common/images/lg1.jpg");
+	border-radius: 5px;
+	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	content: "";
+	height: 4.65em;
+	width: 4.65em;
+	position: absolute;
+	left: 1em;
+	top: -2.7em;
+	/* PROG adjusting song image and title pos */
 }
 
 .song-card-artist {
