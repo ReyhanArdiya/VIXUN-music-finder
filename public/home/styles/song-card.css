@@ -16,10 +16,9 @@
 		"title title"
 		"info  price";
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	height: 100vw;
-	max-height: 78px;
 	padding: 0 0.5em 0 1.3em;
 	position: relative;
+	height: 4.875em;
 	margin-top: 4em;
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
