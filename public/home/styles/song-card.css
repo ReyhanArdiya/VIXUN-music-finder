@@ -20,22 +20,22 @@
 	max-height: 78px;
 	padding: 0 0.5em 0 1.3em;
 	position: relative;
+	margin-top: 4em;
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
 }
 
 .song-card::before {
-	background-size: cover;
-	background: url("../../common/images/lg1.jpg");
+	content: "";
+	background: url("../../common/images/Bloom.png");
+	background-size: contain;
 	border-radius: 5px;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	content: "";
 	height: 4.65em;
 	width: 4.65em;
 	position: absolute;
 	left: 1em;
 	top: -2.7em;
-	/* PROG adjusting song image and title pos */
 }
 
 .song-card-artist {
