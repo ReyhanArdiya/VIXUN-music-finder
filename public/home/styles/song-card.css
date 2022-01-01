@@ -1,11 +1,18 @@
 #display-browse-songs {
+	overflow-y: auto;
 	display: grid;
-	height: max-content;
+	/* 9em mainly comes from a .song-card height + margin-top + adjustment
+	for bottom shadow  */
+	height: calc(9em * 3);
 	grid-auto-rows: max-content;
 	justify-content: center;
 	width: 100%;
 	grid-template-columns: 95%;
 	font: 700 1em "Mohave";
+}
+
+#display-browse-songs::-webkit-scrollbar {
+	display: none;
 }
 
 .song-card {
