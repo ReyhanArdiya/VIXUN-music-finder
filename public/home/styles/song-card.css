@@ -9,6 +9,8 @@
 	width: 100%;
 	grid-template-columns: 95%;
 	font: 700 1em "Mohave";
+	margin: 0 auto;
+	max-width: 500px;
 }
 
 #display-browse-songs::-webkit-scrollbar {
@@ -29,6 +31,7 @@
 	margin-top: 4em;
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
+	font-size: 1em;
 }
 
 .song-card::before {
@@ -65,4 +68,20 @@
 .song-card-artist,
 .song-card-price {
 	font-size: 1.9em;
+}
+
+@media screen and (min-width: 48em) {
+	#display-browse-songs {
+		max-width: none;
+		width: 70%;
+	}
+	.song-card {
+		font-size: 1.65em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	.song-card {
+		font-size: 2em;
+	}
 }
