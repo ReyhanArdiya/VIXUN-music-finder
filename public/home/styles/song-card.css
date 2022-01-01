@@ -3,7 +3,8 @@
 	display: grid;
 	/* 9em mainly comes from a .song-card height + margin-top + adjustment
 	for bottom shadow  */
-	height: calc(9em * 3);
+	height: calc(9.3em * 3);
+	font-size: 1em;
 	grid-auto-rows: max-content;
 	justify-content: center;
 	width: 100%;
@@ -25,9 +26,9 @@
 		"title title"
 		"info  price";
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	padding: 0 0.5em 0 1.3em;
+	padding: 0em 0.5em 0em 1.3em;
 	position: relative;
-	height: 4.875em;
+	height: 5.15em;
 	margin-top: 4em;
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
@@ -74,14 +75,12 @@
 	#display-browse-songs {
 		max-width: none;
 		width: 70%;
-	}
-	.song-card {
 		font-size: 1.65em;
 	}
 }
 
 @media screen and (min-width: 90em) {
-	.song-card {
+	#display-browse-songs {
 		font-size: 2em;
 	}
 }
