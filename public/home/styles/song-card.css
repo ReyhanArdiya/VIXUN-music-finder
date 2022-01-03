@@ -33,6 +33,7 @@
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
 	font-size: 1em;
+	/* overflow: hidden; */
 }
 
 .song-card::before {
@@ -85,7 +86,9 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		height: 100%;
+		/* FIXME why does the height become higher than .song-card when using
+		100%? */
+		height: 5.15em;
 		max-width: 85px;
 		background-size: cover;
 	}
