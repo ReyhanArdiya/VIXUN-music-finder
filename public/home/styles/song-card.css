@@ -37,7 +37,7 @@
 
 .song-card::before {
 	content: "";
-	background: url("../../common/images/Bloom.png");
+	background: url("../../common/images/Bloom.png") no-repeat center;
 	background-size: contain;
 	border-radius: 5px;
 	box-shadow: var(--Shadow-Floating-Box-Bottom);
@@ -69,6 +69,26 @@
 .song-card-artist,
 .song-card-price {
 	font-size: 1.9em;
+}
+
+@media screen and (max-width: calc(370em / 16)) {
+	.song-card {
+		grid-template-areas:
+			"image title title"
+			"image info  price";
+		padding-left: 0;
+		margin-top: 2em;
+	}
+	.song-card::before {
+		grid-area: image;
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		max-width: 85px;
+		background-size: cover;
+	}
 }
 
 @media screen and (min-width: 48em) {
