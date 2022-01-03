@@ -109,5 +109,6 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 
 // #region -------------------SONG CARDS LOGIC----------------------------------
 
+songCard.info.observeOverflow();
 
 // #endregion ================SONG CARDS LOGIC==================================
