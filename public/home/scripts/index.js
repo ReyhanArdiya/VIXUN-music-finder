@@ -1,13 +1,13 @@
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
-
-const { animation: { animationEffects }, localSongDatabase } = core;
-
+import songCard from "./song-card.js";
 import {
 	displayAds,
 	displayBrowse,
 	displayTopHits
 } from "./display-objects.js";
+
+const { animation: { animationEffects }, localSongDatabase } = core;
 
 // #region -------------------TOP HITS LOGIC------------------------------------
 
@@ -40,7 +40,7 @@ displayAds.autoScroll(5000);
 
 // #endregion ================DISPLAY ADS LOGIC=================================
 
-// #region -------------------DISLPAY BROWSE LOGIC------------------------------
+// #region -------------------DISPLAY BROWSE CATEGORIES TOGGLER-----------------
 
 /* CMT the toggler for icons and labels seem to have a very similar structure,
 could refactor it probably */
@@ -105,4 +105,9 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 });
 
 
-// #endregion ================DISLPAY BROWSE LOGIC==============================
+// #endregion ================DISPLAY BROWSE CATEGORIES TOGGLER=================
+
+// #region -------------------SONG CARDS LOGIC----------------------------------
+
+
+// #endregion ================SONG CARDS LOGIC==================================
