@@ -33,6 +33,7 @@
 	border-radius: 0.35em;
 	/* TODO make new var for relative border rad using 0.35em */
 	font-size: 1em;
+	background: white;
 }
 
 .song-card::before {
