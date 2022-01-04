@@ -3,7 +3,7 @@
 	display: grid;
 	/* 9em mainly comes from a .song-card height + margin-top + adjustment
 	for bottom shadow  */
-	height: calc(9.3em * 3);
+	height: calc((5.15em + 4em + 0.15em) * 3);
 	font-size: 1em;
 	grid-auto-rows: max-content;
 	justify-content: center;
@@ -83,6 +83,12 @@
 }
 
 @media screen and (max-width: calc(370em / 16)) {
+	#display-browse-songs {
+		/* 9em mainly comes from a .song-card height + margin-top + adjustment
+	for bottom shadow  */
+		height: calc((5.15em + 2em + 0.2em) * 3);
+	}
+
 	.song-card {
 		grid-template-areas:
 			"image title title"
