@@ -1,6 +1,5 @@
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
-import songCard from "./song-card.js";
 import {
 	displayAds,
 	displayBrowse,
@@ -109,6 +108,7 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 
 // #region -------------------SONG CARDS LOGIC----------------------------------
 
-songCard.info.observeOverflow(true, 0.8);
+displayBrowse.songCard.info.observeOverflow(true, 0.8);
+
 
 // #endregion ================SONG CARDS LOGIC==================================
