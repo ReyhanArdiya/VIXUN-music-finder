@@ -351,4 +351,16 @@
 	left: 1%;
 }
 
+@media screen and (min-width: 48em) {
+	#display-browse-circle-decorations {
+		font-size: 2.15em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-browse-circle-decorations {
+		font-size: 2.75em;
+	}
+}
+
 /* #endregion ================BROWSE CIRCLE DECORATIONS====================== */
