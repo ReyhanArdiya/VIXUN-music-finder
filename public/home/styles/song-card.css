@@ -115,5 +115,12 @@
 @media screen and (min-width: 90em) {
 	#display-browse-songs {
 		font-size: 2em;
+		width: 100%;
+		grid-template-columns: 1fr 1fr;
+		grid-auto-flow: row;
+		justify-items: center;
+	}
+	.song-card {
+		width: 95%;
 	}
 }
