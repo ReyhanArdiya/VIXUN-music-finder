@@ -7,6 +7,7 @@
 	justify-content: center;
 	margin-top: 5em;
 	flex-direction: column;
+	position: relative;
 }
 
 /* #endregion DISPLAY BROWSE CONTAINER */
@@ -322,19 +323,19 @@
 
 /* #region -------------------BROWSE CIRCLE DECORATIONS---------------------- */
 
-#display-browse-songs svg:nth-of-type(1) {
+#display-browse svg:nth-of-type(1) {
 	font-size: 2.25em;
 }
 
-#display-browse-songs svg:nth-of-type(2) {
+#display-browse svg:nth-of-type(2) {
 	font-size: 2.2em;
 }
 
-#display-browse-songs svg:nth-of-type(3) {
+#display-browse svg:nth-of-type(3) {
 	font-size: 3.2em;
 }
 
-#display-browse-songs svg:nth-of-type(4) {
+#display-browse svg:nth-of-type(4) {
 	font-size: 2em;
 }
 
