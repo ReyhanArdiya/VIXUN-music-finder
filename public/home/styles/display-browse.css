@@ -319,3 +319,23 @@
 }
 
 /* #endregion ================BROWSE SEARCHBAR SORT LABELS=================== */
+
+/* #region -------------------BROWSE CIRCLE DECORATIONS---------------------- */
+
+#display-browse-songs svg:nth-of-type(1) {
+	font-size: 2.25em;
+}
+
+#display-browse-songs svg:nth-of-type(2) {
+	font-size: 2.2em;
+}
+
+#display-browse-songs svg:nth-of-type(3) {
+	font-size: 3.2em;
+}
+
+#display-browse-songs svg:nth-of-type(4) {
+	font-size: 2em;
+}
+
+/* #endregion ================BROWSE CIRCLE DECORATIONS====================== */
