@@ -1,17 +1,22 @@
 /* CSS VARIABLES */
 :root {
-	--Pale-Black: #212121;
-	--Bright-Red: #ff0000;
-	--Bright-Red-Active: #b10303;
-	--Bright-Purple: #a129ff;
-	--Bright-Purple-Active: #741fb4;
+	--primary-pale-black: #212121;
+	--primary-bright-red: #ff0000;
+	--primary-bright-red-active: #b10303;
+	--primary-bright-purple: #a129ff;
+	--primary-bright-purple-active: #741fb4;
 	/* Add this variabel on the background property */
-	--Gradient-Purple-Red: radial-gradient(119.32% 933.69% at 100% 4.05%, #ff0000 0%, #ca1791 45.85%, #a129ff 99.23%);
-	--Dark-Gray: #585858;
-	--Medium-Gray: #555454;
-	--Shadow-Floating-Box-Top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
-	--Shadow-Floating-Box-Bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
-	--Rounded-Border-Radius: 5px;
+	--gradient-purple-red: radial-gradient(
+		119.32% 933.69% at 100% 4.05%,
+		#ff0000 0%,
+		#ca1791 45.85%,
+		#a129ff 99.23%
+	);
+	--semantic-gray-dark: #585858;
+	--semantic-gray-medium: #555454;
+	--shadow-floating-box-top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
+	--shadow-floating-box-bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
+	--border-radius-rounded: 5px;
 }
 
 html {

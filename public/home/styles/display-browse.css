@@ -7,6 +7,7 @@
 	justify-content: center;
 	margin-top: 5em;
 	flex-direction: column;
+	position: relative;
 }
 
 /* #endregion DISPLAY BROWSE CONTAINER */
@@ -24,7 +25,7 @@
 /* #region DISPLAY BROWSE CATEGORIES */
 
 #display-browse-categories {
-	background: var(--Pale-Black);
+	background: var(--primary-pale-black);
 	min-height: 58px;
 	overflow-x: auto;
 	font-size: 1em;
@@ -72,27 +73,27 @@
 }
 
 .icon-category:hover p {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 
 .icon-category:active p {
-	color: var(--Bright-Red-Active);
+	color: var(--primary-bright-red-active);
 }
 
 .icon-category.icon-category-off:hover p {
-	color: var(--Bright-Purple);
+	color: var(--primary-bright-purple);
 }
 
 .icon-category.icon-category-off:active p {
-	color: var(--Bright-Purple-Active);
+	color: var(--primary-bright-purple-active);
 }
 
 /* Color status class for currently active icon */
 .icon-category-on p {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 .icon-category-off p {
-	color: var(--Bright-Purple);
+	color: var(--primary-bright-purple);
 }
 
 @media screen and (min-width: 48em) {
@@ -126,7 +127,7 @@
 
 #browse-searchbar-input {
 	border-radius: 0.35em;
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	box-shadow: var(--shadow-floating-box-bottom);
 	display: grid;
 	grid-template-columns: 0.8fr 0.2fr;
 	grid-template-rows: 1fr;
@@ -158,7 +159,7 @@
 
 #browse-searchbar-input button {
 	cursor: pointer;
-	background: var(--Gradient-Purple-Red);
+	background: var(--gradient-purple-red);
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 	position: relative;
@@ -173,7 +174,7 @@
 	top: 0;
 	left: 0;
 	opacity: 0;
-	background-color: var(--Pale-Black);
+	background-color: var(--primary-pale-black);
 	transition: opacity 0.25s linear;
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
@@ -228,7 +229,7 @@
 }
 
 .browse-sort-label {
-	color: var(--Medium-Gray);
+	color: var(--semantic-gray-medium);
 	font: 500 1.1em "Mohave";
 	display: grid;
 	grid-template-columns: 1fr 18px;
@@ -254,11 +255,11 @@
 }
 
 .browse-sort-label p:hover {
-	color: var(--Pale-Black);
+	color: var(--primary-pale-black);
 }
 
 .browse-sort-label-arrow:hover path {
-	fill: var(--Pale-Black);
+	fill: var(--primary-pale-black);
 }
 
 .browse-sort-label-arrow svg {
@@ -268,35 +269,35 @@
 
 /* Sort label status */
 .browse-sort-label-asc p {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 
 .browse-sort-label-asc path {
-	fill: var(--Bright-Red);
+	fill: var(--primary-bright-red);
 }
 
 .browse-sort-label-desc p {
-	color: var(--Bright-Purple);
+	color: var(--primary-bright-purple);
 }
 
 .browse-sort-label-desc path {
-	fill: var(--Bright-Purple);
+	fill: var(--primary-bright-purple);
 }
 
 .browse-sort-label.browse-sort-label-asc p:hover {
-	color: var(--Bright-Red-Active);
+	color: var(--primary-bright-red-active);
 }
 
 .browse-sort-label-asc .browse-sort-label-arrow:hover path {
-	fill: var(--Bright-Red-Active);
+	fill: var(--primary-bright-red-active);
 }
 
 .browse-sort-label.browse-sort-label-desc p:hover {
-	color: var(--Bright-Purple-Active);
+	color: var(--primary-bright-purple-active);
 }
 
 .browse-sort-label-desc .browse-sort-label-arrow:hover path {
-	fill: var(--Bright-Purple-Active);
+	fill: var(--primary-bright-purple-active);
 }
 
 @media screen and (min-width: 48em) {
@@ -319,3 +320,47 @@
 }
 
 /* #endregion ================BROWSE SEARCHBAR SORT LABELS=================== */
+
+/* #region -------------------BROWSE CIRCLE DECORATIONS---------------------- */
+
+#display-browse-circle-decorations svg {
+	z-index: -1;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(1) {
+	font-size: 2.25em;
+	top: 40%;
+	right: 20%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(2) {
+	font-size: 2.2em;
+	bottom: 41%;
+	left: 30%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(3) {
+	font-size: 3.2em;
+	bottom: 24%;
+	right: 3%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(4) {
+	font-size: 2em;
+	bottom: 0%;
+	left: 1%;
+}
+
+@media screen and (min-width: 48em) {
+	#display-browse-circle-decorations {
+		font-size: 2.15em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-browse-circle-decorations {
+		font-size: 2.75em;
+	}
+}
+
+/* #endregion ================BROWSE CIRCLE DECORATIONS====================== */

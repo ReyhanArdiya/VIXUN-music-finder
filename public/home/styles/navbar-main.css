@@ -1,7 +1,7 @@
 /* #region NAVBAR MAIN CONTAINER */
 
 #navbar-main {
-	background: var(--Pale-Black);
+	background: var(--primary-pale-black);
 	bottom: 0;
 	height: 10vh;
 	position: fixed;
@@ -11,7 +11,7 @@
 }
 
 .navbar-main-shadow {
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	box-shadow: var(--shadow-floating-box-bottom);
 }
 
 @media screen and (min-width: 90em) {
@@ -31,7 +31,7 @@
 	justify-content: space-around;
 	width: 100%;
 	height: 100%;
-	background: var(--Pale-Black);
+	background: var(--primary-pale-black);
 }
 
 /* #region NAVBAR MAIN CONTENT ICONS */
@@ -61,12 +61,12 @@
 
 #navbar-main-content [id^="icon"] path:hover,
 #icon-hamburger svg:hover path {
-	fill: var(--Bright-Purple);
+	fill: var(--primary-bright-purple);
 }
 
 #navbar-main-content [id^="icon"] path:active,
 #icon-hamburger svg:active path {
-	fill: var(--Bright-Purple-Active);
+	fill: var(--primary-bright-purple-active);
 }
 
 /* #endregion NAVBAR MAIN CONTENT ICONS */
@@ -82,11 +82,11 @@
 }
 
 #navbar-main-content-text-container p:hover {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 
 #navbar-main-content-text-container p:active {
-	color: var(--Bright-Red-Active);
+	color: var(--primary-bright-red-active);
 }
 
 /* #endregion NAVBAR MAIN CONTENT TEXT */
@@ -97,10 +97,10 @@
 
 #navbar-main-dropdown {
 	align-items: center;
-	background: var(--Pale-Black);
-	border-top-left-radius: var(--Rounded-Border-Radius);
-	border-top-right-radius: var(--Rounded-Border-Radius);
-	box-shadow: var(--Shadow-Floating-Box-Top);
+	background: var(--primary-pale-black);
+	border-top-left-radius: var(--border-radius-rounded);
+	border-top-right-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-top);
 	color: white;
 	display: flex;
 	flex-direction: column;
@@ -125,11 +125,11 @@
 }
 
 #navbar-main-dropdown p:hover {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 
 #navbar-main-dropdown p:active {
-	color: var(--Bright-Red-Active);
+	color: var(--primary-bright-red-active);
 }
 
 /* #endregion NAVBAR MAIN DROPDOWN */

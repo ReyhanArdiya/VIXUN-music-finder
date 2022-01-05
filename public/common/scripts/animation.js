@@ -150,6 +150,13 @@ export const animationEffects = {
 	 * calling the returned function to get the tracked direction and move the
 	 * parallaxed items based on the direction.
 	 *
+	 * @param {boolean} resetToZeroOnMedium
+	 * Boolean to reset `parallaxedItemsArr` position back to `0` the viewport
+	 * crosses {@link mediaQuery.medium}. Useful in situtations when you want
+	 * `parallaxedItemsArr`'s position to reset when the viewport changes, ex:
+	 * the screen changes orientation or resizing the window. Defaults to
+	 * `false`.
+	 *
 	 * @example
 	 * ```
 	 * // Adds parallax effect to top hits grid that will move its circle
@@ -163,7 +170,13 @@ export const animationEffects = {
 	 * );
 	 * ```
 	 */
-	addParallax(scrollingEl, parallaxedItemsArr, speed, trackDirection) {
+	addParallax(
+		scrollingEl,
+		parallaxedItemsArr,
+		speed,
+		trackDirection,
+		resetToZeroOnMedium = false
+	) {
 		let currentTranslateVal = 0;
 		const detectScroll = movementDetector.makeScrollDetector(
 			scrollingEl,
@@ -172,13 +185,7 @@ export const animationEffects = {
 
 		scrollingEl.addEventListener(
 			"scroll",
-			e => {
-				if (
-					(e.target.scrollTop === 0 && !mediaQuery.medium.matches) ||
-                     (e.target.scrollLeft === 0 && mediaQuery.medium.matches)
-				) {
-					currentTranslateVal = 0;
-				}
+			() => {
 
 				/**
 				 * Moves {@link parallaxedItemsArr} opposite of `direction`.
@@ -225,6 +232,18 @@ export const animationEffects = {
 
 				// Moves the elements opposite of the scroll direction
 				moveElements(detectScroll());
+
+				/* Reset position back to 0 whenever viewport crosses the medium
+				breakpoint */
+				if (resetToZeroOnMedium) {
+					mediaQuery.medium.addEventListener(
+						"change",
+						() => {
+							currentTranslateVal = 0;
+							moveElements(detectScroll());
+						}
+					);
+				}
 			},
 			{ passive : true }
 		);

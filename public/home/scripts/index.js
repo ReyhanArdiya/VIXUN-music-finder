@@ -1,13 +1,12 @@
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
-
-const { animation: { animationEffects }, localSongDatabase } = core;
-
 import {
 	displayAds,
 	displayBrowse,
 	displayTopHits
 } from "./display-objects.js";
+
+const { animation: { animationEffects }, localSongDatabase } = core;
 
 // #region -------------------TOP HITS LOGIC------------------------------------
 
@@ -19,7 +18,8 @@ animationEffects.addParallax(
 	displayTopHits.grid,
 	displayTopHits.gridCircleDecorations,
 	0.05,
-	"breakpointMedium"
+	"breakpointMedium",
+	true
 );
 
 // #endregion ================TOP HITS LOGIC====================================
@@ -40,13 +40,16 @@ displayAds.autoScroll(5000);
 
 // #endregion ================DISPLAY ADS LOGIC=================================
 
-// #region -------------------DISLPAY BROWSE LOGIC------------------------------
+// #region -------------------DISPLAY BROWSE CATEGORIES TOGGLER-----------------
 
 /* CMT the toggler for icons and labels seem to have a very similar structure,
 could refactor it probably */
 // Toggler for category icons status colors
 displayBrowse.categories.container.addEventListener("click", e => {
-	if (!e.target.classList.contains("icon-category")) {
+	if (
+		!e.target.classList.contains("icon-category") &&
+		e.target.id !== "display-browse-categories"
+	) {
 		const icon = e.target.parentElement;
 		const { categories } = displayBrowse;
 		const iconToggler = makeStatusToggler(icon, {
@@ -105,4 +108,19 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 });
 
 
-// #endregion ================DISLPAY BROWSE LOGIC==============================
+// #endregion ================DISPLAY BROWSE CATEGORIES TOGGLER=================
+
+// #region -------------------SONG CARDS LOGIC----------------------------------
+
+displayBrowse.songCard.info.observeOverflow(true, 0.8);
+
+animationEffects.addParallax(
+	displayBrowse.songCard.container,
+	displayBrowse.songCard.circleDecos,
+	0.05,
+	"vertical",
+	false
+);
+
+
+// #endregion ================SONG CARDS LOGIC==================================

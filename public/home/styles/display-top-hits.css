@@ -43,8 +43,8 @@
 .top-hits-item {
 	background: url("../Images/placeholder.png") center;
 	background-size: cover;
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
-	border-radius: var(--Rounded-Border-Radius);
+	box-shadow: var(--shadow-floating-box-bottom);
+	border-radius: var(--border-radius-rounded);
 	position: relative;
 	cursor: pointer;
 }
@@ -56,7 +56,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
-	background-color: var(--Pale-Black);
+	background-color: var(--primary-pale-black);
 	opacity: 0;
 	transition: opacity 0.25s linear;
 }
