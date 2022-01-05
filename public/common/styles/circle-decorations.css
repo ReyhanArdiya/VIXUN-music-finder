@@ -19,11 +19,11 @@ svg[class^="circle-decoration"] path {
 /* #region CIRCLE DECORATIONS COLORS */
 
 .circle-decoration-purple circle:first-of-type {
-	fill: var(--Bright-Purple);
+	fill: var(--primary-bright-purple);
 }
 
 .circle-decoration-red circle:first-of-type {
-	fill: var(--Bright-Red);
+	fill: var(--primary-bright-red);
 }
 
 /* #endregion CIRCLE DECORATIONS COLORS */

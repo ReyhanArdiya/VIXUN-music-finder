@@ -25,7 +25,7 @@
 	grid-template-areas:
 		"title title"
 		"info  price";
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	box-shadow: var(--shadow-floating-box-bottom);
 	padding: 0em 0.5em 0em 1.3em;
 	position: relative;
 	height: 5.15em;
@@ -41,7 +41,7 @@
 	background: url("../../common/images/Bloom.png") no-repeat center;
 	background-size: contain;
 	border-radius: 5px;
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	box-shadow: var(--shadow-floating-box-bottom);
 	height: 4.65em;
 	width: 4.65em;
 	position: absolute;
