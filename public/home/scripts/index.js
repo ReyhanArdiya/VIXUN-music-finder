@@ -46,7 +46,10 @@ displayAds.autoScroll(5000);
 could refactor it probably */
 // Toggler for category icons status colors
 displayBrowse.categories.container.addEventListener("click", e => {
-	if (!e.target.classList.contains("icon-category")) {
+	if (
+		!e.target.classList.contains("icon-category") &&
+		e.target.id !== "display-browse-categories"
+	) {
 		const icon = e.target.parentElement;
 		const { categories } = displayBrowse;
 		const iconToggler = makeStatusToggler(icon, {
