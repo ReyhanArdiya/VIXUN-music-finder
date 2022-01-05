@@ -18,7 +18,8 @@ animationEffects.addParallax(
 	displayTopHits.grid,
 	displayTopHits.gridCircleDecorations,
 	0.05,
-	"breakpointMedium"
+	"breakpointMedium",
+	true
 );
 
 // #endregion ================TOP HITS LOGIC====================================
