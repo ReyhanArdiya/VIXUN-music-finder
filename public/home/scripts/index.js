@@ -111,5 +111,13 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 
 displayBrowse.songCard.info.observeOverflow(true, 0.8);
 
+animationEffects.addParallax(
+	displayBrowse.songCard.container,
+	displayBrowse.songCard.circleDecos,
+	0.05,
+	"vertical",
+	false
+);
+
 
 // #endregion ================SONG CARDS LOGIC==================================

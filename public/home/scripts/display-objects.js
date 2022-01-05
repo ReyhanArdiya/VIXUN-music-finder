@@ -320,11 +320,12 @@ export const displayBrowse = {
 	},
 
 	songCard : {
-		cards : document.querySelector("#display-browse-songs")
-			.getElementsByClassName("song-card"),
+		container   : document.querySelector("#display-browse-songs"),
 		circleDecos :
 			document.querySelector("#display-browse-circle-decorations")
 				.getElementsByTagName("svg"),
+		cards : document.querySelector("#display-browse-songs")
+			.getElementsByClassName("song-card"),
 
 		info : {
 			collection : document.querySelector("#display-browse-songs")
@@ -382,7 +383,6 @@ export const displayBrowse = {
 
 
 		}
-
 	}
 };
 
