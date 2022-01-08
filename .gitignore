@@ -2,3 +2,4 @@
 *.drawio
 node_modules/
 request-log.txt
+*.mongodb
