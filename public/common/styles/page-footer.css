@@ -129,3 +129,24 @@
 }
 
 /* #endregion ================FOOTER SIGNUP FORM=================== */
+
+#small-print {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	font: 400 1em "Mohave";
+}
+
+#small-print p {
+	color: white;
+}
+
+#small-print span {
+	color: var(--primary-bright-red);
+	font: inherit;
+}
+
+#small-print small {
+	color: var(--semantic-gray-dark);
+}
