@@ -4,6 +4,10 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	min-height: 182px;
+	font-size: 1em;
+	height: max-content;
+	padding-top: 1em;
 }
 
 #page-footer h2 {
@@ -16,12 +20,19 @@
 	font-size: 2.25em;
 }
 
-#page-footer h2:last-of-type {
-	font-size: 1.5em;
+#contacts-footer {
+	max-height: 20px;
+	margin-top: 0.5em;
+	font-size: 1em;
 }
 
 #contacts-footer * {
 	fill: white;
+}
+
+#page-footer h2:last-of-type {
+	font-size: 1.5em;
+	margin-top: 0.8em;
 }
 
 /* #region -------------------FOOTER SIGNUP FORM------------------- */
@@ -32,6 +43,7 @@
 	grid-template-columns: 0.8fr 0.2fr;
 	grid-template-rows: 1fr;
 	margin-bottom: 1em;
+	margin-top: 0.6em;
 }
 
 #form-signup,
