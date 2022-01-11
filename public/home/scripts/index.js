@@ -1,7 +1,7 @@
+import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
 import { mediaQuery } from "../../common/scripts/animation.js";
-import navbarMain from "../../common/scripts/navbar-main.js";
 import {
 	displayAds,
 	displayBrowse,
@@ -9,6 +9,7 @@ import {
 } from "./display-objects.js";
 
 const { animation: { animationEffects }, localSongDatabase } = core;
+const navbarMain = checkNavbar();
 
 // #region -------------------TOP HITS LOGIC------------------------------------
 
@@ -130,13 +131,37 @@ animationEffects.addParallax(
 // #region -------------------PAGE FOOTER LOGIC---------------------------------
 
 const pageFooter = document.querySelector("#page-footer");
-const pageFooterIntObs = new IntersectionObserver(() => {
+let isFooterIntersecting = false;
+const pageFooterIntObs = new IntersectionObserver(([ ent ]) => {
 	if (!mediaQuery.medium.matches) {
-		navbarMain().menu.classList.toggle("navbar-main-shadow");
+		if (
+			ent.isIntersecting &&
+			navbarMain.menu.classList.contains("navbar-main-shadow")
+		) {
+			navbarMain.menu.classList.remove("navbar-main-shadow");
+		} else if (
+			!ent.isIntersecting &&
+			!navbarMain.menu.classList.contains("navbar-main-shadow")
+		) {
+			navbarMain.menu.classList.add("navbar-main-shadow");
+		}
+
+		isFooterIntersecting = ent.isIntersecting;
 	}
 }, { threshold : 0.9 });
 
 // Toggle sticky navbar main shadow when nearing the end of page
 pageFooterIntObs.observe(pageFooter);
+
+// Toggle navbar main shadow when crossing breakpoint
+mediaQuery.medium.addEventListener("change", e => {
+	if (
+		!isFooterIntersecting &&
+		!e.matches &&
+		!navbarMain.menu.classList.contains("navbar-main-shadow")
+	) {
+		navbarMain.menu.classList.add("navbar-main-shadow");
+	 }
+});
 
 // #endregion ================PAGE FOOTER LOGIC=================================

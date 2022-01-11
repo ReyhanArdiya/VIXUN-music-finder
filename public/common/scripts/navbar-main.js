@@ -101,8 +101,13 @@ navbarMain.shadowScroll.observe(navbarMain.menu);
 
 // Toggle navbar main shadow when not on original position on load
 window.addEventListener("load", () => {
-	if (window.scrollY) {
-		navbarMain.menu.classList.toggle("navbar-main-shadow");
+	if (
+		mediaQuery.medium.matches &&
+		window.scrollY &&
+		!navbarMain.menu.classList.contains("navbar-main-shadow")
+	) {
+		console.log("Medium");
+		navbarMain.menu.classList.add("navbar-main-shadow");
 	}
 });
 
