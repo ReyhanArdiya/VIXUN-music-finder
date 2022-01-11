@@ -73,8 +73,20 @@ const navbarMain = {
 		}
 	},
 	shadowScroll : new IntersectionObserver(
-		() => {
-			navbarMain.menu.classList.toggle("navbar-main-shadow");
+		ent => {
+			if (
+				!ent[0].isIntersecting &&
+				mediaQuery.medium.matches &&
+				!navbarMain.menu.classList.contains("navbar-main-shadow")
+			) {
+				navbarMain.menu.classList.add("navbar-main-shadow");
+			} else if (
+				ent[0].isIntersecting &&
+				mediaQuery.medium.matches &&
+				navbarMain.menu.classList.contains("navbar-main-shadow")
+			) {
+				navbarMain.menu.classList.remove("navbar-main-shadow");
+			}
 		},
 		{
 			root       : null,
