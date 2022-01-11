@@ -7,7 +7,11 @@
 	min-height: 182px;
 	font-size: 1em;
 	height: max-content;
+	position: relative;
+	overflow: hidden;
 	padding-top: 1em;
+	margin-top: 2em;
+	margin-bottom: 20em;
 }
 
 #page-footer h2 {
@@ -35,6 +39,22 @@
 	margin-top: 0.8em;
 }
 
+/* #region -------------------#PAGE-FOOTER UPPER CIRCLE DECORATIONS---------- */
+
+#page-footer > .circle-decoration:first-of-type {
+	top: -60px;
+	left: -60px;
+	font-size: 6.75em;
+}
+
+#page-footer > .circle-decoration:nth-of-type(2) {
+	top: -45px;
+	right: -45px;
+	font-size: 4.9em;
+}
+
+/* #endregion ================#PAGE-FOOTER UPPER CIRCLE DECORATIONS========== */
+
 /* #region -------------------FOOTER SIGNUP FORM------------------- */
 
 #form-signup {
@@ -44,6 +64,8 @@
 	grid-template-rows: 1fr;
 	margin-bottom: 1em;
 	margin-top: 0.6em;
+	position: relative;
+	z-index: 3;
 }
 
 #form-signup,
@@ -129,6 +151,26 @@
 }
 
 /* #endregion ================FOOTER SIGNUP FORM=================== */
+
+/* #region -------------------#PAGE-FOOTER FORM CIRCLE DECORATIONS---------- */
+
+#form-signup > .circle-decoration {
+	z-index: -1;
+}
+
+#form-signup > .circle-decoration:first-of-type {
+	top: -15px;
+	left: -15px;
+	font-size: 2em;
+}
+
+#form-signup > .circle-decoration:last-of-type {
+	bottom: -13px;
+	right: -13px;
+	font-size: 1.5em;
+}
+
+/* #endregion ================#PAGE-FOOTER FORM CIRCLE DECORATIONS========== */
 
 #small-print {
 	align-items: center;
