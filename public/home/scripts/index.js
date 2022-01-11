@@ -1,5 +1,6 @@
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
+import navbarMain from "../../common/scripts/navbar-main.js";
 import {
 	displayAds,
 	displayBrowse,
@@ -124,3 +125,16 @@ animationEffects.addParallax(
 
 
 // #endregion ================SONG CARDS LOGIC==================================
+
+// #region -------------------PAGE FOOTER LOGIC---------------------------------
+
+const pageFooter = document.querySelector("#page-footer");
+const pageFooterIntObs = new IntersectionObserver(() => {
+	navbarMain().menu.classList.toggle("navbar-main-shadow");
+	console.log("Bottom!");
+}, { threshold : 0.9 });
+
+// Toggle sticky navbar main shadow when nearing the end of page
+pageFooterIntObs.observe(pageFooter);
+
+// #endregion ================PAGE FOOTER LOGIC=================================
