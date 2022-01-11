@@ -17,6 +17,7 @@
 	--shadow-floating-box-top: 0px -0.045em 0.21em 0.045em #4c4c4c99;
 	--shadow-floating-box-bottom: 0px 0.045em 0.21em 0.045em #4c4c4c99;
 	--border-radius-rounded: 5px;
+	--navbar-main--max-height-small: 64px;
 }
 
 html {

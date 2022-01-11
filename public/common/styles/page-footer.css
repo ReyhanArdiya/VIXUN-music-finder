@@ -11,7 +11,6 @@
 	overflow: hidden;
 	padding-top: 1em;
 	margin-top: 2em;
-	margin-bottom: 20em;
 }
 
 #page-footer h2 {
@@ -37,6 +36,12 @@
 #page-footer h2:last-of-type {
 	font-size: 1.5em;
 	margin-top: 0.8em;
+}
+
+@media screen and (max-width: 47.9em) {
+	#page-footer {
+		margin-bottom: calc(var(--navbar-main--max-height-small) - 1px);
+	}
 }
 
 /* #region -------------------#PAGE-FOOTER UPPER CIRCLE DECORATIONS---------- */

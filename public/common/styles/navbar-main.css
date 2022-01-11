@@ -5,7 +5,7 @@
 	bottom: 0;
 	height: 10vh;
 	position: fixed;
-	max-height: 64px;
+	max-height: var(--navbar-main--max-height-small);
 	width: 100%;
 	z-index: 10;
 }
