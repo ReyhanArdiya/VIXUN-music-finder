@@ -103,7 +103,7 @@
 		top: 0;
 		left: 0;
 		width: 100%;
-		/* FIXME why does the height become higher than .song-card when using
+		/* FIXME why does the height become taller than .song-card when using
 		100%? */
 		height: 5.15em;
 		max-width: 85px;
