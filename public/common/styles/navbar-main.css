@@ -44,6 +44,9 @@
 #icon-home {
 	height: 55%;
 	flex: 1;
+}
+
+#icon-home path {
 	fill: white;
 }
 
