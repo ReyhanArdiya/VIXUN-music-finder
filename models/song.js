@@ -37,5 +37,7 @@ const songSchema = new mongoose.Schema({
 	year : {
 		type     : Number,
 		required : true
-	},
+	}
 });
+
+export const Song = mongoose.model("Song", songSchema);
