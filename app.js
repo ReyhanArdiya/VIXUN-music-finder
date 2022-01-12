@@ -1,6 +1,7 @@
 import express from "express";
 import { fileURLToPath } from "url";
 import routerHome from "./routes/home.js";
+import vixunDB from "./vixunDB";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
