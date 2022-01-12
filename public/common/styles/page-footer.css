@@ -24,7 +24,6 @@
 }
 
 #contacts-footer {
-	max-height: 20px;
 	margin-top: 0.5em;
 	font-size: 1em;
 }
@@ -41,6 +40,22 @@
 @media screen and (max-width: 47.9em) {
 	#page-footer {
 		margin-bottom: calc(var(--navbar-main--max-height-small) - 1px);
+	}
+}
+
+@media screen and (min-width: 48em) {
+	#page-footer {
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#page-footer {
+		font-size: 1.75em;
+	}
+	#contacts-footer {
+		width: 100%;
+		height: 1.25em;
 	}
 }
 
@@ -131,28 +146,6 @@
 #form-signup button:active::before {
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
-}
-
-@media screen and (min-width: 48em) {
-	#form-signup {
-		font-size: 2em;
-	}
-	#form-signup,
-	#form-signup input,
-	#form-signup button {
-		max-height: 100px;
-	}
-}
-
-@media screen and (min-width: 90em) {
-	#form-signup {
-		font-size: 3em;
-	}
-	#form-signup,
-	#form-signup input,
-	#form-signup button {
-		max-height: 150px;
-	}
 }
 
 /* #endregion ================FOOTER SIGNUP FORM=================== */

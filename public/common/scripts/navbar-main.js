@@ -111,7 +111,6 @@ window.addEventListener("load", () => {
 	}
 });
 
-// PROG finish dealing with shadows next is just to add footer breakpoints and circle decos between ad and browse
 // Add listener for navbar dropdown menu reveal/hide
 navbarMain.content.icons.hamburger.addEventListener(
 	"click",
