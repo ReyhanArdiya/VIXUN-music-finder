@@ -323,6 +323,13 @@
 
 /* #region -------------------BROWSE CIRCLE DECORATIONS---------------------- */
 
+#display-browse > .circle-decoration-purple {
+	font-size: 4em;
+	top: -40px;
+	right: 50px;
+	z-index: -1;
+}
+
 #display-browse-circle-decorations svg {
 	z-index: -1;
 }
@@ -355,11 +362,21 @@
 	#display-browse-circle-decorations {
 		font-size: 2.15em;
 	}
+
+	#display-browse > .circle-decoration-purple {
+		font-size: 5em;
+		top: -50px;
+	}
 }
 
 @media screen and (min-width: 90em) {
 	#display-browse-circle-decorations {
 		font-size: 2.75em;
+	}
+
+	#display-browse > .circle-decoration-purple {
+		font-size: 6em;
+		top: -60px;
 	}
 }
 
