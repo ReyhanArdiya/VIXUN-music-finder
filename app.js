@@ -1,6 +1,5 @@
 import express from "express";
 import { fileURLToPath } from "url";
-import fs from "fs";
 import routerHome from "./routes/home.js";
 import { dirname, join } from "path";
 
@@ -21,12 +20,6 @@ app.use((req, res, next) => {
         "🌟 You got a new request! ( 🌸≧◡≦)~💌 \\(￣▽￣* )ゞ 🌟" +
         `⌚ ${date.toLocaleString()} ⌚`;
 	console.log(log);
-	fs.appendFile(join(__dirname, "request-log.txt"), `${log}\n`, err => {
-		if (err) {
-			throw err;
-		}
-		console.log("A new request has been logged! 📝");
-	});
 	next();
 });
 
