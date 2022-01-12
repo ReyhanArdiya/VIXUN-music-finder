@@ -1,6 +1,5 @@
 {
 	"env": {
-		"browser": true,
 		"es2021": true,
 		"node": true
 	},
@@ -30,7 +29,7 @@
 		"block-spacing": "warn",
 		"brace-style": "warn",
 		"camelcase": "error",
-		"capitalized-comments": "warn",
+		"capitalized-comments": "off",
 		"comma-spacing": "warn",
 		"comma-style": "warn",
 		"curly": "warn",
@@ -117,7 +116,12 @@
 		"max-statements-per-line": "warn",
 		"multiline-comment-style": "off",
 		"multiline-ternary": ["warn", "always-multiline"],
-		"new-cap": "warn",
+		"new-cap": [
+			"warn",
+			{
+				"capIsNew": false
+			}
+		],
 		"new-parens": ["warn", "always"],
 		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 1 }],
 		"no-duplicate-imports": "warn",
@@ -190,7 +194,7 @@
 			{ "blankLine": "always", "prev": "*", "next": "return" },
 			{ "blankLine": "always", "prev": "*", "next": "case" }
 		],
-		"prefer-arrow-callback": "warn",
+		"prefer-arrow-callback": "off",
 		"prefer-const": "warn",
 		"prefer-destructuring": [
 			"warn",
@@ -216,7 +220,10 @@
 		"semi": "error",
 		"semi-spacing": "error",
 		"semi-style": "error",
-		"sort-imports": "warn",
+		"sort-imports": [
+			"warn",
+			{ "memberSyntaxSortOrder": ["none", "single", "multiple", "all"] }
+		],
 		"space-before-blocks": "error",
 		"space-before-function-paren": ["warn", "never"],
 		"space-in-parens": ["warn", "never"],
@@ -228,10 +235,5 @@
 		"template-tag-spacing": "error",
 		"vars-on-top": "error",
 		"wrap-iife": ["warn", "inside"]
-	},
-	"globals": {
-		"songDatabase1": "readonly",
-		"animationEffects": "readonly",
-		"navbarMain": "readonly"
 	}
 }

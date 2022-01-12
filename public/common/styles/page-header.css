@@ -68,7 +68,7 @@ h1 {
 }
 
 h1 span {
-	color: var(--Bright-Red);
+	color: var(--primary-bright-red);
 }
 
 #page-logo svg:first-of-type {

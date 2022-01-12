@@ -1,8 +1,8 @@
 .title-card {
 	align-items: center;
-	background: var(--Gradient-Purple-Red);
-	border-radius: var(--Rounded-Border-Radius);
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	background: var(--gradient-purple-red);
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
 	display: flex;
 	justify-content: center;
 	padding: 1em 7%;

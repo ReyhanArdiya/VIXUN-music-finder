@@ -1,10 +1,6 @@
-"use strict";
-
-// #region -------------------DISPLAY OBJECTS-----------------------------------
-
 /* XXX rewrite this, it's super baddddddd; check notion Database
 transitiong group */
-const displayTopHits = {
+export const displayTopHits = {
 	grid                  : document.querySelector("#display-top-hits-grid"),
 	gridCircleDecorations : document.querySelectorAll("#display-top-hits svg"),
 
@@ -141,7 +137,7 @@ const displayTopHits = {
 	}
 };
 
-const displayAds = {
+export const displayAds = {
 	contentContainer : document.querySelector("#display-ads-content"),
 
 	/**
@@ -307,124 +303,93 @@ const displayAds = {
 	}
 };
 
-const displayBrowse = {
+export const displayBrowse = {
 	categories : {
-		container    : document.querySelector("#display-browse-categories"),
-		iconTemplate : document.querySelector("#icon-category-template"),
-
-		/**
-		 * Add a category icon and its text to
-		 * {@link displayBrowse.categories.container}.
-		 *
-		 * @param {string} label
-		 * The text for the icon where the casing will be automatically turned
-		 * to something like these:
-		 * - "FOO" => "Foo"
-		 * - "bAR" => "Bar".
-		 *
-		 * Defaults to "Type".
-		 *
-		 * @param {string} imgURL
-		 * URL to the icon's image, defaults to a cute cate image :D.
-		 *
-		 * @example
-		 * ```
-		 * // Adds an icon for "pop" category
-		 * displayBrowse.categories.addIcon("Pop", "link/to/mic.png")
-		 * ```
-		 */
-		addIcon(label = "Type", imgURL = "https://placekitten.com/100/100") {
-
-			/**
-			 * @type {HTMLDivElement}
-			 */
-			const icon = this.iconTemplate.content.firstElementChild.cloneNode(
-				true
-			);
-
-			// Change the label's casing
-			if (label.length) {
-				label = `${label[0].toUpperCase()}${label.slice(1)
-					.toLowerCase()}`;
-			}
-
-			icon.lastElementChild.innerText = label;
-			icon.firstElementChild.src = imgURL;
-
-			this.container.append(icon);
-		}
+		container  : document.querySelector("#display-browse-categories"),
+		icons      : document.querySelectorAll(".icon-category"),
+		activeIcon : null
 	},
 
 	search : {
 		input      : document.querySelector("#display-browse-searchbar"),
 		sortLabels : {
-			container : document.querySelector("#browse-searchbar-sorts"),
-			labels    : document.querySelectorAll(".browse-sort-label")
+			container   : document.querySelector("#browse-searchbar-sorts"),
+			labels      : document.querySelectorAll(".browse-sort-label"),
+			activeLabel : null
 		}
 	},
 
-	songs : document.querySelector("#display-browse-songs")
+	songCard : {
+		container   : document.querySelector("#display-browse-songs"),
+		circleDecos :
+			document.querySelector("#display-browse-circle-decorations")
+				.getElementsByTagName("svg"),
+		cards : document.querySelector("#display-browse-songs")
+			.getElementsByClassName("song-card"),
+
+		info : {
+			collection : document.querySelector("#display-browse-songs")
+				.getElementsByClassName("song-card-info"),
+
+			/**
+			 * Adds `IntersectionObserver` to all
+			 * {@link displayBrowse.songCard.cards} that will `observe` their
+			 * respective `.song-card-info` from
+			 * {@link displayBrowse.songCard.info.collection}. If their
+			 * respective * `.song-card-info` overflows, `toggle`
+			 * `.song-card-info-scroll` (see styles in song-card.css).
+			 *
+			 * This method can be called multiple times as needed (e.g. When
+			 * adding a new song card through AJAX).
+			 *
+			 * @param {boolean} oneTime
+			 * Boolean to indicate if the `observer` should toggle the class
+			 * once when this function is called (`true`) or if it should
+			 * continue observing after calling the function (`false`).
+			 *
+			 * @param {number} observerThreshold
+			 * Number to control the `IntersectionObserver`'s `threshold`;
+			 * defaults to `0.5`.
+			 *
+			 * @example
+			 * ```
+			 * // Code to make new song card through AJAX...
+			 * // Toggle the class once
+			 * songCard.info.observeOverflow(true);
+			 * ```
+			 */
+			observeOverflow(oneTime, observerThreshold = 0.5) {
+				for (let i = 0; i < displayBrowse.songCard.cards.length; i++) {
+					const observer = new IntersectionObserver(
+						([ songInfo ]) => {
+							if (!songInfo.isIntersecting) {
+								songInfo.target.classList.toggle(
+									"song-card-info-scroll"
+								);
+							}
+						},
+						{
+							root      : displayBrowse.songCard.cards[i],
+							threshold : observerThreshold
+						}
+					);
+
+					observer.observe(this.collection[i]);
+					setTimeout(() => {
+						oneTime && observer.disconnect();
+					}, 100);
+				}
+			}
+
+
+		}
+	}
 };
 
-// #endregion ================DISPLAY OBJECTS===================================
+window.displayBrowse = displayBrowse.categories.icons;
 
-
-// #region -------------------DISPLAY TOP HITS LOGIC----------------------------
-
-// Add song cards from database to top hits grid
-displayTopHits.addDatabaseSongs(songDatabase1);
-
-// Add parallax to display top hits' circle decorations.
-animationEffects.addParallax(
-	displayTopHits.grid,
-	displayTopHits.gridCircleDecorations,
-	0.05,
-	"breakpointMedium"
-);
-
-// #endregion ================DISPLAY TOP HITS LOGIC============================
-
-
-// #region -------------------DISPLAY ADS LOGIC---------------------------------
-
-// DBG cute kitty placeholders :3
-displayAds.appendNewAd("https://placekitten.com/200/300");
-displayAds.appendNewAd("https://placekitten.com/300/200");
-displayAds.appendNewAd("https://placekitten.com/300/300");
-displayAds.appendNewAd("https://placekitten.com/400/300");
-displayAds.appendNewAd("https://placekitten.com/300/400");
-displayAds.appendNewAd("https://placekitten.com/500/500");
-
-displayAds.trackCurrentDisplayedAd();
-
-displayAds.autoScroll(5000);
-
-
-// #endregion ================DISPLAY ADS LOGIC=================================
-
-
-// #region -------------------DISPLAY BROWSE LOGIC------------------------------
-
-// DBG Add placeholder icons
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-displayBrowse.categories.addIcon("Pop", "https://placekitten.com/500/500");
-displayBrowse.categories.addIcon("Shoegaze", "https://placekitten.com/400/400");
-displayBrowse.categories.addIcon("Rock", "https://placekitten.com/300/300");
-displayBrowse.categories.addIcon("Lo-Fi", "https://placekitten.com/200/200");
-displayBrowse.categories.addIcon("Indie", "https://placekitten.com/100/100");
-
-// #endregion ================DISPLAY BROWSE LOGIC==============================
+export default {
+	displayTopHits,
+	displayAds,
+	displayBrowse
+};

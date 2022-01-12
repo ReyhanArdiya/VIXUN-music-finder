@@ -7,6 +7,7 @@
 	justify-content: center;
 	margin-top: 5em;
 	flex-direction: column;
+	position: relative;
 }
 
 /* #endregion DISPLAY BROWSE CONTAINER */
@@ -24,7 +25,7 @@
 /* #region DISPLAY BROWSE CATEGORIES */
 
 #display-browse-categories {
-	background: var(--Pale-Black);
+	background: var(--primary-pale-black);
 	min-height: 58px;
 	overflow-x: auto;
 	font-size: 1em;
@@ -71,20 +72,28 @@
 	transition: color 0.1s linear;
 }
 
-.icon-category:nth-of-type(odd):hover p {
-	color: var(--Bright-Red);
+.icon-category:hover p {
+	color: var(--primary-bright-red);
 }
 
-.icon-category:nth-of-type(odd):active p {
-	color: var(--Bright-Red-Active);
+.icon-category:active p {
+	color: var(--primary-bright-red-active);
 }
 
-.icon-category:nth-of-type(even):hover p {
-	color: var(--Bright-Purple);
+.icon-category.icon-category-off:hover p {
+	color: var(--primary-bright-purple);
 }
 
-.icon-category:nth-of-type(even):active p {
-	color: var(--Bright-Purple-Active);
+.icon-category.icon-category-off:active p {
+	color: var(--primary-bright-purple-active);
+}
+
+/* Color status class for currently active icon */
+.icon-category-on p {
+	color: var(--primary-bright-red);
+}
+.icon-category-off p {
+	color: var(--primary-bright-purple);
 }
 
 @media screen and (min-width: 48em) {
@@ -116,9 +125,9 @@
 
 /* #region -------------------BROWSE SEARCHBAR INPUT------------------- */
 
-#browse-searchbar-input {
+#form-search-songs {
 	border-radius: 0.35em;
-	box-shadow: var(--Shadow-Floating-Box-Bottom);
+	box-shadow: var(--shadow-floating-box-bottom);
 	display: grid;
 	grid-template-columns: 0.8fr 0.2fr;
 	grid-template-rows: 1fr;
@@ -127,37 +136,37 @@
 	margin-bottom: 1em;
 }
 
-#browse-searchbar-input,
-#browse-searchbar-input input,
-#browse-searchbar-input button {
+#form-search-songs,
+#form-search-songs input,
+#form-search-songs button {
 	max-height: 42px;
 }
 
-#browse-searchbar-input input,
-#browse-searchbar-input button,
-#browse-searchbar-input button::before {
+#form-search-songs input,
+#form-search-songs button,
+#form-search-songs button::before {
 	border-radius: inherit;
 	border: none;
 	outline: none;
 }
 
-#browse-searchbar-input input {
+#form-search-songs input {
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	font: 700 1em "Quicksand";
 	padding: 0 0.5em;
 }
 
-#browse-searchbar-input button {
+#form-search-songs button {
 	cursor: pointer;
-	background: var(--Gradient-Purple-Red);
+	background: var(--gradient-purple-red);
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 	position: relative;
 }
 
 /* Browse searchbar input button overlay on hover/active */
-#browse-searchbar-input button::before {
+#form-search-songs button::before {
 	content: "";
 	width: 100%;
 	height: 100%;
@@ -165,43 +174,43 @@
 	top: 0;
 	left: 0;
 	opacity: 0;
-	background-color: var(--Pale-Black);
+	background-color: var(--primary-pale-black);
 	transition: opacity 0.25s linear;
 	border-bottom-left-radius: 0;
 	border-top-left-radius: 0;
 }
 
-#browse-searchbar-input button:hover::before {
+#form-search-songs button:hover::before {
 	opacity: 0.2;
 }
 
-#browse-searchbar-input button:active::before {
+#form-search-songs button:active::before {
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
 }
 
-#browse-searchbar-input button svg {
+#form-search-songs button svg {
 	width: 50%;
 	height: 50%;
 }
 
 @media screen and (min-width: 48em) {
-	#browse-searchbar-input {
+	#form-search-songs {
 		font-size: 2em;
 	}
-	#browse-searchbar-input,
-	#browse-searchbar-input input,
-	#browse-searchbar-input button {
+	#form-search-songs,
+	#form-search-songs input,
+	#form-search-songs button {
 		max-height: 100px;
 	}
 }
 @media screen and (min-width: 90em) {
-	#browse-searchbar-input {
+	#form-search-songs {
 		font-size: 3em;
 	}
-	#browse-searchbar-input,
-	#browse-searchbar-input input,
-	#browse-searchbar-input button {
+	#form-search-songs,
+	#form-search-songs input,
+	#form-search-songs button {
 		max-height: 150px;
 	}
 }
@@ -220,11 +229,12 @@
 }
 
 .browse-sort-label {
-	color: var(--Medium-Gray);
+	color: var(--semantic-gray-medium);
 	font: 500 1.1em "Mohave";
 	display: grid;
 	grid-template-columns: 1fr 18px;
 	grid-template-rows: 1fr;
+	user-select: none;
 }
 
 .browse-sort-label p {
@@ -245,16 +255,49 @@
 }
 
 .browse-sort-label p:hover {
-	color: var(--Pale-Black);
+	color: var(--primary-pale-black);
 }
 
 .browse-sort-label-arrow:hover path {
-	fill: var(--Pale-Black);
+	fill: var(--primary-pale-black);
 }
 
 .browse-sort-label-arrow svg {
 	width: 100%;
 	height: 100%;
+}
+
+/* Sort label status */
+.browse-sort-label-asc p {
+	color: var(--primary-bright-red);
+}
+
+.browse-sort-label-asc path {
+	fill: var(--primary-bright-red);
+}
+
+.browse-sort-label-desc p {
+	color: var(--primary-bright-purple);
+}
+
+.browse-sort-label-desc path {
+	fill: var(--primary-bright-purple);
+}
+
+.browse-sort-label.browse-sort-label-asc p:hover {
+	color: var(--primary-bright-red-active);
+}
+
+.browse-sort-label-asc .browse-sort-label-arrow:hover path {
+	fill: var(--primary-bright-red-active);
+}
+
+.browse-sort-label.browse-sort-label-desc p:hover {
+	color: var(--primary-bright-purple-active);
+}
+
+.browse-sort-label-desc .browse-sort-label-arrow:hover path {
+	fill: var(--primary-bright-purple-active);
 }
 
 @media screen and (min-width: 48em) {
@@ -277,3 +320,64 @@
 }
 
 /* #endregion ================BROWSE SEARCHBAR SORT LABELS=================== */
+
+/* #region -------------------BROWSE CIRCLE DECORATIONS---------------------- */
+
+#display-browse > .circle-decoration-purple {
+	font-size: 4em;
+	top: -40px;
+	right: 50px;
+	z-index: -1;
+}
+
+#display-browse-circle-decorations svg {
+	z-index: -1;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(1) {
+	font-size: 2.25em;
+	top: 40%;
+	right: 20%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(2) {
+	font-size: 2.2em;
+	bottom: 41%;
+	left: 30%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(3) {
+	font-size: 3.2em;
+	bottom: 24%;
+	right: 3%;
+}
+
+#display-browse-circle-decorations svg:nth-of-type(4) {
+	font-size: 2em;
+	bottom: 0%;
+	left: 1%;
+}
+
+@media screen and (min-width: 48em) {
+	#display-browse-circle-decorations {
+		font-size: 2.15em;
+	}
+
+	#display-browse > .circle-decoration-purple {
+		font-size: 5em;
+		top: -50px;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-browse-circle-decorations {
+		font-size: 2.75em;
+	}
+
+	#display-browse > .circle-decoration-purple {
+		font-size: 6em;
+		top: -60px;
+	}
+}
+
+/* #endregion ================BROWSE CIRCLE DECORATIONS====================== */
