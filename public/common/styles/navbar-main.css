@@ -5,9 +5,11 @@
 	bottom: 0;
 	height: 10vh;
 	position: fixed;
+	min-height: var(--navbar-main--max-height-small);
 	max-height: var(--navbar-main--max-height-small);
 	width: 100%;
 	z-index: 10;
+	min-width: 320px;
 }
 
 .navbar-main-shadow {
