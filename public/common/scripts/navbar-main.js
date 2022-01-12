@@ -111,6 +111,7 @@ window.addEventListener("load", () => {
 	}
 });
 
+// PROG finish dealing with shadows next is just to add footer breakpoints and circle decos between ad and browse
 // Add listener for navbar dropdown menu reveal/hide
 navbarMain.content.icons.hamburger.addEventListener(
 	"click",
@@ -129,8 +130,10 @@ navbarMain.content.icons.hamburger.addEventListener(
 	})()
 );
 
-/* Add listener for navbar dropdown text move to content or vice-versa
-		on medium breakpoint */
+/**
+ * Add listener for navbar dropdown text move to content or vice-versa
+ * on medium breakpoint.
+ */
 mediaQuery.medium.addEventListener("change", e => {
 			 e.matches ?
 		navbarMain.dropdown.moveText("content") :

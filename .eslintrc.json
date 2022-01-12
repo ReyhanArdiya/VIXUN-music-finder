@@ -194,7 +194,7 @@
 			{ "blankLine": "always", "prev": "*", "next": "return" },
 			{ "blankLine": "always", "prev": "*", "next": "case" }
 		],
-		"prefer-arrow-callback": "warn",
+		"prefer-arrow-callback": "off",
 		"prefer-const": "warn",
 		"prefer-destructuring": [
 			"warn",
