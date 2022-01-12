@@ -35,7 +35,15 @@ const categoryIcons =
 ];
 
 routerHome.get("/", (req, res) => {
-	res.render("home", { categoryIcons });
+	const navbarLink = {
+		topHits : "#display-top-hits",
+		browse  : "#display-browse"
+	};
+
+	res.render("home", {
+		categoryIcons,
+		navbarLink
+	});
 });
 
 export default routerHome;
