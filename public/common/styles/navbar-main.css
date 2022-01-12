@@ -5,9 +5,11 @@
 	bottom: 0;
 	height: 10vh;
 	position: fixed;
+	min-height: var(--navbar-main--max-height-small);
 	max-height: var(--navbar-main--max-height-small);
 	width: 100%;
 	z-index: 10;
+	min-width: 320px;
 }
 
 .navbar-main-shadow {
@@ -36,9 +38,18 @@
 
 /* #region NAVBAR MAIN CONTENT ICONS */
 
-#icon-cart {
+/* #icon-cart {
 	height: 55%;
 	flex: 1;
+} */
+
+#icon-home {
+	height: 55%;
+	flex: 1;
+}
+
+#icon-home path {
+	fill: white;
 }
 
 #icon-hamburger {
@@ -47,7 +58,7 @@
 	justify-content: center;
 }
 
-#navbar-main-content [id^="icon"]:not(#icon-cart) {
+#navbar-main-content [id^="icon"]:not(#icon-home) {
 	height: 50%;
 	flex: 1;
 }

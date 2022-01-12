@@ -34,6 +34,8 @@
 	/* TODO make new var for relative border rad using 0.35em */
 	font-size: 1em;
 	background: white;
+	cursor: pointer;
+	user-select: none;
 }
 
 .song-card::before {
@@ -47,6 +49,36 @@
 	position: absolute;
 	left: 1em;
 	top: -2.7em;
+}
+
+/* song cards overlay on hover/active */
+.song-card {
+	cursor: pointer;
+	position: relative;
+	/* add styles from here */
+}
+
+.song-card::after {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+	border-radius: 0.35em;
+	font-size: 1em;
+}
+
+.song-card:hover::after {
+	opacity: 0.2;
+}
+
+.song-card:active::after {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
 }
 
 .song-card-artist {
@@ -66,6 +98,7 @@
 	overflow-y: scroll;
 	align-items: start;
 	max-height: 90%;
+	z-index: 1;
 }
 
 .song-card-info-scroll::-webkit-scrollbar {

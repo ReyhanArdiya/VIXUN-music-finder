@@ -103,10 +103,43 @@
 					<img src="" class="display-ads-item" />
 				</template>
 			</section>
+			<svg
+				class="circle-decoration-red circle-decoration-hollow"
+				width="124"
+				height="95"
+				viewBox="0 0 124 95"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<circle cx="47.2787" cy="47.2787" r="47.2787" fill="#FF0000" />
+				<circle cx="47.2787" cy="47.2788" r="34.3845" fill="white" />
+				<path
+					d="M37.343 52.8587L42.792 73.0432C43.1736 74.4568 44.8949 74.9946 46.0134 74.0498L64.4433 58.482C65.4807 57.6057 67.071 57.9959 67.5851 59.2528L76.7954 81.774C77.3293 83.0795 79.0105 83.4371 80.0295 82.4618L96.426 66.7687C97.4835 65.7566 99.2344 66.1861 99.7034 67.5728L106.877 88.783C107.354 90.193 109.149 90.6066 110.195 89.5474L122.428 77.1575"
+					stroke="black"
+					stroke-width="2"
+					stroke-linecap="round"
+				/>
+			</svg>
 		</section>
 
 		<!-- DISPLAY BROWSE SONGS -->
 		<main id="display-browse">
+			<svg
+				class="circle-decoration-purple"
+				width="166"
+				height="120"
+				viewBox="0 0 166 120"
+				fill="none"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<circle cx="105.59" cy="59.7992" r="59.7992" fill="#A129FF" />
+				<path
+					d="M148.634 46.33L123.367 72.2641C122.346 73.3129 120.58 72.9443 120.064 71.5743L104.81 31.1337C104.33 29.8631 102.751 29.4293 101.69 30.2767L67.7553 57.3779C66.6531 58.258 65.0107 57.7515 64.5957 56.4035L52.5324 17.2157C52.1017 15.8166 50.3632 15.3391 49.2783 16.3217L19.1145 43.6416C18.0113 44.6409 16.2421 44.1278 15.8446 42.6934L7.68547 13.2519"
+					stroke="black"
+					stroke-width="2"
+					stroke-linecap="round"
+				/>
+			</svg>
 			<header id="display-browse-title" class="title-card">
 				<h2>BROWSE</h2>
 			</header>
@@ -123,9 +156,8 @@
 				<% } %>
 			</section>
 			<section id="display-browse-searchbar">
-				<form id="browse-searchbar-input">
-					<!-- TODO rename and add name to the searchbar form -->
-					<input type="text" />
+				<form id="form-search-songs" action="" method="POST">
+					<input type="text" name="q" />
 					<button>
 						<svg
 							width="24"

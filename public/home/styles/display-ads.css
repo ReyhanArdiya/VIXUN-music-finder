@@ -12,12 +12,32 @@
 	display: flex;
 	justify-content: center;
 	padding: 1em;
+	position: relative;
+}
+
+#display-ads .circle-decoration-red {
+	font-size: 4em;
+	bottom: -40px;
+	left: 50px;
+	z-index: -1;
 }
 
 @media screen and (min-width: 48em) {
 	#display-ads {
 		font-size: 1em;
 		margin-top: 6em;
+	}
+
+	#display-ads .circle-decoration-red {
+		font-size: 5em;
+		bottom: -50px;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-ads .circle-decoration-red {
+		font-size: 6em;
+		bottom: -60px;
 	}
 }
 

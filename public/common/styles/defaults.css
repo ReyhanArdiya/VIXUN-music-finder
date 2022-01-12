@@ -22,6 +22,11 @@
 
 html {
 	font-size: 1em;
+	scroll-behavior: smooth;
+}
+
+body {
+	min-width: 320px;
 }
 
 * {
