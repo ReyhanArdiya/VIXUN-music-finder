@@ -73,8 +73,20 @@ const navbarMain = {
 		}
 	},
 	shadowScroll : new IntersectionObserver(
-		() => {
-			navbarMain.menu.classList.toggle("navbar-main-shadow");
+		ent => {
+			if (
+				!ent[0].isIntersecting &&
+				mediaQuery.medium.matches &&
+				!navbarMain.menu.classList.contains("navbar-main-shadow")
+			) {
+				navbarMain.menu.classList.add("navbar-main-shadow");
+			} else if (
+				ent[0].isIntersecting &&
+				mediaQuery.medium.matches &&
+				navbarMain.menu.classList.contains("navbar-main-shadow")
+			) {
+				navbarMain.menu.classList.remove("navbar-main-shadow");
+			}
 		},
 		{
 			root       : null,
@@ -89,8 +101,13 @@ navbarMain.shadowScroll.observe(navbarMain.menu);
 
 // Toggle navbar main shadow when not on original position on load
 window.addEventListener("load", () => {
-	if (window.scrollY) {
-		navbarMain.menu.classList.toggle("navbar-main-shadow");
+	if (
+		mediaQuery.medium.matches &&
+		window.scrollY &&
+		!navbarMain.menu.classList.contains("navbar-main-shadow")
+	) {
+		console.log("Medium");
+		navbarMain.menu.classList.add("navbar-main-shadow");
 	}
 });
 
@@ -112,8 +129,10 @@ navbarMain.content.icons.hamburger.addEventListener(
 	})()
 );
 
-/* Add listener for navbar dropdown text move to content or vice-versa
-		on medium breakpoint */
+/**
+ * Add listener for navbar dropdown text move to content or vice-versa
+ * on medium breakpoint.
+ */
 mediaQuery.medium.addEventListener("change", e => {
 			 e.matches ?
 		navbarMain.dropdown.moveText("content") :
