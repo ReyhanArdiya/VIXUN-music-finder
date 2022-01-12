@@ -6,11 +6,15 @@ const navbarMain = {
 		menu  : document.querySelector("#navbar-main-content"),
 		icons : {
 			profile   : document.querySelector("#icon-account path"),
-			cart      : document.querySelector("#icon-cart path"),
+			home      : document.querySelector("#icon-home path"),
 			hamburger : document.querySelector(
+
 				"#icon-hamburger svg"
 			),
-			hamburgerDiv : document.querySelector("#icon-hamburger")
+			hamburgerDiv : document.querySelector("#icon-hamburger"),
+
+			// cart      : document.querySelector("#icon-cart path")
+
 		},
 		textContainer : document.querySelector(
 			"#navbar-main-content-text-container"

@@ -36,9 +36,15 @@
 
 /* #region NAVBAR MAIN CONTENT ICONS */
 
-#icon-cart {
+/* #icon-cart {
 	height: 55%;
 	flex: 1;
+} */
+
+#icon-home {
+	height: 55%;
+	flex: 1;
+	fill: white;
 }
 
 #icon-hamburger {
@@ -47,7 +53,7 @@
 	justify-content: center;
 }
 
-#navbar-main-content [id^="icon"]:not(#icon-cart) {
+#navbar-main-content [id^="icon"]:not(#icon-home) {
 	height: 50%;
 	flex: 1;
 }
