@@ -125,7 +125,7 @@
 
 /* #region -------------------BROWSE SEARCHBAR INPUT------------------- */
 
-#browse-searchbar-input {
+#form-search-songs {
 	border-radius: 0.35em;
 	box-shadow: var(--shadow-floating-box-bottom);
 	display: grid;
@@ -136,28 +136,28 @@
 	margin-bottom: 1em;
 }
 
-#browse-searchbar-input,
-#browse-searchbar-input input,
-#browse-searchbar-input button {
+#form-search-songs,
+#form-search-songs input,
+#form-search-songs button {
 	max-height: 42px;
 }
 
-#browse-searchbar-input input,
-#browse-searchbar-input button,
-#browse-searchbar-input button::before {
+#form-search-songs input,
+#form-search-songs button,
+#form-search-songs button::before {
 	border-radius: inherit;
 	border: none;
 	outline: none;
 }
 
-#browse-searchbar-input input {
+#form-search-songs input {
 	border-bottom-right-radius: 0;
 	border-top-right-radius: 0;
 	font: 700 1em "Quicksand";
 	padding: 0 0.5em;
 }
 
-#browse-searchbar-input button {
+#form-search-songs button {
 	cursor: pointer;
 	background: var(--gradient-purple-red);
 	border-bottom-left-radius: 0;
@@ -166,7 +166,7 @@
 }
 
 /* Browse searchbar input button overlay on hover/active */
-#browse-searchbar-input button::before {
+#form-search-songs button::before {
 	content: "";
 	width: 100%;
 	height: 100%;
@@ -180,37 +180,37 @@
 	border-top-left-radius: 0;
 }
 
-#browse-searchbar-input button:hover::before {
+#form-search-songs button:hover::before {
 	opacity: 0.2;
 }
 
-#browse-searchbar-input button:active::before {
+#form-search-songs button:active::before {
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
 }
 
-#browse-searchbar-input button svg {
+#form-search-songs button svg {
 	width: 50%;
 	height: 50%;
 }
 
 @media screen and (min-width: 48em) {
-	#browse-searchbar-input {
+	#form-search-songs {
 		font-size: 2em;
 	}
-	#browse-searchbar-input,
-	#browse-searchbar-input input,
-	#browse-searchbar-input button {
+	#form-search-songs,
+	#form-search-songs input,
+	#form-search-songs button {
 		max-height: 100px;
 	}
 }
 @media screen and (min-width: 90em) {
-	#browse-searchbar-input {
+	#form-search-songs {
 		font-size: 3em;
 	}
-	#browse-searchbar-input,
-	#browse-searchbar-input input,
-	#browse-searchbar-input button {
+	#form-search-songs,
+	#form-search-songs input,
+	#form-search-songs button {
 		max-height: 150px;
 	}
 }
