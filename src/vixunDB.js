@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import modelSong from "./models/song.js";
+import Song from "./models/song.js";
 
 const mongoDatabase = "VIXUNDB";
 try {
@@ -8,3 +8,5 @@ try {
 } catch (err) {
 	console.log(`Error! Can't connect to ${mongoDatabase}!🍂`, err);
 }
+
+
