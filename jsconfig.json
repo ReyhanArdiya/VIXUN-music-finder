@@ -9,6 +9,7 @@
 		"strictNullChecks": false,
 		"noImplicitAny": false
 	},
-	"exclude": ["node_modules", "src/public"],
+	"include": ["node_modules"],
+	"exclude": ["src/public"],
 	"typeAcquisition": { "include": ["node"] }
 }
