@@ -96,6 +96,14 @@
 	}
 }
 
+@media screen and (min-width: 48em) and (max-height: calc(600em / 16)) {
+	#display-top-hits-grid {
+		min-height: 0;
+		max-height: 350px;
+		grid-auto-columns: 10%;
+	}
+}
+
 @media screen and (min-width: 90em) {
 	#display-top-hits-grid {
 		min-height: 600px;
