@@ -19,5 +19,8 @@
 		"eslint-plugin-jsdoc": "^37.4.0",
 		"express": "^4.17.2",
 		"mongoose": "^6.1.6"
+	},
+	"devDependencies": {
+		"mongoose-dummy": "^1.0.8"
 	}
 }
