@@ -1,3 +1,4 @@
+import "./vixunDB.js";
 import express from "express";
 import { fileURLToPath } from "url";
 import routerHome from "./routes/home.js";
