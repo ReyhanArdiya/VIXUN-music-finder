@@ -78,11 +78,18 @@ const songSchema = new mongoose.Schema({
 
 class SongMethods {
 
+	/**
+	 * Returns the description of this `SongDocument`.
+	 *
+	 * @this {SongDocument}
+	 *
+	 * @returns {void}
+	 */
 	get desc() {
 		return `[${this.genre}] ${this.title} - ${this.album} by ` +
 		`${this.artist} from ` +
 		`${this.year} is ${this.isOnSale ? "on sale" : "not on sale"} at ` +
-		`$${this.priceUSD} and has ${this.downloads} downloads.`;
+			`$${this.priceUSD} and has ${this.downloads} downloads.`;
 	}
 
 	/**
