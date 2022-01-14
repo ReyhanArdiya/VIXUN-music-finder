@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
 
+const nothingFound = (field, fieldArg, caseSensitive) => {
+	throw new Error(
+		`Nothing found from {${field} : ${fieldArg}} case ${caseSensitive ? "" : "in"}sensitive query`
+	);
+};
+
 /**
  * Type for instance of {@link Song}.
  *
@@ -86,10 +92,7 @@ class SongMethods {
 	 * @returns {void}
 	 */
 	get desc() {
-		return `[${this.genre}] ${this.title} - ${this.album} by ` +
-		`${this.artist} from ` +
-		`${this.year} is ${this.isOnSale ? "on sale" : "not on sale"} at ` +
-			`$${this.priceUSD} and has ${this.downloads} downloads.`;
+		return `[${this.genre}] ${this.title} - ${this.album} by ${this.artist} from ${this.year} is ${this.isOnSale ? "on sale" : "not on sale"} at $${this.priceUSD} and has ${this.downloads} downloads.`;
 	}
 
 	/**
@@ -108,10 +111,150 @@ class SongMethods {
 
 		return this._downloads;
 	}
+
+	/**
+	 * @param album
+	 *
+	 * @param caseSensitive
+	 *
+	 * @this {Song}
+	 *
+	 * @example
+	 */
+	static async findByAlbum(album, caseSensitive = true) {
+		const res = await this.find({
+			album : {
+				$options : `${caseSensitive ? "" : "i"}`,
+				$regex   : album,
+			}
+		});
+
+		return res.length ? res : nothingFound("album", album, caseSensitive);
+	}
+
+	/**
+	 * @param artist
+	 *
+	 * @param caseSensitive
+	 *
+	 * @example
+	 */
+	static async findByArtist(artist, caseSensitive = true) {
+		const res = await this.find({
+			artist : {
+				$options : `${caseSensitive ? "" : "i"}`,
+				$regex   : artist,
+			}
+		});
+
+		return res.length ? res : nothingFound("artist", artist, caseSensitive);
+	}
+
+	/**
+	 * @param genre
+	 *
+	 * @param caseSensitive
+	 *
+	 * @example
+	 */
+	static async findByGenre(genre, caseSensitive = true) {
+		const res = await this.find({
+			genre : {
+				$options : `${caseSensitive ? "" : "i"}`,
+				$regex   : genre,
+			}
+		});
+
+		return res.length ? res : nothingFound("genre", genre, caseSensitive);
+	}
+
+	/**
+	 * @param isOnSale
+	 *
+	 * @example
+	 */
+	static async findBySale(isOnSale) {
+		const res = await this.find({ isOnSale });
+
+		return res.length ? res : nothingFound("sale", isOnSale);
+	}
+
+	/**
+	 *
+	 * @param title
+	 *
+	 * @param caseSensitive
+	 *
+	 * @example
+	 */
+	static async findByTitle(title, caseSensitive = true) {
+		const res = await this.find({
+			title : {
+				$options : `${caseSensitive ? "" : "i"}`,
+				$regex   : title,
+			}
+		});
+
+		return res.length ? res : nothingFound("title", title, caseSensitive);
+	}
+
+	/**
+	 * @param {boolean | {
+	 * spotify: boolean,
+	 * deezer: boolean,
+	 * appleMusic: boolean}} option Meow.
+	 *
+	 * @param caseSensitive
+	 *
+	 * @example
+	 *
+	 * @returns
+	 */
+	static async findByLinksAvailability(option, caseSensitive = true) {
+		// eslint-disable-next-line
+		option.toString = function() {
+		   return `{appleMusic : ${this.appleMusic}, deezer : ${this.deezer}, spotify : ${this.spotify}`;
+		};
+		let res;
+
+		if (typeof option === "object") {
+			const { appleMusic, deezer, spotify } = option;
+			res = await this.find({
+				"links.appleMusic" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : appleMusic ? /^(?!not available$).*$/ : /^not available$/,
+				},
+				"links.deezer" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : deezer ? /^(?!not available$).*$/ : /^not available$/,
+				},
+				"links.spotify" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : spotify ? /^(?!not available$).*$/ : /^not available$/,
+				}
+			});
+		} else {
+			res = await this.find({
+				"links.appleMusic" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
+				},
+				"links.deezer" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
+				},
+				"links.spotify" : {
+					$options : `${caseSensitive ? "" : "i"}`,
+					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
+				}
+			});
+		}
+
+		return res.length ? res : nothingFound("option", option, caseSensitive);
+	}
 }
 
-songSchema.loadClass(SongMethods);
-
-export const Song = mongoose.model("Song", songSchema);
+SongSchema.loadClass(SongMethods);
+export const Song = mongoose.model("Song", SongSchema);
 
 export default Song;
