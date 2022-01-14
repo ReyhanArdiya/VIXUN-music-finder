@@ -9,25 +9,19 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 /**
  * Type for instance of {@link Song}.
  *
- * @typedef {object} SongDocument
+ * @typedef {import("mongoose").Document & {
+ * album: string
+ * artist: string
+ * coverURL: string
+ * downloads: number
+ * genre: string
+ * isOnSale: boolean
+ * priceUSD: number
+ * title: string
+ * year: number
+ * }} SongDocument
  *
- * @property {string} album
  *
- * @property {string} artist
- *
- * @property {string} coverURL
- *
- * @property {number} downloads
- *
- * @property {string} genre
- *
- * @property {boolean} isOnSale
- *
- * @property {number} priceUSD
- *
- * @property {string} title
- *
- * @property {number} year
  */
 const SongSchema = new mongoose.Schema({
 	album : {
@@ -82,14 +76,14 @@ const SongSchema = new mongoose.Schema({
 	}
 }, { strict : "throw" });
 
-class SongMethods {
+class SongSchemaMethods {
 
 	/**
-	 * Returns the description of this `SongDocument`.
+	 * Returns the description of this {@link SongDocument}.
 	 *
 	 * @this {SongDocument}
 	 *
-	 * @returns {void}
+	 * @returns {string}
 	 */
 	get desc() {
 		return `[${this.genre}] ${this.title} - ${this.album} by ${this.artist} from ${this.year} is ${this.isOnSale ? "on sale" : "not on sale"} at $${this.priceUSD} and has ${this.downloads} downloads.`;
@@ -113,13 +107,20 @@ class SongMethods {
 	}
 
 	/**
-	 * @param album
+	 * Searches {@link SongDocument}s by its `album` field.
 	 *
-	 * @param caseSensitive
+	 * @param {string} album
+	 *
+	 * @param {boolean} caseSensitive
 	 *
 	 * @this {Song}
 	 *
+	 * @returns {Promise<SongDocument>}
+	 *
 	 * @example
+	 * ```
+	 * await Song.findByAlbum("bloom", false);
+	 * ```
 	 */
 	static async findByAlbum(album, caseSensitive = true) {
 		const res = await this.find({
@@ -133,11 +134,18 @@ class SongMethods {
 	}
 
 	/**
-	 * @param artist
+	 * Searches {@link SongDocument}s by its `artist` field.
 	 *
-	 * @param caseSensitive
+	 * @param {string} artist
+	 *
+	 * @param {boolean} caseSensitive
+	 *
+	 * @returns {Promise<SongDocument>}
 	 *
 	 * @example
+	 * ```
+	 * await Song.findByArtist("BEACH housE", false);
+	 * ```
 	 */
 	static async findByArtist(artist, caseSensitive = true) {
 		const res = await this.find({
@@ -151,11 +159,18 @@ class SongMethods {
 	}
 
 	/**
-	 * @param genre
+	 * Searches {@link SongDocument}s by its `genre` field.
 	 *
-	 * @param caseSensitive
+	 * @param {string} genre
+	 *
+	 * @param {boolean} caseSensitive
+	 *
+	 * @returns {Promise<SongDocument>}
 	 *
 	 * @example
+	 * ```
+	 * await Song.findByGenre("Shoegaze");
+	 * ```
 	 */
 	static async findByGenre(genre, caseSensitive = true) {
 		const res = await this.find({
@@ -169,23 +184,36 @@ class SongMethods {
 	}
 
 	/**
-	 * @param isOnSale
+	 * Searches {@link SongDocument}s by its `isOnSale` field.
+	 *
+	 * @param {boolean} isOnSale
+	 *
+	 * @returns {Promise<SongDocument>}
 	 *
 	 * @example
+	 * ```
+	 * await Song.findBySaleStatus(false);
+	 * ```
 	 */
-	static async findBySale(isOnSale) {
+	static async findBySaleStatus(isOnSale) {
 		const res = await this.find({ isOnSale });
 
 		return res.length ? res : nothingFound("sale", isOnSale);
 	}
 
 	/**
+	 * Searches {@link SongDocument}s by its `title` field.
 	 *
-	 * @param title
+	 * @param {string} title
 	 *
-	 * @param caseSensitive
+	 * @param {boolean} caseSensitive
+	 *
+	 * @returns {Promise<SongDocument>}
 	 *
 	 * @example
+	 * ```
+	 * await Song.findByTitle("The Hours", true);
+	 * ```
 	 */
 	static async findByTitle(title, caseSensitive = true) {
 		const res = await this.find({
@@ -199,18 +227,32 @@ class SongMethods {
 	}
 
 	/**
+	 * Searches {@link SongDocument}s by its `links` field.
+	 *
 	 * @param {boolean | {
 	 * spotify: boolean,
 	 * deezer: boolean,
-	 * appleMusic: boolean}} option Meow.
+	 * appleMusic: boolean}} option
 	 *
-	 * @param caseSensitive
+	 * @returns {Promise<SongDocument>}
 	 *
 	 * @example
+	 * ```
+	 * // Find songs where every link is not "not available"
+	 * await Song.findByAlbum(true);
 	 *
-	 * @returns
+	 * // Find songs where every link is "not available"
+	 * await Song.findByAlbum(false);
+	 *
+	 * // Find songs where appleMusic & deezer link is "not available" and
+	 * // spotify link is available
+	 * await Song.findByAlbum({
+	 * 	appleMusic : false,
+	 * 	spotify    : true
+	 * });
+	 * ```
 	 */
-	static async findByLinksAvailability(option, caseSensitive = true) {
+	static async findByLinksAvailability(option) {
 		// eslint-disable-next-line
 		option.toString = function() {
 		   return `{appleMusic : ${this.appleMusic}, deezer : ${this.deezer}, spotify : ${this.spotify}`;
@@ -220,41 +262,23 @@ class SongMethods {
 		if (typeof option === "object") {
 			const { appleMusic, deezer, spotify } = option;
 			res = await this.find({
-				"links.appleMusic" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : appleMusic ? /^(?!not available$).*$/ : /^not available$/,
-				},
-				"links.deezer" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : deezer ? /^(?!not available$).*$/ : /^not available$/,
-				},
-				"links.spotify" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : spotify ? /^(?!not available$).*$/ : /^not available$/,
-				}
+				"links.appleMusic" : { $regex : appleMusic ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.deezer"     : { $regex : deezer ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.spotify"    : { $regex : spotify ? /^(?!not available$).*$/ : /^not available$/ }
 			});
 		} else {
 			res = await this.find({
-				"links.appleMusic" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
-				},
-				"links.deezer" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
-				},
-				"links.spotify" : {
-					$options : `${caseSensitive ? "" : "i"}`,
-					$regex   : option ? /^(?!not available$).*$/ : /^not available$/,
-				}
+				"links.appleMusic" : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.deezer"     : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.spotify"    : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ }
 			});
 		}
 
-		return res.length ? res : nothingFound("option", option, caseSensitive);
+		return res.length ? res : nothingFound("option", option);
 	}
 }
 
-SongSchema.loadClass(SongMethods);
+SongSchema.loadClass(SongSchemaMethods);
 export const Song = mongoose.model("Song", SongSchema);
 
 export default Song;
