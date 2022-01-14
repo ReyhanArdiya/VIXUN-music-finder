@@ -12,6 +12,9 @@ try {
 	);
 }
 
+await Song.deleteMany({});
+
+// TODO make it like course did
 await Song.insertMany([
 	{
 		album     : "Bloom",
@@ -111,6 +114,55 @@ await Song.insertMany([
 		priceUSD  : 6.99,
 		title     : "Government Hooker",
 		year      : 2012,
-	} ]);
+	},
+	{
+		album     : "Chromatica",
+		artist    : "Lady Gaga",
+		coverURL  : "url",
+		downloads : 4620,
+		genre     : "Pop",
+		isOnSale  : false,
+		links     : {
+			appleMusic : "found",
+			deezer     : "found",
+			spotify    : "found"
+		},
+		priceUSD : 6.99,
+		title    : "Replay",
+		year     : 2020,
+	},
+	{
+		album     : "Chromatica",
+		artist    : "Lady Gaga",
+		coverURL  : "url",
+		downloads : 4620,
+		genre     : "Pop",
+		isOnSale  : false,
+		links     : {
+			appleMusic : "found",
+			deezer     : "found",
+			spotify    : "found"
+		},
+		priceUSD : 6.99,
+		title    : "Alice",
+		year     : 2020,
+	},
+	{
+		album     : "Once Twice Melody",
+		artist    : "Beach House",
+		coverURL  : "url",
+		downloads : 4620,
+		genre     : "Pop",
+		isOnSale  : false,
+		links     : {
+			appleMusic : "found",
+			spotify    : "found"
+		},
+		priceUSD : 6.99,
+		title    : "Superstar",
+		year     : 2022,
+	},
+]);
 
 console.log("Done seeding!");
+mongoose.connection.close();
