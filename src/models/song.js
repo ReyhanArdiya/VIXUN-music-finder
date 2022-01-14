@@ -1,5 +1,28 @@
 import mongoose from "mongoose";
 
+/**
+ * Type for instance of {@link Song}.
+ *
+ * @typedef {object} SongDocument
+ *
+ * @property {string} album
+ *
+ * @property {string} artist
+ *
+ * @property {string} coverURL
+ *
+ * @property {number} downloads
+ *
+ * @property {string} genre
+ *
+ * @property {boolean} isOnSale
+ *
+ * @property {number} priceUSD
+ *
+ * @property {string} title
+ *
+ * @property {number} year
+ */
 const songSchema = new mongoose.Schema({
 	album : {
 		type     : String,
