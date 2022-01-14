@@ -23,7 +23,7 @@ import mongoose from "mongoose";
  *
  * @property {number} year
  */
-const songSchema = new mongoose.Schema({
+const SongSchema = new mongoose.Schema({
 	album : {
 		required : true,
 		type     : String,
@@ -49,7 +49,7 @@ const songSchema = new mongoose.Schema({
 		type    : Boolean,
 	},
 	links : {
-		amazonMusic : {
+		appleMusic : {
 			default : "not available",
 			type    : String,
 		},
