@@ -25,55 +25,55 @@ import mongoose from "mongoose";
  */
 const songSchema = new mongoose.Schema({
 	album : {
+		required : true,
 		type     : String,
-		required : true
 	},
 	artist : {
+		required : true,
 		type     : String,
-		required : true
 	},
 	coverURL : {
+		required : true,
 		type     : String,
-		required : true
+	},
+	downloads : {
+		default : 0,
+		type    : Number,
 	},
 	genre : {
+		required : true,
 		type     : String,
-		required : true
 	},
 	isOnSale : {
+		default : false,
 		type    : Boolean,
-		default : false
 	},
 	links : {
-		spotify : {
+		amazonMusic : {
+			default : "not available",
 			type    : String,
-			default : "not available"
 		},
 		deezer : {
+			default : "not available",
 			type    : String,
-			default : "not available"
 		},
-		amazonMusic : {
+		spotify : {
+			default : "not available",
 			type    : String,
-			default : "not available"
 		},
 	},
 	priceUSD : {
+		required : true,
 		type     : Number,
-		required : true
 	},
 	title : {
+		required : true,
 		type     : String,
-		required : true
 	},
 	year : {
+		required : true,
 		type     : Number,
-		required : true
-	},
-	downloads : {
-		type    : Number,
-		default : 0
-	},
+	}
 }, { strict : "throw" });
 
 class SongMethods {
