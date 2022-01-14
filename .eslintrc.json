@@ -109,8 +109,8 @@
 				"code": 80,
 				"tabWidth": 4,
 				"ignoreUrls": true,
-				"ignoreStrings": false,
-				"ignoreTemplateLiterals": false,
+				"ignoreStrings": true,
+				"ignoreTemplateLiterals": true,
 				"ignoreRegExpLiterals": true
 			}
 		],
