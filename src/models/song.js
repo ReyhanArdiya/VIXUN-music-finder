@@ -15,7 +15,6 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
  * coverURL: string
  * downloads: number
  * genre: string
- * isOnSale: boolean
  * priceUSD: number
  * title: string
  * year: number
@@ -43,10 +42,6 @@ const SongSchema = new mongoose.Schema({
 	genre : {
 		required : true,
 		type     : String,
-	},
-	isOnSale : {
-		default : false,
-		type    : Boolean,
 	},
 	links : {
 		appleMusic : {
