@@ -1,4 +1,4 @@
-import "./vixunDB.js";
+import "./database/vixunDB.js";
 import express from "express";
 import { fileURLToPath } from "url";
 import routerHome from "./routers/home.js";
@@ -30,4 +30,3 @@ app.use("/", routerHome);
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
 // TODO make basic express project template once all is set
-
