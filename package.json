@@ -15,6 +15,7 @@
 	"author": "Reyhan Ardiya",
 	"license": "MIT",
 	"dependencies": {
+		"axios": "^0.24.0",
 		"ejs": "^3.1.6",
 		"express": "^4.17.2",
 		"mongoose": "^6.1.6"
