@@ -1,4 +1,4 @@
-import Song from "./models/song.js";
+import Song from "../models/song.js";
 import mongoose from "mongoose";
 
 const mongoDatabase = "VIXUNDB";
