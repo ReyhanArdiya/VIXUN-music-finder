@@ -16,8 +16,10 @@
 	"license": "MIT",
 	"dependencies": {
 		"ejs": "^3.1.6",
-		"eslint-plugin-jsdoc": "^37.4.0",
 		"express": "^4.17.2",
 		"mongoose": "^6.1.6"
+	},
+	"devDependencies": {
+		"eslint-plugin-jsdoc": "^37.6.1"
 	}
 }

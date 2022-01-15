@@ -1,5 +1,5 @@
 import express from "express";
-const routerHome = express.Router();
+const homeRouter = express.Router();
 
 class CategoryIcon {
 	 constructor(label = "Type", imgURL = "https://placekitten.com/100/100") {
@@ -34,7 +34,7 @@ const categoryIcons =
 	new CategoryIcon("Indie", "https://placekitten.com/100/100"),
 ];
 
-routerHome.get("/", (req, res) => {
+homeRouter.get("/", (req, res) => {
 	const navbarLink = {
 		topHits : "#display-top-hits",
 		browse  : "#display-browse"
@@ -46,4 +46,4 @@ routerHome.get("/", (req, res) => {
 	});
 });
 
-export default routerHome;
+export default homeRouter;
