@@ -75,8 +75,12 @@
 			"warn",
 			{
 				"require": {
-					"MethodDefinition": true,
-					"FunctionExpression": true
+					"ArrowFunctionExpression": true,
+					"ClassDeclaration": true,
+					"ClassExpression": true,
+					"FunctionDeclaration ": true,
+					"FunctionExpression": true,
+					"MethodDefinition": true
 				},
 				"checkGetters": false,
 				"checkSetters": false,
