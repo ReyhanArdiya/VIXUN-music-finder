@@ -83,3 +83,11 @@ const searchSpotify = async (token, q, ...type) => {
 
 // DBG
 // console.log(await searchSpotify(await getSpotifyToken(), "The Hours"));
+
+const spotify = {
+	getSpotifyToken,
+	searchSpotify
+};
+
+export default spotify;
+

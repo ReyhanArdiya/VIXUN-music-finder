@@ -1,9 +1,11 @@
 import appleMusic from "./appleMusic.js";
 import deezer from "./deezer.js";
-import spotfiy from "./spotfiy.js";
+import spotify from "./spotify.js";
 
-export default {
+const aggregator = {
 	appleMusic,
 	deezer,
-	spotfiy
+	spotify
 };
+
+export default aggregator;
