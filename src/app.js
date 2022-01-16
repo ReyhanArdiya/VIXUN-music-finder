@@ -8,7 +8,7 @@ import { dirname, join } from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-config({ path : join(__dirname, "..", "node.env") });
+config({ path : join(__dirname, "..", "process.env") });
 
 const port = process.env.PORT;
 const app = express();
