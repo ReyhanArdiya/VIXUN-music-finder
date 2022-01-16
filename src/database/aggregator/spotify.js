@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 
 config({ path : join(__dirname, "..", "..", "..", "process.env") });
 
-const getSpotifyToken = async () => {
+const getSpotifyToken = async (bearer = true) => {
 	try {
 		const res = await axios("https://accounts.spotify.com/api/token", {
 			headers : {
