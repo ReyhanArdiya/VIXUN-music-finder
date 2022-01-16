@@ -9,9 +9,18 @@ const __dirname = dirname(__filename);
 config({ path : join(__dirname, "..", "..", "..", "process.env") });
 
 /**
- * @param bearer
+ * Returns a spotify token.
+ *
+ * @param {boolean} bearer
+ * Set to `true` to return `"Bearer token"`, false to return `"token"` only.
+ * Defaults to `true`.
+ *
+ * @returns {Promise<string>} `"Bearer token"` or `"token"`.
  *
  * @example
+ * ```
+ * await searchSpotify(await getSpotifyToken(), "The Hours");
+ * ```
  */
 const getSpotifyToken = async (bearer = true) => {
 	try {
@@ -32,13 +41,23 @@ const getSpotifyToken = async (bearer = true) => {
 };
 
 /**
- * @param token
+ * Search using Spotify's `/search` endpoint.
  *
- * @param {string} q
+ * @param {string} token
+ * String of spotify's token using the `"Bearer token"` format. Use
+ * {@link getSpotifyToken} to easily get `token`.
+ *
+ * @param {string} q The query string to search for.
  *
  * @param {...string} type
+ * What type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
+ *
+ * @returns {import("axios").AxiosResponse} The `AxiosResponse`.
  *
  * @example
+ * ```
+ * await searchSpotify(await getSpotifyToken(), "The Hours")
+ * ```
  */
 const searchSpotify = async (token, q, ...type) => {
 	type = type.length ? type : [ "track", "album", "artist" ];
@@ -61,3 +80,6 @@ const searchSpotify = async (token, q, ...type) => {
 		console.log(err.response);
 	}
 };
+
+// DBG
+// console.log(await searchSpotify(await getSpotifyToken(), "The Hours"));
