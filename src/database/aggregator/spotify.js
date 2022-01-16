@@ -8,6 +8,11 @@ const __dirname = dirname(__filename);
 
 config({ path : join(__dirname, "..", "..", "..", "process.env") });
 
+/**
+ * @param bearer
+ *
+ * @example
+ */
 const getSpotifyToken = async (bearer = true) => {
 	try {
 		const res = await axios("https://accounts.spotify.com/api/token", {
@@ -20,8 +25,39 @@ const getSpotifyToken = async (bearer = true) => {
 			params : { "grant_type" : "client_credentials" }
 		});
 
-		return res.data["access_token"];
+		return bearer ? `Bearer ${res.data["access_token"]}` : res.data["access_token"];
 	} catch (error) {
 		console.log(error.response.status);
+	}
+};
+
+/**
+ * @param token
+ *
+ * @param {string} q
+ *
+ * @param {...string} type
+ *
+ * @example
+ */
+const searchSpotify = async (token, q, ...type) => {
+	type = type.length ? type : [ "track", "album", "artist" ];
+	type = type.join(",");
+
+	try {
+		const res = await axios.get("https://api.spotify.com/v1/search", {
+			headers : {
+				Authorization  : token,
+				"Content-Type" : "application/json"
+			},
+			params : {
+				q,
+				type
+			}
+		});
+
+		return res;
+	} catch (err) {
+		console.log(err.response);
 	}
 };
