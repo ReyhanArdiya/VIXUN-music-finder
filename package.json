@@ -21,6 +21,7 @@
 		"mongoose": "^6.1.6"
 	},
 	"devDependencies": {
+		"@types/mongoose": "^5.10.5",
 		"eslint-plugin-jsdoc": "^37.6.1"
 	}
 }
