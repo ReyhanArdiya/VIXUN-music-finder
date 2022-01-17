@@ -46,7 +46,7 @@ const getSpotifyToken = async (bearer = true) => {
  * @param {string} q The query string to search for.
  *
  * @param {string[]} type
- * Strings of what type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
+ * String array of what type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
  * Defaults to [ "track", "album", "artist" ].
  *
  * @param {number} limit
@@ -84,6 +84,8 @@ const searchSpotify = async (
 };
 
 /**
+ * Extracts `data` from spotify search endpoint results.
+ *
  * @param {object} data
  * One of these objects acquired from Spotify API's search endpoint or
  * {@link searchSpotify}:
@@ -94,9 +96,17 @@ const searchSpotify = async (
  * This functions checks the `data.type` property for what kind of object to
  * extract (`"album" | "artist" | "track"`).
  *
- * @returns
+ * @returns {object} An object containing extracted data from `data`.
  *
  * @example
+ * ```
+ * const res = await searchSpotify(
+ * 	await getSpotifyToken(),
+ * 	"Beach House",
+ * 	[ "artist" ]
+ * );
+ * console.log(extractSpotify(res.data.artists.items[0]));
+ * ```
  */
 const extractSpotify = data => {
 	/* eslint-disable jsdoc/require-jsdoc */
@@ -182,9 +192,12 @@ const extractSpotify = data => {
 };
 
 // DBG
-// const res = await searchSpotify(await getSpotifyToken(), "Beach House", [ "artist" ]);
+// const res = await searchSpotify(
+// 	await getSpotifyToken(),
+// 	"Beach House",
+// 	[ "artist" ]
+// );
 // console.log(extractSpotify(res.data.artists.items[0]));
-
 
 const spotify = {
 	extractSpotify,
