@@ -72,25 +72,19 @@ const searchSpotify = async (
 ) => {
 	type = type.join(",");
 
-	try {
-		const res = await axios.get("https://api.spotify.com/v1/search", {
-			headers : {
-				Authorization  : token,
-				"Content-Type" : "application/json"
-			},
-			params : {
-				limit,
-				q,
-				type,
-			}
-		});
+	const res = await axios.get("https://api.spotify.com/v1/search", {
+		headers : {
+			Authorization  : token,
+			"Content-Type" : "application/json"
+		},
+		params : {
+			limit,
+			q,
+			type,
+		}
+	});
 
-		return res;
-	} catch (err) {
-		console.error(err);
-
-		throw err;
-	}
+	return res;
 };
 
 // DBG
