@@ -9,6 +9,10 @@ const __dirname = dirname(__filename);
 config({ path : join(__dirname, "..", "..", "..", "process.env") });
 
 /**
+ * **This function uses `process.env.SPOTIFY_CLIENT_ID` and
+ * `process.env.SPOTIFY_CLIENT_SECRET`. Make sure you set those up in
+ * `root/process.env`!**
+ * ---
  * Returns a spotify token.
  *
  * @param {boolean} bearer
