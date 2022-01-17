@@ -6,6 +6,20 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 	);
 };
 
+const SongExternalSchema = new mongoose.Schema({
+	id : {
+		default : "none",
+		type    : String
+	},
+	link : {
+		default : "not available",
+		type    : String
+	}
+}, {
+	_id    : false,
+	strict : "throw"
+});
+
 // TODO change the schema here when our model is 100% fixed
 /**
  * Type for instance of {@link Song}.
@@ -40,34 +54,19 @@ const SongSchema = new mongoose.Schema({
 	},
 	externals : {
 		appleMusic : {
-			default : {
-				id   : "none",
-				link : "not available"
-			},
-			type : {
-				id   : String,
-				link : String,
-			},
+			// eslint-disable-next-line
+			default : () => ({}),
+			type    : SongExternalSchema
 		},
 		deezer : {
-			default : {
-				id   : "none",
-				link : "not available"
-			},
-			type : {
-				id   : String,
-				link : String,
-			},
+			// eslint-disable-next-line
+			default : () => ({}),
+			type    : SongExternalSchema
 		},
 		spotify : {
-			default : {
-				id   : "none",
-				link : "not available"
-			},
-			type : {
-				id   : String,
-				link : String,
-			},
+			// eslint-disable-next-line
+			default : () => ({}),
+			type    : SongExternalSchema
 		},
 	},
 	genre : {
