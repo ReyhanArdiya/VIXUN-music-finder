@@ -23,21 +23,17 @@ config({ path : join(__dirname, "..", "..", "..", "process.env") });
  * ```
  */
 const getSpotifyToken = async (bearer = true) => {
-	try {
-		const res = await axios("https://accounts.spotify.com/api/token", {
-			headers : {
-				Authorization : `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`)
-					.toString("base64")}`,
-				"Content-Type" : "application/x-www-form-urlencoded"
-			},
-			method : "POST",
-			params : { "grant_type" : "client_credentials" }
-		});
+	const res = await axios("https://accounts.spotify.com/api/token", {
+		headers : {
+			Authorization : `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`)
+				.toString("base64")}`,
+			"Content-Type" : "application/x-www-form-urlencoded"
+		},
+		method : "POST",
+		params : { "grant_type" : "client_credentials" }
+	});
 
-		return bearer ? `Bearer ${res.data["access_token"]}` : res.data["access_token"];
-	} catch (error) {
-		console.log(error.response.status);
-	}
+	return bearer ? `Bearer ${res.data["access_token"]}` : res.data["access_token"];
 };
 
 /**
