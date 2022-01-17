@@ -6,6 +6,7 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 	);
 };
 
+// TODO change the schema here when our model is 100% fixed
 /**
  * Type for instance of {@link Song}.
  *
@@ -19,8 +20,6 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
  * title: string
  * year: number
  * }} SongDocument
- *
- *
  */
 const SongSchema = new mongoose.Schema({
 	album : {
@@ -39,23 +38,41 @@ const SongSchema = new mongoose.Schema({
 		default : 0,
 		type    : Number,
 	},
+	externals : {
+		appleMusic : {
+			default : {
+				id   : "none",
+				link : "not available"
+			},
+			type : {
+				id   : String,
+				link : String,
+			},
+		},
+		deezer : {
+			default : {
+				id   : "none",
+				link : "not available"
+			},
+			type : {
+				id   : String,
+				link : String,
+			},
+		},
+		spotify : {
+			default : {
+				id   : "none",
+				link : "not available"
+			},
+			type : {
+				id   : String,
+				link : String,
+			},
+		},
+	},
 	genre : {
 		required : true,
 		type     : String,
-	},
-	links : {
-		appleMusic : {
-			default : "not available",
-			type    : String,
-		},
-		deezer : {
-			default : "not available",
-			type    : String,
-		},
-		spotify : {
-			default : "not available",
-			type    : String,
-		},
 	},
 	priceUSD : {
 		required : true,
@@ -248,6 +265,8 @@ class SongSchemaMethods {
 	 * ```
 	 */
 	static async findByLinksAvailability(option) {
+
+		// TODO gotta refactor this too since i moved the links to externals :D
 		// eslint-disable-next-line
 		option.toString = function() {
 		   return `{appleMusic : ${this.appleMusic}, deezer : ${this.deezer}, spotify : ${this.spotify}`;
