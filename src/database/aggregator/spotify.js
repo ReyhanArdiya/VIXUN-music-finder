@@ -83,13 +83,113 @@ const searchSpotify = async (
 	return res;
 };
 
+/**
+ * @param {object} data
+ * One of these objects acquired from Spotify API's search endpoint or
+ * {@link searchSpotify}:
+ * 1. One element from `albums.items[]` or an `album` object.
+ * 2. One element from `artists.items[]` or an `artist` object.
+ * 3. One element from `tracks.item[]` or a `track` object.
+ *
+ * This functions checks the `data.type` property for what kind of object to
+ * extract (`"album" | "artist" | "track"`).
+ *
+ * @returns
+ *
+ * @example
+ */
+const extractSpotify = data => {
+	/* eslint-disable jsdoc/require-jsdoc */
+	const extractAlbum = album => {
+		const {
+			id,
+			name,
+			type,
+			uri,
+			"external_urls": { spotify },
+			"release_date": release,
+			images: [ { url: image } ],
+		} = album;
+
+		return {
+			id,
+			image,
+			name,
+			release,
+			spotify,
+			type,
+			uri,
+		};
+	};
+
+	const extractArtist = artist => {
+		const {
+			id,
+			name,
+			type,
+			uri,
+			"external_urls": { spotify },
+		} = artist;
+
+		return {
+			id,
+			name,
+			spotify,
+			type,
+			uri,
+		};
+	};
+
+	const extractTrack = album => {
+		const {
+			id,
+			name,
+			type,
+			uri,
+			popularity,
+			"external_urls": { spotify },
+			"preview_url": preview,
+			"track_number": trackNumber,
+			"disc_number": discNumber
+		} = album;
+
+		return {
+			discNumber,
+			id,
+			name,
+			popularity,
+			preview,
+			spotify,
+			trackNumber,
+			type,
+			uri
+		};
+	};
+
+	switch (data.type) {
+		case "album" :
+			return extractAlbum(data);
+
+		case "artist" :
+			return extractArtist(data);
+
+		case "track" :
+			return extractTrack(data);
+
+		default :
+			return {};
+	}
+};
+
 // DBG
-// console.log(await searchSpotify(await getSpotifyToken(), "The Hours"));
+// const res = await searchSpotify(await getSpotifyToken(), "Beach House", [ "artist" ]);
+// console.log(extractSpotify(res.data.artists.items[0]));
+
 
 const spotify = {
+	extractSpotify,
 	getSpotifyToken,
 	searchSpotify
 };
 
 export default spotify;
-
