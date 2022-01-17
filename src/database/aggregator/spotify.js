@@ -50,9 +50,10 @@ const getSpotifyToken = async (bearer = true) => {
  * @param {string} q The query string to search for.
  *
  * @param {...string} type
- * What type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
+ * Strings of what type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
  *
- * @returns {import("axios").AxiosResponse} The `AxiosResponse`.
+ * @returns {Promise<import("axios").AxiosResponse> | Error} The `AxiosResponse`
+ * or an `Error`.
  *
  * @example
  * ```
@@ -77,7 +78,9 @@ const searchSpotify = async (token, q, ...type) => {
 
 		return res;
 	} catch (err) {
-		console.log(err.response);
+		console.error(err);
+
+		throw err;
 	}
 };
 
