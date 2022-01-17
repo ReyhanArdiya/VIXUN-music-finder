@@ -49,8 +49,12 @@ const getSpotifyToken = async (bearer = true) => {
  *
  * @param {string} q The query string to search for.
  *
- * @param {...string} type
+ * @param {string[]} type
  * Strings of what type of resources to search from spotify, [read more here](https://developer.spotify.com/documentation/web-api/reference/#/operations/search).
+ * Defaults to [ "track", "album", "artist" ].
+ *
+ * @param {number} limit
+ * Number of results to receive. Defaults to 1.
  *
  * @returns {Promise<import("axios").AxiosResponse> | Error} The `AxiosResponse`
  * or an `Error`.
@@ -60,8 +64,12 @@ const getSpotifyToken = async (bearer = true) => {
  * await searchSpotify(await getSpotifyToken(), "The Hours")
  * ```
  */
-const searchSpotify = async (token, q, ...type) => {
-	type = type.length ? type : [ "track", "album", "artist" ];
+const searchSpotify = async (
+	token,
+	q,
+	type = [ "track", "album", "artist" ],
+	limit = 1
+) => {
 	type = type.join(",");
 
 	try {
@@ -71,8 +79,9 @@ const searchSpotify = async (token, q, ...type) => {
 				"Content-Type" : "application/json"
 			},
 			params : {
+				limit,
 				q,
-				type
+				type,
 			}
 		});
 
