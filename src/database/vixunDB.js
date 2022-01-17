@@ -19,7 +19,6 @@ try {
 
 // try {
 // 	console.log(await Song.findByLinksAvailability({
-// 		appleMusic : true,
 // 		deezer     : false,
 // 		spotify    : true
 // 	}));
