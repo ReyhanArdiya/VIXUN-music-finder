@@ -112,14 +112,9 @@ await Song.insertMany([
 		coverURL  : "url",
 		downloads : 4620,
 		genre     : "Pop",
-		links     : {
-			appleMusic : "found",
-			deezer     : "found",
-			spotify    : "found"
-		},
-		priceUSD : 6.99,
-		title    : "Replay",
-		year     : 2020,
+		priceUSD  : 6.99,
+		title     : "Replay",
+		year      : 2020,
 	},
 	{
 		album     : "Chromatica",
@@ -127,14 +122,9 @@ await Song.insertMany([
 		coverURL  : "url",
 		downloads : 4620,
 		genre     : "Pop",
-		links     : {
-			appleMusic : "found",
-			deezer     : "found",
-			spotify    : "found"
-		},
-		priceUSD : 6.99,
-		title    : "Alice",
-		year     : 2020,
+		priceUSD  : 6.99,
+		title     : "Alice",
+		year      : 2020,
 	},
 	{
 		album     : "Once Twice Melody",
@@ -142,13 +132,9 @@ await Song.insertMany([
 		coverURL  : "url",
 		downloads : 4620,
 		genre     : "Pop",
-		links     : {
-			appleMusic : "found",
-			spotify    : "found"
-		},
-		priceUSD : 6.99,
-		title    : "Superstar",
-		year     : 2022,
+		priceUSD  : 6.99,
+		title     : "Superstar",
+		year      : 2022,
 	},
 ]);
 
