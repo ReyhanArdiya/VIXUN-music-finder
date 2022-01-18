@@ -41,6 +41,27 @@ const searchDeezer = async (q, endpoint = "/", limit = 1) => {
 };
 
 /**
+ * GET Deezer's [chart](https://developers.deezer.com/api/chart#infos) data.
+ *
+ * @param {"/" | "/albums" | "/artists" | "/tracks"} endpoint
+ * Which chart endpoint to use. Defaults to `"/tracks"`.
+ *
+ * @returns {Promise<>}
+ * A promise that resolves into the found data.
+ *
+ * @example
+ * ```
+ * console.log((await searchDeezerChart("/tracks")).data);
+ * ```
+ */
+const searchDeezerChart = async (endpoint = "/tracks") => {
+	endpoint = endpoint !== "/" ? `/0${endpoint}` : "";
+	const res = await axios.get(`https://api.deezer.com/chart${endpoint}`);
+
+	return res.data;
+};
+
+/**
  * Extracts `data` from Deezer's search endpoint results.
  *
  * @param {object} data
