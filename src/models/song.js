@@ -1,11 +1,28 @@
+/*  eslint-disable jsdoc/require-returns-description*/
 import mongoose from "mongoose";
 
+// eslint-disable-next-line
 const nothingFound = (field, fieldArg, caseSensitive) => {
 	throw new Error(
 		`Nothing found from {${field} : ${fieldArg}} case ${caseSensitive ? "" : "in"}sensitive query`
 	);
 };
 
+const SongExternalSchema = new mongoose.Schema({
+	id : {
+		default : "none",
+		type    : String
+	},
+	link : {
+		default : "not available",
+		type    : String
+	}
+}, {
+	_id    : false,
+	strict : "throw"
+});
+
+// TODO change the schema here when our model is 100% fixed
 /**
  * Type for instance of {@link Song}.
  *
@@ -19,8 +36,6 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
  * title: string
  * year: number
  * }} SongDocument
- *
- *
  */
 const SongSchema = new mongoose.Schema({
 	album : {
@@ -39,23 +54,21 @@ const SongSchema = new mongoose.Schema({
 		default : 0,
 		type    : Number,
 	},
+	externals : {
+		deezer : {
+			// eslint-disable-next-line
+			default: {},
+			type    : SongExternalSchema
+		},
+		spotify : {
+			// eslint-disable-next-line
+			default : {},
+			type    : SongExternalSchema
+		},
+	},
 	genre : {
 		required : true,
 		type     : String,
-	},
-	links : {
-		appleMusic : {
-			default : "not available",
-			type    : String,
-		},
-		deezer : {
-			default : "not available",
-			type    : String,
-		},
-		spotify : {
-			default : "not available",
-			type    : String,
-		},
 	},
 	priceUSD : {
 		required : true,
@@ -71,6 +84,9 @@ const SongSchema = new mongoose.Schema({
 	}
 }, { strict : "throw" });
 
+/**
+ *
+ */
 class SongSchemaMethods {
 
 	/**
@@ -226,8 +242,7 @@ class SongSchemaMethods {
 	 *
 	 * @param {boolean | {
 	 * spotify: boolean,
-	 * deezer: boolean,
-	 * appleMusic: boolean}} option
+	 * deezer: boolean}} option
 	 *
 	 * @returns {Promise<SongDocument>}
 	 *
@@ -239,33 +254,32 @@ class SongSchemaMethods {
 	 * // Find songs where every link is "not available"
 	 * await Song.findByAlbum(false);
 	 *
-	 * // Find songs where appleMusic & deezer link is "not available" and
-	 * // spotify link is available
+	 * // Find songs where deezer link is "not available" and spotify is
+	 * // available.
 	 * await Song.findByAlbum({
-	 * 	appleMusic : false,
 	 * 	spotify    : true
 	 * });
 	 * ```
 	 */
 	static async findByLinksAvailability(option) {
+
+		// TODO gotta refactor this too since i moved the links to externals :D
 		// eslint-disable-next-line
 		option.toString = function() {
-		   return `{appleMusic : ${this.appleMusic}, deezer : ${this.deezer}, spotify : ${this.spotify}`;
+		   return `{deezer : ${this.deezer}, spotify : ${this.spotify}`;
 		};
 		let res;
 
 		if (typeof option === "object") {
-			const { appleMusic, deezer, spotify } = option;
+			const { deezer, spotify } = option;
 			res = await this.find({
-				"links.appleMusic" : { $regex : appleMusic ? /^(?!not available$).*$/ : /^not available$/ },
-				"links.deezer"     : { $regex : deezer ? /^(?!not available$).*$/ : /^not available$/ },
-				"links.spotify"    : { $regex : spotify ? /^(?!not available$).*$/ : /^not available$/ }
+				"links.deezer"  : { $regex : deezer ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.spotify" : { $regex : spotify ? /^(?!not available$).*$/ : /^not available$/ }
 			});
 		} else {
 			res = await this.find({
-				"links.appleMusic" : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ },
-				"links.deezer"     : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ },
-				"links.spotify"    : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ }
+				"links.deezer"  : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ },
+				"links.spotify" : { $regex : option ? /^(?!not available$).*$/ : /^not available$/ }
 			});
 		}
 

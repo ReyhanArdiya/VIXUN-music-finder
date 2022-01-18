@@ -55,7 +55,7 @@
 		"jsdoc/check-values": "warn",
 		"jsdoc/empty-tags": "warn",
 		"jsdoc/implements-on-classes": "warn",
-		"jsdoc/match-description": "warn",
+		"jsdoc/match-description": "off",
 		"jsdoc/multiline-blocks": "warn",
 		"jsdoc/newline-after-description": "warn",
 		"jsdoc/no-bad-blocks": "warn",
@@ -75,8 +75,11 @@
 			"warn",
 			{
 				"require": {
-					"MethodDefinition": true,
-					"FunctionExpression": true
+					"ArrowFunctionExpression": true,
+					"ClassDeclaration": true,
+					"ClassExpression": true,
+					"FunctionExpression": true,
+					"MethodDefinition": true
 				},
 				"checkGetters": false,
 				"checkSetters": false,
@@ -93,7 +96,7 @@
 		"jsdoc/require-property-type": "warn",
 		"jsdoc/require-returns": "warn",
 		"jsdoc/require-returns-check": "warn",
-		"jsdoc/require-returns-description": "off",
+		"jsdoc/require-returns-description": "warn",
 		"jsdoc/require-returns-type": "off",
 		"jsdoc/require-throws": "warn",
 		"jsdoc/require-yields": "warn",
@@ -179,6 +182,7 @@
 		"no-useless-concat": "warn",
 		"no-useless-constructor": "warn",
 		"no-useless-return": "warn",
+		"no-useless-rename": "warn",
 		"no-var": "error",
 		"no-whitespace-before-property": "error",
 		"object-curly-newline": [
