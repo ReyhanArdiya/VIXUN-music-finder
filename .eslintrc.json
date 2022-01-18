@@ -55,7 +55,7 @@
 		"jsdoc/check-values": "warn",
 		"jsdoc/empty-tags": "warn",
 		"jsdoc/implements-on-classes": "warn",
-		"jsdoc/match-description": "warn",
+		"jsdoc/match-description": "off",
 		"jsdoc/multiline-blocks": "warn",
 		"jsdoc/newline-after-description": "warn",
 		"jsdoc/no-bad-blocks": "warn",
@@ -182,6 +182,7 @@
 		"no-useless-concat": "warn",
 		"no-useless-constructor": "warn",
 		"no-useless-return": "warn",
+		"no-useless-rename": "warn",
 		"no-var": "error",
 		"no-whitespace-before-property": "error",
 		"object-curly-newline": [
