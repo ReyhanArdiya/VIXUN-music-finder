@@ -1,14 +1,7 @@
+/*  eslint-disable jsdoc/require-returns-description*/
 import mongoose from "mongoose";
 
-/**
- * @param field
- *
- * @param fieldArg
- *
- * @param caseSensitive
- *
- * @example
- */
+// eslint-disable-next-line
 const nothingFound = (field, fieldArg, caseSensitive) => {
 	throw new Error(
 		`Nothing found from {${field} : ${fieldArg}} case ${caseSensitive ? "" : "in"}sensitive query`
@@ -64,12 +57,12 @@ const SongSchema = new mongoose.Schema({
 	externals : {
 		deezer : {
 			// eslint-disable-next-line
-			default : () => ({}),
+			default: {},
 			type    : SongExternalSchema
 		},
 		spotify : {
 			// eslint-disable-next-line
-			default : () => ({}),
+			default : {},
 			type    : SongExternalSchema
 		},
 	},
