@@ -16,6 +16,10 @@ const SongExternalSchema = new mongoose.Schema({
 	link : {
 		default : "not available",
 		type    : String
+	},
+	preview : {
+		default : "not available",
+		type    : String
 	}
 }, {
 	_id    : false,
