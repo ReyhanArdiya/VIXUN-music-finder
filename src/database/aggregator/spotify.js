@@ -154,20 +154,24 @@ const extractSpotify = data => {
 		};
 	};
 
-	const extractTrack = album => {
+	const extractTrack = track => {
 		const {
 			id,
 			name,
 			type,
 			uri,
 			popularity,
-			"external_urls": { spotify },
-			"preview_url": preview,
-			"track_number": trackNumber,
-			"disc_number": discNumber
-		} = album;
+			album 		  : { name: album },
+			artists 	  : [ { name: artist } ],
+			external_urls : { spotify },
+			preview_url   : preview,
+			track_number  : trackNumber,
+			disc_number   : discNumber
+		} = track;
 
 		return {
+			album,
+			artist,
 			discNumber,
 			id,
 			name,
@@ -198,10 +202,10 @@ const extractSpotify = data => {
 // DBG
 // const res = await searchSpotify(
 // 	await getSpotifyToken(),
-// 	"Beach House",
-// 	[ "artist" ]
+// 	"The Hours",
+// 	[ "track" ]
 // );
-// console.log(extractSpotify(res.data.artists.items[0]));
+// console.log(extractSpotify(res.data.tracks.items[0]));
 
 const spotify = {
 	extractSpotify,
