@@ -159,3 +159,11 @@ const extractDeezer = data => {
 			return {};
 	}
 };
+
+const deezer = {
+	extractDeezer,
+	searchDeezer,
+	searchDeezerChart
+};
+
+export default deezer;
