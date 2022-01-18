@@ -39,3 +39,102 @@ const searchDeezer = async (q, endpoint = "/", limit = 1) => {
 
 	return res.data.data.slice(0, limit);
 };
+
+/**
+ * Extracts `data` from Deezer's search endpoint results.
+ *
+ * @param {object} data
+ * One of these objects acquired from Deezer API's search endpoint or
+ * {@link searchDeezer}:
+ * 1. An `album` object.
+ * 2. An `artist` object.
+ * 3. A `track` object.
+ *
+ * This functions checks the `data.type` property for what kind of object to
+ * extract (`"album" | "artist" | "track"`).
+ *
+ * @returns {object} An object containing extracted data from `data`.
+ *
+ * @example
+ * ```
+ * const result = await searchDeezer(
+ * "The Hours beach house",
+ * "/track"
+ * );
+ * console.log(extractDeezer(res[0]));
+ * ```
+ */
+const extractDeezer = data => {
+	/* eslint-disable jsdoc/require-jsdoc */
+	const extractAlbum = album => {
+		const {
+			id,
+			title,
+			type,
+			link : deezer,
+			cover_big : image,
+		} = album;
+
+		return {
+			deezer,
+			id,
+			image,
+			title,
+			type
+		};
+	};
+
+	const extractArtist = artist => {
+		const {
+			id,
+			name,
+			type,
+			link : deezer
+		} = artist;
+
+		return {
+			deezer,
+			id,
+			name,
+			type,
+		};
+	};
+
+	const extractTrack = track => {
+		const {
+			id,
+			preview,
+			rank,
+			title,
+			type,
+			album  : { title : album },
+			artist : { name  : artist },
+			link   : deezer
+		} = track;
+
+		return {
+			album,
+			artist,
+			deezer,
+			id,
+			preview,
+			rank,
+			title,
+			type
+		};
+	};
+
+	switch (data.type) {
+		case "album" :
+			return extractAlbum(data);
+
+		case "artist" :
+			return extractArtist(data);
+
+		case "track" :
+			return extractTrack(data);
+
+		default :
+			return {};
+	}
+};
