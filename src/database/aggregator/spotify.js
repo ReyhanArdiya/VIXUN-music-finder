@@ -56,8 +56,8 @@ const getSpotifyToken = async (bearer = true) => {
  * @param {number} limit
  * Number of results to receive. Defaults to 1.
  *
- * @returns {Promise<import("axios").AxiosResponse> | Error} The `AxiosResponse`
- * or an `Error`.
+ * @returns {Promise<any>}
+ * A promise that resolves to the results object.
  *
  * @example
  * ```
@@ -84,7 +84,7 @@ const searchSpotify = async (
 		}
 	});
 
-	return res;
+	return res.data;
 };
 
 /**
@@ -120,19 +120,19 @@ const extractSpotify = data => {
 			name,
 			type,
 			uri,
-			"external_urls": { spotify },
-			"release_date": release,
+			external_urls: { spotify : link },
+			release_date: release,
 			images: [ { url: image } ],
 		} = album;
 
 		return {
 			id,
 			image,
+			link,
 			name,
 			release,
-			spotify,
 			type,
-			uri,
+			uri
 		};
 	};
 
@@ -142,13 +142,13 @@ const extractSpotify = data => {
 			name,
 			type,
 			uri,
-			"external_urls": { spotify },
+			external_urls: { spotify:link },
 		} = artist;
 
 		return {
 			id,
+			link,
 			name,
-			spotify,
 			type,
 			uri,
 		};
@@ -163,7 +163,7 @@ const extractSpotify = data => {
 			popularity,
 			album 		  : { name: album },
 			artists 	  : [ { name: artist } ],
-			external_urls : { spotify },
+			external_urls : { spotify: link },
 			preview_url   : preview,
 			track_number  : trackNumber,
 			disc_number   : discNumber
@@ -174,10 +174,10 @@ const extractSpotify = data => {
 			artist,
 			discNumber,
 			id,
+			link,
 			name,
 			popularity,
 			preview,
-			spotify,
 			trackNumber,
 			type,
 			uri

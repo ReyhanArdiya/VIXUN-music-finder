@@ -92,14 +92,14 @@ const extractDeezer = data => {
 			id,
 			title,
 			type,
-			link : deezer,
+			link,
 			cover_big : image,
 		} = album;
 
 		return {
-			deezer,
 			id,
 			image,
+			link,
 			title,
 			type
 		};
@@ -110,12 +110,12 @@ const extractDeezer = data => {
 			id,
 			name,
 			type,
-			link : deezer
+			link
 		} = artist;
 
 		return {
-			deezer,
 			id,
+			link,
 			name,
 			type,
 		};
@@ -128,16 +128,16 @@ const extractDeezer = data => {
 			rank,
 			title,
 			type,
+			link,
 			album  : { title : album },
 			artist : { name  : artist },
-			link   : deezer
 		} = track;
 
 		return {
 			album,
 			artist,
-			deezer,
 			id,
+			link,
 			preview,
 			rank,
 			title,
