@@ -9,18 +9,10 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 };
 
 const SongExternalSchema = new mongoose.Schema({
-	id : {
-		default : "none",
-		type    : String
-	},
-	link : {
-		default : "not available",
-		type    : String
-	},
-	preview : {
-		default : "not available",
-		type    : String
-	}
+	id      : String,
+	link    : String,
+	preview : String
+
 }, {
 	_id    : false,
 	strict : "throw"
@@ -33,9 +25,10 @@ const SongExternalSchema = new mongoose.Schema({
  * @typedef {import("mongoose").Document & {
  * album: string
  * artist: string
- * coverURL: string
+ * image: string
+ * price: number
  * title: string
- * year: number
+ * release: number
  * }} SongDocument
  */
 const SongSchema = new mongoose.Schema({
@@ -47,11 +40,12 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	coverURL : {
-		required : true,
-		type     : String,
-	},
 	externals : {
+		amazon : {
+			// eslint-disable-next-line
+			default : {},
+			type    : SongExternalSchema
+		},
 		deezer : {
 			// eslint-disable-next-line
 			default: {},
@@ -63,14 +57,19 @@ const SongSchema = new mongoose.Schema({
 			type    : SongExternalSchema
 		},
 	},
+	image : {
+		required : true,
+		type     : String,
+	},
+	price   : Number,
+	release : {
+		required : true,
+		type     : Number,
+	},
 	title : {
 		required : true,
 		type     : String,
 	},
-	year : {
-		required : true,
-		type     : Number,
-	}
 }, { strict : "throw" });
 
 /**
@@ -86,7 +85,7 @@ class SongSchemaMethods {
 	 * @returns {string}
 	 */
 	get desc() {
-		return `${this.title} - ${this.album} by ${this.artist} from ${this.year}`;
+		return `${this.title} - ${this.album} by ${this.artist} from ${this.release} ${"price" in this ? `costs ${this.price}` : ""}`;
 	}
 
 	/**
