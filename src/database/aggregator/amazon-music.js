@@ -52,9 +52,6 @@ const oldScraper = async () => {
 
 		await page.goto(`https://www.amazon.com/s?k=${q}&i=music-intl-ship`);
 
-		// DBG use the screenshot codes for debugging
-		// await page.screenshot({ path : join(__dirname, "image.png") });
-
 		const selectedItem = await page.waitForSelector(
 			`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`
 		);
@@ -67,8 +64,6 @@ const oldScraper = async () => {
 			selectedItem
 		);
 		await page.goto(selectedItemLink);
-
-		// await page.screenshot({ path : join(__dirname, "image2.png") });
 
 		let selectedPriceEl;
 		try {
@@ -110,6 +105,13 @@ const oldScraper = async () => {
  *
  * This function will either scrape an album's price or possibly a single
  * song's price based on what was found in [Amazon Music, CDs & Vinyl category](https://www.amazon.com/s?i=music-intl-ship).
+ *
+ * **Some tips to not get block while scrapping:**
+ * 1. Do not make many request frequently or in a fixed interval, do some randomizations!.
+ * 2. Do not make multiple requests at once.
+ * 3. Do some IP rotation.
+ * 4. Change the page's user agent frequently.
+ * 5. Limit how many calls to do per minute/hour/day.
  *
  * @param {import("puppeteer").Page} page
  * A `puppeteer.Page`. This function will close the page when the price
@@ -191,9 +193,6 @@ const scrapeAmazonMusic = async (
 
 	await page.goto(`https://www.amazon.com/s?k=${q}&i=music-intl-ship`);
 
-	// DBG use the screenshot codes for debugging
-	// await page.screenshot({ path : join(__dirname, "image.png") });
-
 	// TODO is it possible to refactor this one with RegExp?
 	const selectedItem = await page.waitForSelector(
 		`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`,
@@ -215,8 +214,6 @@ const scrapeAmazonMusic = async (
 		selectedItem
 	);
 	await page.goto(selectedItemLink);
-
-	// await page.screenshot({ path : join(__dirname, "image2.png") });
 
 	let priceContainerElement;
 	try {
