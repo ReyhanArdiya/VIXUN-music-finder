@@ -9,14 +9,10 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 };
 
 const SongExternalSchema = new mongoose.Schema({
-	id : {
-		default : "none",
-		type    : String
-	},
-	link : {
-		default : "not available",
-		type    : String
-	}
+	id      : String,
+	link    : String,
+	preview : String
+
 }, {
 	_id    : false,
 	strict : "throw"
@@ -29,12 +25,10 @@ const SongExternalSchema = new mongoose.Schema({
  * @typedef {import("mongoose").Document & {
  * album: string
  * artist: string
- * coverURL: string
- * downloads: number
- * genre: string
- * priceUSD: number
+ * image: string
+ * price: number
  * title: string
- * year: number
+ * release: number
  * }} SongDocument
  */
 const SongSchema = new mongoose.Schema({
@@ -46,15 +40,12 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	coverURL : {
-		required : true,
-		type     : String,
-	},
-	downloads : {
-		default : 0,
-		type    : Number,
-	},
 	externals : {
+		amazon : {
+			// eslint-disable-next-line
+			default : {},
+			type    : SongExternalSchema
+		},
 		deezer : {
 			// eslint-disable-next-line
 			default: {},
@@ -66,11 +57,12 @@ const SongSchema = new mongoose.Schema({
 			type    : SongExternalSchema
 		},
 	},
-	genre : {
+	image : {
 		required : true,
 		type     : String,
 	},
-	priceUSD : {
+	price   : Number,
+	release : {
 		required : true,
 		type     : Number,
 	},
@@ -78,10 +70,6 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	year : {
-		required : true,
-		type     : Number,
-	}
 }, { strict : "throw" });
 
 /**
@@ -97,24 +85,7 @@ class SongSchemaMethods {
 	 * @returns {string}
 	 */
 	get desc() {
-		return `[${this.genre}] ${this.title} - ${this.album} by ${this.artist} from ${this.year} is ${this.isOnSale ? "on sale" : "not on sale"} at $${this.priceUSD} and has ${this.downloads} downloads.`;
-	}
-
-	/**
-	 * Increments a `Song` `downloads` property by one and returns the
-	 * current `downloads` value.
-	 *
-	 * @returns {number} The current `downloads` value.
-	 *
-	 * @example
-	 * ```
-	 * new Song().addDownloads();
-	 * ```
-	 */
-	addDownloads() {
-		this.downloads++;
-
-		return this._downloads;
+		return `${this.title} - ${this.album} by ${this.artist} from ${this.release} ${"price" in this ? `costs ${this.price}` : ""}`;
 	}
 
 	/**
@@ -167,31 +138,6 @@ class SongSchemaMethods {
 		});
 
 		return res.length ? res : nothingFound("artist", artist, caseSensitive);
-	}
-
-	/**
-	 * Searches {@link SongDocument}s by its `genre` field.
-	 *
-	 * @param {string} genre
-	 *
-	 * @param {boolean} caseSensitive
-	 *
-	 * @returns {Promise<SongDocument>}
-	 *
-	 * @example
-	 * ```
-	 * await Song.findByGenre("Shoegaze");
-	 * ```
-	 */
-	static async findByGenre(genre, caseSensitive = true) {
-		const res = await this.find({
-			genre : {
-				$options : `${caseSensitive ? "" : "i"}`,
-				$regex   : genre,
-			}
-		});
-
-		return res.length ? res : nothingFound("genre", genre, caseSensitive);
 	}
 
 	/**
