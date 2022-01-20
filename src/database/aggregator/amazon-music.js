@@ -114,8 +114,7 @@ const oldScraper = async () => {
  * 5. Limit how many calls to do per minute/hour/day.
  *
  * @param {import("puppeteer").Page} page
- * A `puppeteer.Page`. This function will close the page when the price
- * container element is not found or when this function ends.
+ * A `puppeteer.Page`.
  *
  * @param {string} q
  * A query to search for in Amazon. It can be anything but it is recommended to
@@ -222,7 +221,6 @@ const scrapeAmazonMusic = async (
 			{ timeout }
 		);
 	} catch (err) {
-		await page.close();
 		throw new Error(`Price container element not found! Try another pattern! Here's the item's link: ${selectedItemLink}`);
 	}
 
@@ -232,8 +230,6 @@ const scrapeAmazonMusic = async (
 		pricePattern.source,
 		pricePattern.flags
 	);
-
-	await page.close();
 
 	/**
 	 * Object containing data scraped from amazon music.
