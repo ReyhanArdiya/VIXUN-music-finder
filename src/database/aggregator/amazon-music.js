@@ -208,7 +208,10 @@ const scrapeAmazonMusic = async (
 		selectedItem
 	);
 	const selectedItemArtist = await page.evaluate(
-		item => item.parentElement?.nextElementSibling.innerText.match(/(?<=by).+(?=\|?)/i)[0].trim(),
+
+		// TODO I want to either match "by artist | may 15, 2012" or "by artist". This works
+		// but it uses OR, is there another alternative?
+		item => item.parentElement?.nextElementSibling.innerText.match(/(?<=by).+(?=\|)|(?<=by).+(?=\|?)/i)[0].trim(),
 		selectedItem
 	);
 	await page.goto(selectedItemLink);
