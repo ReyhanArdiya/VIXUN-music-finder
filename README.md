@@ -1,3 +1,3 @@
-# vixun-music-store
+# vixun-music-finder
 
-A simple app to search for music.
+A website that shows and links information about songs from other sources (so far it's from: spotify, deezer and amazon music).
