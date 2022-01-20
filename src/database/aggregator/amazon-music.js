@@ -116,9 +116,13 @@ const oldScraper = async () => {
  * @param {import("puppeteer").Page} page
  * A `puppeteer.Page`.
  *
- * @param {string} q
- * A query to search for in Amazon. It can be anything but it is recommended to
- * be a combination of `"${album | song} ${artist}"`.
+ * @param {string} albumOrSong
+ * An album or song title case insensitive. It is recommended for the string to
+ * match as closely as possible the inteded album or song.
+ *
+ * @param {string} artist
+ * An artist case insensitive. It is recommended for the string to
+ * match as closely as possible the inteded artist.
  *
  * @param {"priceCardsContainer" | "singleSongContainer"} priceContainerSelector
  * A selector to search for an item's price container element using
@@ -140,7 +144,7 @@ const oldScraper = async () => {
  * ```js
  * const browser = await puppeteer.launch();
  * const page = await browser.newPage();
- * const res = await scrapeAmazonMusic(page, "depression cherry beach house", "priceCardsContainer");
+ * const res = await scrapeAmazonMusic(page, "depression cherry", "beach house", "priceCardsContainer");
  * console.log(res);
  * await browser.close();
  * ```
@@ -150,14 +154,15 @@ const oldScraper = async () => {
  * ```js
  * const browser = await puppeteer.launch();
  * const page = await browser.newPage();
- * const res = await scrapeAmazonMusic(page, "time deyaz", "singleSongContainer");
+ * const res = await scrapeAmazonMusic(page, "time", "deyaz", "singleSongContainer");
  * console.log(res);
  * await browser.close();
  * ```
  */
 const scrapeAmazonMusic = async (
 	page,
-	q,
+	albumOrSong,
+	artist,
 	priceContainerSelector,
 	options = {}
 ) => {
@@ -175,11 +180,6 @@ const scrapeAmazonMusic = async (
 	 * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
 	 */
 	const { pricePattern = /\$\d+.?\d{0,2}/g, timeout = 5000 } = options;
-
-	q = q.toLowerCase()
-		.split(" ")
-		.join("+");
-
 	const priceContainerSelectors = {
 		priceCardsContainer : "#tmmSwatches",
 		singleSongContainer : "a[href*='handle-buy-box']"
@@ -190,13 +190,51 @@ const scrapeAmazonMusic = async (
 			priceContainerSelectors[priceContainerSelector] :
 			priceContainerSelector;
 
+	const q = `${albumOrSong} ${artist}`.toLowerCase()
+		.split(" ")
+		.join("+");
 	await page.goto(`https://www.amazon.com/s?k=${q}&i=music-intl-ship`);
 
-	// TODO is it possible to refactor this one with RegExp?
-	const selectedItem = await page.waitForSelector(
-		`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`,
-		{ timeout }
+	// TODO should there be a feature to go to the next page if it is not found on the first page and stop after N pages?
+	let selectedItem;
+	const selectedItemRegex = new RegExp(
+		`(?<=/)${`${albumOrSong} ${artist}`.toLowerCase()
+			.split(" ")
+			.join("-")}(?=/)|(?<=/)${`${artist} ${albumOrSong}`.toLowerCase()
+			.split(" ")
+			.join("-")}(?=/)`,
+		"i"
 	);
+
+	selectedItem = await page.evaluateHandle(
+		(source, flags) => {
+			const itemRegex = new RegExp(source, flags);
+
+			// CMT you can actually just get all anchor tags here and match it with the regex,
+			// but i don't think that is performance friendly in the long run.
+			// eslint-disable-next-line no-undef
+			const itemAnchors = [ ...document.querySelectorAll("#search .s-main-slot.s-search-results h2 a") ];
+			const item = itemAnchors.filter(a => itemRegex.test(a.href));
+
+			return item[0];
+
+		},
+		selectedItemRegex.source,
+		selectedItemRegex.flags
+	);
+
+	/*
+        XXX This is a temporary fix to select items that is a single song like "Time Deyaz" since they
+        seem to have a different pattern, but it's not accurate. For example the
+        last test i searched for "Sacrifice Weekend" but got "Diamonds Elton John" instead.
+     */
+	if (!selectedItem.asElement()) {
+		selectedItem = await page.waitForSelector(
+			`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`,
+			{ timeout }
+		);
+	}
+
 	const selectedItemTitle = await page.evaluate(
 		item => item.querySelector("span")?.innerText,
 		selectedItem
@@ -260,3 +298,28 @@ const scrapeAmazonMusic = async (
 const amazonMusic = { scrapeAmazonMusic };
 
 export default amazonMusic;
+
+// DBG some tests
+// const browser = await puppeteer.launch({ headless : false });
+// const page = await browser.newPage();
+// const res = [];
+// try {
+// 	res.push(await scrapeAmazonMusic(page, "DeprEssIOn chERRy", "bEACh HousE", "priceCardsContainer"));
+// 	await new Promise(res => setTimeout(res, 2000));
+// 	res.push(await scrapeAmazonMusic(page, "ArTPoP", "lady GAGA", "priceCardsContainer"));
+// 	await new Promise(res => setTimeout(res, 1000));
+// 	res.push(await scrapeAmazonMusic(page, "time", "deyaz", "singleSongContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "BORN THIS way", "lady GaGa", "priceCardsContainer"));
+// 	await new Promise(res => setTimeout(res, 2000));
+// 	res.push(await scrapeAmazonMusic(page, "21", "Ade", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "stay", "bieber", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "12", "melanie", "priceCardsContainer"));
+// 	await new Promise(res => setTimeout(res, 460));
+// 	res.push(await scrapeAmazonMusic(page, "sacrifice", "weekend", "singleSongContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "summerboy", "Ade", "priceCardsContainer"));
+// 	console.log(res);
+// } catch (err) {
+// 	console.log(res);
+// }
+
+// await browser.close();
