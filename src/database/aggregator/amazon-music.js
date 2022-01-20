@@ -261,4 +261,6 @@ const scrapeAmazonMusic = async (
 	return AmazonMusicData;
 };
 
-export default scrapeAmazonMusic;
+const amazonMusic = { scrapeAmazonMusic };
+
+export default amazonMusic;
