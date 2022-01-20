@@ -106,18 +106,18 @@ const oldScraper = async () => {
 /*  eslint-enable */
 
 /**
- * **INFO: This scrapper was made based on what amazon look liked in 19/01/2022**
+ * **HEADS UP! This scrapper was made based on what amazon look liked in 19/01/2022**
  *
- * This function will either scrape the album's price or possibly a single
+ * This function will either scrape an album's price or possibly a single
  * song's price based on what was found in [Amazon Music, CDs & Vinyl category](https://www.amazon.com/s?i=music-intl-ship).
  *
  * @param {import("puppeteer").Page} page
  * A `puppeteer.Page`. This function will close the page when the price
- * container element is not found or at the end of this function.
+ * container element is not found or when this function ends.
  *
  * @param {string} q
  * A query to search for in Amazon. It can be anything but it is recommended to
- * be a combination of `${album | song} ${artist}`.
+ * be a combination of `"${album | song} ${artist}"`.
  *
  * @param {"priceCardsContainer" | "singleSongContainer"} priceContainerSelector
  * A selector to search for an item's price container element using
@@ -170,7 +170,7 @@ const scrapeAmazonMusic = async (
 	// DBG use the screenshot codes for debugging
 	// await page.screenshot({ path : join(__dirname, "image.png") });
 
-	// TODO is it possible to revise this one with RegExp?
+	// TODO is it possible to refactor this one with RegExp?
 	const selectedItem = await page.waitForSelector(
 		`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`
 	);
@@ -230,3 +230,4 @@ const scrapeAmazonMusic = async (
 	return AmazonMusicData;
 };
 
+export default scrapeAmazonMusic;
