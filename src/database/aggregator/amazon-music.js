@@ -207,6 +207,10 @@ const scrapeAmazonMusic = async (
 		item => item.href,
 		selectedItem
 	);
+	const selectedItemArtist = await page.evaluate(
+		item => item.parentElement?.nextElementSibling.innerText.match(/(?<=by).+(?=\|?)/i)[0].trim(),
+		selectedItem
+	);
 	await page.goto(selectedItemLink);
 
 	// await page.screenshot({ path : join(__dirname, "image2.png") });
@@ -235,10 +239,11 @@ const scrapeAmazonMusic = async (
 	 * Object containing data scraped from amazon music.
 	 *
 	 * @typedef {{
+	 * artist : string,
 	 * chosenPriceContainerSelector:string,
-	 * foundPrices:number[],
-	 * selectedItemLink:string,
-	 * selectedItemTitle:string
+	 * foundPrices: number[],
+	 * link   : string,
+	 * title  : string
 	 * }} AmazonMusicData
 	 */
 
@@ -246,10 +251,11 @@ const scrapeAmazonMusic = async (
 	 * @type {AmazonMusicData}
 	 */
 	const AmazonMusicData = {
+		artist : selectedItemArtist,
 		chosenPriceContainerSelector,
 		foundPrices,
-		selectedItemLink,
-		selectedItemTitle
+		link   : selectedItemLink,
+		title  : selectedItemTitle
 	};
 
 	return AmazonMusicData;
