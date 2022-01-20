@@ -129,18 +129,27 @@ const oldScraper = async () => {
  * 2. `"singleSongContainer"` should be used when the amazon page is a page for
  * a single song where there is only one price for the song.
  *
- * @param {RegExp} pricePattern
- * A regular expression to search for the prices inside of the found container's
- * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
+ * @param {scrapeAmazonMusicOptions} options
  *
  * @returns {Promise<AmazonMusicData>}
  * A promise that resolves to {@link AmazonMusicData}.
  *
  * @example
+ * An album with price cards:
  * ```js
  * const browser = await puppeteer.launch();
  * const page = await browser.newPage();
- * const res = await scrapeAmazonMusic(page, "21 adele", "priceCardsContainer");
+ * const res = await scrapeAmazonMusic(page, "depression cherry beach house", "priceCardsContainer");
+ * console.log(res);
+ * await browser.close();
+ * ```
+ *
+ * @example
+ * A song with one price:
+ * ```js
+ * const browser = await puppeteer.launch();
+ * const page = await browser.newPage();
+ * const res = await scrapeAmazonMusic(page, "time deyaz", "singleSongContainer");
  * console.log(res);
  * await browser.close();
  * ```
@@ -149,8 +158,23 @@ const scrapeAmazonMusic = async (
 	page,
 	q,
 	priceContainerSelector,
-	pricePattern = /\$\d+.?\d{0,2}/g
+	options = {}
 ) => {
+
+	/**
+	 * Options for {@link scrapeAmazonMusic}.
+	 *
+	 * @typedef {object} scrapeAmazonMusicOptions
+	 *
+	 * @property {RegExp} pricePattern
+	 * A regular expression to search for the prices inside of the found container's
+	 * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
+	 *
+	 * @property {number} timeout
+	 * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
+	 */
+	const { pricePattern = /\$\d+.?\d{0,2}/g, timeout = 5000 } = options;
+
 	q = q.toLowerCase()
 		.split(" ")
 		.join("+");
@@ -172,7 +196,8 @@ const scrapeAmazonMusic = async (
 
 	// TODO is it possible to refactor this one with RegExp?
 	const selectedItem = await page.waitForSelector(
-		`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`
+		`#search .s-main-slot.s-search-results h2 a[href*="${q}"]`,
+		{ timeout }
 	);
 	const selectedItemTitle = await page.evaluate(
 		item => item.querySelector("span")?.innerText,
@@ -190,7 +215,7 @@ const scrapeAmazonMusic = async (
 	try {
 		priceContainerElement = await page.waitForSelector(
 			chosenPriceContainerSelector,
-			{ timeout : 5000 }
+			{ timeout }
 		);
 	} catch (err) {
 		await page.close();
