@@ -37,6 +37,7 @@
 		"eqeqeq": "warn",
 		"for-direction": "off",
 		"func-call-spacing": "warn",
+		"func-style": "warn",
 		"function-paren-newline": ["warn", "multiline-arguments"],
 		"grouped-accessor-pairs": "warn",
 		"implicit-arrow-linebreak": "warn",
@@ -54,7 +55,7 @@
 		"jsdoc/check-values": "warn",
 		"jsdoc/empty-tags": "warn",
 		"jsdoc/implements-on-classes": "warn",
-		"jsdoc/match-description": "warn",
+		"jsdoc/match-description": "off",
 		"jsdoc/multiline-blocks": "warn",
 		"jsdoc/newline-after-description": "warn",
 		"jsdoc/no-bad-blocks": "warn",
@@ -65,7 +66,7 @@
 		// "jsdoc/no-types": "warn",
 		"jsdoc/no-undefined-types": "off",
 		"jsdoc/require-asterisk-prefix": "warn",
-		"jsdoc/require-description": "warn",
+		"jsdoc/require-description": "off",
 		"jsdoc/require-description-complete-sentence": "warn",
 		"jsdoc/require-example": "warn",
 		// "jsdoc/require-file-overview": "warn",
@@ -74,8 +75,11 @@
 			"warn",
 			{
 				"require": {
-					"MethodDefinition": true,
-					"FunctionExpression": true
+					"ArrowFunctionExpression": true,
+					"ClassDeclaration": true,
+					"ClassExpression": true,
+					"FunctionExpression": true,
+					"MethodDefinition": true
 				},
 				"checkGetters": false,
 				"checkSetters": false,
@@ -83,11 +87,11 @@
 			}
 		],
 		"jsdoc/require-param": "warn",
-		"jsdoc/require-param-description": "warn",
+		"jsdoc/require-param-description": "off",
 		"jsdoc/require-param-name": "warn",
 		"jsdoc/require-param-type": "warn",
 		"jsdoc/require-property": "warn",
-		"jsdoc/require-property-description": "warn",
+		"jsdoc/require-property-description": "off",
 		"jsdoc/require-property-name": "warn",
 		"jsdoc/require-property-type": "warn",
 		"jsdoc/require-returns": "warn",
@@ -108,8 +112,8 @@
 				"code": 80,
 				"tabWidth": 4,
 				"ignoreUrls": true,
-				"ignoreStrings": false,
-				"ignoreTemplateLiterals": false,
+				"ignoreStrings": true,
+				"ignoreTemplateLiterals": true,
 				"ignoreRegExpLiterals": true
 			}
 		],
@@ -178,6 +182,7 @@
 		"no-useless-concat": "warn",
 		"no-useless-constructor": "warn",
 		"no-useless-return": "warn",
+		"no-useless-rename": "warn",
 		"no-var": "error",
 		"no-whitespace-before-property": "error",
 		"object-curly-newline": [
@@ -225,7 +230,15 @@
 			{ "memberSyntaxSortOrder": ["none", "single", "multiple", "all"] }
 		],
 		"space-before-blocks": "error",
-		"space-before-function-paren": ["warn", "never"],
+		"space-before-function-paren": [
+			"warn",
+			{
+				"anonymous": "never",
+				"named": "never",
+				"asyncArrow": "always"
+			}
+		],
+		"sort-keys": ["warn", "asc", { "natural": true }],
 		"space-in-parens": ["warn", "never"],
 		"space-infix-ops": "warn",
 		"space-unary-ops": ["warn", { "words": true }],
