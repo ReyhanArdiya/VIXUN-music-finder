@@ -42,7 +42,7 @@ const songAggregator = async (
 		artist    : null,
 		externals : {},
 		image     : null,
-		price     : null,
+		prices    : null,
 		release   : null,
 		title     : null
 	};
@@ -108,7 +108,11 @@ const songAggregator = async (
 			scrapeAmazonMusicOptions
 		);
 		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
-		aggregatedData.price = amazonMusicRes.foundPrices;
+		aggregatedData.prices = amazonMusicRes.foundPrices;
+		aggregatedData.cheapest =
+			`$${aggregatedData.prices
+				.map(price => +price.slice(1))
+				.sort((a, b) => a - b)[0]}`;
 	} catch (err) { /* nothing */ }
 
 	return aggregatedData;
@@ -126,7 +130,6 @@ export default songAggregator;
 // import puppeteer from "puppeteer";
 // const browser = await puppeteer.launch({ headless : true });
 // const page = await browser.newPage();
-
 // console.log(await songAggregator("Tell Me You Love Me bolbbalgan4", page));
 // console.log(await songAggregator("Catallena orange CARAMEL", page));
 // console.log(await songAggregator("레옹 IU GOD G", page));
