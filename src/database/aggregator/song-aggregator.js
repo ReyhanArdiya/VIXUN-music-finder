@@ -38,13 +38,13 @@ const songAggregator = async (
 ) => {
 	/*  eslint-disable jsdoc/require-jsdoc */
 	const aggregatedData = {
-		album     : undefined,
-		artist    : undefined,
+		album     : null,
+		artist    : null,
 		externals : {},
-		image     : undefined,
-		price     : undefined,
-		release   : undefined,
-		title     : undefined,
+		image     : null,
+		price     : null,
+		release   : null,
+		title     : null
 	};
 
 	try {
