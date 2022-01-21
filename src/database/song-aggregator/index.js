@@ -114,6 +114,14 @@ const songAggregator = async (
 	return aggregatedData;
 };
 
+export const aggregatorAPIs = {
+	amazonMusic,
+	deezer,
+	spotify
+};
+
+export default songAggregator;
+
 // DBG some aggregator tests
 // import puppeteer from "puppeteer";
 // const browser = await puppeteer.launch({ headless : true });
