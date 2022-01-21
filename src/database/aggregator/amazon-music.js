@@ -101,6 +101,19 @@ const oldScraper = async () => {
 /*  eslint-enable */
 
 /**
+ * Options for {@link scrapeAmazonMusic}.
+ *
+ * @typedef {object} scrapeAmazonMusicOptions
+ *
+ * @property {RegExp} pricePattern
+ * A regular expression to search for the prices inside of the found container's
+ * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
+ *
+ * @property {number} timeout
+ * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
+ */
+
+/**
  * **HEADS UP! This scrapper was made based on what amazon look liked in 19/01/2022**
  *
  * This function will either scrape an album's price or possibly a single
@@ -166,19 +179,6 @@ const scrapeAmazonMusic = async (
 	priceContainerSelector,
 	options = {}
 ) => {
-
-	/**
-	 * Options for {@link scrapeAmazonMusic}.
-	 *
-	 * @typedef {object} scrapeAmazonMusicOptions
-	 *
-	 * @property {RegExp} pricePattern
-	 * A regular expression to search for the prices inside of the found container's
-	 * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
-	 *
-	 * @property {number} timeout
-	 * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
-	 */
 	const { pricePattern = /\$\d+.?\d{0,2}/g, timeout = 5000 } = options;
 	const priceContainerSelectors = {
 		priceCardsContainer : "#tmmSwatches",
