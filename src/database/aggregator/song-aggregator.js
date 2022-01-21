@@ -47,11 +47,29 @@ const songAggregator = async (
 		title     : undefined,
 	};
 
+	const spotifyTrackRes = await spotify.searchSpotify(
+		await spotify.getSpotifyToken(),
+		q,
+		[ "track" ]
+	);
+	const spotifyTrackExt = spotify.extractSpotify(
+		spotifyTrackRes.tracks.items[0]
+	);
+	const spotifyAlbumExt = spotify.extractSpotify(
+		spotifyTrackRes.tracks.items[0].album
+	);
+	aggregatedData.album = spotifyTrackExt.album;
+	aggregatedData.artist = spotifyTrackExt.artist;
+	aggregatedData.title = spotifyTrackExt.name;
+	aggregatedData.release = spotifyAlbumExt.release;
+	aggregatedData.externals.spotify = {
+		id      : spotifyTrackExt.id,
+		link    : spotifyTrackExt.link,
+		preview : spotifyTrackExt.preview
+	};
+
 	const deezerTrackRes = await deezer.searchDeezer(q);
 	const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
-	aggregatedData.album = deezerTrackExt.album;
-	aggregatedData.artist = deezerTrackExt.artist;
-	aggregatedData.title = deezerTrackExt.title;
 	aggregatedData.externals.deezer = {
 		id      : deezerTrackExt.id,
 		link    : deezerTrackExt.link,
@@ -64,24 +82,6 @@ const songAggregator = async (
 		);
 		aggregatedData.image = deezer.extractDeezer(deezerAlbumRes[0]).image;
 	}
-
-	const spotifyTrackRes = await spotify.searchSpotify(
-		await spotify.getSpotifyToken(),
-		q,
-		[ "track" ]
-	);
-	const spotifyTrackExt = spotify.extractSpotify(
-		spotifyTrackRes.tracks.items[0]
-	);
-	const spotifyAlbumExt = spotify.extractSpotify(
-		spotifyTrackRes.tracks.items[0].album
-	);
-	aggregatedData.release = spotifyAlbumExt.release;
-	aggregatedData.externals.spotify = {
-		id      : spotifyTrackExt.id,
-		link    : spotifyTrackExt.link,
-		preview : spotifyTrackExt.preview
-	};
 
 	const amazonQuery = `${aggregatedData.album || aggregatedData.title}`;
 
