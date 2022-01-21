@@ -47,57 +47,69 @@ const songAggregator = async (
 		title     : undefined,
 	};
 
-	const spotifyTrackRes = await spotify.searchSpotify(
-		await spotify.getSpotifyToken(),
-		q,
-		[ "track" ]
-	);
-	const spotifyTrackExt = spotify.extractSpotify(
-		spotifyTrackRes.tracks.items[0]
-	);
-	const spotifyAlbumExt = spotify.extractSpotify(
-		spotifyTrackRes.tracks.items[0].album
-	);
-	aggregatedData.album = spotifyTrackExt.album;
-	aggregatedData.artist = spotifyTrackExt.artist;
-	aggregatedData.title = spotifyTrackExt.name;
-	aggregatedData.release = spotifyAlbumExt.release;
-	aggregatedData.externals.spotify = {
-		id      : spotifyTrackExt.id,
-		link    : spotifyTrackExt.link,
-		preview : spotifyTrackExt.preview
-	};
-
-	const deezerTrackRes = await deezer.searchDeezer(q);
-	const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
-	aggregatedData.externals.deezer = {
-		id      : deezerTrackExt.id,
-		link    : deezerTrackExt.link,
-		preview : deezerTrackExt.preview
-	};
-	if (aggregatedData.album) {
-		const deezerAlbumRes = await deezer.searchDeezer(
-			`${aggregatedData.album} ${aggregatedData.artist}`,
-			"/album"
+	try {
+		const spotifyTrackRes = await spotify.searchSpotify(
+			await spotify.getSpotifyToken(),
+			q,
+			[ "track" ]
 		);
-		aggregatedData.image = deezer.extractDeezer(deezerAlbumRes[0]).image;
+		const spotifyTrackExt = spotify.extractSpotify(
+			spotifyTrackRes.tracks.items[0]
+		);
+		const spotifyAlbumExt = spotify.extractSpotify(
+			spotifyTrackRes.tracks.items[0].album
+		);
+		aggregatedData.album = spotifyTrackExt.album;
+		aggregatedData.artist = spotifyTrackExt.artist;
+		aggregatedData.title = spotifyTrackExt.name;
+		aggregatedData.release = spotifyAlbumExt.release;
+		aggregatedData.externals.spotify = {
+			id      : spotifyTrackExt.id,
+			link    : spotifyTrackExt.link,
+			preview : spotifyTrackExt.preview
+		};
+	} catch (err) {
+		console.warn("Spotify data not found :(");
 	}
 
-	const amazonQuery = `${aggregatedData.album || aggregatedData.title}`;
+	try {
+		const deezerTrackRes = await deezer.searchDeezer(q);
+		const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
+		aggregatedData.externals.deezer = {
+			id      : deezerTrackExt.id,
+			link    : deezerTrackExt.link,
+			preview : deezerTrackExt.preview
+		};
+		if (aggregatedData.album) {
+			const deezerAlbumRes = await deezer.searchDeezer(
+				`${aggregatedData.album} ${aggregatedData.artist}`,
+				"/album"
+			);
+			aggregatedData.image =
+                deezer.extractDeezer(deezerAlbumRes[0]).image;
+		}
+	} catch (err) {
+		console.warn("Deezer data not found :(");
+	}
 
-	// Replace the parens to url encoded stuff
-	const replaceLeftParen = amazonQuery.replaceAll("(", "%28");
-	const replaceRightParen = replaceLeftParen.replaceAll(")", "%29");
+	try {
+		const amazonQuery = `${aggregatedData.album || aggregatedData.title}`;
 
-	const amazonMusicRes = await amazonMusic.scrapeAmazonMusic(
-		page,
-		replaceRightParen,
-		aggregatedData.artist,
-		amazonPriceContaineSelector,
-		scrapeAmazonMusicOptions
-	);
-	aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
-	aggregatedData.price = amazonMusicRes.foundPrices;
+		// Replace the parens to url encoded stuff
+		const replaceLeftParen = amazonQuery.replaceAll("(", "%28");
+		const replaceRightParen = replaceLeftParen.replaceAll(")", "%29");
+		const amazonMusicRes = await amazonMusic.scrapeAmazonMusic(
+			page,
+			replaceRightParen,
+			aggregatedData.artist,
+			amazonPriceContaineSelector,
+			scrapeAmazonMusicOptions
+		);
+		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
+		aggregatedData.price = amazonMusicRes.foundPrices;
+	} catch (err) {
+		console.warn("Amazon music data not found :(");
+	}
 
 	return aggregatedData;
 };
