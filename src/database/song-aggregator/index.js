@@ -115,17 +115,17 @@ const songAggregator = async (
 };
 
 // DBG some aggregator tests
-import puppeteer from "puppeteer";
-const browser = await puppeteer.launch({ headless : true });
-const page = await browser.newPage();
+// import puppeteer from "puppeteer";
+// const browser = await puppeteer.launch({ headless : true });
+// const page = await browser.newPage();
 
-console.log(await songAggregator("Oh No, Oh Yes! Akina Nakamori", page, "priceCardsContainer"));
-console.log(await songAggregator("the hours beach house", page, "priceCardsContainer"));
-console.log(await songAggregator("summerboy lady gaga", page, "priceCardsContainer"));
-console.log(await songAggregator("911 lady gaga", page, "priceCardsContainer"));
-console.log(await songAggregator("sour candy lady gaga", page, "priceCardsContainer"));
-console.log(await songAggregator("baka mitai", page, "singleSongContainer"));
-console.log(await songAggregator("bloody marry lady gaga", page, "priceCardsContainer"));
-console.log(await songAggregator("used to be beach house", page, "priceCardsContainer"));
+// console.log(await songAggregator("Oh No, Oh Yes! Akina Nakamori", page, "priceCardsContainer"));
+// console.log(await songAggregator("the hours beach house", page, "priceCardsContainer"));
+// console.log(await songAggregator("summerboy lady gaga", page, "priceCardsContainer"));
+// console.log(await songAggregator("911 lady gaga", page, "priceCardsContainer"));
+// console.log(await songAggregator("sour candy lady gaga", page, "priceCardsContainer"));
+// console.log(await songAggregator("baka mitai", page, "singleSongContainer"));
+// console.log(await songAggregator("bloody marry lady gaga", page, "priceCardsContainer"));
+// console.log(await songAggregator("used to be beach house", page, "priceCardsContainer"));
 
 export default songAggregator;
