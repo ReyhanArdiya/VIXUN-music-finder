@@ -103,7 +103,7 @@ const oldScraper = async () => {
 /**
  * Options for {@link scrapeAmazonMusic}.
  *
- * @typedef {object} scrapeAmazonMusicOptions
+ * @typedef {object} ScrapeAmazonMusicOptions
  *
  * @property {RegExp} pricePattern
  * A regular expression to search for the prices inside of the found container's
@@ -147,7 +147,7 @@ const oldScraper = async () => {
  * 2. `"singleSongContainer"` should be used when the amazon page is a page for
  * a single song where there is only one price for the song.
  *
- * @param {scrapeAmazonMusicOptions} options
+ * @param {ScrapeAmazonMusicOptions} options
  *
  * @returns {Promise<AmazonMusicData>}
  * A promise that resolves to {@link AmazonMusicData}.
