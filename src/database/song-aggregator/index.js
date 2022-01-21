@@ -14,9 +14,6 @@ import spotify from "./spotify.js";
  * @param {import("puppeteer").Page} page
  * A `puppeteer.Page`.
  *
- * @param {"priceCardsContainer" | "singleSongContainer"} amazonPriceContaineSelector
- * Argument to be passed to `priceContainerSelector` of {@link amazonMusic.scrapeAmazonMusic}.
- *
  * @param {import("./amazon-music").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
  * Argument to be passed to `options` of {@link amazonMusic.scrapeAmazonMusic}.
  *
@@ -33,7 +30,6 @@ import spotify from "./spotify.js";
 const songAggregator = async (
 	q,
 	page,
-	amazonPriceContaineSelector,
 	scrapeAmazonMusicOptions = {}
 ) => {
 	/*  eslint-disable jsdoc/require-jsdoc */
@@ -104,7 +100,6 @@ const songAggregator = async (
 			page,
 			replaceRightParen,
 			aggregatedData.artist,
-			amazonPriceContaineSelector,
 			scrapeAmazonMusicOptions
 		);
 		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
