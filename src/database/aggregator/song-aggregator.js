@@ -61,20 +61,24 @@ const songAggregator = async (
 		);
 		aggregatedData.album = spotifyTrackExt.album;
 		aggregatedData.artist = spotifyTrackExt.artist;
-		aggregatedData.title = spotifyTrackExt.name;
+		aggregatedData.image = spotifyAlbumExt.image;
 		aggregatedData.release = spotifyAlbumExt.release;
+		aggregatedData.title = spotifyTrackExt.name;
 		aggregatedData.externals.spotify = {
 			id      : spotifyTrackExt.id,
 			link    : spotifyTrackExt.link,
 			preview : spotifyTrackExt.preview
 		};
-	} catch (err) {
-		console.warn("Spotify data not found :(");
-	}
+	} catch (err) { /* nothing */ }
 
 	try {
 		const deezerTrackRes = await deezer.searchDeezer(q);
 		const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
+		const deezerAlbumExt = deezer.extractDeezer(deezerTrackRes[0].album);
+		aggregatedData.album ||= deezerTrackExt.album;
+		aggregatedData.artist ||= deezerTrackExt.artist;
+		aggregatedData.image ||= deezerAlbumExt.image;
+		aggregatedData.title ||= deezerTrackExt.title;
 		aggregatedData.externals.deezer = {
 			id      : deezerTrackExt.id,
 			link    : deezerTrackExt.link,
@@ -88,9 +92,7 @@ const songAggregator = async (
 			aggregatedData.image =
                 deezer.extractDeezer(deezerAlbumRes[0]).image;
 		}
-	} catch (err) {
-		console.warn("Deezer data not found :(");
-	}
+	} catch (err) { /* nothing */ }
 
 	try {
 		const amazonQuery = `${aggregatedData.album || aggregatedData.title}`;
@@ -107,9 +109,7 @@ const songAggregator = async (
 		);
 		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
 		aggregatedData.price = amazonMusicRes.foundPrices;
-	} catch (err) {
-		console.warn("Amazon music data not found :(");
-	}
+	} catch (err) { /* nothing */ }
 
 	return aggregatedData;
 };
