@@ -75,10 +75,10 @@ const songAggregator = async (
 		const deezerTrackRes = await deezer.searchDeezer(q);
 		const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
 		const deezerAlbumExt = deezer.extractDeezer(deezerTrackRes[0].album);
-		aggregatedData.album ||= deezerTrackExt.album;
-		aggregatedData.artist ||= deezerTrackExt.artist;
-		aggregatedData.image ||= deezerAlbumExt.image;
-		aggregatedData.title ||= deezerTrackExt.title;
+		aggregatedData.album ??= deezerTrackExt.album;
+		aggregatedData.artist ??= deezerTrackExt.artist;
+		aggregatedData.image ??= deezerAlbumExt.image;
+		aggregatedData.title ??= deezerTrackExt.title;
 		aggregatedData.externals.deezer = {
 			id      : deezerTrackExt.id,
 			link    : deezerTrackExt.link,
