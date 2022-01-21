@@ -38,7 +38,7 @@ const songAggregator = async (
 		artist    : null,
 		externals : {},
 		image     : null,
-		prices    : null,
+		price     : null,
 		release   : null,
 		title     : null
 	};
@@ -103,9 +103,8 @@ const songAggregator = async (
 			scrapeAmazonMusicOptions
 		);
 		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
-		aggregatedData.prices = amazonMusicRes.foundPrices;
-		aggregatedData.cheapest =
-			`$${aggregatedData.prices
+		aggregatedData.price =
+			`$${amazonMusicRes.foundPrices
 				.map(price => +price.slice(1))
 				.sort((a, b) => a - b)[0]}`;
 	} catch (err) { /* nothing */ }
