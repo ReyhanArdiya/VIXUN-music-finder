@@ -119,13 +119,25 @@ const songAggregator = async (
 // const browser = await puppeteer.launch({ headless : true });
 // const page = await browser.newPage();
 
-// console.log(await songAggregator("Oh No, Oh Yes! Akina Nakamori", page, "priceCardsContainer"));
-// console.log(await songAggregator("the hours beach house", page, "priceCardsContainer"));
-// console.log(await songAggregator("summerboy lady gaga", page, "priceCardsContainer"));
-// console.log(await songAggregator("911 lady gaga", page, "priceCardsContainer"));
-// console.log(await songAggregator("sour candy lady gaga", page, "priceCardsContainer"));
-// console.log(await songAggregator("baka mitai", page, "singleSongContainer"));
-// console.log(await songAggregator("bloody marry lady gaga", page, "priceCardsContainer"));
-// console.log(await songAggregator("used to be beach house", page, "priceCardsContainer"));
+// console.log(await songAggregator("Tell Me You Love Me bolbbalgan4", page));
+// console.log(await songAggregator("Catallena orange CARAMEL", page));
+// console.log(await songAggregator("레옹 IU GOD G", page));
+// console.log(await songAggregator("abyss of decadence", page));
+// console.log(await songAggregator("zavodila mike geno", page));
+// console.log(await songAggregator("theme from schindler's list", page));
+// console.log(await songAggregator("stay o WHEN", page));
+// console.log(await songAggregator("time deyaz", page));
+// console.log(await songAggregator("song from a secret garden", page));
+// console.log(await songAggregator("sacrifice weekend", page));
+// console.log(await songAggregator("release + fading orenji music", page));
+// console.log(await songAggregator("Oh No, Oh Yes! Akina Nakamori", page));
+// console.log(await songAggregator("the STEP BELOW hell", page));
+// console.log(await songAggregator("911 lady gaga", page));
+// console.log(await songAggregator("baka mitai", page));
+// console.log(await songAggregator("the hours beach house", page));
+// console.log(await songAggregator("sour candy lady gaga", page));
+// console.log(await songAggregator("summerboy lady gaga", page));
+// console.log(await songAggregator("used to be beach house", page));
+// console.log(await songAggregator("bloody marry lady gaga", page));
 
-export default songAggregator;
+// export default songAggregator;

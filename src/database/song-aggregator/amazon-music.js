@@ -312,19 +312,19 @@ export default amazonMusic;
 // const page = await browser.newPage();
 // const res = [];
 // try {
-// 	res.push(await scrapeAmazonMusic(page, "DeprEssIOn chERRy", "bEACh HousE", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "DeprEssIOn chERRy bEACh HousE"));
 // 	await new Promise(res => setTimeout(res, 2000));
-// 	res.push(await scrapeAmazonMusic(page, "ArTPoP", "lady GAGA", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "ArTPoP lady GAGA"));
 // 	await new Promise(res => setTimeout(res, 1000));
-// 	res.push(await scrapeAmazonMusic(page, "time", "deyaz", "singleSongContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "BORN THIS way", "lady GaGa", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "time deyaz"));
+// 	res.push(await scrapeAmazonMusic(page, "BORN THIS way lady GaGa"));
 // 	await new Promise(res => setTimeout(res, 2000));
-// 	res.push(await scrapeAmazonMusic(page, "21", "Ade", "priceCardsContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "stay", "bieber", "priceCardsContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "12", "melanie", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "21 Ade"));
+// 	res.push(await scrapeAmazonMusic(page, "stay bieber"));
+// 	res.push(await scrapeAmazonMusic(page, "12 melanie"));
 // 	await new Promise(res => setTimeout(res, 460));
-// 	res.push(await scrapeAmazonMusic(page, "sacrifice", "weekend", "singleSongContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "summerboy", "Ade", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "sacrifice weekend"));
+// 	res.push(await scrapeAmazonMusic(page, "summerboy Ade"));
 // 	console.log(res);
 // } catch (err) {
 // 	console.log(res);
