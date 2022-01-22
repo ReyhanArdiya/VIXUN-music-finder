@@ -1,7 +1,14 @@
 /**
+ * Returns a string array from splitting `str` in half.
+ *
  * @param {string} str
  *
+ * @returns {string[]} The halved `str`.
+ *
  * @example
+ * ```js
+ * console.log(halveStr("The hours beach house"));
+ * ```
  */
 const halveStr = str => {
 	str = str.trim();
@@ -22,4 +29,24 @@ const halveStr = str => {
 	}
 
 	return result;
+};
+
+/**
+ * Returns a string array where each string item in `strArr` is halved using {@link halveStr}.
+ *
+ * @param {string[]} strArr
+ *
+ * @returns {string[]}
+ * An array where each string item in `strArr` is halved using {@link halveStr}.
+ *
+ * @example
+ * ```
+ * console.log(halveStrArr([ "The hours beach house bloom" ]));
+ * console.log(halveStrArr([ "The hours beach", "house bloom" ]));
+ * console.log(halveStrArr([ "The hours", "beach", "house", "bloom" ]));
+ * console.log(halveStrArr([ "The", "hours", "beach", "house", "bloom" ]));
+ * ```
+ */
+const halveStrArr = strArr => {
+	return strArr.flatMap(str => halveStr(str));
 };
