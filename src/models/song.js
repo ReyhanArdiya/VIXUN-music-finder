@@ -53,7 +53,7 @@ const SongSchema = new mongoose.Schema({
 	external have a source string prop. THis could be better (is it tho?) if i
 	introduce more sources in the future but right now is YAGNI */
 	externals : {
-		amazon : {
+		amazonMusic : {
 			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
@@ -75,13 +75,10 @@ const SongSchema = new mongoose.Schema({
 	},
 	price : {
 		default : null,
-		type    : Number
+		type    : String
 	},
-	release : {
-		required : true,
-		type     : Number,
-	},
-	title : {
+	release : String,
+	title   : {
 		required : true,
 		type     : String,
 	},
