@@ -56,7 +56,8 @@ const halveStrArr = strArr => {
 
 /**
  * Queries the {@link Song} model and returns an array of `SongDocument` that
- * closely matches `q`.
+ * closely matches `q` and is sorted from the most relevant to the least based on
+ * its `matchCount` property.
  *
  * @param {string} q
  * The string to query {@link Song} model. The more words there are in `q`, the
@@ -66,15 +67,14 @@ const halveStrArr = strArr => {
  * @param {number} qThreshold
  * An optional integer or decimal from `0` to `100` to configure the threshold
  * for when a `SongDocument` should be included after matching it with `q`.
- * Defaults to `100`.
+ * Defaults to `50`.
  *
  * @param {number} qMatchCountInc
  * An optional integer or decimal to configure how much to increment the match
  * count when a part of `SongDocument` matches a part of `q`. Defaults to `1`
  *
  * @returns {Promise<import("../../models/song.js").SongDocument[]>}
- * A promise that resolves into an array of `SongDocument` that closely matches
- * `q`.
+ * A promise that resolves into the results.
  *
  * @example
  * Using the default values for `qThreshold` and `qMatchCountInc`:
@@ -87,7 +87,7 @@ const halveStrArr = strArr => {
  * console.log(await querySongs("The Hours bloom beach house", 60.32, 0.8));
  * ```
  */
-const querySongs = async (q, qThreshold = 100, qMatchCountInc = 1) => {
+const querySongs = async (q, qThreshold = 50, qMatchCountInc = 1) => {
 	const allSongs = await Song.find();
 	const filtered = allSongs.filter(song => {
 		const threshold = q.split(" ").length * (qThreshold / 100);
