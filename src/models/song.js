@@ -9,10 +9,18 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 };
 
 const SongExternalSchema = new mongoose.Schema({
-	id      : String,
-	link    : String,
-	preview : String
-
+	id : {
+		default : null,
+		type    : String
+	},
+	link : {
+		default : null,
+		type    : String
+	},
+	preview : {
+		default : null,
+		type    : String
+	}
 }, {
 	_id    : false,
 	strict : "throw"
@@ -40,8 +48,12 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
+
+	/*  CMT I could make this as an array of externals instead and have each
+	external have a source string prop. THis could be better (is it tho?) if i
+	introduce more sources in the future but right now is YAGNI */
 	externals : {
-		amazon : {
+		amazonMusic : {
 			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
@@ -61,12 +73,12 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	price   : Number,
-	release : {
-		required : true,
-		type     : Number,
+	price : {
+		default : null,
+		type    : String
 	},
-	title : {
+	release : String,
+	title   : {
 		required : true,
 		type     : String,
 	},

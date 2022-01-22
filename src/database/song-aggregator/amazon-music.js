@@ -32,7 +32,6 @@ const oldScraper = async () => {
 	 * let meow = 1
 	 * ```
 	 */
-	// TODO write warning for when is this used for amazon site
 	const scrapeAmazon = async (page, q, pattern, artist = "") => {
 		q = q.toLowerCase()
 			.split(" ")
@@ -101,6 +100,29 @@ const oldScraper = async () => {
 /*  eslint-enable */
 
 /**
+ * Options for {@link scrapeAmazonMusic}.
+ *
+ * @typedef {object} ScrapeAmazonMusicOptions
+ *
+ * @property {RegExp} pricePattern
+ * A regular expression to search for the prices inside of the found container's
+ * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
+ *
+ * @property {string} priceContainerSelector
+ * A selector to search for an item's price container element using
+ * `page.waitForSelector`. If omitted it will use some predefined selectors:
+ * 1. `"priceCardsContainer"` should be used when the amazon page list the
+ * item's prices using price cards. As of now, this will select the
+ * `"#tmmSwatches"` element in the amazon page which contains price cards for
+ * the item.
+ * 2. `"singleSongContainer"` should be used when the amazon page is a page for
+ * a single song where there is only one price for the song.
+ *
+ * @property {number} timeout
+ * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
+ */
+
+/**
  * **HEADS UP! This scrapper was made based on what amazon look liked in 19/01/2022**
  *
  * This function will either scrape an album's price or possibly a single
@@ -124,17 +146,7 @@ const oldScraper = async () => {
  * An artist case insensitive. It is recommended for the string to
  * match as closely as possible the inteded artist.
  *
- * @param {"priceCardsContainer" | "singleSongContainer"} priceContainerSelector
- * A selector to search for an item's price container element using
- * `page.waitForSelector`. You can pass your own or use some predefined ones:
- * 1. `"priceCardsContainer"` should be used when the amazon page list the
- * item's prices using price cards. As of now, this will select the
- * `"#tmmSwatches"` element in the amazon page which contains price cards for
- * the item.
- * 2. `"singleSongContainer"` should be used when the amazon page is a page for
- * a single song where there is only one price for the song.
- *
- * @param {scrapeAmazonMusicOptions} options
+ * @param {ScrapeAmazonMusicOptions} options
  *
  * @returns {Promise<AmazonMusicData>}
  * A promise that resolves to {@link AmazonMusicData}.
@@ -163,33 +175,16 @@ const scrapeAmazonMusic = async (
 	page,
 	albumOrSong,
 	artist,
-	priceContainerSelector,
 	options = {}
 ) => {
-
-	/**
-	 * Options for {@link scrapeAmazonMusic}.
-	 *
-	 * @typedef {object} scrapeAmazonMusicOptions
-	 *
-	 * @property {RegExp} pricePattern
-	 * A regular expression to search for the prices inside of the found container's
-	 * `innerText`. Defaults to `/\$\d+.?\d{0,2}/g`.
-	 *
-	 * @property {number} timeout
-	 * Number for how long to wait for each `page.waitForSelector`. Default is 5000.
-	 */
-	const { pricePattern = /\$\d+.?\d{0,2}/g, timeout = 5000 } = options;
-	const priceContainerSelectors = {
-		priceCardsContainer : "#tmmSwatches",
-		singleSongContainer : "a[href*='handle-buy-box']"
-	};
-	const chosenPriceContainerSelector =
-		Object.keys(priceContainerSelectors)
-			.includes(priceContainerSelector) ?
-			priceContainerSelectors[priceContainerSelector] :
-			priceContainerSelector;
-
+	const {
+		pricePattern = /\$\d+.?\d{0,2}/g,
+		priceContainerSelector = {
+			priceCardsContainer : "#tmmSwatches",
+			singleSongContainer : "a[href*='handle-buy-box']"
+		},
+		timeout = 5000
+	} = options;
 	const q = `${albumOrSong} ${artist}`.toLowerCase()
 		.split(" ")
 		.join("+");
@@ -252,14 +247,27 @@ const scrapeAmazonMusic = async (
 	);
 	await page.goto(selectedItemLink);
 
-	let priceContainerElement;
-	try {
+	let priceContainerElement = null;
+	if (typeof priceContainerSelector === "object") {
+		const priceContainerSelectorVal = Object.values(priceContainerSelector);
+		for (const val of priceContainerSelectorVal) {
+			try {
+				priceContainerElement = await page.waitForSelector(
+					val,
+					{ timeout }
+				);
+			} catch (err) {
+				continue;
+			}
+		}
+	} else if (typeof priceContainerSelector === "string") {
 		priceContainerElement = await page.waitForSelector(
-			chosenPriceContainerSelector,
+			priceContainerSelector,
 			{ timeout }
 		);
-	} catch (err) {
-		throw new Error(`Price container element not found! Try another pattern! Here's the item's link: ${selectedItemLink}`);
+	}
+	if (!priceContainerElement) {
+		priceContainerElement = `Price container element not found! Try another pattern! Here's the item's link: ${selectedItemLink}`;
 	}
 
 	const foundPrices = await page.evaluate(
@@ -274,9 +282,9 @@ const scrapeAmazonMusic = async (
 	 *
 	 * @typedef {{
 	 * artist : string,
-	 * chosenPriceContainerSelector:string,
 	 * foundPrices: number[],
 	 * link   : string,
+	 * priceContainerSelector:string,
 	 * title  : string
 	 * }} AmazonMusicData
 	 */
@@ -286,9 +294,9 @@ const scrapeAmazonMusic = async (
 	 */
 	const AmazonMusicData = {
 		artist : selectedItemArtist,
-		chosenPriceContainerSelector,
 		foundPrices,
 		link   : selectedItemLink,
+		priceContainerSelector,
 		title  : selectedItemTitle
 	};
 
@@ -304,19 +312,19 @@ export default amazonMusic;
 // const page = await browser.newPage();
 // const res = [];
 // try {
-// 	res.push(await scrapeAmazonMusic(page, "DeprEssIOn chERRy", "bEACh HousE", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "DeprEssIOn chERRy bEACh HousE"));
 // 	await new Promise(res => setTimeout(res, 2000));
-// 	res.push(await scrapeAmazonMusic(page, "ArTPoP", "lady GAGA", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "ArTPoP lady GAGA"));
 // 	await new Promise(res => setTimeout(res, 1000));
-// 	res.push(await scrapeAmazonMusic(page, "time", "deyaz", "singleSongContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "BORN THIS way", "lady GaGa", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "time deyaz"));
+// 	res.push(await scrapeAmazonMusic(page, "BORN THIS way lady GaGa"));
 // 	await new Promise(res => setTimeout(res, 2000));
-// 	res.push(await scrapeAmazonMusic(page, "21", "Ade", "priceCardsContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "stay", "bieber", "priceCardsContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "12", "melanie", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "21 Ade"));
+// 	res.push(await scrapeAmazonMusic(page, "stay bieber"));
+// 	res.push(await scrapeAmazonMusic(page, "12 melanie"));
 // 	await new Promise(res => setTimeout(res, 460));
-// 	res.push(await scrapeAmazonMusic(page, "sacrifice", "weekend", "singleSongContainer"));
-// 	res.push(await scrapeAmazonMusic(page, "summerboy", "Ade", "priceCardsContainer"));
+// 	res.push(await scrapeAmazonMusic(page, "sacrifice weekend"));
+// 	res.push(await scrapeAmazonMusic(page, "summerboy Ade"));
 // 	console.log(res);
 // } catch (err) {
 // 	console.log(res);

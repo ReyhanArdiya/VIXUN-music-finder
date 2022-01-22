@@ -1,4 +1,3 @@
-import Song from "../models/song.js";
 import { config } from "dotenv";
 import { fileURLToPath } from "url";
 import mongoose from "mongoose";
@@ -16,15 +15,3 @@ try {
 } catch (err) {
 	console.log(`Error! Can't connect to ${mongoDatabase}!🍂`, err);
 }
-
-// try {
-// 	console.log(await Song.findByLinksAvailability({
-// 		deezer     : false,
-// 		spotify    : true
-// 	}));
-// } catch (error) {
-// 	console.log(error);
-// }
-
-// mongoose.connection.close();
-

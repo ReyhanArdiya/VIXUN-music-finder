@@ -105,7 +105,10 @@
 		"jsdoc/valid-types": "off",
 		"key-spacing": ["warn", { "beforeColon": true, "align": "colon" }],
 		"keyword-spacing": ["warn", { "before": true, "after": true }],
-		"lines-around-comment": ["warn", { "beforeLineComment": true }],
+		"lines-around-comment": [
+			"warn",
+			{ "beforeLineComment": false, "allowBlockStart": true }
+		],
 		"max-len": [
 			"error",
 			{
@@ -210,7 +213,7 @@
 					"object": true
 				},
 				"AssignmentExpression": {
-					"array": true,
+					"array": false,
 					"object": true
 				}
 			},

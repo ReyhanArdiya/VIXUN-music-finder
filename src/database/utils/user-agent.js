@@ -1,9 +1,4 @@
-import Song from "../../models/song.js";
-import amazonMusic from "./amazon-music.js";
-import deezer from "./deezer.js";
-import puppeteer from "puppeteer";
 import randomUseragent from "random-useragent";
-import spotify from "./spotify.js";
 
 /**
  * Helps you make a new `puppeteer.Page` and randomize its user agent.
@@ -17,10 +12,11 @@ import spotify from "./spotify.js";
  *
  * @example
  * ```
- *
+ * const browser = await puppetter.launch();
+ * const page = await newPageRandomUA(browser);
  * ```
  */
-const makeNewPage = async (browser, randomizeAgent = true) => {
+const newPageRandomUA = async (browser, randomizeAgent = true) => {
 	const newPage = await browser.newPage();
 	if (randomizeAgent) {
 		const userAgent = randomUseragent.getRandom(val => val.browserName === "Chrome" && val.osName === "Windows");
@@ -29,10 +25,5 @@ const makeNewPage = async (browser, randomizeAgent = true) => {
 
 	return newPage;
 };
-export const aggregatorAPIs = {
-	amazonMusic,
-	deezer,
-	spotify
-};
 
-export default aggregator;
+export default newPageRandomUA;
