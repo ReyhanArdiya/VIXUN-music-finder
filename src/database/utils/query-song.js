@@ -65,11 +65,12 @@ const halveStrArr = strArr => {
  *
  * @param {number} qThreshold
  * An optional integer or decimal from `0` to `100` to configure the threshold
- * when matching a `SongDocument` with q.
+ * for when a `SongDocument` should be included after matching it with `q`.
+ * Defaults to `100`.
  *
  * @param {number} qMatchCountInc
  * An optional integer or decimal to configure how much to increment the match
- * count when a part of `SongDocument` matches a part of `q`.
+ * count when a part of `SongDocument` matches a part of `q`. Defaults to `1`
  *
  * @returns {Promise<import("../../models/song.js").SongDocument[]>}
  * A promise that resolves into an array of `SongDocument` that closely matches
@@ -88,13 +89,12 @@ const halveStrArr = strArr => {
  */
 const querySongs = async (q, qThreshold = 100, qMatchCountInc = 1) => {
 	const allSongs = await Song.find();
-
-	return allSongs.filter(song => {
+	const filtered = allSongs.filter(song => {
 		const threshold = q.split(" ").length * (qThreshold / 100);
 		let matchCount = 0;
 
 		let halvedQ = [ q ];
-		while (matchCount < threshold && halvedQ) {
+		while (halvedQ) {
 			for (const query of halvedQ) {
 				if (new RegExp(query, "gi").test(song.desc)) {
 					matchCount += qMatchCountInc;
@@ -102,7 +102,12 @@ const querySongs = async (q, qThreshold = 100, qMatchCountInc = 1) => {
 			}
 			halvedQ = halveStrArr(halvedQ);
 		}
+		if (matchCount >= threshold) {
+			song.matchCount = matchCount;
 
-		return matchCount >= threshold;
+			return true;
+		}
 	});
+
+	return filtered.sort((song1, song2) => song2.matchCount - song1.matchCount);
 };

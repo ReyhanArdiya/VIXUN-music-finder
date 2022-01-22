@@ -73,7 +73,8 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	price : {
+	matchCount : Number,
+	price      : {
 		default : null,
 		type    : String
 	},
@@ -97,7 +98,7 @@ class SongSchemaMethods {
 	 * @returns {string}
 	 */
 	get desc() {
-		return `${this.title} - ${this.album} by ${this.artist} from ${this.release} ${"price" in this ? `costs ${this.price}` : ""}`;
+		return `${this.title} ${this.album} ${this.artist} ${this.release} ${this.price}`;
 	}
 
 	/**
