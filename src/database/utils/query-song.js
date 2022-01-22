@@ -36,8 +36,8 @@ const halveStr = str => {
  *
  * @param {string[]} strArr
  *
- * @returns {string[]}
- * An array where each string item in `strArr` is halved using {@link halveStr}.
+ * @returns {string[] | false}
+ * Either the halved `strArr` or `false` indicating nothing was halved.
  *
  * @example
  * ```
@@ -48,5 +48,9 @@ const halveStr = str => {
  * ```
  */
 const halveStrArr = strArr => {
-	return strArr.flatMap(str => halveStr(str));
+	// CMT note to self, i think i could make a recursion out of this
+	const halvedArr = strArr.flatMap(str => halveStr(str));
+
+	return halvedArr.every((str, i) => str === strArr[i]) ? false : halvedArr;
+};
 };
