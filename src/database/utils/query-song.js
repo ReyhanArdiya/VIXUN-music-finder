@@ -86,7 +86,7 @@ const halveStrArr = strArr => {
  * console.log(await querySongs("The Hours bloom beach house", 60.32, 0.8));
  * ```
  */
-const querySongs = async (q, qThreshold = 50, qMatchCountInc = 1) => {
+const querySongs = async (q, qThreshold = 100, qMatchCountInc = 1) => {
 	const allSongs = await Song.find();
 
 	return allSongs.filter(song => {
