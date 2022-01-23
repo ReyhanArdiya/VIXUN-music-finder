@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
 import homeRouter from "./routers/home.js";
+import songsRouter from "./routers/songs.js";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/", homeRouter);
+app.use("/songs", songsRouter);
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
