@@ -309,7 +309,7 @@ class SongSchemaMethods {
 	 *
 	 * @param {string} q
 	 * A flexible case insensitive string to query {@link Song} model. The more
-	 * words there are in `q`, the more specific the results will be. Examples:
+	 * words there are in `q`, the more songs it will include. Examples:
 	 * 1. "The hours beach house bloom"
 	 * 2. "song depression space beach cherry house"
 	 * 3. "CHROM gAgA lAd 11 bOy suMMer"
