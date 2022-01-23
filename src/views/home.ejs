@@ -100,7 +100,7 @@
 				<% } %>
 			</section>
 			<section id="display-browse-searchbar">
-				<form id="form-search-songs" action="" method="POST">
+				<form id="form-search-songs" action="<%= SEARCH_LINK %>" method="get">
 					<input type="text" name="q" />
 					<button>
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -339,7 +339,7 @@
 
 		<!-- PAGE FOOTER -->
 		<%- include("partials/page-footer") %>
-
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 		<script type="module" src="/home/scripts/index.js" defer></script>
 	</body>
 

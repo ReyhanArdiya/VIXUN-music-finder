@@ -1,6 +1,17 @@
+import { config } from "dotenv";
 import express from "express";
 const homeRouter = express.Router();
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+config({ path : join(__dirname, "..", "..", "process.env") });
+
+/**
+ *
+ */
 class CategoryIcon {
 	 constructor(label = "Type", imgURL = "https://placekitten.com/100/100") {
 
@@ -36,11 +47,12 @@ const categoryIcons =
 
 homeRouter.get("/", (req, res) => {
 	const navbarLink = {
-		topHits : "#display-top-hits",
-		browse  : "#display-browse"
+		browse  : "#display-browse",
+		topHits : "#display-top-hits"
 	};
 
 	res.render("home", {
+		SEARCH_LINK : process.env.SEARCH_LINK,
 		categoryIcons,
 		navbarLink
 	});
