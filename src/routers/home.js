@@ -52,7 +52,7 @@ homeRouter.get("/", (req, res) => {
 	};
 
 	res.render("home", {
-		SEARCH_LINK : process.env.SEARCH_LINK,
+		DOMAIN : process.env.DOMAIN,
 		categoryIcons,
 		navbarLink
 	});
