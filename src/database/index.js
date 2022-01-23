@@ -37,6 +37,7 @@ const browser = await puppeteer.launch();
  *
  * @param {import("puppeteer").Page} page
  * An optional `puppeteer.Page`. If omitted it will use this module's own page.
+ * This function will close the `page` at the end.
  *
  * @returns A promise that resolves into the results of querying the database
  * sorted from the most relevant results.
@@ -49,10 +50,12 @@ const browser = await puppeteer.launch();
  * console.log(await requestSongs("the hours beach house bloom"));
  * ```
  */
-const requestSongs = async (q, page = newPageRandomUA(browser)) => {
+const requestSongs = async (q, page) => {
 	try {
+		page ??= await newPageRandomUA(browser);
 		await aggregateAndSave(q, page);
 	} catch (err) { /* nothing */ }
+	await page.close();
 
 	return await Song.querySongs(q);
 };
