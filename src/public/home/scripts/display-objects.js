@@ -80,6 +80,11 @@ export const displayTopHits = {
 		let prevLayout;
 
 		for (let i = 0; i < sortedSongs.length;) {
+			/**
+			 * @param layout
+			 *
+			 * @example
+			 */
 			const useLayout = layout => {
 				for (const size of layout) {
 					try {
@@ -90,6 +95,12 @@ export const displayTopHits = {
 					}
 				}
 			};
+
+			/**
+			 * @param layoutKey
+			 *
+			 * @example
+			 */
 			const excludeThenChooseLayout = layoutKey => {
 				const splicedLayoutKeys = [ ...layoutKeys ];
 				splicedLayoutKeys.splice(layoutKeys.indexOf(layoutKey), 1);
@@ -320,14 +331,12 @@ export const displayBrowse = {
 	},
 
 	songCard : {
-		container   : document.querySelector("#display-browse-songs"),
-		circleDecos :
-			document.querySelector("#display-browse-circle-decorations")
-				.getElementsByTagName("svg"),
 		cards : document.querySelector("#display-browse-songs")
-			.getElementsByClassName("song-card"),
-
-		info : {
+						 .getElementsByClassName("song-card"),
+		circleDecos : document.querySelector("#display-browse-circle-decorations")
+							   .getElementsByTagName("svg"),
+		container : document.querySelector("#display-browse-songs"),
+		info      : {
 			collection : document.querySelector("#display-browse-songs")
 				.getElementsByClassName("song-card-info"),
 
@@ -380,13 +389,29 @@ export const displayBrowse = {
 					}, 100);
 				}
 			}
+		},
 
-
+		/**
+		 * @param songArr
+		 *
+		 * @example
+		 */
+		addCards(songArr) {
+			const template = document.querySelector("#song-card-template")
+				                      .content.firstElementChild;
+			for (const song of songArr) {
+				const card = template.cloneNode(true);
+				const [ artist, info, price ] = card.children;
+				artist.innerText = song.artist;
+				info.innerText = `${song.title} - ${song.album}`;
+				price.innerText = song.price;
+				this.container.append(card);
+			}
 		}
 	}
 };
 
-window.displayBrowse = displayBrowse.categories.icons;
+// window.displayBrowse = displayBrowse.categories.icons;
 
 export default {
 	displayTopHits,
