@@ -69,9 +69,13 @@ const aggregateAndSave = async (
 						.sort((a, b) => a - b)[0]}`;
 
 				await newSong.save();
-				await page.close();
+				if (!page.isClosed()) {
+					await page.close();
+				}
 			} catch (err) {
-				await page.close();
+				if (!page.isClosed()) {
+					await page.close();
+				}
 			}
 		})();
 

@@ -55,7 +55,9 @@ const requestSongs = async (q, page) => {
 		page ??= await newPageRandomUA(browser);
 		await aggregateAndSave(q, page);
 	} catch (err) {
-		await page.close();
+		if (!page.isClosed()) {
+			await page.close();
+		}
 	}
 
 	return await Song.querySongs(q);
