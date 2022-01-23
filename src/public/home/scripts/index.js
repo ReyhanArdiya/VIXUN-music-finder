@@ -7,6 +7,7 @@ import {
 	displayBrowse,
 	displayTopHits
 } from "./display-objects.js";
+import "./songs-form.js";
 
 const { animation: { animationEffects }, localSongDatabase } = core;
 const navbarMain = checkNavbar();
