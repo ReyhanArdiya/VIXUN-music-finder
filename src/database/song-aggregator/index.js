@@ -80,14 +80,6 @@ const songAggregator = async (
 			link    : deezerTrackExt.link,
 			preview : deezerTrackExt.preview
 		};
-		if (aggregatedData.album) {
-			const deezerAlbumRes = await deezer.searchDeezer(
-				`${aggregatedData.album} ${aggregatedData.artist}`,
-				"/album"
-			);
-			aggregatedData.image =
-                deezer.extractDeezer(deezerAlbumRes[0]).image;
-		}
 	} catch (err) { /* nothing */ }
 
 	try {
