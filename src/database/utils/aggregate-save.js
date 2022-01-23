@@ -14,7 +14,10 @@ import songAggregator from "../song-aggregator/index.js";
  * @param {import("./amazon-music").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
  * Argument to be passed to `options` of {@link amazonMusic.scrapeAmazonMusic}.
  *
- * @returns A promise that resolves into the new {@link Song} document.
+ * @returns {false | Promise<import("../../models/song.js").SongDocument>}
+ * A promise that either resolves into `false` if duplicate song already exists
+ * in {@link Song} model or the new {@link Song} document if it was
+ * successfully saved.
  *
  * @example
  * ```js
@@ -31,7 +34,14 @@ const aggregateAndSave = async (
 	const songData = await songAggregator(q, page, scrapeAmazonMusicOptions);
 	const newSong = new Song(songData);
 
-	return await newSong.save();
+	const { album, artist, title } = newSong;
+	const duplicateSong = await Song.findOne({
+		album,
+		artist,
+		title
+	});
+
+	return duplicateSong ? false : await newSong.save();
 };
 
 export default aggregateAndSave;
