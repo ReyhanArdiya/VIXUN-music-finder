@@ -11,7 +11,6 @@ document.querySelector("#form-search-songs").addEventListener(
 		const params = target.elements.q.value;
 		// eslint-disable-next-line no-undef
 		const res = await axios.get(target.action, { params : { q : params } });
-		console.log(res);
 		displayBrowse.songCard.addCards(res.data);
 		displayBrowse.songCard.info.observeOverflow(true, 0.8);
 	}

@@ -401,7 +401,8 @@ export const displayBrowse = {
 				                      .content.firstElementChild;
 			for (const song of songArr) {
 				const card = template.cloneNode(true);
-				const [ artist, info, price ] = card.children;
+				const [ image, artist, info, price ] = card.children;
+				image.src = song.image;
 				artist.innerText = song.artist;
 				info.innerText = `${song.title} - ${song.album}`;
 				price.innerText = song.price;
