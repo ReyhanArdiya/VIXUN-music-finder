@@ -9,7 +9,7 @@ songsRouter.use(express.urlencoded({ extended : true }));
 songsRouter.get("/", async (req, res, next) => {
 	try {
 		let songs;
-		if (req.query?.q) {
+		if (req.query.q || req.body.q) {
 			songs = await requestSongs(req.query.q);
 		} else {
 			songs = await Song.find().limit(10);
