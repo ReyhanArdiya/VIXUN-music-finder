@@ -11,8 +11,8 @@ import songAggregator from "../song-aggregator/index.js";
  * @param {import("puppeteer").Page} page
  * A `puppeteer.Page`.
  *
- * @param {import("./amazon-music").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
- * Argument to be passed to `options` of {@link amazonMusic.scrapeAmazonMusic}.
+ * @param {import("../song-aggregator/amazon-music.js").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
+ * Optional argument to be passed to `options` of `scrapeAmazonMusic`.
  *
  * @returns {false | Promise<import("../../models/song.js").SongDocument>}
  * A promise that either resolves into `false` if duplicate song already exists
