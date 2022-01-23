@@ -308,9 +308,11 @@ class SongSchemaMethods {
 	 * its `matchCount` property.
 	 *
 	 * @param {string} q
-	 * The string to query {@link Song} model. The more words there are in `q`, the
-	 * more specific the results will be. Other than `q`, the specificity of the results
-	 * can be configured using the `qThreshold` and `qMatchCountInc` parameter.
+	 * A case insensitive string to query {@link Song} model. The more words there are in `q`, the
+	 * more specific the results will be. Examples:
+	 * 1. "The hours beach house bloom"
+	 * 2. "song depression space beach cherry house"
+	 * 3. "CHROM gAgA lAd 11 bOy suMMer"
 	 *
 	 * @param {number} qThreshold
 	 * An optional integer or decimal from `0` to `100` to configure the threshold
@@ -344,7 +346,7 @@ class SongSchemaMethods {
 			let halvedQ = [ q ];
 			while (halvedQ) {
 				for (const query of halvedQ) {
-					if (new RegExp(query, "gi").test(song.desc)) {
+					if (new RegExp(query, "i").test(song.desc)) {
 						matchCount += qMatchCountInc;
 					}
 				}
