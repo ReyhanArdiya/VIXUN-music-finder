@@ -51,14 +51,12 @@ const browser = await puppeteer.launch();
  * ```
  */
 const requestSongs = async (q, page) => {
-	/* XXX this works but it is really slow since every time a request is made,
-	it needs to call the aggregator which takes a long time especially when
-	scraping from amazon */
 	try {
 		page ??= await newPageRandomUA(browser);
 		await aggregateAndSave(q, page);
-	} catch (err) { /* nothing */ }
-	await page.close();
+	} catch (err) {
+		await page.close();
+	}
 
 	return await Song.querySongs(q);
 };

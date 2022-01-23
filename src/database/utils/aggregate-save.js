@@ -1,23 +1,28 @@
 import Song from "../../models/song.js";
+import amazonMusic from "../song-aggregator/amazon-music.js";
 import songAggregator from "../song-aggregator/index.js";
 
 /**
  * Uses {@link songAggregator} data to make, then save a new {@link Song} document.
+ * Then, if no duplicate is detected, it is going to call
+ * {@link amazonMusic.scrapeAmazonMusic} and update the new song's price AFTER
+ * saving it to the database.
  *
  * @param {string} q
  * A query string to search for using deezer API and spotify API. It is recommended
  * that the format is `"${trackTitle} ${artist}" for a more specific search result.
  *
  * @param {import("puppeteer").Page} page
- * A `puppeteer.Page`.
+ * A `puppeteer.Page`. This function will close the page after trying to update
+ * the new song's price.
  *
- * @param {import("../song-aggregator/amazon-music.js").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
- * Optional argument to be passed to `options` of `scrapeAmazonMusic`.
+ * @param {import("./amazon-music").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
+ * Optional argument to be passed to `options` of {@link amazonMusic.scrapeAmazonMusic}.
  *
- * @returns {false | Promise<import("../../models/song.js").SongDocument>}
- * A promise that either resolves into `false` if duplicate song already exists
- * in {@link Song} model or the new {@link Song} document if it was
- * successfully saved.
+ * @returns {Promise<import("../../models/song.js").SongDocument>}
+ * A promise that rejects into `false` if duplicate song already exists
+ * in {@link Song} model or resolves into the new {@link Song} document if it
+ * was successfully saved.
  *
  * @example
  * ```js
@@ -31,7 +36,7 @@ const aggregateAndSave = async (
 	page,
 	scrapeAmazonMusicOptions = {}
 ) => {
-	const songData = await songAggregator(q, page, scrapeAmazonMusicOptions);
+	const songData = await songAggregator(q);
 	const newSong = new Song(songData);
 
 	const { album, artist, title } = newSong;
@@ -41,7 +46,35 @@ const aggregateAndSave = async (
 		title
 	});
 
-	return duplicateSong ? false : await newSong.save();
+	if (duplicateSong) {
+		throw false;
+	} else {
+		(async () => {
+			try {
+				const amazonQuery = `${newSong.album || newSong.title}`;
+				// Replace the parens to url encoded stuff
+				const replaceLeftParen = amazonQuery.replaceAll("(", "%28");
+				const replaceRightParen = replaceLeftParen.replaceAll(")", "%29");
+				const amazonMusicRes = await amazonMusic.scrapeAmazonMusic(
+					page,
+					replaceRightParen,
+					newSong.artist,
+					scrapeAmazonMusicOptions
+				);
+
+				newSong.externals.amazonMusic = { link : amazonMusicRes.link };
+				newSong.price =
+					`$${amazonMusicRes.foundPrices
+						.map(price => +price.slice(1))
+						.sort((a, b) => a - b)[0]}`;
+
+				await newSong.save();
+				await page.close();
+			} catch (err) { /* nothing */ }
+		})();
+
+		return await newSong.save();
+	}
 };
 
 export default aggregateAndSave;

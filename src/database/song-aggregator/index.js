@@ -3,19 +3,13 @@ import deezer from "./deezer.js";
 import spotify from "./spotify.js";
 
 /**
- * An aggregator that will search using {@link deezer.searchDeezer}, {@link spotify.searchSpotify}
- * and {@link amazonMusic.scrapeAmazonMusic} then aggregates their data into one
- * mainly following `SongSchema` except for `price` property.
+ * An aggregator that will search using {@link deezer.searchDeezer} and
+ * {@link spotify.searchSpotify} then aggregates their data into one
+ * mainly following `SongSchema` except for `price` property and returns it.
  *
  * @param {string} q
  * A query string to search for in deezer API and spotify API. It is recommended
  * that the format is `"${trackTitle} ${artist}" for a more specific search result.
- *
- * @param {import("puppeteer").Page} page
- * A `puppeteer.Page`.
- *
- * @param {import("./amazon-music").ScrapeAmazonMusicOptions} scrapeAmazonMusicOptions
- * Argument to be passed to `options` of {@link amazonMusic.scrapeAmazonMusic}.
  *
  * @returns A promise that resolves into {@link aggregatedData}.
  *
@@ -27,18 +21,13 @@ import spotify from "./spotify.js";
  * console.log(await aggregator("oh no oh yes akina nakamori", page, "priceCardsContainer"));
  * ```
  */
-const songAggregator = async (
-	q,
-	page,
-	scrapeAmazonMusicOptions = {}
-) => {
+const songAggregator = async q => {
 	/*  eslint-disable jsdoc/require-jsdoc */
 	const aggregatedData = {
 		album     : null,
 		artist    : null,
 		externals : {},
 		image     : null,
-		price     : null,
 		release   : null,
 		title     : null
 	};
@@ -82,25 +71,6 @@ const songAggregator = async (
 		};
 	} catch (err) { /* nothing */ }
 
-	try {
-		const amazonQuery = `${aggregatedData.album || aggregatedData.title}`;
-
-		// Replace the parens to url encoded stuff
-		const replaceLeftParen = amazonQuery.replaceAll("(", "%28");
-		const replaceRightParen = replaceLeftParen.replaceAll(")", "%29");
-		const amazonMusicRes = await amazonMusic.scrapeAmazonMusic(
-			page,
-			replaceRightParen,
-			aggregatedData.artist,
-			scrapeAmazonMusicOptions
-		);
-		aggregatedData.externals.amazonMusic = { link : amazonMusicRes.link };
-		aggregatedData.price =
-			`$${amazonMusicRes.foundPrices
-				.map(price => +price.slice(1))
-				.sort((a, b) => a - b)[0]}`;
-	} catch (err) { /* nothing */ }
-
 	return aggregatedData;
 };
 
@@ -136,5 +106,3 @@ export default songAggregator;
 // console.log(await songAggregator("summerboy lady gaga", page));
 // console.log(await songAggregator("used to be beach house", page));
 // console.log(await songAggregator("bloody marry lady gaga", page));
-
-// export default songAggregator;
