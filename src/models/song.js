@@ -142,6 +142,9 @@ const halveStrArr = strArr => {
 	return halvedArr.every((str, i) => str === strArr[i]) ? false : halvedArr;
 };
 
+// eslint-disable-next-line
+const escapeRegex = str => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
+
 /**
  *
  */
@@ -346,7 +349,7 @@ class SongSchemaMethods {
 			let halvedQ = [ q ];
 			while (halvedQ) {
 				for (const query of halvedQ) {
-					if (new RegExp(query, "i").test(song.desc)) {
+					if (new RegExp(escapeRegex(query), "i").test(song.desc)) {
 						matchCount += qMatchCountInc;
 					}
 				}
