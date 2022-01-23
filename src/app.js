@@ -1,4 +1,4 @@
-import "./database/index";
+import "./database/index.js";
 import { config } from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
