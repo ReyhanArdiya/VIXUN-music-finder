@@ -11,7 +11,7 @@ import "./songs-form.js";
 
 const { animation: { animationEffects }, localSongDatabase } = core;
 const navbarMain = checkNavbar();
-
+// TODO seperate each regions into modules
 // #region -------------------TOP HITS LOGIC------------------------------------
 
 // Add song cards from database to top hits grid
