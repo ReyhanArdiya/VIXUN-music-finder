@@ -68,7 +68,7 @@ const aggregateAndSave = async (
 						.map(price => +price.slice(1))
 						.sort((a, b) => a - b)[0]}`;
 
-				await newSong.save();
+				newSong.save();
 				if (!page.isClosed()) {
 					await page.close();
 				}
