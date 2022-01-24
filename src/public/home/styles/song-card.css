@@ -142,7 +142,6 @@
 		z-index: 0;
 	}
 	.song-card-artist {
-		/* TODO should i add this?? since ill be switching the artist the info anyways and ill be using intersection observer to scroll it too */
 		width: max-content;
 	}
 }

@@ -89,7 +89,6 @@ const scrapeAmazonMusic = async (
 		.join("+");
 	await page.goto(`https://www.amazon.com/s?k=${q}&i=music-intl-ship`);
 
-	// TODO should there be a feature to go to the next page if it is not found on the first page and stop after N pages?
 	let selectedItem;
 	const selectedItemRegex = new RegExp(
 		`(?<=/)${`${albumOrSong} ${artist}`.toLowerCase()
