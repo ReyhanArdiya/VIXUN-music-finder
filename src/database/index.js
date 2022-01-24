@@ -51,8 +51,10 @@ const browser = await puppeteer.launch();
  * ```
  */
 const requestSongs = async (q, page) => {
-	page ??= await newPageRandomUA(browser);
-	await aggregateAndSave(q, page);
+	try {
+		page ??= await newPageRandomUA(browser);
+		await aggregateAndSave(q, page);
+	} catch (err) { /* nothing */ }
 
 	return await Song.querySongs(q);
 };
