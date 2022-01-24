@@ -33,7 +33,7 @@ const appendSongs = async q => {
 	if (canAppendSongs) {
 		canAppendSongs = false;
 
-		const { container } = displayBrowse.songCard;
+		const { songCard: { container }, search: { notFound } } = displayBrowse;
 
 		const oldProgressBar = container.querySelector("svg");
 		if (oldProgressBar) {
@@ -78,11 +78,17 @@ const appendSongs = async q => {
 			container.classList.add("no-songs");
 		}
 
+		if (getComputedStyle(notFound).display !== "none") {
+			notFound.scrollIntoView(false);
+		} else {
+			displayBrowse.search.sortLabels.container.scrollIntoView(true);
+		}
+
 		canAppendSongs = true;
 	}
 };
 
-const searchBar = document.querySelector("#form-search-songs");
+const { form: searchBar } = displayBrowse.search;
 
 searchBar.addEventListener(
 	"submit",

@@ -316,21 +316,42 @@ export const displayAds = {
 
 export const displayBrowse = {
 	categories : {
+		activeIcon : null,
 		container  : document.querySelector("#display-browse-categories"),
-		icons      : document.querySelectorAll(".icon-category"),
-		activeIcon : null
+		icons      : document.querySelectorAll(".icon-category")
 	},
 
 	search : {
-		input      : document.querySelector("#display-browse-searchbar"),
+		form       : document.querySelector("#form-search-songs"),
+		notFound   : document.querySelector("#no-songs"),
 		sortLabels : {
+			activeLabel : null,
 			container   : document.querySelector("#browse-searchbar-sorts"),
-			labels      : document.querySelectorAll(".browse-sort-label"),
-			activeLabel : null
+			labels      : document.querySelectorAll(".browse-sort-label")
 		}
 	},
 
 	songCard : {
+
+		/**
+		 * @param songArr
+		 *
+		 * @example
+		 */
+		addCards(songArr) {
+			const template = document.querySelector("#song-card-template")
+							  .content.firstElementChild;
+			for (const song of songArr) {
+				const card = template.cloneNode(true);
+				const [ image, artist, info, price ] = card.children;
+				image.src = song.image;
+				artist.innerText = song.artist;
+				info.innerText = `${song.title} - ${song.album}`;
+				price.innerText = song.price;
+				this.container.append(card);
+			}
+		},
+
 		cards : document.querySelector("#display-browse-songs")
 						 .getElementsByClassName("song-card"),
 		circleDecos : document.querySelector("#display-browse-circle-decorations")
@@ -389,25 +410,6 @@ export const displayBrowse = {
 					}, 100);
 				}
 			}
-		},
-
-		/**
-		 * @param songArr
-		 *
-		 * @example
-		 */
-		addCards(songArr) {
-			const template = document.querySelector("#song-card-template")
-				                      .content.firstElementChild;
-			for (const song of songArr) {
-				const card = template.cloneNode(true);
-				const [ image, artist, info, price ] = card.children;
-				image.src = song.image;
-				artist.innerText = song.artist;
-				info.innerText = `${song.title} - ${song.album}`;
-				price.innerText = song.price;
-				this.container.append(card);
-			}
 		}
 	}
 };
@@ -415,7 +417,7 @@ export const displayBrowse = {
 // window.displayBrowse = displayBrowse.categories.icons;
 
 export default {
-	displayTopHits,
 	displayAds,
-	displayBrowse
+	displayBrowse,
+	displayTopHits
 };
