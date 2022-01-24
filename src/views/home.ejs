@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/home/styles/display-ads.css" />
 		<link rel="stylesheet" href="/home/styles/display-browse.css" />
 		<link rel="stylesheet" href="/home/styles/song-card.css" />
+		<link rel="stylesheet" href="/home/styles/no-songs.css" />
 		<!-- #endregion HOME CSS -->
 	</head>
 
@@ -177,6 +178,10 @@
 					<p class="song-card-price"><%= song.price %></p>
 				</article>
 				<% } %>
+				<div id="no-songs">
+					<p>NOTHING FOUND</p>
+					<p>:(</p>
+				</div>
 			</section>
 
 			<div id="display-browse-circle-decorations">

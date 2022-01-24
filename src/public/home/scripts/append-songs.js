@@ -21,11 +21,9 @@ import { displayBrowse } from "./display-objects.js";
  */
 const appendSongs = async q => {
 	/* eslint-disable no-undef */
-	for (const card of [ ...displayBrowse.songCard.cards ]) {
-		card.remove();
-	}
+	const { container } = displayBrowse.songCard;
 	const progressBar = new ProgressBar.Circle(
-		document.querySelector("#display-browse-songs"),
+		container,
 		{
 			color       : "#ff0000",
 			duration    : 1800,
@@ -39,15 +37,27 @@ const appendSongs = async q => {
 			}
 		}
 	);
-	progressBar.animate(1);
-	const res = await axios.get("/songs", { params : { q } });
-	progressBar.destroy();
+	if (container.classList.contains("no-songs")) {
+		container.classList.remove("no-songs");
+	}
 	for (const card of [ ...displayBrowse.songCard.cards ]) {
 		card.remove();
 	}
-	displayBrowse.songCard.addCards(res.data);
-	displayBrowse.songCard.info.observeOverflow(false, 0.8);
+	progressBar.animate(1);
+	const res = await axios.get("/songs", { params : { q } });
+	progressBar.destroy();
+	if (res.data.length) {
+		for (const card of [ ...displayBrowse.songCard.cards ]) {
+			card.remove();
+		}
+		displayBrowse.songCard.addCards(res.data);
+		displayBrowse.songCard.info.observeOverflow(false, 0.8);
+	} else {
+		console.log(res.data);
+		container.classList.add("no-songs");
+	}
 };
+
 
 const searchBar = document.querySelector("#form-search-songs");
 
