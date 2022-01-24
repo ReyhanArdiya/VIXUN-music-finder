@@ -91,11 +91,10 @@
 				<h2>BROWSE</h2>
 			</header>
 			<section id="display-browse-categories">
-				<% for (let icon of categoryIcons) { %>
+				<% for (const artist of artists) { %>
 				<div class="icon-category">
-					<img src="<%= icon.imgURL %>" alt="<%= `${icon.label} Category` %> "
-						title="<%= `${icon.label} Category` %> " />
-					<p><%= icon.label %></p>
+					<img src="<%= artist %>" />
+					<!-- <p></p> -->
 				</div>
 				<% } %>
 			</section>
