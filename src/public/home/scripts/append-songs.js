@@ -20,11 +20,28 @@ import { displayBrowse } from "./display-objects.js";
  * ```
  */
 const appendSongs = async q => {
+	/* eslint-disable no-undef */
 	for (const card of [ ...displayBrowse.songCard.cards ]) {
 		card.remove();
 	}
-	// eslint-disable-next-line no-undef
+	const progressBar = new ProgressBar.Circle(
+		document.querySelector("#display-browse-songs"),
+		{
+			color       : "#ff0000",
+			duration    : 1800,
+			easing      : "easeInOut",
+			from        : { color : "#ff0000" },
+			strokeWidth : 5,
+			to          : { color : "#a129ff" },
+			// eslint-disable-next-line
+			step (state, circle) {
+				circle.path.setAttribute("stroke", state.color);
+			}
+		}
+	);
+	progressBar.animate(1);
 	const res = await axios.get("/songs", { params : { q } });
+	progressBar.destroy();
 	for (const card of [ ...displayBrowse.songCard.cards ]) {
 		card.remove();
 	}
