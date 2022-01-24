@@ -29,4 +29,8 @@ songsRouter.get("/top", async (req, res, next) => {
 	}
 });
 
+songsRouter.use((err, req, res) => {
+	res.status(500).send("Error! :(");
+});
+
 export default songsRouter;
