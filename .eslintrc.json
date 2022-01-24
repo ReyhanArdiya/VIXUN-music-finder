@@ -110,7 +110,7 @@
 			{ "beforeLineComment": false, "allowBlockStart": true }
 		],
 		"max-len": [
-			"error",
+			"warn",
 			{
 				"code": 80,
 				"tabWidth": 4,
