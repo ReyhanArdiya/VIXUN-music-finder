@@ -93,7 +93,7 @@
 			<section id="display-browse-categories">
 				<% for (const artist of artists) { %>
 				<div class="icon-category">
-					<img src="<%= artist %>" />
+					<img src="<%= artist.image %>" alt="<%= artist.artist %>" title="<%= artist.artist %>" />
 					<!-- <p></p> -->
 				</div>
 				<% } %>

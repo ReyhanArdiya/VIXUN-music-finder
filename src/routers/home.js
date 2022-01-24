@@ -23,7 +23,11 @@ homeRouter.get("/", async (req, res, next) => {
 		const songs = await Song.find()
 			                     .skip(random)
 			                     .limit(15);
-		const artists = new Set(songs.map(song => song.artistImage));
+		const artists = songs.filter((song, currentI, songs) => {
+			const foundI = songs.findIndex(s => s.artist === song.artist);
+
+			return currentI === foundI;
+		});
 
 		res.render("home", {
 			DOMAIN : process.env.DOMAIN,
