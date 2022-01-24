@@ -317,6 +317,12 @@ class SongSchemaMethods {
 	 * 1. "The hours beach house bloom"
 	 * 2. "song depression space beach cherry house"
 	 * 3. "CHROM gAgA lAd 11 bOy suMMer"
+	 * 4. "Ad ad eOm ndY ica Ou aNd", interestingly this one could include sour
+	 * candy by lady gaga if present in database.
+	 * 5. "Rt op tp ar u y gu uy aga g" this one could include G.U.Y by lady
+	 * gaga if present.
+	 * 6. "He ek iw no ll He cH mO th" this one could include all we know by
+	 * the chainsmokers if present.
 	 *
 	 * @param {number} qThreshold
 	 * An optional integer or decimal from `0` to `100` to configure the threshold
@@ -343,8 +349,8 @@ class SongSchemaMethods {
 	 */
 	static async querySongs(q, qThreshold = 50, qMatchCountInc = 1) {
 		const allSongs = await this.find();
+		const threshold = q.split(" ").length * (qThreshold / 100);
 		const filtered = allSongs.filter(song => {
-			const threshold = q.split(" ").length * (qThreshold / 100);
 			let matchCount = 0;
 
 			let halvedQ = [ q ];
