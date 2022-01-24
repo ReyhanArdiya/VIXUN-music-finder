@@ -110,11 +110,13 @@ const extractDeezer = data => {
 			id,
 			name,
 			type,
-			link
+			link,
+			picture_medium : image
 		} = artist;
 
 		return {
 			id,
+			image,
 			link,
 			name,
 			type,
