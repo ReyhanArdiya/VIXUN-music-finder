@@ -1,3 +1,4 @@
+import "./append-songs.js";
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
@@ -7,7 +8,6 @@ import {
 	displayBrowse,
 	displayTopHits
 } from "./display-objects.js";
-import "./songs-form.js";
 
 const { animation: { animationEffects }, localSongDatabase } = core;
 const navbarMain = checkNavbar();
