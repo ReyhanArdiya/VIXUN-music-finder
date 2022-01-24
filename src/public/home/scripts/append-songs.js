@@ -96,7 +96,9 @@ document.querySelector("#display-browse-categories").addEventListener(
 	"click",
 	function(e) {
 		const { title } = e.target.firstElementChild;
+		if (canAppendSongs) {
+			searchBar.firstElementChild.value = title;
+		}
 		appendSongs(title);
-		searchBar.firstElementChild.value = title;
 	}
 );
