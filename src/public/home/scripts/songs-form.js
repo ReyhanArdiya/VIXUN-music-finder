@@ -8,10 +8,13 @@ document.querySelector("#form-search-songs").addEventListener(
 			card.remove();
 		}
 		const { target } = e;
-		const params = target.elements.q.value;
+		const q = target.elements.q.value;
 		// eslint-disable-next-line no-undef
-		const res = await axios.get(target.action, { params : { q : params } });
+		const res = await axios.get(target.action, { params : { q } });
+		for (const card of [ ...displayBrowse.songCard.cards ]) {
+			card.remove();
+		}
 		displayBrowse.songCard.addCards(res.data);
-		displayBrowse.songCard.info.observeOverflow(true, 0.8);
+		displayBrowse.songCard.info.observeOverflow(false, 0.8);
 	}
 );
