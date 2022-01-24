@@ -12,7 +12,11 @@ songsRouter.get("/", async (req, res, next) => {
 		if (req.query.q) {
 			songs = await requestSongs(req.query.q);
 		} else {
-			songs = await Song.find().limit(10);
+			const count = await Song.estimatedDocumentCount();
+			const random = Math.floor(Math.random() * count);
+			songs = await Song.find()
+			                     .skip(random)
+			                     .limit(10);
 		}
 		res.send(songs);
 	} catch (err) {
