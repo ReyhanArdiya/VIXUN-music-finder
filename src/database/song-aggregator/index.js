@@ -2,6 +2,12 @@ import amazonMusic from "./amazon-music.js";
 import deezer from "./deezer.js";
 import spotify from "./spotify.js";
 
+let spotifyToken = await spotify.getSpotifyToken();
+// eslint-disable-next-line
+const refreshSpotifyToken = setInterval(async () => {
+	spotifyToken = await spotify.getSpotifyToken();
+}, 3_540_000);
+
 /**
  * An aggregator that will search using {@link deezer.searchDeezer} and
  * {@link spotify.searchSpotify} then aggregates their data into one
@@ -24,28 +30,38 @@ import spotify from "./spotify.js";
 const songAggregator = async q => {
 	/*  eslint-disable jsdoc/require-jsdoc */
 	const aggregatedData = {
-		album     : null,
-		artist    : null,
-		externals : {},
-		image     : null,
-		release   : null,
-		title     : null
+		album       : null,
+		artist      : null,
+		artistImage : null,
+		externals   : {},
+		image       : null,
+		release     : null,
+		title       : null
 	};
 
 	try {
 		const spotifyTrackRes = await spotify.searchSpotify(
-			await spotify.getSpotifyToken(),
+			spotifyToken,
 			q,
 			[ "track" ]
 		);
 		const spotifyTrackExt = spotify.extractSpotify(
-			spotifyTrackRes.tracks.items[0]
+			spotifyTrackRes.tracks?.items[0]
 		);
 		const spotifyAlbumExt = spotify.extractSpotify(
-			spotifyTrackRes.tracks.items[0].album
+			spotifyTrackRes.tracks?.items[0].album
+		);
+		const spotifyArtistRes = await spotify.searchSpotify(
+			spotifyToken,
+			aggregatedData.artist,
+			[ "artist" ]
+		);
+		const spotifyArtistExt = spotify.extractSpotify(
+			spotifyArtistRes.artists.items[0]
 		);
 		aggregatedData.album = spotifyTrackExt.album;
 		aggregatedData.artist = spotifyTrackExt.artist;
+		aggregatedData.artistImage = spotifyArtistExt.image;
 		aggregatedData.image = spotifyAlbumExt.image;
 		aggregatedData.release = spotifyAlbumExt.release;
 		aggregatedData.title = spotifyTrackExt.name;
@@ -60,8 +76,10 @@ const songAggregator = async q => {
 		const deezerTrackRes = await deezer.searchDeezer(q);
 		const deezerTrackExt = deezer.extractDeezer(deezerTrackRes[0]);
 		const deezerAlbumExt = deezer.extractDeezer(deezerTrackRes[0].album);
+		const deezerArtistExt = deezer.extractDeezer(deezerTrackRes[0].artist);
 		aggregatedData.album ??= deezerTrackExt.album;
 		aggregatedData.artist ??= deezerTrackExt.artist;
+		aggregatedData.artistImage ??= deezerArtistExt.image;
 		aggregatedData.image ??= deezerAlbumExt.image;
 		aggregatedData.title ??= deezerTrackExt.title;
 		aggregatedData.externals.deezer = {
