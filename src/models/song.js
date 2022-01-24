@@ -48,6 +48,7 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
+	artistImage : String,
 
 	/*  CMT I could make this as an array of externals instead and have each
 	external have a source string prop. THis could be better (is it tho?) if i
