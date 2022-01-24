@@ -76,8 +76,8 @@
 			{
 				"require": {
 					"ArrowFunctionExpression": true,
-					"ClassDeclaration": true,
-					"ClassExpression": true,
+					"ClassDeclaration": false,
+					"ClassExpression": false,
 					"FunctionExpression": true,
 					"MethodDefinition": true
 				},
