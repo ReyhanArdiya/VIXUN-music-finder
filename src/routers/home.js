@@ -2,6 +2,7 @@ import { config } from "dotenv";
 import express from "express";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import Song from "../models/song.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -43,17 +44,26 @@ const categoryIcons =
 	new CategoryIcon("Indie", "https://placekitten.com/100/100"),
 ];
 
-homeRouter.get("/", (req, res) => {
-	const navbarLink = {
-		browse  : "#display-browse",
-		topHits : "#display-top-hits"
-	};
+homeRouter.get("/", async (req, res, next) => {
+	try {
+		const navbarLink = {
+			browse  : "#display-browse",
+			topHits : "#display-top-hits"
+		};
 
-	res.render("home", {
-		DOMAIN : process.env.DOMAIN,
-		categoryIcons,
-		navbarLink
-	});
+		const count = await Song.estimatedDocumentCount();
+		const random = Math.floor(Math.random() * count);
+		const songs = await Song.find().skip(random).limit(15);
+
+		res.render("home", {
+			DOMAIN : process.env.DOMAIN,
+			categoryIcons,
+			navbarLink,
+			songs
+		});
+	} catch (err) {
+		next(err);
+	}
 });
 
 export default homeRouter;
