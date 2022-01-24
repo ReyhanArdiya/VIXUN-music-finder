@@ -1,6 +1,5 @@
 import { config } from "dotenv";
 import express from "express";
-const homeRouter = express.Router();
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -9,9 +8,8 @@ const __dirname = dirname(__filename);
 
 config({ path : join(__dirname, "..", "..", "process.env") });
 
-/**
- *
- */
+const homeRouter = express.Router();
+
 class CategoryIcon {
 	 constructor(label = "Type", imgURL = "https://placekitten.com/100/100") {
 
@@ -25,7 +23,7 @@ class CategoryIcon {
 		this.imgURL = imgURL;
 	}
 }
-
+// TODO do i need to delete this? since my apis dont have ways to get the genre :(
 const categoryIcons =
 [
 	new CategoryIcon("Pop", "https://placekitten.com/500/500"),
