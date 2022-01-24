@@ -1,5 +1,14 @@
 import { displayBrowse } from "./display-objects.js";
 
+// eslint-disable-next-line
+const removeAllCards = () => {
+	for (const card of [ ...displayBrowse.songCard.cards ]) {
+		card.remove();
+	}
+};
+
+let canAppendSongs = true;
+
 /**
  * Removes all curent cards from DOM then calls
  * {@link displayBrowse.songCard.addCards} and appends the results.
@@ -21,43 +30,57 @@ import { displayBrowse } from "./display-objects.js";
  */
 const appendSongs = async q => {
 	/* eslint-disable no-undef */
-	const { container } = displayBrowse.songCard;
-	const progressBar = new ProgressBar.Circle(
-		container,
-		{
-			color       : "#ff0000",
-			duration    : 1800,
-			easing      : "easeInOut",
-			from        : { color : "#ff0000" },
-			strokeWidth : 5,
-			to          : { color : "#a129ff" },
-			// eslint-disable-next-line
+	if (canAppendSongs) {
+		canAppendSongs = false;
+
+		const { container } = displayBrowse.songCard;
+
+		const oldProgressBar = container.querySelector("svg");
+		if (oldProgressBar) {
+			oldProgressBar.remove();
+		}
+
+		const progressBar = new ProgressBar.Circle(
+			container,
+			{
+				color       : "#ff0000",
+				duration    : 1800,
+				easing      : "easeInOut",
+				from        : { color : "#ff0000" },
+				strokeWidth : 5,
+				to          : { color : "#a129ff" },
+				// eslint-disable-next-line
 			step (state, circle) {
-				circle.path.setAttribute("stroke", state.color);
+					circle.path.setAttribute("stroke", state.color);
+				}
 			}
+		);
+
+		if (container.classList.contains("no-songs")) {
+			container.classList.remove("no-songs");
 		}
-	);
-	if (container.classList.contains("no-songs")) {
-		container.classList.remove("no-songs");
-	}
-	for (const card of [ ...displayBrowse.songCard.cards ]) {
-		card.remove();
-	}
-	progressBar.animate(1);
-	const res = await axios.get("/songs", { params : { q } });
-	progressBar.destroy();
-	if (res.data.length) {
-		for (const card of [ ...displayBrowse.songCard.cards ]) {
-			card.remove();
+		removeAllCards();
+
+		try {
+			progressBar.animate(1);
+			const res = await axios.get("/songs", { params : { q } });
+			progressBar.destroy();
+			removeAllCards();
+
+			if (res.data.length) {
+				displayBrowse.songCard.addCards(res.data);
+				displayBrowse.songCard.info.observeOverflow(false, 0.8);
+			} else {
+				container.classList.add("no-songs");
+			}
+		} catch (err) {
+			removeAllCards();
+			container.classList.add("no-songs");
 		}
-		displayBrowse.songCard.addCards(res.data);
-		displayBrowse.songCard.info.observeOverflow(false, 0.8);
-	} else {
-		console.log(res.data);
-		container.classList.add("no-songs");
+
+		canAppendSongs = true;
 	}
 };
-
 
 const searchBar = document.querySelector("#form-search-songs");
 
