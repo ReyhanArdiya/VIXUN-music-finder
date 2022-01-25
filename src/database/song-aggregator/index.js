@@ -51,6 +51,9 @@ const songAggregator = async q => {
 		const spotifyAlbumExt = spotify.extractSpotify(
 			spotifyTrackRes.tracks?.items[0].album
 		);
+		aggregatedData.album = spotifyTrackExt.album;
+		aggregatedData.artist = spotifyTrackExt.artist;
+
 		const spotifyArtistRes = await spotify.searchSpotify(
 			spotifyToken,
 			aggregatedData.artist,
@@ -59,8 +62,6 @@ const songAggregator = async q => {
 		const spotifyArtistExt = spotify.extractSpotify(
 			spotifyArtistRes.artists.items[0]
 		);
-		aggregatedData.album = spotifyTrackExt.album;
-		aggregatedData.artist = spotifyTrackExt.artist;
 		aggregatedData.artistImage = spotifyArtistExt.image;
 		aggregatedData.image = spotifyAlbumExt.image;
 		aggregatedData.release = spotifyAlbumExt.release;
@@ -119,7 +120,7 @@ export default songAggregator;
 // console.log(await songAggregator("the STEP BELOW hell", page));
 // console.log(await songAggregator("911 lady gaga", page));
 // console.log(await songAggregator("baka mitai", page));
-// console.log(await songAggregator("the hours beach house", page));
+console.log(await songAggregator("the hours beach house"));
 // console.log(await songAggregator("sour candy lady gaga", page));
 // console.log(await songAggregator("summerboy lady gaga", page));
 // console.log(await songAggregator("used to be beach house", page));
