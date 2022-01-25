@@ -29,7 +29,6 @@ let canAppendSongs = true;
  * ```
  */
 const appendSongs = async q => {
-	/* eslint-disable no-undef */
 	if (canAppendSongs) {
 		canAppendSongs = false;
 
@@ -43,16 +42,15 @@ const appendSongs = async q => {
 		const progressBar = new ProgressBar.Circle(
 			container,
 			{
-				color       : "#ff0000",
-				duration    : 1800,
-				easing      : "easeInOut",
-				from        : { color : "#ff0000" },
+				color    : "#ff0000",
+				duration : 1800,
+				easing   : "easeInOut",
+				from     : { color : "#ff0000" },
+				step(state, circle) {
+					circle.path.setAttribute("stroke", state.color);
+				},
 				strokeWidth : 5,
 				to          : { color : "#a129ff" },
-				// eslint-disable-next-line
-			step (state, circle) {
-					circle.path.setAttribute("stroke", state.color);
-				}
 			}
 		);
 
