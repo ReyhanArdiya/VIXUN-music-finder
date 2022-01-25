@@ -13,11 +13,6 @@ const homeRouter = express.Router();
 
 homeRouter.get("/", async (req, res, next) => {
 	try {
-		const navbarLink = {
-			browse  : "#display-browse",
-			topHits : "#display-top-hits"
-		};
-
 		const count = await Song.estimatedDocumentCount();
 		const random = Math.floor(Math.random() * (count - 14));
 		const songs = await Song.find()
@@ -30,9 +25,7 @@ homeRouter.get("/", async (req, res, next) => {
 		});
 
 		res.render("home", {
-			DOMAIN : process.env.DOMAIN,
 			artists,
-			navbarLink,
 			songs
 		});
 	} catch (err) {
