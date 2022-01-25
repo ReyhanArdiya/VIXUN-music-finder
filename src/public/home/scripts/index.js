@@ -1,32 +1,17 @@
 import "./append-songs.js";
+import "./top-hits.js";
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
 import { mediaQuery } from "../../common/scripts/animation.js";
 import {
 	displayAds,
-	displayBrowse,
-	displayTopHits
+	displayBrowse
 } from "./display-objects.js";
 
-const { animation: { animationEffects }, localSongDatabase } = core;
+const { animation: { animationEffects } } = core;
 const navbarMain = checkNavbar();
 // TODO seperate each regions into modules
-// #region -------------------TOP HITS LOGIC------------------------------------
-
-// Add song cards from database to top hits grid
-displayTopHits.addDatabaseSongs(localSongDatabase);
-
-// Add parallax to display top hits' circle decorations.
-animationEffects.addParallax(
-	displayTopHits.grid,
-	displayTopHits.gridCircleDecorations,
-	0.05,
-	"breakpointMedium",
-	true
-);
-
-// #endregion ================TOP HITS LOGIC====================================
 
 // #region -------------------DISPLAY ADS LOGIC---------------------------------
 
