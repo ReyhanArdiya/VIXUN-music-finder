@@ -169,16 +169,6 @@
 						<p class="song-card-price">$4.99</p>
 					</article>
 				</template>
-				<% for( const song of songs ) { %>
-				<article class="song-card">
-					<img class="song-card-image" src="<%= song.image %>" alt="" loading="lazy">
-					<h3 class="song-card-artist"><%= song.artist %> </h3>
-					<p class="song-card-info">
-						<%= song.title %> - <%= song.album %>
-					</p>
-					<p class="song-card-price"><%= song.price %></p>
-				</article>
-				<% } %>
 				<div id="no-songs">
 					<p>NOTHING FOUND</p>
 					<p>:(</p>

@@ -12,7 +12,7 @@ const removeAllCards = () => {
 
 /**
  * Removes all curent cards from DOM then calls
- * {@link displayBrowse.songCard.addCards} and appends the results.
+ * {@link displayBrowse.songCard.addCards} and appends the results or a warning.
  *
  * @param {string} q
  *
@@ -93,6 +93,9 @@ const appendSongs = async q => {
 	}
 };
 
+// Receive songs data atleast once on startup from this callback
+window.addEventListener("load", () => appendSongs());
+
 const { form: searchBar } = displayBrowse.search;
 
 searchBar.addEventListener(
@@ -113,6 +116,7 @@ document.querySelector("#display-browse-categories").addEventListener(
 		}
 	}
 );
+
 // Toggler for sort label status colors
 displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 	let label;
@@ -149,6 +153,7 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 	}
 });
 
+// Sort labels sorting logic
 displayBrowse.search.sortLabels.container.addEventListener(
 	"click",
 	function(e) {

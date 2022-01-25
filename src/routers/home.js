@@ -14,9 +14,6 @@ const homeRouter = express.Router();
 homeRouter.get("/", async (req, res, next) => {
 	try {
 		const count = await Song.estimatedDocumentCount();
-		const random = Math.floor(Math.random() * (count - 14));
-		const songs = await Song.find().skip(random).limit(15);
-
 		const randomArt = Math.floor(Math.random() * (count - 29));
 		const artistsCol = await Song.find()
 			                       .skip(randomArt)
@@ -27,10 +24,7 @@ homeRouter.get("/", async (req, res, next) => {
 			return currentI === foundI;
 		});
 
-		res.render("home", {
-			artists,
-			songs
-		});
+		res.render("home", { artists });
 	} catch (err) {
 		next(err);
 	}
