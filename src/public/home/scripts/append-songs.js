@@ -72,11 +72,13 @@ const appendSongs = async q => {
 				displayBrowse.songCard.addCards(res.data);
 				displayBrowse.songCard.info.observeOverflow(false, 0.8);
 			} else {
+				notFound.firstElementChild.innerText = "NOTHING FOUND";
 				container.classList.add("no-songs");
 			}
 		} catch (err) {
 			progressBar.destroy();
 			removeAllCards();
+			notFound.firstElementChild.innerText = "SOMETHING\nWENT WRONG";
 			container.classList.add("no-songs");
 		}
 
