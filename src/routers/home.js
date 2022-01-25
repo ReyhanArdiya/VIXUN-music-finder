@@ -19,7 +19,7 @@ homeRouter.get("/", async (req, res, next) => {
 		};
 
 		const count = await Song.estimatedDocumentCount();
-		const random = Math.floor(Math.random() * count);
+		const random = Math.floor(Math.random() * (count - 14));
 		const songs = await Song.find()
 			                     .skip(random)
 			                     .limit(15);
