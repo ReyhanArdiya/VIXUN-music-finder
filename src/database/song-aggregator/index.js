@@ -120,7 +120,7 @@ export default songAggregator;
 // console.log(await songAggregator("the STEP BELOW hell", page));
 // console.log(await songAggregator("911 lady gaga", page));
 // console.log(await songAggregator("baka mitai", page));
-console.log(await songAggregator("the hours beach house"));
+// console.log(await songAggregator("the hours beach house"));
 // console.log(await songAggregator("sour candy lady gaga", page));
 // console.log(await songAggregator("summerboy lady gaga", page));
 // console.log(await songAggregator("used to be beach house", page));
