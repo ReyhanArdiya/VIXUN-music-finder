@@ -61,7 +61,10 @@ const appendSongs = async q => {
 
 		try {
 			progressBar.animate(1);
-			const res = await axios.get("/songs", { params : { q } });
+			const res = await axios.get("/songs", {
+				params  : { q },
+				timeout : 10000
+			});
 			progressBar.destroy();
 			removeAllCards();
 
@@ -72,6 +75,7 @@ const appendSongs = async q => {
 				container.classList.add("no-songs");
 			}
 		} catch (err) {
+			progressBar.destroy();
 			removeAllCards();
 			container.classList.add("no-songs");
 		}
