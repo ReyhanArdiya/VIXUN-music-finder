@@ -101,7 +101,7 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 
 // #region -------------------SONG CARDS LOGIC----------------------------------
 
-displayBrowse.songCard.info.observeOverflow(true, 0.8);
+displayBrowse.songCard.info.observeOverflow(false, 0.8);
 
 animationEffects.addParallax(
 	displayBrowse.songCard.container,

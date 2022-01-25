@@ -38,6 +38,10 @@
 	user-select: none;
 }
 
+.song-card:last-of-type {
+	margin-bottom: 0.25em;
+}
+
 /* song cards overlay on hover/active */
 .song-card {
 	cursor: pointer;
