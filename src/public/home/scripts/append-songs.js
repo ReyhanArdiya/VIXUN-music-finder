@@ -43,7 +43,7 @@ const appendSongs = async q => {
 			container,
 			{
 				color    : "#ff0000",
-				duration : 8000,
+				duration : 3000,
 				easing   : "easeInOut",
 				from     : { color : "#ff0000" },
 				step(state, circle) {
