@@ -29,7 +29,6 @@ let canAppendSongs = true;
  * ```
  */
 const appendSongs = async q => {
-	/* eslint-disable no-undef */
 	if (canAppendSongs) {
 		canAppendSongs = false;
 
@@ -43,16 +42,15 @@ const appendSongs = async q => {
 		const progressBar = new ProgressBar.Circle(
 			container,
 			{
-				color       : "#ff0000",
-				duration    : 1800,
-				easing      : "easeInOut",
-				from        : { color : "#ff0000" },
+				color    : "#ff0000",
+				duration : 3000,
+				easing   : "easeInOut",
+				from     : { color : "#ff0000" },
+				step(state, circle) {
+					circle.path.setAttribute("stroke", state.color);
+				},
 				strokeWidth : 5,
 				to          : { color : "#a129ff" },
-				// eslint-disable-next-line
-			step (state, circle) {
-					circle.path.setAttribute("stroke", state.color);
-				}
 			}
 		);
 
@@ -63,7 +61,10 @@ const appendSongs = async q => {
 
 		try {
 			progressBar.animate(1);
-			const res = await axios.get("/songs", { params : { q } });
+			const res = await axios.get("/songs", {
+				params  : { q },
+				timeout : 10000
+			});
 			progressBar.destroy();
 			removeAllCards();
 
@@ -71,10 +72,13 @@ const appendSongs = async q => {
 				displayBrowse.songCard.addCards(res.data);
 				displayBrowse.songCard.info.observeOverflow(false, 0.8);
 			} else {
+				notFound.firstElementChild.innerText = "NOTHING FOUND";
 				container.classList.add("no-songs");
 			}
 		} catch (err) {
+			progressBar.destroy();
 			removeAllCards();
+			notFound.firstElementChild.innerText = "SOMETHING\nWENT WRONG";
 			container.classList.add("no-songs");
 		}
 
@@ -101,10 +105,10 @@ searchBar.addEventListener(
 document.querySelector("#display-browse-categories").addEventListener(
 	"click",
 	function(e) {
-		const { title } = e.target.firstElementChild;
-		if (canAppendSongs) {
+		if (e.target.classList.contains("icon-category") && canAppendSongs) {
+			const { title } = e.target.firstElementChild;
 			searchBar.firstElementChild.value = title;
+			appendSongs(title);
 		}
-		appendSongs(title);
 	}
 );

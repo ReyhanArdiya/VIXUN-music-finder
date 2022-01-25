@@ -26,7 +26,7 @@ songsRouter.get("/", async (req, res, next) => {
 
 songsRouter.get("/top", async (req, res, next) => {
 	try {
-		const topSongs = await aggregatorAPIs.deezer.searchDeezerChart("/tracks");
+		const topSongs = await aggregatorAPIs.deezer.searchDeezerChart("/");
 		res.send(topSongs);
 	} catch (err) {
 		next(err);

@@ -13,26 +13,22 @@ const homeRouter = express.Router();
 
 homeRouter.get("/", async (req, res, next) => {
 	try {
-		const navbarLink = {
-			browse  : "#display-browse",
-			topHits : "#display-top-hits"
-		};
-
 		const count = await Song.estimatedDocumentCount();
-		const random = Math.floor(Math.random() * count);
-		const songs = await Song.find()
-			                     .skip(random)
-			                     .limit(15);
-		const artists = songs.filter((song, currentI, songs) => {
-			const foundI = songs.findIndex(s => s.artist === song.artist);
+		const random = Math.floor(Math.random() * (count - 14));
+		const songs = await Song.find().skip(random).limit(15);
+
+		const randomArt = Math.floor(Math.random() * (count - 29));
+		const artistsCol = await Song.find()
+			                       .skip(randomArt)
+			                       .limit(30);
+		const artists = artistsCol.filter((artist, currentI, arr) => {
+			const foundI = arr.findIndex(a => a.artist === artist.artist);
 
 			return currentI === foundI;
 		});
 
 		res.render("home", {
-			DOMAIN : process.env.DOMAIN,
 			artists,
-			navbarLink,
 			songs
 		});
 	} catch (err) {

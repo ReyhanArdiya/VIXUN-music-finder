@@ -30,10 +30,20 @@ const browser = await puppeteer.launch();
  *
  * @param {string} q
  * A flexible case insensitive string that will be used when aggregating
- * the song's data and querying the song database. Examples:
+ * the song's data and querying the song database. Since the `q` will be queried
+ * agains a `SongDocument.desc` property, you can query anything that is available
+ * in that property's string. Examples:
  * 1. "The hours beach house bloom"
  * 2. "song depression space beach cherry house"
  * 3. "CHROM gAgA lAd 11 bOy suMMer"
+ * 4. "2015-08-28"
+ * 5. "$4.99"
+ * 6. "Ad ad eOm ndY ica Ou aNd", interestingly this one could include sour
+ * candy by lady gaga if present in database.
+ * 7. "Rt op tp ar u y gu uy aga g" this one could include G.U.Y by lady
+ * gaga if present.
+ * 8. "He ek iw no ll He cH mO th" this one could include all we know by
+ * the chainsmokers if present.
  *
  * @param {import("puppeteer").Page} page
  * An optional `puppeteer.Page`. If omitted it will use this module's own page.

@@ -68,7 +68,9 @@ const aggregateAndSave = async (
 						.map(price => +price.slice(1))
 						.sort((a, b) => a - b)[0]}`;
 
-				await newSong.save();
+				newSong.save()
+					.then(() => console.info("Successfully found price!"))
+					.catch(() => console.error("Fail to save from amazon!"));
 				if (!page.isClosed()) {
 					await page.close();
 				}

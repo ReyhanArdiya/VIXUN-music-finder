@@ -38,6 +38,10 @@
 	user-select: none;
 }
 
+.song-card:last-of-type {
+	margin-bottom: 0.25em;
+}
+
 /* song cards overlay on hover/active */
 .song-card {
 	cursor: pointer;
@@ -114,7 +118,7 @@
 	font-size: 1.9em;
 }
 
-@media screen and (max-width: calc(370em / 16)) {
+@media screen and (max-width: calc(390em / 16)) {
 	#display-browse-songs {
 		/* 9em mainly comes from a .song-card height + margin-top + adjustment
 	for bottom shadow  */
@@ -150,13 +154,13 @@
 	#display-browse-songs {
 		max-width: none;
 		width: 70%;
-		font-size: 1.65em;
+		font-size: 1.25em;
 	}
 }
 
 @media screen and (min-width: 90em) {
 	#display-browse-songs {
-		font-size: 2em;
+		font-size: 1.5em;
 		width: 100%;
 		grid-template-columns: 1fr 1fr;
 		grid-auto-flow: row;
