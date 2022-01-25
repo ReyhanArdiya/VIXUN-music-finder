@@ -15,7 +15,7 @@ window.addEventListener("load", async function() {
 
 		const albumsExt = albums.map(a => {
 			const {
-				cover_medium: image,
+				cover_big: image,
 				artist: { name: artist },
 				title
 			} = a;
@@ -27,7 +27,7 @@ window.addEventListener("load", async function() {
 		});
 		const artistsExt = artists.map(a => {
 			const {
-				picture_medium: image,
+				picture_big: image,
 				name: artist
 			} = a;
 
