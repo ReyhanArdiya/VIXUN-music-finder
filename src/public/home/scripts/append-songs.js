@@ -112,3 +112,38 @@ document.querySelector("#display-browse-categories").addEventListener(
 		}
 	}
 );
+// Toggler for sort label status colors
+displayBrowse.search.sortLabels.container.addEventListener("click", e => {
+	let label;
+
+	// XXX this works but it looks so weird tho, fiind another way if you can
+	/* This if else is to target the e.target's parent that is
+	   #browse-sort-label. The if is when the user clicks on the paragraph while
+	   the else is when the user clicks on the arrow svg. If the else wasn't
+	   used, clicking the arrow svg would change #browse-sort-label-arrow div
+	   which only causes the arrow color to change and not the entire label */
+	if (e.target.parentElement.classList.contains("browse-sort-label")) {
+		label = e.target.parentElement;
+	} else {
+		label = e.target.parentElement.parentElement;
+	}
+
+	if (label.classList.contains("browse-sort-label")) {
+		const { search: { sortLabels } } = displayBrowse;
+		const labelToggler = makeStatusToggler(label, {
+			statusOff : "browse-sort-label-desc",
+			statusOn  : "browse-sort-label-asc",
+		});
+
+		sortLabels.activeLabel = labelToggler();
+
+		for (const label of sortLabels.labels) {
+			if (label !== sortLabels.activeLabel) {
+				makeStatusToggler(label, {
+					statusOff : "browse-sort-label-desc",
+					statusOn  : "browse-sort-label-asc",
+				})(true);
+			}
+		}
+	}
+});
