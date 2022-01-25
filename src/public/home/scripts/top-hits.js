@@ -6,7 +6,25 @@ const { animation: { animationEffects } } = core;
 // Add song cards from database to top hits grid
 window.addEventListener("load", async function() {
 	try {
+		console.log(displayTopHits);
+		// TODO implement horizontal loading bar
+		const progressBar = new ProgressBar.Line(
+			displayTopHits.grid,
+			{
+				color    : "#ff0000",
+				duration : 1800,
+				easing   : "easeInOut",
+				from     : { color : "#ff0000" },
+				step(state, circle) {
+					circle.path.setAttribute("stroke", state.color);
+				},
+				strokeWidth : 5,
+				to          : { color : "#a129ff" },
+			}
+		);
+		progressBar.animate(1);
 		const topHits = (await axios.get("/songs/top")).data;
+		progressBar.destroy();
 		const {
 			albums: { data: albums },
 			artists: { data: artists },

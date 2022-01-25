@@ -112,6 +112,14 @@
 
 /* #endregion TOP HITS GRID */
 
+/* #region -------------------TOP HITS LOADING BAR------------------------------ */
+
+#display-top-hits-grid svg {
+	grid-column-end: span 9;
+}
+
+/* #endregion ================TOP HITS LOADING BAR============================== */
+
 /* #region TOP HITS CIRCLE DECORATIONS */
 
 #display-top-hits svg {
