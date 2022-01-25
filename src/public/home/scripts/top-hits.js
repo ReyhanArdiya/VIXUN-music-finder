@@ -7,7 +7,6 @@ const { animation: { animationEffects } } = core;
 window.addEventListener("load", async function() {
 	try {
 		console.log(displayTopHits);
-		// TODO implement horizontal loading bar
 		const progressBar = new ProgressBar.Line(
 			displayTopHits.grid,
 			{
@@ -19,7 +18,8 @@ window.addEventListener("load", async function() {
 					circle.path.setAttribute("stroke", state.color);
 				},
 				strokeWidth : 5,
-				to          : { color : "#a129ff" },
+				svgStyle    : { "grid-column-end" : "span 9" },
+				to          : { color : "#a129ff" }
 			}
 		);
 		progressBar.animate(1);
