@@ -83,12 +83,6 @@ const appendSongs = async q => {
 			container.classList.add("no-songs");
 		}
 
-		if (getComputedStyle(notFound).display !== "none") {
-			notFound.scrollIntoView(false);
-		} else {
-			displayBrowse.search.sortLabels.container.scrollIntoView(true);
-		}
-
 		canAppendSongs = true;
 	}
 };
