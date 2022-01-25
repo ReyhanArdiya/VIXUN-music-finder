@@ -105,10 +105,10 @@ searchBar.addEventListener(
 document.querySelector("#display-browse-categories").addEventListener(
 	"click",
 	function(e) {
-		const { title } = e.target.firstElementChild;
-		if (canAppendSongs) {
+		if (e.target.classList.contains("icon-category") && canAppendSongs) {
+			const { title } = e.target.firstElementChild;
 			searchBar.firstElementChild.value = title;
+			appendSongs(title);
 		}
-		appendSongs(title);
 	}
 );
