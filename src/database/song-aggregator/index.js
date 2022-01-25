@@ -2,11 +2,16 @@ import amazonMusic from "./amazon-music.js";
 import deezer from "./deezer.js";
 import spotify from "./spotify.js";
 
-let spotifyToken = await spotify.getSpotifyToken();
-// eslint-disable-next-line
-const refreshSpotifyToken = setInterval(async () => {
+let spotifyToken;
+try {
 	spotifyToken = await spotify.getSpotifyToken();
-}, 3_540_000);
+	// eslint-disable-next-line no-unused-vars
+	const refreshSpotifyToken = setInterval(async () => {
+		spotifyToken = await spotify.getSpotifyToken();
+	}, 3_540_000);
+} catch (err) {
+	console.error("Cannot get spotify token!");
+}
 
 /**
  * An aggregator that will search using {@link deezer.searchDeezer} and
