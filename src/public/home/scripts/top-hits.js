@@ -5,23 +5,22 @@ const { animation: { animationEffects } } = core;
 
 // Add song cards from database to top hits grid
 window.addEventListener("load", async function() {
+	const progressBar = new ProgressBar.Line(
+		displayTopHits.grid,
+		{
+			color    : "#ff0000",
+			duration : 1800,
+			easing   : "easeInOut",
+			from     : { color : "#ff0000" },
+			step(state, circle) {
+				circle.path.setAttribute("stroke", state.color);
+			},
+			strokeWidth : 5,
+			svgStyle    : { "grid-column-end" : "span 9" },
+			to          : { color : "#a129ff" }
+		}
+	);
 	try {
-		console.log(displayTopHits);
-		const progressBar = new ProgressBar.Line(
-			displayTopHits.grid,
-			{
-				color    : "#ff0000",
-				duration : 1800,
-				easing   : "easeInOut",
-				from     : { color : "#ff0000" },
-				step(state, circle) {
-					circle.path.setAttribute("stroke", state.color);
-				},
-				strokeWidth : 5,
-				svgStyle    : { "grid-column-end" : "span 9" },
-				to          : { color : "#a129ff" }
-			}
-		);
 		progressBar.animate(1);
 		const topHits = (await axios.get("/songs/top")).data;
 		progressBar.destroy();
@@ -72,6 +71,8 @@ window.addEventListener("load", async function() {
 		);
 	} catch (err) {
 		console.error(err);
+		progressBar.destroy();
+		displayTopHits.grid.classList.add("top-hits-error");
 	}
 });
 
