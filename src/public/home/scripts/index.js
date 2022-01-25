@@ -1,3 +1,4 @@
+import "./append-songs.js";
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
@@ -10,7 +11,7 @@ import {
 
 const { animation: { animationEffects }, localSongDatabase } = core;
 const navbarMain = checkNavbar();
-
+// TODO seperate each regions into modules
 // #region -------------------TOP HITS LOGIC------------------------------------
 
 // Add song cards from database to top hits grid

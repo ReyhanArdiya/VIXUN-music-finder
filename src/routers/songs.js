@@ -9,10 +9,14 @@ songsRouter.use(express.urlencoded({ extended : true }));
 songsRouter.get("/", async (req, res, next) => {
 	try {
 		let songs;
-		if (req.query.q || req.body.q) {
+		if (req.query.q) {
 			songs = await requestSongs(req.query.q);
 		} else {
-			songs = await Song.find().limit(10);
+			const count = await Song.estimatedDocumentCount();
+			const random = Math.floor(Math.random() * count);
+			songs = await Song.find()
+			                     .skip(random)
+			                     .limit(10);
 		}
 		res.send(songs);
 	} catch (err) {
@@ -27,6 +31,10 @@ songsRouter.get("/top", async (req, res, next) => {
 	} catch (err) {
 		next(err);
 	}
+});
+
+songsRouter.use((err, req, res) => {
+	res.status(500).send("Error! :(");
 });
 
 export default songsRouter;

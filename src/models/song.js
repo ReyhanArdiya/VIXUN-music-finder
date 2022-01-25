@@ -48,6 +48,7 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
+	artistImage : String,
 
 	/*  CMT I could make this as an array of externals instead and have each
 	external have a source string prop. THis could be better (is it tho?) if i
@@ -141,6 +142,9 @@ const halveStrArr = strArr => {
 
 	return halvedArr.every((str, i) => str === strArr[i]) ? false : halvedArr;
 };
+
+// eslint-disable-next-line
+const escapeRegex = str => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 
 /**
  *
@@ -309,10 +313,16 @@ class SongSchemaMethods {
 	 *
 	 * @param {string} q
 	 * A flexible case insensitive string to query {@link Song} model. The more
-	 * words there are in `q`, the more specific the results will be. Examples:
+	 * words there are in `q`, the more songs it will include. Examples:
 	 * 1. "The hours beach house bloom"
 	 * 2. "song depression space beach cherry house"
 	 * 3. "CHROM gAgA lAd 11 bOy suMMer"
+	 * 4. "Ad ad eOm ndY ica Ou aNd", interestingly this one could include sour
+	 * candy by lady gaga if present in database.
+	 * 5. "Rt op tp ar u y gu uy aga g" this one could include G.U.Y by lady
+	 * gaga if present.
+	 * 6. "He ek iw no ll He cH mO th" this one could include all we know by
+	 * the chainsmokers if present.
 	 *
 	 * @param {number} qThreshold
 	 * An optional integer or decimal from `0` to `100` to configure the threshold
@@ -339,14 +349,14 @@ class SongSchemaMethods {
 	 */
 	static async querySongs(q, qThreshold = 50, qMatchCountInc = 1) {
 		const allSongs = await this.find();
+		const threshold = q.split(" ").length * (qThreshold / 100);
 		const filtered = allSongs.filter(song => {
-			const threshold = q.split(" ").length * (qThreshold / 100);
 			let matchCount = 0;
 
 			let halvedQ = [ q ];
 			while (halvedQ) {
 				for (const query of halvedQ) {
-					if (new RegExp(query, "i").test(song.desc)) {
+					if (new RegExp(escapeRegex(query), "i").test(song.desc)) {
 						matchCount += qMatchCountInc;
 					}
 				}

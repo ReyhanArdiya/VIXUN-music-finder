@@ -80,6 +80,11 @@ export const displayTopHits = {
 		let prevLayout;
 
 		for (let i = 0; i < sortedSongs.length;) {
+			/**
+			 * @param layout
+			 *
+			 * @example
+			 */
 			const useLayout = layout => {
 				for (const size of layout) {
 					try {
@@ -90,6 +95,12 @@ export const displayTopHits = {
 					}
 				}
 			};
+
+			/**
+			 * @param layoutKey
+			 *
+			 * @example
+			 */
 			const excludeThenChooseLayout = layoutKey => {
 				const splicedLayoutKeys = [ ...layoutKeys ];
 				splicedLayoutKeys.splice(layoutKeys.indexOf(layoutKey), 1);
@@ -305,29 +316,48 @@ export const displayAds = {
 
 export const displayBrowse = {
 	categories : {
+		activeIcon : null,
 		container  : document.querySelector("#display-browse-categories"),
-		icons      : document.querySelectorAll(".icon-category"),
-		activeIcon : null
+		icons      : document.querySelectorAll(".icon-category")
 	},
 
 	search : {
-		input      : document.querySelector("#display-browse-searchbar"),
+		form       : document.querySelector("#form-search-songs"),
+		notFound   : document.querySelector("#no-songs"),
 		sortLabels : {
+			activeLabel : null,
 			container   : document.querySelector("#browse-searchbar-sorts"),
-			labels      : document.querySelectorAll(".browse-sort-label"),
-			activeLabel : null
+			labels      : document.querySelectorAll(".browse-sort-label")
 		}
 	},
 
 	songCard : {
-		container   : document.querySelector("#display-browse-songs"),
-		circleDecos :
-			document.querySelector("#display-browse-circle-decorations")
-				.getElementsByTagName("svg"),
-		cards : document.querySelector("#display-browse-songs")
-			.getElementsByClassName("song-card"),
 
-		info : {
+		/**
+		 * @param songArr
+		 *
+		 * @example
+		 */
+		addCards(songArr) {
+			const template = document.querySelector("#song-card-template")
+							  .content.firstElementChild;
+			for (const song of songArr) {
+				const card = template.cloneNode(true);
+				const [ image, artist, info, price ] = card.children;
+				image.src = song.image;
+				artist.innerText = song.artist;
+				info.innerText = `${song.title} - ${song.album}`;
+				price.innerText = song.price;
+				this.container.append(card);
+			}
+		},
+
+		cards : document.querySelector("#display-browse-songs")
+						 .getElementsByClassName("song-card"),
+		circleDecos : document.querySelector("#display-browse-circle-decorations")
+							   .getElementsByTagName("svg"),
+		container : document.querySelector("#display-browse-songs"),
+		info      : {
 			collection : document.querySelector("#display-browse-songs")
 				.getElementsByClassName("song-card-info"),
 
@@ -380,16 +410,14 @@ export const displayBrowse = {
 					}, 100);
 				}
 			}
-
-
 		}
 	}
 };
 
-window.displayBrowse = displayBrowse.categories.icons;
+// window.displayBrowse = displayBrowse.categories.icons;
 
 export default {
-	displayTopHits,
 	displayAds,
-	displayBrowse
+	displayBrowse,
+	displayTopHits
 };

@@ -14,7 +14,6 @@ try {
 
 await Song.deleteMany({});
 
-// TODO make it like course did
 await Song.insertMany([
 	{
 		album    : "Bloom",
