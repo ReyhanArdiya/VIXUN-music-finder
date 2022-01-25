@@ -1,13 +1,14 @@
 import { displayBrowse } from "./display-objects.js";
+import makeStatusToggler from "./toggle-status.js";
 
-// eslint-disable-next-line
+let res;
+let canAppendSongs = true;
+
 const removeAllCards = () => {
 	for (const card of [ ...displayBrowse.songCard.cards ]) {
 		card.remove();
 	}
 };
-
-let canAppendSongs = true;
 
 /**
  * Removes all curent cards from DOM then calls
@@ -61,7 +62,7 @@ const appendSongs = async q => {
 
 		try {
 			progressBar.animate(1);
-			const res = await axios.get("/songs", {
+			res = await axios.get("/songs", {
 				params  : { q },
 				timeout : 10000
 			});
@@ -147,3 +148,61 @@ displayBrowse.search.sortLabels.container.addEventListener("click", e => {
 		}
 	}
 });
+
+displayBrowse.search.sortLabels.container.addEventListener(
+	"click",
+	function(e) {
+		if (!(e.target.id === "browse-searchbar-sorts")) {
+			const { search: { sortLabels: { activeLabel } } } = displayBrowse;
+
+			const labelText = activeLabel?.querySelector("p")
+				                          ?.innerText.toLowerCase();
+			const sortStatus = activeLabel.classList[1].slice(18);
+
+			let songs = res.data;
+			if (labelText === "price") {
+				const noPrices = songs.filter(s => s.price === null);
+				const withPrices = songs.filter(s => s.price !== null);
+				songs = [ ...withPrices, ...noPrices ];
+			}
+
+			const sorted = songs.sort((songA, songB) => {
+				if (labelText !== "price") {
+					songA = songA[labelText]?.toLowerCase();
+					songB = songB[labelText]?.toLowerCase();
+
+					if (sortStatus === "asc") {
+						if (songA > songB) {
+							return 1;
+						} else if (songA === songB) {
+							return 0;
+						} else {
+							return -1;
+						}
+					} else if (sortStatus === "desc") {
+						if (songB > songA) {
+							return 1;
+						} else if (songA === songB) {
+							return 0;
+						} else {
+							return -1;
+						}
+					}
+				} else {
+					songA = +songA[labelText]?.slice(1);
+					songB = +songB[labelText]?.slice(1);
+
+					if (sortStatus === "asc") {
+						return songA - songB;
+					} else if (sortStatus === "desc") {
+						return songB - songA;
+					}
+				}
+			});
+
+			removeAllCards();
+			displayBrowse.songCard.addCards(sorted);
+			displayBrowse.songCard.info.observeOverflow(false, 0.8);
+		}
+	}
+);
