@@ -9,7 +9,7 @@ window.addEventListener("load", async function() {
 		displayTopHits.grid,
 		{
 			color    : "#ff0000",
-			duration : 1800,
+			duration : 8000,
 			easing   : "easeInOut",
 			from     : { color : "#ff0000" },
 			step(state, circle) {
@@ -22,7 +22,7 @@ window.addEventListener("load", async function() {
 	);
 	try {
 		progressBar.animate(1);
-		const topHits = (await axios.get("/songs/top")).data;
+		const topHits = (await axios.get("/songs/top", { timeout : 10000 })).data;
 		progressBar.destroy();
 		const {
 			albums: { data: albums },
