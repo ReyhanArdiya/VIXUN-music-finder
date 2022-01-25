@@ -11,17 +11,6 @@
 	},
 	"plugins": ["jsdoc"],
 	"rules": {
-		/*
-			CMT remember! For rules that can accept additional options like
-			objects or strings use this syntax :
-			[warningLevel, option1, option2, optionN...].
-
-			Check https://eslint.org/docs/rules/ for available rules
-			and examples on how to configure them.
-			Here is my repo for this file, remember to update this when you
-			make huge changes okay!
-			https://github.com/ReyhanArdiya/elys-cloud-save-json-files.git
-		*/
 		"array-bracket-spacing": ["warn", "always"],
 		// "arrow-body-style": ["error", "as-needed"],
 		"arrow-parens": ["warn", "as-needed"],
@@ -68,11 +57,11 @@
 		"jsdoc/require-asterisk-prefix": "warn",
 		"jsdoc/require-description": "off",
 		"jsdoc/require-description-complete-sentence": "off",
-		"jsdoc/require-example": "warn",
+		"jsdoc/require-example": "off",
 		// "jsdoc/require-file-overview": "warn",
 		"jsdoc/require-hyphen-before-param-description": ["warn", "never"],
 		"jsdoc/require-jsdoc": [
-			"warn",
+			"off",
 			{
 				"require": {
 					"ArrowFunctionExpression": true,
@@ -94,9 +83,9 @@
 		"jsdoc/require-property-description": "off",
 		"jsdoc/require-property-name": "warn",
 		"jsdoc/require-property-type": "warn",
-		"jsdoc/require-returns": "warn",
+		"jsdoc/require-returns": "off",
 		"jsdoc/require-returns-check": "warn",
-		"jsdoc/require-returns-description": "warn",
+		"jsdoc/require-returns-description": "off",
 		"jsdoc/require-returns-type": "off",
 		"jsdoc/require-throws": "warn",
 		"jsdoc/require-yields": "warn",
