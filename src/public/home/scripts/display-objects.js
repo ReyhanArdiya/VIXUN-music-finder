@@ -178,8 +178,15 @@ export const displayBrowse = {
 		notFound   : document.querySelector("#no-songs"),
 		sortLabels : {
 			activeLabel : null,
-			container   : document.querySelector("#browse-searchbar-sorts"),
-			labels      : document.querySelectorAll(".browse-sort-label")
+			clearActive() {
+				this.activeLabel.classList.remove(
+					"browse-sort-label-asc",
+					"browse-sort-label-desc"
+				);
+				this.activeLabel = null;
+			},
+			container : document.querySelector("#browse-searchbar-sorts"),
+			labels    : document.querySelectorAll(".browse-sort-label")
 		}
 	},
 

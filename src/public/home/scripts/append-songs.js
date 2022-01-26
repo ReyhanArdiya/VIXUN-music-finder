@@ -58,6 +58,9 @@ const appendSongs = async q => {
 		if (container.classList.contains("no-songs")) {
 			container.classList.remove("no-songs");
 		}
+		if (displayBrowse.search.sortLabels.activeLabel) {
+			displayBrowse.search.sortLabels.clearActive();
+		}
 		removeAllCards();
 
 		try {
