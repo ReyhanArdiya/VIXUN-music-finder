@@ -2,10 +2,9 @@
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	font-size: 1.25em;
+	font-size: 1em;
 	height: max-content;
-	justify-content: flex-start;
-	row-gap: 1em;
+	row-gap: 1.25em;
 }
 
 #song {
@@ -40,7 +39,7 @@
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	font: 1.4em "Mohave";
+	font: 1.75em "Mohave";
 	justify-content: center;
 	letter-spacing: 0.48em;
 }
