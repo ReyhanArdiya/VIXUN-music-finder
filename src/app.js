@@ -1,5 +1,6 @@
 import "./database/index.js";
 import { config } from "dotenv";
+import ejsEngine from "ejs-mate";
 import express from "express";
 import { fileURLToPath } from "url";
 import homeRouter from "./routers/home.js";
@@ -14,6 +15,7 @@ config({ path : join(__dirname, "..", "process.env") });
 const port = process.env.PORT;
 const app = express();
 app.set("view engine", "ejs");
+app.engine("ejs", ejsEngine);
 app.set("views", join(__dirname, "views"));
 
 app.use(express.static(join(__dirname, "public")));
