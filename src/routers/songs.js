@@ -1,7 +1,7 @@
 import Song from "../models/song.js";
-import { aggregatorAPIs } from "../database/song-aggregator/index.js";
+import { aggregatorAPIs } from "../request-songs/song-aggregator/index.js";
 import express from "express";
-import requestSongs from "../database/index.js";
+import requestSongs from "../request-songs/index.js";
 
 const songsRouter = express.Router();
 songsRouter.use(express.urlencoded({ extended : true }));
