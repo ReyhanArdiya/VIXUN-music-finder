@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <%- include("partials/head") %>
+        <%- block("stylesheets").toString() %>
+    </head>
+
+    <body>
+        <!-- PAGE HEADER -->
+        <%- include("partials/page-header") %>
+
+        <!-- MAIN NAVBAR -->
+        <%- include("partials/main-navbar") %>
+
+        <%- body %>
+
+        <!-- PAGE FOOTER -->
+        <%- include("partials/page-footer") %>
+        <script src="/common/scripts/vendor/progressbar.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+        <%- block("scripts").toString() %>
+    </body>
+
+</html>
