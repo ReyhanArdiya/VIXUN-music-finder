@@ -1,3 +1,13 @@
+#display-song {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 1.25em;
+	height: max-content;
+	justify-content: flex-start;
+	row-gap: 1em;
+}
+
 #song {
 	align-items: center;
 	display: flex;
@@ -23,3 +33,30 @@
 }
 
 /* #endregion ================SONG IMAGE===================================== */
+
+/* #region -------------------SONG INFO-------------------------------------- */
+
+#song-info {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font: 1.4em "Mohave";
+	justify-content: center;
+	letter-spacing: 0.48em;
+}
+
+#song-artist {
+	font-weight: 400;
+}
+
+#song-album {
+	color: var(--primary-bright-purple);
+	font-weight: 500;
+}
+
+#song-title {
+	color: var(--primary-bright-red);
+	font-weight: 700;
+}
+
+/* #endregion ================SONG INFO====================================== */
