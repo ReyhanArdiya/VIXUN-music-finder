@@ -178,8 +178,15 @@ export const displayBrowse = {
 		notFound   : document.querySelector("#no-songs"),
 		sortLabels : {
 			activeLabel : null,
-			container   : document.querySelector("#browse-searchbar-sorts"),
-			labels      : document.querySelectorAll(".browse-sort-label")
+			clearActive() {
+				this.activeLabel.classList.remove(
+					"browse-sort-label-asc",
+					"browse-sort-label-desc"
+				);
+				this.activeLabel = null;
+			},
+			container : document.querySelector("#browse-searchbar-sorts"),
+			labels    : document.querySelectorAll(".browse-sort-label")
 		}
 	},
 
@@ -191,7 +198,9 @@ export const displayBrowse = {
 				const card = template.cloneNode(true);
 				const [ image, artist, info, price ] = card.children;
 				image.src = song.image;
-				artist.innerText = song.artist;
+				artist.innerText = song.artist.split(" ")
+					                           .slice(0, 2)
+					                           .join(" ");
 				info.innerText = `${song.title} - ${song.album}`;
 				price.innerText = song.price;
 				this.container.append(card);

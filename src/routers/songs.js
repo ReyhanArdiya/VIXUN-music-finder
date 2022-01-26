@@ -13,10 +13,10 @@ songsRouter.get("/", async (req, res, next) => {
 			songs = await requestSongs(req.query.q);
 		} else {
 			const count = await Song.estimatedDocumentCount();
-			const random = Math.floor(Math.random() * count);
+			const random = Math.floor(Math.random() * (count - 14));
 			songs = await Song.find()
 			                     .skip(random)
-			                     .limit(10);
+			                     .limit(15);
 		}
 		res.send(songs);
 	} catch (err) {
