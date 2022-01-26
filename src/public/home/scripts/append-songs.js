@@ -15,6 +15,8 @@ const removeAllCards = () => {
  * {@link displayBrowse.songCard.addCards} and appends the results or a warning.
  *
  * @param {string} q
+ * The query, if omitted it will default to empty string which returns a set of
+ * random songs.
  *
  * @example
  * ```
@@ -29,7 +31,7 @@ const removeAllCards = () => {
  * );
  * ```
  */
-const appendSongs = async q => {
+const appendSongs = async (q = "") => {
 	if (canAppendSongs) {
 		canAppendSongs = false;
 
@@ -65,6 +67,7 @@ const appendSongs = async q => {
 
 		try {
 			progressBar.animate(1);
+			q = q.trim();
 			res = await axios.get("/songs", {
 				params  : { q },
 				timeout : 10000
