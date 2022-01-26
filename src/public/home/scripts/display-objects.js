@@ -198,7 +198,9 @@ export const displayBrowse = {
 				const card = template.cloneNode(true);
 				const [ image, artist, info, price ] = card.children;
 				image.src = song.image;
-				artist.innerText = song.artist;
+				artist.innerText = song.artist.split(" ")
+					                           .slice(0, 2)
+					                           .join(" ");
 				info.innerText = `${song.title} - ${song.album}`;
 				price.innerText = song.price;
 				this.container.append(card);

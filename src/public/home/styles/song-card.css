@@ -84,6 +84,7 @@
 	z-index: 3;
 }
 
+/* FIXME i tried making the title scroll but it doesn't work :( */
 .song-card-artist {
 	grid-area: title;
 	text-align: center;
@@ -145,6 +146,7 @@
 		max-width: 85px;
 		z-index: 0;
 	}
+
 	.song-card-artist {
 		width: max-content;
 	}
