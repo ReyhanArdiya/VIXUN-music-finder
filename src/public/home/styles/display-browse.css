@@ -53,6 +53,34 @@
 	cursor: pointer;
 }
 
+/* icon category overlay on hover/active */
+.icon-category {
+	cursor: pointer;
+	position: relative;
+}
+
+.icon-category::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: white;
+	transition: opacity 0.25s linear;
+	border-radius: 50%;
+}
+
+.icon-category:hover::before {
+	opacity: 0.2;
+}
+
+.icon-category:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
 .icon-category img {
 	width: 1.9em;
 	height: 1.9em;
@@ -60,15 +88,15 @@
 	border-radius: 50%;
 }
 
-.icon-category p {
+/* .icon-category p {
 	font: 700 1em "Quicksand";
 	color: white;
 	width: max-content;
 	transition: color 0.2s linear;
-}
+} */
 
 /* Hover effect for icon's text  */
-.icon-category:active p {
+/* .icon-category:active p {
 	transition: color 0.1s linear;
 }
 
@@ -86,15 +114,15 @@
 
 .icon-category.icon-category-off:active p {
 	color: var(--primary-bright-purple-active);
-}
+} */
 
 /* Color status class for currently active icon */
-.icon-category-on p {
+/* .icon-category-on p {
 	color: var(--primary-bright-red);
 }
 .icon-category-off p {
 	color: var(--primary-bright-purple);
-}
+} */
 
 @media screen and (min-width: 48em) {
 	#display-browse-categories {

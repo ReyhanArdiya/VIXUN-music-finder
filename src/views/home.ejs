@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="/home/styles/display-ads.css" />
 		<link rel="stylesheet" href="/home/styles/display-browse.css" />
 		<link rel="stylesheet" href="/home/styles/song-card.css" />
+		<link rel="stylesheet" href="/home/styles/no-songs.css" />
 		<!-- #endregion HOME CSS -->
 	</head>
 
@@ -28,6 +29,7 @@
 				<template id="top-hits-item-template">
 					<div class="top-hits-item"></div>
 				</template>
+				<p id="top-hits-error">SOMETHING WENT WRONG :(</p>
 			</section>
 			<svg class="circle-decoration-parallax circle-decoration-red circle-decoration-hollow" width="30"
 				height="27" viewBox="0 0 30 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,16 +93,15 @@
 				<h2>BROWSE</h2>
 			</header>
 			<section id="display-browse-categories">
-				<% for (let icon of categoryIcons) { %>
+				<% for (const artist of artists) { %>
 				<div class="icon-category">
-					<img src="<%= icon.imgURL %>" alt="<%= `${icon.label} Category` %> "
-						title="<%= `${icon.label} Category` %> " />
-					<p><%= icon.label %></p>
+					<img src="<%= artist.artistImage %>" alt="<%= artist.artist %>" title="<%= artist.artist %>" />
+					<!-- <p></p> -->
 				</div>
 				<% } %>
 			</section>
 			<section id="display-browse-searchbar">
-				<form id="form-search-songs" action="" method="POST">
+				<form id="form-search-songs" action="/songs" method="get">
 					<input type="text" name="q" />
 					<button>
 						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +135,7 @@
 						</div>
 					</div>
 					<div class="browse-sort-label">
-						<p>SONG</p>
+						<p>TITLE</p>
 						<div class="browse-sort-label-arrow">
 							<svg width="16" height="16" viewBox="0 0 16 16" fill="none"
 								xmlns="http://www.w3.org/2000/svg">
@@ -160,147 +161,18 @@
 			<section id="display-browse-songs">
 				<template id="song-card-template">
 					<article class="song-card">
+						<img class="song-card-image" src="" alt="" loading="lazy">
 						<h3 class="song-card-artist">Title</h3>
 						<p class="song-card-info">
-							Lorem ipsum dolor sit amet consectetur adipisicing
-							elit. Tenetur, in placeat. In, repellat provident
-							autem adipisci, officiis aspernatur tempore
-							consequuntur rem distinctio ex reprehenderit cum!
-							Facilis quidem id aut provident.
+							Title - Album
 						</p>
 						<p class="song-card-price">$4.99</p>
 					</article>
 				</template>
-				<article class="song-card">
-					<h3 class="song-card-artist">Beach House</h3>
-					<p class="song-card-info">Bloom - The Hours</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Beach House</h3>
-					<p class="song-card-info">
-						Bloom - IFOJeiojeof IOAJFOEIsjio IOFJeiowsfj seiojfioJF
-						EJiowejiof IOEJFewiof jiowej fjoIFEIO jiofiow io
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Beach House</h3>
-					<p class="song-card-info">
-						Depression Cherry - Beyond Love
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
-				<article class="song-card">
-					<h3 class="song-card-artist">Title</h3>
-					<p class="song-card-info">
-						Lorem ipsum dolor sit amet consectetur adipisicing elit.
-						Tenetur, in placeat. In, repellat provident autem
-						adipisci, officiis aspernatur tempore consequuntur rem
-						distinctio ex reprehenderit cum! Facilis quidem id aut
-						provident.
-					</p>
-					<p class="song-card-price">$4.99</p>
-				</article>
+				<div id="no-songs">
+					<p>NOTHING FOUND</p>
+					<p>:(</p>
+				</div>
 			</section>
 
 			<div id="display-browse-circle-decorations">
@@ -339,7 +211,8 @@
 
 		<!-- PAGE FOOTER -->
 		<%- include("partials/page-footer") %>
-
+		<script src="/common/scripts/vendor/progressbar.min.js" defer></script>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
 		<script type="module" src="/home/scripts/index.js" defer></script>
 	</body>
 

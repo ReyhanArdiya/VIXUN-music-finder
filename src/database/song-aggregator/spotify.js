@@ -142,15 +142,17 @@ const extractSpotify = data => {
 			name,
 			type,
 			uri,
-			external_urls: { spotify:link },
+			external_urls: { spotify: link },
+			images : [ , { url }, ]
 		} = artist;
 
 		return {
 			id,
+			image : url,
 			link,
 			name,
 			type,
-			uri,
+			uri
 		};
 	};
 

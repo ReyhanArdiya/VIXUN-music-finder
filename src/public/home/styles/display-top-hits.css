@@ -112,6 +112,26 @@
 
 /* #endregion TOP HITS GRID */
 
+/* #region -------------------TOP HITS ERROR------------------------------------ */
+
+#top-hits-error {
+	font: 700 2.5em "Mohave";
+	color: var(--primary-pale-black);
+	text-align: center;
+	display: none;
+	grid-column-end: span 9;
+	grid-row-end: span 4;
+}
+
+#display-top-hits-grid.top-hits-error #top-hits-error {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+/* #endregion ================TOP HITS ERROR==================================== */
+
 /* #region TOP HITS CIRCLE DECORATIONS */
 
 #display-top-hits svg {

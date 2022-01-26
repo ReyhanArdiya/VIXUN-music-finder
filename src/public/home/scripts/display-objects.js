@@ -1,142 +1,5 @@
 /* XXX rewrite this, it's super baddddddd; check notion Database
 transitiong group */
-export const displayTopHits = {
-	grid                  : document.querySelector("#display-top-hits-grid"),
-	gridCircleDecorations : document.querySelectorAll("#display-top-hits svg"),
-
-	/**
-	 * Add `Song` informations as a card to {@link displayTopHits.grid}.
-	 *
-	 * @param {Song} Song
-	 * {@link Song} Object whose `coverURL` and `fileURL` property will be used
-	 * for the card's image and click link respectively.
-	 *
-	 * @param { "SM" | "MD" | "LG" | "XL" } size
-	 * String to set the size of the card.
-	 *
-	 * @example
-	 * ```
-	 * // Adds an XL card for a song with the title of "The Hours"
-	 * const [ hours ] = songDatabase1.searchSongs({
-	 * 	title : "The Hours"
-	 * });
-	 * displayTopHits.addSongCard(hours, "XL");
-	 * ```
-	 */
-	addSongCard({ coverURL, fileURL }, size = "SM") {
-
-		/**
-		 * The template's clone.
-		 *
-		 * @type {HTMLDivElement}
-		 */
-		const songCardTemplate = document
-			.querySelector("#top-hits-item-template")
-			.content.firstElementChild.cloneNode(true);
-
-		// Set the card's size
-		songCardTemplate.classList.add(`top-hits-item-${size.toUpperCase()}`);
-
-		// Add the card's cover from coverURL
-		songCardTemplate.style.backgroundImage = `url(${coverURL})`;
-
-		// Opens a link from fileURL when a song card is clicked
-		songCardTemplate.addEventListener("click", () => {
-			window.open(fileURL);
-		});
-
-		// Appends the card to the grid
-		this.grid.append(songCardTemplate);
-	},
-
-	/**
-	 * Automatically adds all song cards from a `SongDatabase.songs` starting
-	 * from the most downloaded song to the least. For manual and individual
-	 * version use {@link displayTopHits.addSongCard}.
-	 *
-	 * @param {SongDatabase} songDatabase
-	 * A `SongDatabase` created from {@link newSongDatabase} whose `sortSongs`
-	 * method will be used to sort its `songs` from the most `"downloads"` to
-	 * the least.
-	 *
-	 * @example
-	 * ```
-	 * // Add song cards from all of songDatabase1 songs to top hits grid
-	 * displayTopHits.addDatabaseSongs(songDatabase1);
-	 * ```
-	 */
-	addDatabaseSongs(songDatabase) {
-		const sortedSongs = songDatabase.sortSongs("downloads", "desc");
-		const layout = {
-			xl     : [ "XL" ],
-			smmd   : [ "SM", "MD" ],
-			mdsm   : [ "MD", "SM" ],
-			smsmsm : [ "SM", "SM", "SM" ],
-			lgsmsm : [ "LG", "SM", "SM" ],
-			smlgsm : [ "SM", "LG", "SM" ]
-		};
-		const layoutKeys = Object.keys(layout);
-		let chosenLayout;
-		let prevLayout;
-
-		for (let i = 0; i < sortedSongs.length;) {
-			const useLayout = layout => {
-				for (const size of layout) {
-					try {
-						this.addSongCard(sortedSongs[i], size);
-						i++;
-					} catch (error) {
-						console.log("END ADDING SONGS", i);
-					}
-				}
-			};
-			const excludeThenChooseLayout = layoutKey => {
-				const splicedLayoutKeys = [ ...layoutKeys ];
-				splicedLayoutKeys.splice(layoutKeys.indexOf(layoutKey), 1);
-
-				const whichLayout = splicedLayoutKeys[Math.floor(Math.random() *
-					splicedLayoutKeys.length)];
-
-				return layout[whichLayout];
-			};
-
-			// Always make the first card use the biggest size
-			if (i === 0) {
-				chosenLayout = layout.xl;
-			}
-
-			// Pseudo-randomly choose the layout for each card
-			switch (prevLayout) {
-				case layout.xl :
-					chosenLayout = excludeThenChooseLayout("xl");
-					break;
-
-				case layout.smmd :
-					chosenLayout = excludeThenChooseLayout("smmd");
-					break;
-
-				case layout.mdsm :
-					chosenLayout = excludeThenChooseLayout("mdsm");
-					break;
-
-				case layout.smsmsm :
-					chosenLayout = excludeThenChooseLayout("smsmsm");
-					break;
-
-				case layout.lgsmsm :
-					chosenLayout = excludeThenChooseLayout("lgsmsm");
-					break;
-
-				case layout.smlgsm :
-					chosenLayout = excludeThenChooseLayout("smlgsm");
-					break;
-			}
-			useLayout(chosenLayout);
-			prevLayout = chosenLayout;
-		}
-	}
-};
-
 export const displayAds = {
 	contentContainer : document.querySelector("#display-ads-content"),
 
@@ -305,29 +168,51 @@ export const displayAds = {
 
 export const displayBrowse = {
 	categories : {
+		activeIcon : null,
 		container  : document.querySelector("#display-browse-categories"),
-		icons      : document.querySelectorAll(".icon-category"),
-		activeIcon : null
+		icons      : document.querySelectorAll(".icon-category")
 	},
 
 	search : {
-		input      : document.querySelector("#display-browse-searchbar"),
+		form       : document.querySelector("#form-search-songs"),
+		notFound   : document.querySelector("#no-songs"),
 		sortLabels : {
-			container   : document.querySelector("#browse-searchbar-sorts"),
-			labels      : document.querySelectorAll(".browse-sort-label"),
-			activeLabel : null
+			activeLabel : null,
+			clearActive() {
+				this.activeLabel.classList.remove(
+					"browse-sort-label-asc",
+					"browse-sort-label-desc"
+				);
+				this.activeLabel = null;
+			},
+			container : document.querySelector("#browse-searchbar-sorts"),
+			labels    : document.querySelectorAll(".browse-sort-label")
 		}
 	},
 
 	songCard : {
-		container   : document.querySelector("#display-browse-songs"),
-		circleDecos :
-			document.querySelector("#display-browse-circle-decorations")
-				.getElementsByTagName("svg"),
-		cards : document.querySelector("#display-browse-songs")
-			.getElementsByClassName("song-card"),
+		addCards(songArr) {
+			const template = document.querySelector("#song-card-template")
+							  .content.firstElementChild;
+			for (const song of songArr) {
+				const card = template.cloneNode(true);
+				const [ image, artist, info, price ] = card.children;
+				image.src = song.image;
+				artist.innerText = song.artist.split(" ")
+					                           .slice(0, 2)
+					                           .join(" ");
+				info.innerText = `${song.title} - ${song.album}`;
+				price.innerText = song.price;
+				this.container.append(card);
+			}
+		},
 
-		info : {
+		cards : document.querySelector("#display-browse-songs")
+						 .getElementsByClassName("song-card"),
+		circleDecos : document.querySelector("#display-browse-circle-decorations")
+							   .getElementsByTagName("svg"),
+		container : document.querySelector("#display-browse-songs"),
+		info      : {
 			collection : document.querySelector("#display-browse-songs")
 				.getElementsByClassName("song-card-info"),
 
@@ -380,16 +265,160 @@ export const displayBrowse = {
 					}, 100);
 				}
 			}
-
-
 		}
 	}
 };
 
-window.displayBrowse = displayBrowse.categories.icons;
+export const displayTopHits = {
+	/*  eslint-disable sort-keys */
+	grid                  : document.querySelector("#display-top-hits-grid"),
+	gridCircleDecorations : document.querySelectorAll("#display-top-hits svg"),
+
+	/**
+	 * Add `Song` informations as a card to {@link displayTopHits.grid}.
+	 *
+	 * @param {Song} Song
+	 * {@link Song} Object whose `image` and `query` property will be used
+	 * for the card's image and click query respectively.
+	 *
+	 * @param { "SM" | "MD" | "LG" | "XL" } size
+	 * String to set the size of the card.
+	 *
+	 * @example
+	 * ```
+	 * // Adds an XL card for a song with the title of "The Hours"
+	 * const [ hours ] = songDatabase1.searchSongs({
+	 * 	title : "The Hours"
+	 * });
+	 * displayTopHits.addSongCard(hours, "XL");
+	 * ```
+	 */
+	addSongCard({ image, query = "" }, size = "SM") {
+
+		/**
+		 * The template's clone.
+		 *
+		 * @type {HTMLDivElement}
+		 */
+		const songCardTemplate = document
+			.querySelector("#top-hits-item-template")
+			.content.firstElementChild.cloneNode(true);
+
+		// Set the card's size
+		songCardTemplate.classList.add(`top-hits-item-${size.toUpperCase()}`);
+
+		// Add the card's cover from image
+		songCardTemplate.style.backgroundImage = `url(${image})`;
+
+		// Opens a link from query when a song card is clicked
+		const { categories, search : { form } } = displayBrowse;
+		songCardTemplate.addEventListener("click", () => {
+			categories.container.scrollIntoView(true);
+			form.elements.q.value = query;
+			form.querySelector("button").click();
+		});
+
+		// Appends the card to the grid
+		this.grid.append(songCardTemplate);
+	},
+
+	/**
+	 * Automatically adds all song cards from an array of song documents. For
+	 * manual and individual version use {@link displayTopHits.addSongCard}.
+	 *
+	 * @param {import("../../../models/song.js").SongDocument[]} songDocuments
+	 * A `SongDocument` array.
+	 *
+	 * @example
+	 * ```
+	 * // Add song cards from all of songDatabase1 songs to top hits grid
+	 * displayTopHits.addDatabaseSongs(songDatabase1);
+	 * ```
+	 */
+	addDatabaseSongs(songDocuments) {
+		const layout = {
+			xl     : [ "XL" ],
+			smmd   : [ "SM", "MD" ],
+			mdsm   : [ "MD", "SM" ],
+			smsmsm : [ "SM", "SM", "SM" ],
+			lgsmsm : [ "LG", "SM", "SM" ],
+			smlgsm : [ "SM", "LG", "SM" ]
+		};
+		const layoutKeys = Object.keys(layout);
+		let chosenLayout;
+		let prevLayout;
+
+		for (let i = 0; i < songDocuments.length;) {
+			/**
+			 * @param {string} layout
+			 *
+			 * @example
+			 */
+			const useLayout = layout => {
+				for (const size of layout) {
+					try {
+						this.addSongCard(songDocuments[i], size);
+						i++;
+					} catch (error) {
+						console.log("END ADDING SONGS", i);
+					}
+				}
+			};
+
+			/**
+			 * @param {string[]} layoutKey
+			 *
+			 * @example
+			 */
+			const excludeThenChooseLayout = layoutKey => {
+				const splicedLayoutKeys = [ ...layoutKeys ];
+				splicedLayoutKeys.splice(layoutKeys.indexOf(layoutKey), 1);
+
+				const whichLayout = splicedLayoutKeys[Math.floor(Math.random() *
+					splicedLayoutKeys.length)];
+
+				return layout[whichLayout];
+			};
+
+			// Always make the first card use the biggest size
+			if (i === 0) {
+				chosenLayout = layout.xl;
+			}
+
+			// Pseudo-randomly choose the layout for each card
+			switch (prevLayout) {
+				case layout.xl :
+					chosenLayout = excludeThenChooseLayout("xl");
+					break;
+
+				case layout.smmd :
+					chosenLayout = excludeThenChooseLayout("smmd");
+					break;
+
+				case layout.mdsm :
+					chosenLayout = excludeThenChooseLayout("mdsm");
+					break;
+
+				case layout.smsmsm :
+					chosenLayout = excludeThenChooseLayout("smsmsm");
+					break;
+
+				case layout.lgsmsm :
+					chosenLayout = excludeThenChooseLayout("lgsmsm");
+					break;
+
+				case layout.smlgsm :
+					chosenLayout = excludeThenChooseLayout("smlgsm");
+					break;
+			}
+			useLayout(chosenLayout);
+			prevLayout = chosenLayout;
+		}
+	}
+};
 
 export default {
-	displayTopHits,
 	displayAds,
-	displayBrowse
+	displayBrowse,
+	displayTopHits
 };

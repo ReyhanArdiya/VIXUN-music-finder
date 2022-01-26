@@ -1,31 +1,17 @@
+import "./append-songs.js";
+import "./top-hits.js";
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
 import { mediaQuery } from "../../common/scripts/animation.js";
 import {
 	displayAds,
-	displayBrowse,
-	displayTopHits
+	displayBrowse
 } from "./display-objects.js";
 
-const { animation: { animationEffects }, localSongDatabase } = core;
+const { animation: { animationEffects } } = core;
 const navbarMain = checkNavbar();
-
-// #region -------------------TOP HITS LOGIC------------------------------------
-
-// Add song cards from database to top hits grid
-displayTopHits.addDatabaseSongs(localSongDatabase);
-
-// Add parallax to display top hits' circle decorations.
-animationEffects.addParallax(
-	displayTopHits.grid,
-	displayTopHits.gridCircleDecorations,
-	0.05,
-	"breakpointMedium",
-	true
-);
-
-// #endregion ================TOP HITS LOGIC====================================
+// TODO seperate each regions into modules
 
 // #region -------------------DISPLAY ADS LOGIC---------------------------------
 
@@ -56,8 +42,8 @@ displayBrowse.categories.container.addEventListener("click", e => {
 		const icon = e.target.parentElement;
 		const { categories } = displayBrowse;
 		const iconToggler = makeStatusToggler(icon, {
-			statusOn  : "icon-category-on",
 			statusOff : "icon-category-off",
+			statusOn  : "icon-category-on",
 		});
 
 		categories.activeLabel = iconToggler();
@@ -65,57 +51,19 @@ displayBrowse.categories.container.addEventListener("click", e => {
 		for (const icon of categories.icons) {
 			if (icon !== categories.activeLabel) {
 				makeStatusToggler(icon, {
-					statusOn  : "icon-category-on",
 					statusOff : "icon-category-off",
+					statusOn  : "icon-category-on",
 				})(true);
 			}
 		}
 	}
 });
-
-// Toggler for sort label status colors
-displayBrowse.search.sortLabels.container.addEventListener("click", e => {
-	let label;
-
-	// XXX this works but it looks so weird tho, fiind another way if you can
-	/* This if else is to target the e.target's parent that is
-	   #browse-sort-label. The if is when the user clicks on the paragraph while
-	   the else is when the user clicks on the arrow svg. If the else wasn't
-	   used, clicking the arrow svg would change #browse-sort-label-arrow div
-	   which only causes the arrow color to change and not the entire label */
-	if (e.target.parentElement.classList.contains("browse-sort-label")) {
-		label = e.target.parentElement;
-	} else {
-		label = e.target.parentElement.parentElement;
-	}
-
-	if (label.classList.contains("browse-sort-label")) {
-		const { search: { sortLabels } } = displayBrowse;
-		const labelToggler = makeStatusToggler(label, {
-			statusOn  : "browse-sort-label-asc",
-			statusOff : "browse-sort-label-desc",
-		});
-
-		sortLabels.activeLabel = labelToggler();
-
-		for (const label of sortLabels.labels) {
-			if (label !== sortLabels.activeLabel) {
-				makeStatusToggler(label, {
-					statusOn  : "browse-sort-label-asc",
-					statusOff : "browse-sort-label-desc",
-				})(true);
-			}
-		}
-
-	}
-});
-
 
 // #endregion ================DISPLAY BROWSE CATEGORIES TOGGLER=================
 
 // #region -------------------SONG CARDS LOGIC----------------------------------
 
-displayBrowse.songCard.info.observeOverflow(true, 0.8);
+displayBrowse.songCard.info.observeOverflow(false, 0.8);
 
 animationEffects.addParallax(
 	displayBrowse.songCard.container,

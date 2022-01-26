@@ -9,10 +9,18 @@ const nothingFound = (field, fieldArg, caseSensitive) => {
 };
 
 const SongExternalSchema = new mongoose.Schema({
-	id      : String,
-	link    : String,
-	preview : String
-
+	id : {
+		default : null,
+		type    : String
+	},
+	link : {
+		default : null,
+		type    : String
+	},
+	preview : {
+		default : null,
+		type    : String
+	}
 }, {
 	_id    : false,
 	strict : "throw"
@@ -40,8 +48,13 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
+	artistImage : String,
+
+	/*  CMT I could make this as an array of externals instead and have each
+	external have a source string prop. THis could be better (is it tho?) if i
+	introduce more sources in the future but right now is YAGNI */
 	externals : {
-		amazon : {
+		amazonMusic : {
 			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
@@ -61,16 +74,77 @@ const SongSchema = new mongoose.Schema({
 		required : true,
 		type     : String,
 	},
-	price   : Number,
-	release : {
-		required : true,
-		type     : Number,
+	matchCount : Number,
+	price      : {
+		default : null,
+		type    : String
 	},
-	title : {
+	release : String,
+	title   : {
 		required : true,
 		type     : String,
 	},
 }, { strict : "throw" });
+
+
+/**
+ * Returns a string array from splitting `str` in half.
+ *
+ * @param {string} str
+ *
+ * @returns {string[]} The halved `str`.
+ *
+ * @example
+ * ```js
+ * console.log(halveStr("The hours beach house"));
+ * ```
+ */
+const halveStr = str => {
+	str = str.trim();
+	const splitedStr = str.split(" ");
+	const pushOn = Math.round(splitedStr.length * 0.5);
+	const result = [];
+
+	let word = "";
+	for (let i = 0; i < splitedStr.length; i++) {
+		if (i >= pushOn && !(i % pushOn)) {
+			result.push(word.trimEnd());
+			word = "";
+		}
+		word += `${splitedStr[i]} `;
+	}
+	if (word !== "") {
+		result.push(word.trimEnd());
+	}
+
+	return result;
+};
+
+/**
+ * Returns a string array where each string item in `strArr` is halved using {@link halveStr}.
+ *
+ * @param {string[]} strArr
+ *
+ * @returns {string[] | false}
+ * Either the halved `strArr` or `false` indicating nothing was halved.
+ *
+ * @example
+ * ```
+ * console.log(halveStrArr([ "The hours beach house bloom" ]));
+ * console.log(halveStrArr([ "The hours beach", "house bloom" ]));
+ * console.log(halveStrArr([ "The hours", "beach", "house", "bloom" ]));
+ * console.log(halveStrArr([ "The", "hours", "beach", "house", "bloom" ]));
+ * ```
+ */
+const halveStrArr = strArr => {
+	// CMT note to self, i think i could make a recursion out of this
+	const halvedArr = strArr.flatMap(str => halveStr(str));
+
+	return halvedArr.every((str, i) => str === strArr[i]) ? false : halvedArr;
+};
+
+// eslint-disable-next-line
+const escapeRegex = str => str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 
 /**
  *
@@ -85,7 +159,7 @@ class SongSchemaMethods {
 	 * @returns {string}
 	 */
 	get desc() {
-		return `${this.title} - ${this.album} by ${this.artist} from ${this.release} ${"price" in this ? `costs ${this.price}` : ""}`;
+		return `${this.title} ${this.album} ${this.artist} ${this.release} ${this.price}`;
 	}
 
 	/**
@@ -231,9 +305,107 @@ class SongSchemaMethods {
 
 		return res.length ? res : nothingFound("option", option);
 	}
+
+	/**
+	 * Queries the {@link Song} model and returns an array of `SongDocument` that
+	 * closely matches `q` and is sorted from the most relevant to the least based on
+	 * its `matchCount` property.
+	 *
+	 * @param {string} q
+	 * A flexible case insensitive string to query {@link Song} model. The more
+	 * words there are in `q`, the more songs it will include. Examples:
+	 * 1. "The hours beach house bloom"
+	 * 2. "song depression space beach cherry house"
+	 * 3. "CHROM gAgA lAd 11 bOy suMMer"
+	 * 4. "Ad ad eOm ndY ica Ou aNd", interestingly this one could include sour
+	 * candy by lady gaga if present in database.
+	 * 5. "Rt op tp ar u y gu uy aga g" this one could include G.U.Y by lady
+	 * gaga if present.
+	 * 6. "He ek iw no ll He cH mO th" this one could include all we know by
+	 * the chainsmokers if present.
+	 *
+	 * @param {number} qThreshold
+	 * An optional integer or decimal from `0` to `100` to configure the threshold
+	 * for when a `SongDocument` should be included after matching it with `q`.
+	 * Defaults to `50`.
+	 *
+	 * @param {number} qMatchCountInc
+	 * An optional integer or decimal to configure how much to increment the match
+	 * count when a part of `SongDocument` matches a part of `q`. Defaults to `1`
+	 *
+	 * @returns {Promise<import("../../models/song.js").SongDocument[]>}
+	 * A promise that resolves into the results.
+	 *
+	 * @example
+	 * Using the default values for `qThreshold` and `qMatchCountInc`:
+	 * ```js
+	 * console.log(await querySongs("The Hours bloom beach house"));
+	 * ```
+	 *
+	 * Using the custom values for `qThreshold` and `qMatchCountInc`:
+	 * ```js
+	 * console.log(await querySongs("The Hours bloom beach house", 60.32, 0.8));
+	 * ```
+	 */
+	static async querySongs(q, qThreshold = 50, qMatchCountInc = 1) {
+		const allSongs = await this.find();
+		const threshold = q.split(" ").length * (qThreshold / 100);
+		const filtered = allSongs.filter(song => {
+			let matchCount = 0;
+
+			let halvedQ = [ q ];
+			while (halvedQ) {
+				for (const query of halvedQ) {
+					if (new RegExp(escapeRegex(query), "i").test(song.desc)) {
+						matchCount += qMatchCountInc;
+					}
+				}
+				halvedQ = halveStrArr(halvedQ);
+			}
+			if (matchCount >= threshold) {
+				song.matchCount = matchCount;
+
+				return true;
+			}
+		});
+
+		return filtered.sort(
+			(song1, song2) => song2.matchCount - song1.matchCount
+		);
+	}
 }
 
 SongSchema.loadClass(SongSchemaMethods);
 export const Song = mongoose.model("Song", SongSchema);
 
 export default Song;
+
+// DBG test Song.querySongs()
+// import { config } from "dotenv";
+// import { fileURLToPath } from "url";
+// import { dirname, join } from "path";
+
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
+
+// config({ path : join(__dirname, "..", "..", "process.env") });
+
+// const mongoDatabase = process.env.MONGODB;
+// try {
+// 	await mongoose.connect(`mongodb://localhost:27017/${mongoDatabase}`);
+// 	console.log(`Connected to ${mongoDatabase}!🍃`);
+// } catch (err) {
+// 	console.log(`Error! Can't connect to ${mongoDatabase}!🍂`, err);
+// }
+
+// const q1 = "The hours beach house bloom";
+// const q2 = "boy summer";
+// const q3 = "song depression space beach cherry house";
+// const q4 = "beach dreams house teen be to used";
+// const q5 = "chrom gaga lad 11";
+// console.log(await Song.querySongs(q1));
+// console.log(await Song.querySongs(q2));
+// console.log(await Song.querySongs(q3));
+// console.log(await Song.querySongs(q4));
+// console.log(await Song.querySongs(q5));
+// mongoose.connection.close();

@@ -11,17 +11,6 @@
 	},
 	"plugins": ["jsdoc"],
 	"rules": {
-		/*
-			CMT remember! For rules that can accept additional options like
-			objects or strings use this syntax :
-			[warningLevel, option1, option2, optionN...].
-
-			Check https://eslint.org/docs/rules/ for available rules
-			and examples on how to configure them.
-			Here is my repo for this file, remember to update this when you
-			make huge changes okay!
-			https://github.com/ReyhanArdiya/elys-cloud-save-json-files.git
-		*/
 		"array-bracket-spacing": ["warn", "always"],
 		// "arrow-body-style": ["error", "as-needed"],
 		"arrow-parens": ["warn", "as-needed"],
@@ -67,17 +56,17 @@
 		"jsdoc/no-undefined-types": "off",
 		"jsdoc/require-asterisk-prefix": "warn",
 		"jsdoc/require-description": "off",
-		"jsdoc/require-description-complete-sentence": "warn",
-		"jsdoc/require-example": "warn",
+		"jsdoc/require-description-complete-sentence": "off",
+		"jsdoc/require-example": "off",
 		// "jsdoc/require-file-overview": "warn",
 		"jsdoc/require-hyphen-before-param-description": ["warn", "never"],
 		"jsdoc/require-jsdoc": [
-			"warn",
+			"off",
 			{
 				"require": {
 					"ArrowFunctionExpression": true,
-					"ClassDeclaration": true,
-					"ClassExpression": true,
+					"ClassDeclaration": false,
+					"ClassExpression": false,
 					"FunctionExpression": true,
 					"MethodDefinition": true
 				},
@@ -94,9 +83,9 @@
 		"jsdoc/require-property-description": "off",
 		"jsdoc/require-property-name": "warn",
 		"jsdoc/require-property-type": "warn",
-		"jsdoc/require-returns": "warn",
+		"jsdoc/require-returns": "off",
 		"jsdoc/require-returns-check": "warn",
-		"jsdoc/require-returns-description": "warn",
+		"jsdoc/require-returns-description": "off",
 		"jsdoc/require-returns-type": "off",
 		"jsdoc/require-throws": "warn",
 		"jsdoc/require-yields": "warn",
@@ -105,16 +94,20 @@
 		"jsdoc/valid-types": "off",
 		"key-spacing": ["warn", { "beforeColon": true, "align": "colon" }],
 		"keyword-spacing": ["warn", { "before": true, "after": true }],
-		"lines-around-comment": ["warn", { "beforeLineComment": true }],
+		"lines-around-comment": [
+			"warn",
+			{ "beforeLineComment": false, "allowBlockStart": true }
+		],
 		"max-len": [
-			"error",
+			"warn",
 			{
 				"code": 80,
 				"tabWidth": 4,
 				"ignoreUrls": true,
 				"ignoreStrings": true,
 				"ignoreTemplateLiterals": true,
-				"ignoreRegExpLiterals": true
+				"ignoreRegExpLiterals": true,
+				"ignoreComments": true
 			}
 		],
 		"max-statements-per-line": "warn",
@@ -127,7 +120,7 @@
 			}
 		],
 		"new-parens": ["warn", "always"],
-		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 1 }],
+		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 3 }],
 		"no-duplicate-imports": "warn",
 		"no-empty-function": "warn",
 		"no-extra-parens": [
@@ -209,7 +202,7 @@
 					"object": true
 				},
 				"AssignmentExpression": {
-					"array": true,
+					"array": false,
 					"object": true
 				}
 			},
