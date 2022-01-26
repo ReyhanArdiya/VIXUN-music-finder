@@ -1,0 +1,25 @@
+#song {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 100%;
+	position: relative;
+	cursor: pointer;
+}
+
+/* #region -------------------SONG IMAGE------------------------------------- */
+
+#song-play {
+	position: absolute;
+	width: 20vw;
+	height: 20vw;
+}
+
+#song-image {
+	border-radius: var(--border-radius-rounded);
+	width: 50%;
+	box-shadow: var(--shadow-floating-box-bottom);
+}
+
+/* #endregion ================SONG IMAGE===================================== */
