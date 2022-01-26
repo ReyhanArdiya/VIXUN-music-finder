@@ -4,6 +4,7 @@
 	flex-direction: column;
 	font-size: 1em;
 	height: max-content;
+	justify-content: space-between;
 	row-gap: 1.25em;
 }
 
@@ -59,3 +60,55 @@
 }
 
 /* #endregion ================SONG INFO====================================== */
+
+/* #region -------------------SONG LINKS------------------------------------- */
+
+#song-links {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	row-gap: 0.9em;
+	width: 100%;
+}
+
+.song-link {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	font: 700 1em "Quicksand";
+	justify-content: space-between;
+	min-height: 45px;
+	padding-left: 0.65em;
+	padding-right: 0.5em;
+	width: 80%;
+}
+
+.song-link p {
+	text-align: right;
+}
+
+#song-link-spotify {
+	background: linear-gradient(
+		180deg,
+		#1ed761 0%,
+		#c5ff67 119.04%,
+		rgba(30, 215, 97, 0) 119.05%
+	);
+}
+
+#song-link-deezer {
+	background: linear-gradient(
+		180deg,
+		#ff9820 0%,
+		#ff0000 58.43%,
+		#bd00ff 120.25%
+	);
+}
+
+#song-link-amazon {
+	background: linear-gradient(180deg, #e47911 0%, #ffeb3b 119.91%);
+}
+
+/* #endregion ================SONG LINKS===================================== */
