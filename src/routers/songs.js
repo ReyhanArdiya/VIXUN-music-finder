@@ -33,6 +33,16 @@ songsRouter.get("/top", async (req, res, next) => {
 	}
 });
 
+// TODO use content type. Find a way to detect content type from req
+songsRouter.get("/:id", async (req, res, next) => {
+	try {
+		console.log(req.headers);
+		res.render("song");
+	} catch (err) {
+		next(err);
+	}
+});
+
 songsRouter.use((err, req, res) => {
 	res.status(500).send("Error! :(");
 });
