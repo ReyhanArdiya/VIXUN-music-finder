@@ -50,9 +50,11 @@
 }
 
 #song-play {
+	backdrop-filter: blur(1.25px);
+	border-radius: 50%;
+	height: 20vw;
 	position: absolute;
 	width: 20vw;
-	height: 20vw;
 }
 
 #song-image img {
