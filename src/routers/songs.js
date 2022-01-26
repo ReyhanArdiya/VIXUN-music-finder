@@ -33,11 +33,15 @@ songsRouter.get("/top", async (req, res, next) => {
 	}
 });
 
-// TODO use content type. Find a way to detect content type from req
 songsRouter.get("/:id", async (req, res, next) => {
+	const { headers: { accept }, params: { id } } = req;
 	try {
-		console.log(req.headers);
-		res.render("song");
+		const song = await Song.findById(id);
+		if (accept === "application/json") {
+			res.send(song);
+		} else {
+			res.render("song", { song });
+		}
 	} catch (err) {
 		next(err);
 	}
