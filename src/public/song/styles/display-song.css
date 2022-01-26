@@ -172,3 +172,58 @@
 }
 
 /* #endregion ================SONG LINKS===================================== */
+
+/* #region -------------------BACK BUTTON------------------------------------ */
+
+#back {
+	align-items: stretch;
+	background: var(--gradient-purple-red);
+	border-radius: var(--border-radius-rounded);
+	border: none;
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	font-size: 1em;
+	justify-content: center;
+	outline: none;
+	width: 31%;
+}
+
+#back button {
+	background: none;
+	border-radius: inherit;
+	border: inherit;
+	height: 100%;
+	outline: inherit;
+	padding: 0.5em 0;
+	width: 100%;
+}
+
+/* back button overlay on hover/active */
+#back button {
+	cursor: pointer;
+	position: relative;
+}
+
+#back button::before {
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+#back button:hover::before {
+	opacity: 0.2;
+}
+
+#back button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+/* #endregion ================BACK BUTTON==================================== */
