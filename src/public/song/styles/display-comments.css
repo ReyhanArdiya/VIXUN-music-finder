@@ -11,6 +11,8 @@
 
 #display-comments .title-card {
 	margin-bottom: 0;
+	margin-top: var(--top-bottom-space);
+	font-size: 1.34em;
 }
 
 #form-new-comment {
@@ -127,4 +129,16 @@
 	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 3);
 	padding: 0.3em 0;
 	overflow-y: auto;
+}
+
+@media screen and (min-width: 48em) {
+	#display-comments {
+		font-size: 1.25em;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#display-comments {
+		font-size: 1.5em;
+	}
 }
