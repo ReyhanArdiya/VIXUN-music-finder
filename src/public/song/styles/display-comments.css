@@ -1,1 +1,105 @@
+#display-comments {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+}
 
+.comment {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	flex-direction: column;
+	font: 700 1em "Quicksand";
+	justify-content: flex-start;
+	width: 82%;
+	height: 9em;
+}
+
+.comment textarea {
+	border: none;
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid black;
+	font: inherit;
+	outline: none;
+	width: 100%;
+	resize: none;
+	padding: 0.5em;
+	flex-grow: 0.8;
+}
+
+/* #region -------------------COMMENT BUTTONS-------------------------------- */
+
+.comment-buttons {
+	display: flex;
+	flex-grow: 0.2;
+	justify-content: flex-end;
+	width: 100%;
+	align-items: center;
+	column-gap: 0.5em;
+	padding-right: 0.5em;
+}
+
+.comment-buttons button {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	border: none;
+	display: flex;
+	flex-direction: column;
+	height: 1.9em;
+	justify-content: center;
+	outline: none;
+	padding: 0;
+	width: 1.9em;
+}
+
+/* comment buttons overlay on hover/active */
+.comment-buttons button {
+	cursor: pointer;
+	position: relative;
+}
+
+.comment-buttons button::before {
+	border-radius: inherit;
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+.comment-buttons button:hover::before {
+	opacity: 0.2;
+}
+
+.comment-buttons button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+.comment-buttons svg {
+	width: 55%;
+	height: 55%;
+}
+
+.comment-buttons path {
+	fill: white;
+}
+
+.comment-delete {
+	background: var(--gradient-purple-red);
+}
+
+.comment-confirm {
+	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
+}
+
+/* #endregion ================COMMENT BUTTONS================================ */
