@@ -1,9 +1,21 @@
 #display-comments {
+	--top-bottom-space: 2.15em;
+	--comment-height: 9em;
 	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	width: 100%;
+	font-size: 1em;
+}
+
+#display-comments .title-card {
+	margin-bottom: 0;
+}
+
+#form-new-comment {
+	margin: var(--top-bottom-space) 0;
+	font-size: 1em;
 }
 
 .comment {
@@ -15,7 +27,7 @@
 	font: 700 1em "Quicksand";
 	justify-content: flex-start;
 	width: 82%;
-	height: 9em;
+	min-height: var(--comment-height);
 }
 
 .comment textarea {
@@ -103,3 +115,16 @@
 }
 
 /* #endregion ================COMMENT BUTTONS================================ */
+
+#display-comments-render {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	font-size: 1em;
+	gap: var(--top-bottom-space);
+	justify-content: flex-start;
+	width: 100%;
+	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 3);
+	padding: 0.3em 0;
+	overflow-y: auto;
+}
