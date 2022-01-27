@@ -68,7 +68,6 @@
 /* #region -------------------SONG INFO-------------------------------------- */
 
 #song-info {
-	--bottom-side-padding: 1.25em;
 	display: grid;
 	font: 1em "Quicksand";
 	text-align: center;
@@ -77,10 +76,10 @@
 	border-radius: var(--border-radius-rounded);
 	box-shadow: var(--shadow-floating-box-bottom);
 	grid-template-areas:
-		"artist artist"
-		"title title"
-		"album price";
-	grid-template-columns: 0.8fr 0.2fr;
+		"artist"
+		"title"
+		"footer";
+	grid-template-columns: 1fr;
 	row-gap: 0.5em;
 	padding-bottom: 0.25em;
 }
@@ -111,11 +110,20 @@
 	font-size: 2em;
 }
 
+#song-info footer {
+	--bottom-side-padding: 0.75em;
+	grid-area: footer;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 #song-album {
 	color: var(--primary-bright-purple);
 	font-weight: 500;
 	grid-area: album;
 	text-align: left;
+	flex-grow: 0.8;
 	padding-left: var(--bottom-side-padding);
 }
 
@@ -126,6 +134,7 @@
 	align-items: center;
 	display: flex;
 	justify-content: flex-end;
+	flex-grow: 0.2;
 	padding-right: var(--bottom-side-padding);
 }
 
