@@ -5,7 +5,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 100%;
+	width: 85%;
+	margin: 0 auto;
 	font-size: 1em;
 }
 
@@ -28,7 +29,7 @@
 	flex-direction: column;
 	font: 700 1em "Quicksand";
 	justify-content: flex-start;
-	width: 82%;
+	width: 97%;
 	min-height: var(--comment-height);
 }
 
@@ -126,7 +127,7 @@
 	gap: var(--top-bottom-space);
 	justify-content: flex-start;
 	width: 100%;
-	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 3);
+	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 1.65);
 	padding: 0.3em 0;
 	overflow-y: auto;
 }
