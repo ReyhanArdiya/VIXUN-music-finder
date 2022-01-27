@@ -68,27 +68,65 @@
 /* #region -------------------SONG INFO-------------------------------------- */
 
 #song-info {
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	font: 1.75em "Mohave";
-	justify-content: center;
-	letter-spacing: 0.48em;
+	--bottom-side-padding: 1.25em;
+	display: grid;
+	font: 1em "Quicksand";
 	text-align: center;
+	width: 80%;
+	height: max-content;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	grid-template-areas:
+		"artist artist"
+		"title title"
+		"album price";
+	grid-template-columns: 0.8fr 0.2fr;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
 }
 
 #song-artist {
-	font-weight: 400;
+	background: var(--gradient-purple-red);
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid var(--primary-pale-black);
+	color: white;
+	font: 700 1.5em "Quicksand";
+	grid-area: artist;
+	padding: 0.25em 0;
+	width: 100%;
+}
+
+#song-title {
+	/* CMT i actually want to change the gradient color based on the image's color
+	but idk how to do a color picker yet :/ */
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+	font-weight: 700;
+	grid-area: title;
+	font-size: 2em;
 }
 
 #song-album {
 	color: var(--primary-bright-purple);
 	font-weight: 500;
+	grid-area: album;
+	text-align: left;
+	padding-left: var(--bottom-side-padding);
 }
 
-#song-title {
-	color: var(--primary-bright-red);
-	font-weight: 700;
+#song-price {
+	color: var(--primary-pale-black);
+	font: 700 1em "Mohave";
+	grid-area: price;
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	padding-right: var(--bottom-side-padding);
 }
 
 /* #endregion ================SONG INFO====================================== */
