@@ -51,7 +51,7 @@ share.addEventListener("click", async function() {
 });
 
 // Comment form logic
-const { form: { element, cancel } } = displayComments;
+const { form: { element, cancel }, render } = displayComments;
 element.addEventListener("submit", async function(e) {
 	e.preventDefault();
 	e.stopPropagation();
@@ -62,7 +62,7 @@ element.addEventListener("submit", async function(e) {
 			{ text : target.elements.text.value },
 			{ timeout : 10000 }
 		);
-		displayComments.render.renderComments(comment.data);
+		render.renderComments(comment.data);
 	} catch (err) {
 		// TODO flash a message here or popup or something instead
 		alert("Something went wrong :(");
@@ -72,4 +72,11 @@ element.addEventListener("submit", async function(e) {
 
 cancel.addEventListener("click", function() {
 	element.elements.text.value = "";
+});
+
+// Render comments logic
+window.addEventListener("load", async function() {
+	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
+	console.log(song.data.comments);
+	render.renderComments(...song.data.comments);
 });
