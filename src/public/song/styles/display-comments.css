@@ -48,6 +48,10 @@
 	flex-grow: 0.8;
 }
 
+.comment textarea::-webkit-scrollbar {
+	display: none;
+}
+
 /* #region -------------------COMMENT BUTTONS-------------------------------- */
 
 .comment-buttons {
@@ -132,6 +136,10 @@
 	height: calc((var(--comment-height) + var(--top-bottom-space) * 2) * 1.65);
 	padding: 0.3em 0;
 	overflow-y: auto;
+}
+
+#display-comments-render::-webkit-scrollbar {
+	display: none;
 }
 
 /* #region -------------------COMMENT CIRCLE DECORATIONS--------------------- */
