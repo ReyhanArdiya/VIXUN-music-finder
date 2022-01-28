@@ -50,12 +50,18 @@
 	transition: opacity 0.05s linear;
 }
 
-#song-play {
+#song-play,
+#song-pause {
 	backdrop-filter: blur(1.25px);
 	border-radius: 50%;
 	height: 20vw;
 	position: absolute;
 	width: 20vw;
+	fill-opacity: 0.7;
+}
+
+#song-pause {
+	display: none;
 }
 
 #song-image img {

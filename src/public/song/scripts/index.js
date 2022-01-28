@@ -17,3 +17,18 @@ animationEffects.addParallax(
 	"vertical",
 	true
 );
+
+const audio = document.querySelector("#song-image audio");
+const songPlay = document.getElementById("song-play");
+const songPause = document.getElementById("song-pause");
+document.querySelector("#song-image").addEventListener("click", function() {
+	if (audio.paused) {
+		audio.play();
+		songPlay.style.display = "none";
+		songPause.style.display = "block";
+	} else {
+		audio.pause();
+		songPlay.style.display = "block";
+		songPause.style.display = "none";
+	}
+});
