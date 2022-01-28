@@ -1,5 +1,6 @@
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
+import displayComments from "./comments.js";
 
 const { animation: { animationEffects } } = core;
 
@@ -10,7 +11,7 @@ navbarMain.dropdown.text[0].firstElementChild.href = "#page-header";
 navbarMain.dropdown.text[1].firstElementChild.innerText = "COMMENTS";
 navbarMain.dropdown.text[1].firstElementChild.href = "#display-comments";
 
-// Add parallaz for circle decos
+// Add parallax for circle decos
 const displayCommentsCircles = document.querySelectorAll("#display-comments svg[class*='circle-decoration']");
 animationEffects.addParallax(
 	document.querySelector("#display-comments-render"),
