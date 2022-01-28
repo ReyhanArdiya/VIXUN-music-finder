@@ -1,5 +1,6 @@
 import Song from "../models/song.js";
 import { aggregatorAPIs } from "../request-songs/song-aggregator/index.js";
+import commentsRouter from "./comments.js";
 import express from "express";
 import requestSongs from "../request-songs/index.js";
 
@@ -32,6 +33,8 @@ songsRouter.get("/top", async (req, res, next) => {
 		next(err);
 	}
 });
+
+songsRouter.use("/:id/comments", commentsRouter);
 
 songsRouter.get("/:id", async (req, res, next) => {
 	const { headers: { accept }, params: { id } } = req;
