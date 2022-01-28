@@ -49,7 +49,10 @@ const SongSchema = new mongoose.Schema({
 		type     : String,
 	},
 	artistImage : String,
-	comments    : [ { type : mongoose.Types.ObjectId } ],
+	comments    : [ {
+		ref  : "Comment",
+		type : mongoose.Types.ObjectId
+	} ],
 
 	/*  CMT I could make this as an array of externals instead and have each
 	external have a source string prop. THis could be better (is it tho?) if i

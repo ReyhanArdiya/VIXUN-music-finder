@@ -39,7 +39,7 @@ songsRouter.use("/:id/comments", commentsRouter);
 songsRouter.get("/:id", async (req, res, next) => {
 	const { headers: { accept }, params: { id } } = req;
 	try {
-		const song = await Song.findById(id);
+		const song = await Song.findById(id).populate("comments");
 		if (accept === "application/json") {
 			res.send(song);
 		} else {
