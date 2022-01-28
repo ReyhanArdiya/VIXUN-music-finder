@@ -1,8 +1,9 @@
-import "./database/index.js";
 import { config } from "dotenv";
+import ejsEngine from "ejs-mate";
 import express from "express";
 import { fileURLToPath } from "url";
 import homeRouter from "./routers/home.js";
+import mongoose from "mongoose";
 import songsRouter from "./routers/songs.js";
 import { dirname, join } from "path";
 
@@ -11,9 +12,18 @@ const __dirname = dirname(__filename);
 
 config({ path : join(__dirname, "..", "process.env") });
 
+const mongoDatabase = process.env.MONGODB;
+try {
+	await mongoose.connect(`mongodb://localhost:27017/${mongoDatabase}`);
+	console.log(`Connected to ${mongoDatabase}!🍃`);
+} catch (err) {
+	console.log(`Error! Can't connect to ${mongoDatabase}!🍂`, err);
+}
+
 const port = process.env.PORT;
 const app = express();
 app.set("view engine", "ejs");
+app.engine("ejs", ejsEngine);
 app.set("views", join(__dirname, "views"));
 
 app.use(express.static(join(__dirname, "public")));
