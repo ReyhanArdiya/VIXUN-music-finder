@@ -1,5 +1,9 @@
 const displayComments = {
-	form   : document.getElementById("form-new-comment"),
+	form : {
+		cancel  : document.querySelector("#form-new-comment .comment-delete"),
+		confirm : document.querySelector("#form-new-comment .comment-confirm"),
+		element : document.getElementById("form-new-comment")
+	},
 	render : {
 		container : document.getElementById("display-comments-render"),
 
