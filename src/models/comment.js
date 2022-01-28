@@ -1,3 +1,4 @@
+import Song from "./song.js";
 import mongoose from "mongoose";
 
 /**
@@ -23,6 +24,13 @@ const CommentSchema = new mongoose.Schema({
 		type     : mongoose.Types.ObjectId
 	},
 }, { strict : "throw" });
+
+CommentSchema.post("save", async function(comment) {
+	console.log(comment);
+	const song = await Song.findById(comment.song);
+	song.comments.push(comment);
+	song.save();
+});
 
 class CommentSchemaMethods {}
 CommentSchema.loadClass(CommentSchemaMethods);
