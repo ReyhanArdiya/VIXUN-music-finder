@@ -55,6 +55,7 @@
 /* #region -------------------COMMENT BUTTONS-------------------------------- */
 
 .comment-buttons {
+	border-radius: inherit;
 	display: flex;
 	flex-grow: 0.2;
 	justify-content: flex-end;
