@@ -128,7 +128,7 @@
         <h2>COMMENTS</h2>
     </div>
 
-    <form id="form-new-comment" action="/post review route" class="comment">
+    <form id="form-new-comment" action="/songs/<%= song._id %>/comments" class="comment" method="post">
         <textarea name="text" id="comment-text" placeholder="Write your comment here!"></textarea>
         <footer class="comment-buttons">
             <button type="button" class="comment-delete">

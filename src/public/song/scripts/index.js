@@ -49,3 +49,27 @@ const url = window.location.href;
 share.addEventListener("click", async function() {
 	navigator.share({ url });
 });
+
+// Comment form logic
+const { form: { element, cancel } } = displayComments;
+element.addEventListener("submit", async function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	const { target } = e;
+	try {
+		const comment = await axios.post(
+			target.action,
+			{ text : target.elements.text.value },
+			{ timeout : 10000 }
+		);
+		displayComments.render.renderComments(comment.data);
+	} catch (err) {
+		// TODO flash a message here or popup or something instead
+		alert("Something went wrong :(");
+	}
+	console.dir(target);
+});
+
+cancel.addEventListener("click", function() {
+	element.elements.text.value = "";
+});
