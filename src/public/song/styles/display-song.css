@@ -6,6 +6,7 @@
 	height: max-content;
 	justify-content: space-between;
 	row-gap: 1.25em;
+	position: relative;
 }
 
 /* #region -------------------SONG IMAGE------------------------------------- */
@@ -276,6 +277,38 @@
 
 /* #endregion ================BACK BUTTON==================================== */
 
+/* #region -------------------SONG CIRCLE DECORATIONS------------------------ */
+
+#display-song svg[class*="circle-decoration"] {
+	z-index: -1;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+	font-size: 1.25em;
+	left: 12%;
+	top: -3%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+	font-size: 2.5em;
+	right: 15%;
+	top: 15%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+	font-size: 1em;
+	left: 5%;
+	top: 30%;
+}
+
+#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+	font-size: 3em;
+	right: 0%;
+	bottom: 35%;
+}
+
+/* #endregion ================SONG CIRCLE DECORATIONS======================== */
+
 @media screen and (min-width: 48em) {
 	#display-song {
 		align-items: flex-start;
@@ -313,10 +346,58 @@
 	#back {
 		grid-area: back;
 	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.5em;
+		left: 6%;
+		top: -3%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 2.75em;
+		right: 0%;
+		top: 20%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.25em;
+		left: 0%;
+		top: 50%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.25em;
+		right: 0%;
+		bottom: -10%;
+	}
 }
 
 @media screen and (min-width: 90em) {
 	#display-song {
 		font-size: 1.5em;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(1) {
+		font-size: 1.75em;
+		left: 6%;
+		top: -3%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(2) {
+		font-size: 3em;
+		right: 0%;
+		top: 20%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(3) {
+		font-size: 1.5em;
+		left: 0%;
+		top: 50%;
+	}
+
+	#display-song svg[class*="circle-decoration"]:nth-of-type(4) {
+		font-size: 3.5em;
+		right: 0%;
+		bottom: -10%;
 	}
 }
