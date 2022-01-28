@@ -63,6 +63,9 @@ element.addEventListener("submit", async function(e) {
 			{ timeout : 10000 }
 		);
 		render.renderComments(comment.data);
+		element.elements.text.value = "";
+		render.container.querySelector(".comment:last-of-type")
+			             .scrollIntoView(false);
 	} catch (err) {
 		// TODO flash a message here or popup or something instead
 		alert("Something went wrong :(");
