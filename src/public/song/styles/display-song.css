@@ -83,6 +83,7 @@
 	grid-template-columns: 1fr;
 	row-gap: 0.5em;
 	padding-bottom: 0.25em;
+	background: white;
 }
 
 #song-artist {
