@@ -21,6 +21,7 @@ animationEffects.addParallax(
 const audio = document.querySelector("#song-image audio");
 const songPlay = document.getElementById("song-play");
 const songPause = document.getElementById("song-pause");
+
 document.querySelector("#song-image").addEventListener("click", function() {
 	if (audio.paused) {
 		audio.play();
@@ -31,4 +32,9 @@ document.querySelector("#song-image").addEventListener("click", function() {
 		songPlay.style.display = "block";
 		songPause.style.display = "none";
 	}
+});
+
+audio.addEventListener("ended", function() {
+	songPlay.style.display = "block";
+	songPause.style.display = "none";
 });

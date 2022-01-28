@@ -341,7 +341,8 @@
 		grid-area: info;
 	}
 
-	#song-play {
+	#song-play,
+	#song-pause {
 		height: 8.5vw;
 		width: 8.5vw;
 	}
