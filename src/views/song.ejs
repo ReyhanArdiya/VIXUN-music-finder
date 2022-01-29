@@ -128,9 +128,9 @@
         <h2>COMMENTS</h2>
     </div>
 
-    <form id="form-new-comment" action="/post review route" class="comment">
-        <textarea name="text" id="comment-text" placeholder="Write your comment here!"></textarea>
-        <footer class="comment-buttons">
+    <form id="form-new-comment" action="/songs/<%= song._id %>/comments" class="comment" method="post">
+        <textarea name="text" class="comment-text" placeholder="Write your comment here!"></textarea>
+        <footer class="comment-footer">
             <button type="button" class="comment-delete">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path
@@ -146,160 +146,27 @@
     </form>
 
     <section id="display-comments-render">
-        <!-- DBG temporary before AJAX -->
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
-        <form action="/edit review route" class="comment">
-            <textarea name="text"
-                id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
-            <footer class="comment-buttons">
-                <button type="button" class="comment-delete">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path
-                            d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
-                    </svg>
-                </button>
-                <button type="submit" class="comment-confirm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-                    </svg>
-                </button>
-            </footer>
-        </form>
+        <template id="comment-template">
+            <form action="/edit review route" class="comment">
+                <textarea name="text"
+                    class="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
+                <footer class="comment-footer">
+                    <small class="comment-username">Username</small>
+                    <button type="button" class="comment-delete">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path
+                                d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z" />
+                        </svg>
+                    </button>
+                    <button type="submit" class="comment-confirm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
+                        </svg>
+                    </button>
+                </footer>
+            </form>
+        </template>
+
     </section>
 
 

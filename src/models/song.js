@@ -49,23 +49,24 @@ const SongSchema = new mongoose.Schema({
 		type     : String,
 	},
 	artistImage : String,
+	comments    : [ {
+		ref  : "Comment",
+		type : mongoose.Types.ObjectId
+	} ],
 
 	/*  CMT I could make this as an array of externals instead and have each
 	external have a source string prop. THis could be better (is it tho?) if i
 	introduce more sources in the future but right now is YAGNI */
 	externals : {
 		amazonMusic : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},
 		deezer : {
-			// eslint-disable-next-line
-			default: {},
+			default : {},
 			type    : SongExternalSchema
 		},
 		spotify : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},

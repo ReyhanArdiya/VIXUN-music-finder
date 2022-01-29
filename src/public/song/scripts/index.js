@@ -1,5 +1,6 @@
 import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
+import displayComments from "./comments.js";
 
 const { animation: { animationEffects } } = core;
 
@@ -10,7 +11,7 @@ navbarMain.dropdown.text[0].firstElementChild.href = "#page-header";
 navbarMain.dropdown.text[1].firstElementChild.innerText = "COMMENTS";
 navbarMain.dropdown.text[1].firstElementChild.href = "#display-comments";
 
-// Add parallaz for circle decos
+// Add parallax for circle decos
 const displayCommentsCircles = document.querySelectorAll("#display-comments svg[class*='circle-decoration']");
 animationEffects.addParallax(
 	document.querySelector("#display-comments-render"),
@@ -47,4 +48,37 @@ const share = document.getElementById("share");
 const url = window.location.href;
 share.addEventListener("click", async function() {
 	navigator.share({ url });
+});
+
+// Comment form logic
+const { form: { element, cancel }, render } = displayComments;
+element.addEventListener("submit", async function(e) {
+	e.preventDefault();
+	e.stopPropagation();
+	const { target } = e;
+	try {
+		const comment = await axios.post(
+			target.action,
+			{ text : target.elements.text.value },
+			{ timeout : 10000 }
+		);
+		render.renderComments(comment.data);
+		element.elements.text.value = "";
+		render.container.querySelector(".comment:last-of-type")
+			             .scrollIntoView(false);
+	} catch (err) {
+		// TODO flash a message here or popup or something instead
+		alert("Something went wrong :(");
+	}
+	console.dir(target);
+});
+
+cancel.addEventListener("click", function() {
+	element.elements.text.value = "";
+});
+
+// Render comments logic
+window.addEventListener("load", async function() {
+	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
+	render.renderComments(...song.data.comments);
 });
