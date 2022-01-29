@@ -26,10 +26,10 @@ const CommentSchema = new mongoose.Schema({
 }, { strict : "throw" });
 
 CommentSchema.post("save", async function(comment) {
-	console.log(comment);
-	const song = await Song.findById(comment.song);
-	song.comments.push(comment);
-	song.save();
+	await Song.findByIdAndUpdate(
+		comment.song,
+		{ $push : { comments : comment } }
+	);
 });
 
 class CommentSchemaMethods {}
