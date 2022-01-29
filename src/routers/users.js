@@ -1,11 +1,11 @@
 import User from "../models/user.js";
 import express from "express";
 
-const usersRouter = express.Router({ mergeParams : true });
+const authRouter = express.Router({ mergeParams : true });
 
-usersRouter.use(express.urlencoded({ extended : true }));
+authRouter.use(express.urlencoded({ extended : true }));
 
-usersRouter.route("/")
+authRouter.route("/")
 	.post(async (req, res, next) => {
 		try {
 			const { email, username, password } = req.body;
@@ -21,4 +21,4 @@ usersRouter.route("/")
 		}
 	});
 
-export default usersRouter;
+export default authRouter;

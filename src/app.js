@@ -1,4 +1,5 @@
 import User from "./models/user.js";
+import authRouter from "./routers/users.js";
 import { config } from "dotenv";
 import ejsEngine from "ejs-mate";
 import express from "express";
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 
 app.use("/", homeRouter);
 app.use("/songs", songsRouter);
+app.use("/auth", authRouter);
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
