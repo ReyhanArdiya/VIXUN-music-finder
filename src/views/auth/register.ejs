@@ -1,0 +1,20 @@
+<% layout("boilerplate") %>
+<% block("stylesheets").append('') %>
+
+<!-- TODO style this and add validation later -->
+<main id="form-register">
+    <h2>Register Now!</h2>
+    <form action="/auth" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required>
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" required>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required>
+        <button>Register</button>
+    </form>
+</main>
+
+<% block("scripts").append('') %>
+
+<!-- TODO make snippet for ejs forof, layout, and blocks -->
