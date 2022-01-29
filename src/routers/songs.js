@@ -43,7 +43,7 @@ songsRouter.get("/:id", async (req, res, next) => {
 			path     : "comments",
 			populate : { path : "user" }
 		});
-		console.log(song);
+
 		if (accept === "application/json") {
 			res.send(song);
 		} else {

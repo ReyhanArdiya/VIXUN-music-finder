@@ -1,4 +1,5 @@
 import Song from "./song.js";
+import User from "./user.js";
 import mongoose from "mongoose";
 
 /**
@@ -30,6 +31,10 @@ const CommentSchema = new mongoose.Schema({
 CommentSchema.post("save", async function(comment) {
 	await Song.findByIdAndUpdate(
 		comment.song,
+		{ $push : { comments : comment } }
+	);
+	await User.findByIdAndUpdate(
+		comment.user,
 		{ $push : { comments : comment } }
 	);
 });
