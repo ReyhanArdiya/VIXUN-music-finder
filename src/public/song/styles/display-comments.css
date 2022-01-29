@@ -34,7 +34,7 @@
 	min-height: var(--comment-height);
 }
 
-.comment textarea {
+.comment-text {
 	border: none;
 	border-radius: inherit;
 	border-bottom-left-radius: 0;
@@ -48,7 +48,7 @@
 	flex-grow: 0.8;
 }
 
-.comment textarea::-webkit-scrollbar {
+.comment-text::-webkit-scrollbar {
 	display: none;
 }
 

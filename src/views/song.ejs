@@ -129,7 +129,7 @@
     </div>
 
     <form id="form-new-comment" action="/songs/<%= song._id %>/comments" class="comment" method="post">
-        <textarea name="text" id="comment-text" placeholder="Write your comment here!"></textarea>
+        <textarea name="text" class="comment-text" placeholder="Write your comment here!"></textarea>
         <footer class="comment-buttons">
             <button type="button" class="comment-delete">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -149,7 +149,7 @@
         <template id="comment-template">
             <form action="/edit review route" class="comment">
                 <textarea name="text"
-                    id="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
+                    class="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
                 <footer class="comment-buttons">
                     <button type="button" class="comment-delete">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
