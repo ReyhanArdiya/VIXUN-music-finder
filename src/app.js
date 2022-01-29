@@ -58,6 +58,10 @@ app.use((req, res, next) => {
 	next();
 });
 
+app.use((req, res, next) => {
+	res.locals.user = req.user;
+	next();
+});
 app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
