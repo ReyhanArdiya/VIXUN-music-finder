@@ -56,14 +56,23 @@
 
 .comment-footer {
 	border-radius: inherit;
-	display: flex;
 	flex-grow: 0.2;
-	justify-content: flex-end;
-	width: 100%;
+	display: grid;
+	grid-template-areas: "username button1 button2";
+	grid-template-columns: 3fr minmax(18px, 32px) minmax(18px, 32px);
+	justify-items: center;
 	align-items: center;
+	width: 100%;
 	column-gap: 0.5em;
 	padding-right: 0.5em;
 	background: white;
+}
+
+.comment-username {
+	justify-self: start;
+	padding-left: 1em;
+	font-size: 1em;
+	grid-area: username;
 }
 
 .comment-footer button {
@@ -118,10 +127,12 @@
 
 .comment-delete {
 	background: var(--gradient-purple-red);
+	grid-area: button1;
 }
 
 .comment-confirm {
 	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
+	grid-area: button2;
 }
 
 /* #endregion ================COMMENT FOOTER================================ */
