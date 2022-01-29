@@ -80,6 +80,5 @@ cancel.addEventListener("click", function() {
 // Render comments logic
 window.addEventListener("load", async function() {
 	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
-	console.log(song.data.comments);
 	render.renderComments(...song.data.comments);
 });

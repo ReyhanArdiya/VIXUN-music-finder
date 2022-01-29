@@ -15,9 +15,8 @@ const displayComments = {
 		renderComments(...commentArr) {
 			for (const comment of commentArr) {
 				const newComment = this.template.cloneNode(true);
-				console.log(comment, newComment);
 				newComment.querySelector("textarea").innerText = comment.text;
-				// newComment.getElementById("username").innerText = comment.user.username;
+				newComment.getElementById("comment-username").innerText = comment.user.username;
 				this.container.append(newComment);
 			}
 		},
