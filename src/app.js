@@ -1,5 +1,5 @@
 import User from "./models/user.js";
-import authRouter from "./routers/users.js";
+import authRouter from "./routers/auth.js";
 import { config } from "dotenv";
 import ejsEngine from "ejs-mate";
 import express from "express";
