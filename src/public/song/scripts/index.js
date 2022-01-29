@@ -70,7 +70,6 @@ element.addEventListener("submit", async function(e) {
 		// TODO flash a message here or popup or something instead
 		alert("Something went wrong :(");
 	}
-	console.dir(target);
 });
 
 cancel.addEventListener("click", function() {
