@@ -59,17 +59,14 @@ const SongSchema = new mongoose.Schema({
 	introduce more sources in the future but right now is YAGNI */
 	externals : {
 		amazonMusic : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},
 		deezer : {
-			// eslint-disable-next-line
-			default: {},
+			default : {},
 			type    : SongExternalSchema
 		},
 		spotify : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},
