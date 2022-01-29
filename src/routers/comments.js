@@ -8,12 +8,12 @@ commentsRouter.use(express.json({ extended : true }));
 commentsRouter.route("/")
 	.post(async (req, res, next) => {
 		try {
-			// TODO add user here
 			const { text = "" } = req.body;
 			const song = await Song.findById(req.params.id);
 			const newComment = new Comment({
 				song,
-				text
+				text,
+				user : req.user,
 			});
 			res.send(await newComment.save());
 			res.end();
