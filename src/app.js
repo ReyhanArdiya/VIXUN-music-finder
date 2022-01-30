@@ -69,6 +69,10 @@ app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 
+app.use((err, req, res) => {
+	res.status(500).send("Error! :(");
+});
+
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
 // TODO make basic express project template once all is set

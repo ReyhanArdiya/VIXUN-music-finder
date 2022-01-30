@@ -25,3 +25,4 @@ const displayComments = {
 };
 
 export default displayComments;
+// TODO figure out how to check if current user is auth
