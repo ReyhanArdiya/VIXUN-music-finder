@@ -17,6 +17,18 @@
 	font-size: 1.34em;
 }
 
+#comment-login {
+	font: 700 2em "Quicksand";
+	text-align: center;
+	margin: var(--top-bottom-space) 0;
+	cursor: pointer;
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+}
+
 #form-new-comment {
 	margin: var(--top-bottom-space) 0;
 	font-size: 1em;

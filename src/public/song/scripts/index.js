@@ -51,29 +51,32 @@ share.addEventListener("click", async function() {
 
 // Comment form logic
 const { form: { element, cancel }, render } = displayComments;
-element.addEventListener("submit", async function(e) {
-	e.preventDefault();
-	e.stopPropagation();
-	const { target } = e;
-	try {
-		const comment = await axios.post(
-			target.action,
-			{ text : target.elements.text.value },
-			{ timeout : 10000 }
-		);
-		render.renderComments(comment.data);
-		element.elements.text.value = "";
-		render.container.querySelector(".comment:last-of-type")
+if (element) {
+	element.addEventListener("submit", async function(e) {
+		e.preventDefault();
+		e.stopPropagation();
+		const { target } = e;
+		try {
+			const comment = await axios.post(
+				target.action,
+				{ text : target.elements.text.value },
+				{ timeout : 10000 }
+			);
+			render.renderComments(comment.data);
+			element.elements.text.value = "";
+			render.container.querySelector(".comment:last-of-type")
 			             .scrollIntoView(false);
-	} catch (err) {
+		} catch (err) {
 		// TODO flash a message here or popup or something instead
-		alert("Something went wrong :(");
-	}
-});
+			alert("Something went wrong :(");
+		}
+	});
 
-cancel.addEventListener("click", function() {
-	element.elements.text.value = "";
-});
+	cancel.addEventListener("click", function() {
+		element.elements.text.value = "";
+	});
+}
+
 
 // Render comments logic
 window.addEventListener("load", async function() {
