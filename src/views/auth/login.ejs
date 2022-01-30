@@ -1,7 +1,6 @@
 <% layout("boilerplate") %>
-<% block("stylesheets").append('') %>
-<link rel="stylesheet" href="/auth/styles/form.css">
-<!-- TODO style this and add validation later -->
+<% block("stylesheets").append('<link rel="stylesheet" href="/auth/styles/form.css">') %>
+<!-- TODO add validation -->
 <main id="form-auth">
     <h2>Login</h2>
     <form action="/auth/login" method="post">
@@ -12,8 +11,8 @@
         <input type="password" name="password" id="password" required>
 
         <footer>
-            <button type="submit">Login</button>
             <a href="/auth/register">Register</a>
+            <button type="submit">Login</button>
         </footer>
     </form>
 </main>
