@@ -1,9 +1,8 @@
 <% layout("boilerplate") %>
-<% block("stylesheets").append('') %>
+<% block("stylesheets").append('<link rel="stylesheet" href="/auth/styles/form.css">') %>
 
-<!-- TODO style this and add validation later -->
-<main id="form-register">
-    <h2>Register Now!</h2>
+<main id="form-auth">
+    <h2>Register</h2>
     <form action="/auth/register" method="post">
         <label for="username">Username</label>
         <input type="text" name="username" id="username" required>
@@ -11,7 +10,10 @@
         <input type="email" name="email" id="email" required>
         <label for="password">Password</label>
         <input type="password" name="password" id="password" required>
-        <button>Register</button>
+        <footer>
+            <a href="/">Cancel</a>
+            <button type="submit">Submit</button>
+        </footer>
     </form>
 </main>
 
