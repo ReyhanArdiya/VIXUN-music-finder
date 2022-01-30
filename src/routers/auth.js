@@ -37,7 +37,7 @@ authRouter.route("/login")
 	.get((req, res) => {
 		res.render("auth/login");
 	}).post(passport.authenticate("local", {
-		failureRedirect : "/login",
+		failureRedirect : "/auth/login",
 		successRedirect : "/"
 	}));
 
