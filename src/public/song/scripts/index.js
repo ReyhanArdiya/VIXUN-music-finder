@@ -1,11 +1,10 @@
-import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import displayComments from "./comments.js";
+import navbarMain from "../../common/scripts/navbar-main.js";
 
 const { animation: { animationEffects } } = core;
 
 // Setting up main navbar
-const navbarMain = checkNavbar();
 navbarMain.dropdown.text[0].firstElementChild.innerText = "SONG";
 navbarMain.dropdown.text[0].firstElementChild.href = "#page-header";
 navbarMain.dropdown.text[1].firstElementChild.innerText = "COMMENTS";
