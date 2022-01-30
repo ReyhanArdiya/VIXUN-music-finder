@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
 import songsRouter from "./routers/songs.js";
+import { addLocalVariables, requestLogger } from "./utils/middleware.js";
 import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,21 +49,11 @@ passport.use(User.createStrategy());
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-// Request logger
-app.use((req, res, next) => {
-	const date = new Date();
-	const log =
-        "🌟 You got a new request! ( 🌸≧◡≦)~💌 \\(￣▽￣* )ゞ 🌟" +
-        `⌚ ${date.toLocaleString()} ⌚`;
-	console.log(log, req.user);
-	next();
-});
-
-// Adding locals variables
-app.use((req, res, next) => {
-	res.locals.user = req.user;
-	next();
-});
+// Setup app middlewares
+app.use(
+	addLocalVariables,
+	requestLogger
+);
 
 // Using routers
 app.use("/", homeRouter);

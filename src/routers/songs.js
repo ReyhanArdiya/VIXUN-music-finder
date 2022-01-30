@@ -1,3 +1,4 @@
+import { addLastVisitedToSes } from "../utils/middleware.js";
 import commentsRouter from "./comments.js";
 import express from "express";
 import songsController from "../controllers/songs.js";
@@ -11,6 +12,6 @@ songsRouter.get("/top", songsController.sendTopHits);
 
 songsRouter.use("/:id/comments", commentsRouter);
 
-songsRouter.get("/:id", songsController.getASong);
+songsRouter.get("/:id", addLastVisitedToSes, songsController.getASong);
 
 export default songsRouter;
