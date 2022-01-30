@@ -1,6 +1,9 @@
 <% layout("boilerplate") %>
-<% block("stylesheets").append('<link rel="stylesheet" href="/auth/styles/form.css">') %>
-<!-- TODO add validation -->
+<% block("stylesheets").append(`
+<link rel="stylesheet" href="/auth/styles/form.css">
+<link rel="stylesheet" href="/auth/styles/validation.css">
+`) %>
+
 <main id="form-auth">
     <h2>Login</h2>
     <form action="/auth/login" method="post">
@@ -17,4 +20,7 @@
     </form>
 </main>
 
-<% block("scripts").append('') %>
+<% block("scripts").append(`
+<script src="https://unpkg.com/just-validate@latest/dist/just-validate.production.min.js"></script>
+<script src="/auth/scripts/validation-login.js" type="module"></script>
+`) %>
