@@ -54,14 +54,17 @@ app.use((req, res, next) => {
 	const log =
         "🌟 You got a new request! ( 🌸≧◡≦)~💌 \\(￣▽￣* )ゞ 🌟" +
         `⌚ ${date.toLocaleString()} ⌚`;
-	console.log(log);
+	console.log(log, req.user);
 	next();
 });
 
+// Adding locals variables
 app.use((req, res, next) => {
 	res.locals.user = req.user;
 	next();
 });
+
+// Using routers
 app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);

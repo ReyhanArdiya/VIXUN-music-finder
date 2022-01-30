@@ -6,14 +6,6 @@ const authRouter = express.Router({ mergeParams : true });
 
 authRouter.use(express.urlencoded({ extended : true }));
 
-/*
-POST http://localhost:9000/auth
-Content-Type: application/x-www-form-urlencoded
-
-email=elys@gmail.com
-&username=elys
-&password=elys
-*/
 authRouter.route("/register")
 	.get((req, res) => {
 		res.render("auth/register");
@@ -40,5 +32,10 @@ authRouter.route("/login")
 		failureRedirect : "/auth/login",
 		successRedirect : "/"
 	}));
+
+authRouter.post("/logout", (req, res) => {
+	req.logout();
+	res.redirect("/");
+});
 
 export default authRouter;
