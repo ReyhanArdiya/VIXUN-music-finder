@@ -128,6 +128,9 @@
         <h2>COMMENTS</h2>
     </div>
 
+    <% if (!user) { %>
+    <p id="comment-login"><a href="/auth/login">Login to make comments!</a></p>
+    <% } else { %>
     <form id="form-new-comment" action="/songs/<%= song._id %>/comments" class="comment" method="post">
         <textarea name="text" class="comment-text" placeholder="Write your comment here!"></textarea>
         <footer class="comment-footer">
@@ -144,6 +147,7 @@
             </button>
         </footer>
     </form>
+    <% } %>
 
     <section id="display-comments-render">
         <template id="comment-template">

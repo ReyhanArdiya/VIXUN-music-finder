@@ -16,7 +16,7 @@ const displayComments = {
 			for (const comment of commentArr) {
 				const newComment = this.template.cloneNode(true);
 				newComment.querySelector("textarea").innerText = comment.text;
-				newComment.getElementById("comment-username").innerText = comment.user.username;
+				newComment.querySelector(".comment-username").innerText = comment.user.username;
 				this.container.append(newComment);
 			}
 		},
@@ -25,3 +25,4 @@ const displayComments = {
 };
 
 export default displayComments;
+// TODO figure out how to check if current user is auth
