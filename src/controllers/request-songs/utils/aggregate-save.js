@@ -1,4 +1,4 @@
-import Song from "../../models/song.js";
+import Song from "../../../models/song.js";
 import amazonMusic from "../song-aggregator/amazon-music.js";
 import songAggregator from "../song-aggregator/index.js";
 

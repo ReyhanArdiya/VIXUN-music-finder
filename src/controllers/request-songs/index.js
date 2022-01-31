@@ -1,4 +1,4 @@
-import Song from "../models/song.js";
+import Song from "../../models/song.js";
 import aggregateAndSave from "./utils/aggregate-save.js";
 import newPageRandomUA from "./utils/user-agent.js";
 import puppeteer from "puppeteer";
