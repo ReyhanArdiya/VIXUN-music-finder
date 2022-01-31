@@ -8,12 +8,18 @@ const displayComments = {
 		container : document.getElementById("display-comments-render"),
 
 		/**
+		 * Render comments and check the current user's authorization to manipulate
+		 * them.
+		 *
+		 * @param {object} user
+		 * A user document for authorization.
 		 *
 		 * @param {...import("../../../models/comment.js").CommentDocument} commentArr
 		 * A `CommentDocument` array of the current `Song`.
 		 */
-		renderComments(...commentArr) {
+		renderComments(user, ...commentArr) {
 			for (const comment of commentArr) {
+				console.log(comment.user._id === user._id);
 				const newComment = this.template.cloneNode(true);
 				newComment.querySelector("textarea").innerText = comment.text;
 				newComment.querySelector(".comment-username").innerText = comment.user.username;

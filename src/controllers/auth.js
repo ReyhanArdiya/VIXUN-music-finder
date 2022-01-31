@@ -28,11 +28,16 @@ const logout = (req, res) => {
 	res.redirect("/");
 };
 
+const sendCurrentUser = (req, res) => {
+	res.send(req.user || false);
+};
+
 const authController = {
 	logout,
 	registerUser,
 	renderLogin,
-	renderRegister
+	renderRegister,
+	sendCurrentUser
 };
 
 export default authController;

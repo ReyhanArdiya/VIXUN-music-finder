@@ -49,6 +49,8 @@ share.addEventListener("click", async function() {
 	navigator.share({ url });
 });
 
+const currentUser = (await axios.get("/auth")).data;
+
 // Comment form logic
 const { form: { element, cancel }, render } = displayComments;
 if (element) {
@@ -62,7 +64,7 @@ if (element) {
 				{ text : target.elements.text.value },
 				{ timeout : 10000 }
 			);
-			render.renderComments(comment.data);
+			render.renderComments(currentUser, comment.data);
 			element.elements.text.value = "";
 			render.container.querySelector(".comment:last-of-type")
 			             .scrollIntoView(false);
@@ -77,9 +79,8 @@ if (element) {
 	});
 }
 
-
 // Render comments logic
 window.addEventListener("load", async function() {
 	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
-	render.renderComments(...song.data.comments);
+	render.renderComments(currentUser, ...song.data.comments);
 });
