@@ -61,7 +61,7 @@ app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 
 app.use((err, req, res, next) => {
-	res.status(500).send("Error! :(");
+	res.status(500).send(err.message);
 });
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
