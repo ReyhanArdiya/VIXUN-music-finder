@@ -1,6 +1,6 @@
+import "./utils/load-env.js";
 import User from "./models/user.js";
 import authRouter from "./routers/auth.js";
-import { config } from "dotenv";
 import ejsEngine from "ejs-mate";
 import express from "express";
 import { fileURLToPath } from "url";
@@ -15,8 +15,6 @@ import { dirname, join } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-
-config({ path : join(__dirname, "..", "process.env") });
 
 // Mongoose stuff
 const mongoDatabase = process.env.MONGODB;
@@ -62,6 +60,7 @@ app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 
+// eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
 	res.status(500).send(err.message);
 });
