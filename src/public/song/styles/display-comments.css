@@ -140,12 +140,12 @@
 	fill: white;
 }
 
-.comment-delete {
+.comment-delete button {
 	background: var(--gradient-purple-red);
 	grid-area: button1;
 }
 
-.comment-confirm {
+.comment-confirm button {
 	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
 	grid-area: button2;
 }
