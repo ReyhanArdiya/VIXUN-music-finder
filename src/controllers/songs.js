@@ -37,6 +37,7 @@ const getASong = async (req, res, next) => {
 			populate : { path : "user" }
 		});
 
+		res.setHeader("Vary", "Accept");
 		if (accept === "application/json") {
 			res.send(song);
 		} else {
