@@ -47,6 +47,8 @@
 }
 
 .comment-text {
+	background-color: white;
+	overflow-y: auto;
 	border: none;
 	border-radius: inherit;
 	border-bottom-left-radius: 0;
@@ -58,6 +60,7 @@
 	resize: none;
 	padding: 0.5em;
 	flex-grow: 0.8;
+	height: 30%;
 }
 
 .comment-text::-webkit-scrollbar {

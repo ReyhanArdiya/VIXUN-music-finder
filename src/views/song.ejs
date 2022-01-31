@@ -150,10 +150,9 @@
     <% } %>
 
     <section id="display-comments-render">
-        <template id="comment-template">
-            <form action="/edit review route" class="comment">
-                <textarea name="text"
-                    class="comment-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta asperiores maiores delectus officiis. In quia eaque asperiores. Dicta animi rerum quia eum neque iure doloremque exercitationem, molestias at quae expedita?</textarea>
+        <template id="comment-template-editable">
+            <form action="/edit comment route" class="comment">
+                <textarea name="text" class="comment-text"></textarea>
                 <footer class="comment-footer">
                     <small class="comment-username">Username</small>
                     <button type="button" class="comment-delete">
@@ -171,6 +170,14 @@
             </form>
         </template>
 
+        <template id="comment-template-fixed">
+            <article class="comment">
+                <p name="text" class="comment-text"></p>
+                <footer class="comment-footer">
+                    <small class="comment-username">Username</small>
+                </footer>
+            </article>
+        </template>
     </section>
 
 

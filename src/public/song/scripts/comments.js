@@ -19,14 +19,16 @@ const displayComments = {
 		 */
 		renderComments(user, ...commentArr) {
 			for (const comment of commentArr) {
-				console.log(comment.user._id === user._id);
-				const newComment = this.template.cloneNode(true);
-				newComment.querySelector("textarea").innerText = comment.text;
+				const newComment = comment.user._id === user._id ?
+					this.templateEditable.cloneNode(true) :
+					this.templateFixed.cloneNode(true);
+				newComment.querySelector(".comment-text").innerText = comment.text;
 				newComment.querySelector(".comment-username").innerText = comment.user.username;
 				this.container.append(newComment);
 			}
 		},
-		template : document.getElementById("comment-template").content.firstElementChild,
+		templateEditable : document.getElementById("comment-template-editable").content.firstElementChild,
+		templateFixed    : document.getElementById("comment-template-fixed").content.firstElementChild
 	}
 };
 

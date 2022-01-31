@@ -49,30 +49,33 @@ share.addEventListener("click", async function() {
 	navigator.share({ url });
 });
 
-const currentUser = (await axios.get("/auth")).data;
+let currentUser;
 
 // Comment form logic
 const { form: { element, cancel }, render } = displayComments;
 if (element) {
-	element.addEventListener("submit", async function(e) {
-		e.preventDefault();
-		e.stopPropagation();
-		const { target } = e;
-		try {
-			const comment = await axios.post(
-				target.action,
-				{ text : target.elements.text.value },
-				{ timeout : 10000 }
-			);
-			render.renderComments(currentUser, comment.data);
-			element.elements.text.value = "";
-			render.container.querySelector(".comment:last-of-type")
+	element.addEventListener(
+		"submit",
+		async function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+			const { target } = e;
+			try {
+				const comment = await axios.post(
+					target.action,
+					{ text : target.elements.text.value },
+					{ timeout : 10000 }
+				);
+				render.renderComments(currentUser, comment.data);
+				element.elements.text.value = "";
+				render.container.querySelector(".comment:last-of-type")
 			             .scrollIntoView(false);
-		} catch (err) {
-		// TODO flash a message here or popup or something instead
-			alert("Something went wrong :(");
+			} catch (err) {
+				// TODO flash a message here or popup or something instead
+				alert("Something went wrong :(");
+			}
 		}
-	});
+	);
 
 	cancel.addEventListener("click", function() {
 		element.elements.text.value = "";
@@ -81,6 +84,28 @@ if (element) {
 
 // Render comments logic
 window.addEventListener("load", async function() {
+	const progressBar = new ProgressBar.Circle(
+		displayComments.render.container,
+		{
+			color    : "#ff0000",
+			duration : 2500,
+			easing   : "easeInOut",
+			from     : { color : "#ff0000" },
+			step(state, circle) {
+				circle.path.setAttribute("stroke", state.color);
+			},
+			strokeWidth : 5,
+			svgStyle    : {
+				display : "block",
+				height  : "100%",
+				width   : "100%"
+			},
+			to : { color : "#a129ff" },
+		}
+	);
+	progressBar.animate(1);
 	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
+	currentUser = (await axios.get("/auth")).data;
+	progressBar.destroy();
 	render.renderComments(currentUser, ...song.data.comments);
 });
