@@ -29,7 +29,16 @@ const logout = (req, res) => {
 };
 
 const sendCurrentUser = (req, res) => {
-	res.send(req.user || false);
+	if (!req.user) {
+		res.send(false);
+	} else {
+		const { _id, username, email } = req.user;
+		res.send({
+			_id,
+			email,
+			username,
+		});
+	}
 };
 
 const authController = {
