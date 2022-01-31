@@ -60,7 +60,7 @@ app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
 	res.status(500).send("Error! :(");
 });
 
