@@ -16,6 +16,33 @@ const createComment = async (req, res, next) => {
 	}
 };
 
-const commentsController = { createComment };
+const deleteComment = async (req, res, next) => {
+	try {
+		await Comment.findByIdAndDelete(req.params.commentId);
+		res.end();
+	} catch (err) {
+		next(err);
+	}
+};
+
+const updateComment = async (req, res, next) => {
+	try {
+		const { text } = req.body;
+		const comment = await Comment.findByIdAndUpdate(
+			req.params.commentId,
+			{ text },
+			{ new : true }
+		);
+		res.send(comment);
+	} catch (err) {
+		next(err);
+	}
+};
+
+const commentsController = {
+	createComment,
+	deleteComment,
+	updateComment
+};
 
 export default commentsController;

@@ -7,6 +7,8 @@ const authRouter = express.Router({ mergeParams : true });
 
 authRouter.use(express.urlencoded({ extended : true }));
 
+authRouter.get("/", authController.sendCurrentUser);
+
 authRouter.route("/register")
 	.get(authController.renderRegister)
 	.post(authController.registerUser);

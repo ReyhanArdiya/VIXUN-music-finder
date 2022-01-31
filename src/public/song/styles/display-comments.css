@@ -47,6 +47,8 @@
 }
 
 .comment-text {
+	background-color: white;
+	overflow-y: auto;
 	border: none;
 	border-radius: inherit;
 	border-bottom-left-radius: 0;
@@ -58,6 +60,7 @@
 	resize: none;
 	padding: 0.5em;
 	flex-grow: 0.8;
+	height: 30%;
 }
 
 .comment-text::-webkit-scrollbar {
@@ -137,12 +140,14 @@
 	fill: white;
 }
 
-.comment-delete {
+#form-new-comment .comment-delete,
+.comment-delete button {
 	background: var(--gradient-purple-red);
 	grid-area: button1;
 }
 
-.comment-confirm {
+#form-new-comment .comment-confirm,
+.comment-confirm button {
 	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
 	grid-area: button2;
 }
