@@ -19,9 +19,37 @@ const displayComments = {
 		 */
 		renderComments(user, ...commentArr) {
 			for (const comment of commentArr) {
-				const newComment = comment.user._id === user._id ?
-					this.templateEditable.cloneNode(true) :
-					this.templateFixed.cloneNode(true);
+				let newComment;
+
+				if (comment.user._id === user._id) {
+					newComment = this.templateEditable.cloneNode(true);
+
+					const deleteButt = newComment.querySelector(".comment-delete");
+					const confirmButt = newComment.querySelector(".comment-confirm");
+
+					deleteButt.addEventListener("submit", async function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+
+						await axios.delete(`${window.location.pathname}/comments/${comment._id}`);
+						newComment.remove();
+					});
+
+					confirmButt.addEventListener("submit", async function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+						const commentText = newComment.querySelector(".comment-text");
+						const updateComment = (await axios.patch(
+							`${window.location.pathname}/comments/${comment._id}`,
+							{ text : commentText.value }
+						)).data;
+
+						commentText.value = updateComment.text;
+					});
+				} else {
+					newComment = this.templateFixed.cloneNode(true);
+				}
+
 				newComment.querySelector(".comment-text").innerText = comment.text;
 				newComment.querySelector(".comment-username").innerText = comment.user.username;
 				this.container.append(newComment);

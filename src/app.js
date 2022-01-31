@@ -5,6 +5,7 @@ import ejsEngine from "ejs-mate";
 import express from "express";
 import { fileURLToPath } from "url";
 import homeRouter from "./routers/home.js";
+import methodOverride from "method-override";
 import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
@@ -40,6 +41,7 @@ app.use(session({
 	saveUninitialized : true,
 	secret            : process.env.SESSION_SECRET,
 }));
+app.use(methodOverride("_method"));
 
 // Passport stuff
 app.use(passport.initialize());

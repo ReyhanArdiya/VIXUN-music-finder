@@ -7,7 +7,9 @@ commentsRouter.use(express.json({ extended : true }));
 
 commentsRouter.post(checkLogin, commentsController.createComment);
 
-commentsRouter.delete("/:commentId", commentsController.deleteComment);
+commentsRouter.route("/:commentId")
+	.delete(commentsController.deleteComment)
+	.patch(commentsController.updateComment);
 
 
 export default commentsRouter;
