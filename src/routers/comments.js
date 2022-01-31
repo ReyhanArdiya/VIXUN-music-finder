@@ -5,7 +5,7 @@ import express from "express";
 const commentsRouter = express.Router({ mergeParams : true });
 commentsRouter.use(express.json({ extended : true }));
 
-commentsRouter.post(checkLogin, commentsController.createComment);
+commentsRouter.post("/", checkLogin, commentsController.createComment);
 
 commentsRouter.route("/:commentId")
 	.delete(commentsController.deleteComment)
