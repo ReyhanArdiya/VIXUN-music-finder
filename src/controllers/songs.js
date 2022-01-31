@@ -1,6 +1,6 @@
 import Song from "../models/song.js";
-import { aggregatorAPIs } from "../request-songs/song-aggregator/index.js";
-import requestSongs from "../request-songs/index.js";
+import { aggregatorAPIs } from "./request-songs/song-aggregator/index.js";
+import requestSongs from "./request-songs/index.js";
 
 const index = async (req, res, next) => {
 	try {
