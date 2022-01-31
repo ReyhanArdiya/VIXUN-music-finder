@@ -59,6 +59,7 @@ app.use(
 app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
