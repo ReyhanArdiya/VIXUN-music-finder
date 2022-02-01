@@ -13,7 +13,7 @@ const addFavorite = async (req, res, next) => {
 	try {
 		const { id } = req.params;
 		const song = await Song.findById(id);
-		User.findByIdAndUpdate(
+		await User.findByIdAndUpdate(
 			req.user._id,
 			{ $addToSet : { favorites : song } },
 			{ new : true }
