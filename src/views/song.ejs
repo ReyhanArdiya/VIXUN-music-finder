@@ -1,5 +1,8 @@
 <% layout("boilerplate") %>
-<% block("stylesheets").append('<link rel="stylesheet" href="/song/styles/display-song.css"> <link rel="stylesheet" href="/song/styles/display-comments.css">') %>
+<% block("stylesheets").append(`
+<link rel="stylesheet" href="/common/styles/display-comments.css">
+<link rel="stylesheet" href="/song/styles/display-song.css">
+`) %>
 
 <main id="display-song">
     <div id="song-image">
