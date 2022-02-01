@@ -8,6 +8,17 @@ const renderHome = async (req, res) => {
 	res.render("user", { comments });
 };
 
-const userController = { renderHome };
+const addFavorite = async (req, res, next) => {
+	try {
+
+	} catch (err) {
+		next(err);
+	}
+};
+
+const userController = {
+	addFavorite,
+	renderHome,
+};
 
 export default userController;

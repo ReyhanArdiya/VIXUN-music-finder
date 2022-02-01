@@ -6,4 +6,6 @@ const userRouter = express.Router({ mergeParams : true });
 
 userRouter.get("/home", checkLogin, userController.renderHome);
 
+userRouter.post("/favorites", userController.addFavorite);
+
 export default userRouter;
