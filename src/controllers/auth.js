@@ -24,6 +24,7 @@ const registerUser = async (req, res, next) => {
 };
 
 const logout = (req, res) => {
+	delete req.session.lastVisited;
 	req.logout();
 	res.redirect("/");
 };
