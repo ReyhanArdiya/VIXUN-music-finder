@@ -51,21 +51,6 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Setup app middlewares
-// DBG
-app.use((req, res, next) => {
-	// req.user = {
-	// 	_id      : "61f78d7c2bd789f558fe9f4d",
-	// 	comments : [
-	// 	  "61f78d9b2bd789f558fe9f66",
-	// 	  "61f7a0ef3d139a84e3b16c73",
-	// 	  "61f7f9bc806c14c5264820f7"
-	// 	],
-	// 	email    : "meow@gmail.com",
-	// 	username : "meow",
-	// 	__v      : 0
-	// };
-	next();
-});
 app.use(
 	addLocalVariables,
 	requestLogger
