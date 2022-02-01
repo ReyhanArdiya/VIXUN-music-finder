@@ -79,3 +79,34 @@
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
 }
+
+/* #region -------------------USER COMMENTS---------------------------------------------- */
+
+#display-comments .title-card {
+	margin: 1em;
+}
+
+.comment-footer {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+
+.comment-song {
+	font-size: 1em;
+	width: 100%;
+	text-align: left;
+	padding-left: 1em;
+}
+
+.comment-song-title,
+.comment-song-artist {
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+}
+
+/* #endregion ================USER COMMENTS============================================== */

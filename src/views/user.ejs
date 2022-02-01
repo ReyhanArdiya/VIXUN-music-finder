@@ -26,11 +26,10 @@
             <article class="comment">
                 <p name="text" class="comment-text"><%= comment.text %></p>
                 <footer class="comment-footer">
-                    <small class="comment-username">
-                        <a href="/songs/<%= comment.song._id %>">
-                            At <%= comment.song.title %> by <%= comment.song.artist %>
-                        </a>
-                    </small>
+                    <a class="comment-song" href="/songs/<%= comment.song._id %>">
+                        At <span class="comment-song-title"><%= comment.song.title %></span> by <span
+                            class="comment-song-artist"><%= comment.song.artist %></span>
+                    </a>
                 </footer>
             </article>
             <% } %>
