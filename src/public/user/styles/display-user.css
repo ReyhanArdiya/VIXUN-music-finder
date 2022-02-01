@@ -7,14 +7,6 @@
 	row-gap: 1em;
 }
 
-#user-info {
-	width: 100%;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-}
-
 #user-image {
 	align-items: center;
 	border-radius: var(--border-radius-rounded);
@@ -27,11 +19,25 @@
 	width: 10em;
 	height: 10em;
 	object-fit: cover;
+	font-size: 1em;
+}
+
+#user-info {
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	row-gap: 1em;
+	font-size: 1em;
 }
 
 #user-name {
 	font: 700 1em "Mohave";
-	width: 80%;
+	width: 0;
+	padding-left: 7em;
+	padding-right: 7em;
+	margin: 0;
 }
 
 #user-logout {
@@ -41,7 +47,6 @@
 	box-shadow: var(--shadow-floating-box-bottom);
 	display: flex;
 	justify-content: center;
-	margin-bottom: 1em;
 }
 
 #user-logout button {
@@ -80,10 +85,36 @@
 	transition: opacity 0.05s linear;
 }
 
+@media screen and (min-width: 48em) {
+	#display-user {
+		margin-top: 1em;
+		display: grid;
+		grid-template-columns: 0.4fr 0.6fr;
+		grid-template-rows: 1fr;
+		grid-template-areas: "info comments";
+		justify-items: center;
+	}
+
+	#user-info {
+		grid-area: info;
+		font-size: 1.25em;
+	}
+
+	#display-comments {
+		grid-area: comments;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#user-info {
+		font-size: 1.5em;
+	}
+}
+
 /* #region -------------------USER COMMENTS---------------------------------------------- */
 
 #display-comments .title-card {
-	margin: 1em;
+	margin: 1em 0;
 }
 
 .comment-footer {
