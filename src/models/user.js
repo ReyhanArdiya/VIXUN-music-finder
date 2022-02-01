@@ -10,6 +10,10 @@ const UserSchema = new mongoose.Schema({
 		required : true,
 		type     : String
 	},
+	favorites : [ {
+		ref  : "Song",
+		type : mongoose.Schema.Types.ObjectId
+	} ]
 }, { strict : "throw" });
 
 UserSchema.plugin(passportLocalMongoose);
