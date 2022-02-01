@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e" pages="4">
     <diagram id="uLFDB3jMFWj2terXJaII" name="VIXUN Project Overview">
-        <mxGraphModel dx="1192" dy="488" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1500" math="0" shadow="0">
+        <mxGraphModel dx="961" dy="557" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1500" math="0" shadow="0">
             <root>
                 <mxCell id="Sb256ITBno5AKYBjaRAL-0"/>
                 <mxCell id="Sb256ITBno5AKYBjaRAL-1" parent="Sb256ITBno5AKYBjaRAL-0"/>
@@ -289,7 +289,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="loZqwnLk_X8yfYtqFvnL" name="User, Song and Comment Relationship">
-        <mxGraphModel dx="241" dy="279" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1200" math="0" shadow="0">
+        <mxGraphModel dx="721" dy="557" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1200" math="0" shadow="0">
             <root>
                 <mxCell id="U9EILpz2WZkMJyMOtOHr-0"/>
                 <mxCell id="U9EILpz2WZkMJyMOtOHr-1" parent="U9EILpz2WZkMJyMOtOHr-0"/>
@@ -301,6 +301,14 @@
                 </mxCell>
                 <mxCell id="6tTMgzzpXIoYuVFfyh31-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;startArrow=classic;startFill=1;strokeColor=#d6b656;strokeWidth=3;fillColor=#fff2cc;endFill=1;" parent="U9EILpz2WZkMJyMOtOHr-1" source="m1gJ2n22FvT4708-0E6_-1" target="6tTMgzzpXIoYuVFfyh31-0" edge="1">
                     <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="EsonEQ76HSLstR-2qv-h-0" style="edgeStyle=orthogonalEdgeStyle;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;rounded=0;strokeColor=#d6b656;startArrow=classic;startFill=1;endFill=0;strokeWidth=3;fillColor=#fff2cc;curved=1;endArrow=none;" edge="1" parent="U9EILpz2WZkMJyMOtOHr-1" source="m1gJ2n22FvT4708-0E6_-1" target="m1gJ2n22FvT4708-0E6_-0">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="324" y="194"/>
+                            <mxPoint x="876" y="194"/>
+                        </Array>
+                    </mxGeometry>
                 </mxCell>
                 <mxCell id="m1gJ2n22FvT4708-0E6_-1" value="Song" style="aspect=fixed;perimeter=ellipsePerimeter;html=1;align=center;shadow=0;dashed=0;spacingTop=3;image;image=img/lib/active_directory/database_cube.svg;fontFamily=Helvetica;" parent="U9EILpz2WZkMJyMOtOHr-1" vertex="1">
                     <mxGeometry x="279" y="306" width="89.1" height="99" as="geometry"/>
@@ -316,6 +324,9 @@
                 </mxCell>
                 <mxCell id="vtI7DBsEVDQMStPDaK1e-3" value="User only needs to know the comments&amp;nbsp;&lt;br&gt;they made so that we can render&lt;br&gt;it in their homepage. Comment also needs to know&lt;br&gt;who user is so that we can render&lt;br&gt;their name" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="U9EILpz2WZkMJyMOtOHr-1" vertex="1">
                     <mxGeometry x="736.05" y="454" width="280" height="72" as="geometry"/>
+                </mxCell>
+                <mxCell id="EsonEQ76HSLstR-2qv-h-1" value="User needs to know the songs the've favorited so&lt;br&gt;that we can render them in the home page" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="U9EILpz2WZkMJyMOtOHr-1">
+                    <mxGeometry x="606" y="144" width="272" height="31" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
