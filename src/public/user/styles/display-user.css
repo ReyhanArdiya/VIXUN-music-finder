@@ -1,0 +1,143 @@
+#display-user {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: column;
+	font-size: 1em;
+	row-gap: 1em;
+}
+
+#user-image {
+	align-items: center;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	user-select: none;
+	width: 10em;
+	height: 10em;
+	object-fit: cover;
+	font-size: 1em;
+}
+
+#user-info {
+	width: 100%;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	row-gap: 1em;
+	font-size: 1em;
+}
+
+#user-name {
+	font: 700 1em "Mohave";
+	width: 0;
+	padding-left: 7em;
+	padding-right: 7em;
+	margin: 0;
+}
+
+#user-logout {
+	align-items: center;
+	background: var(--gradient-purple-red);
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	display: flex;
+	justify-content: center;
+}
+
+#user-logout button {
+	border: none;
+	outline: none;
+	padding: 0.75em;
+	font: 700 1.5em "Quicksand";
+	background: none;
+	color: white;
+}
+
+/* user logout button overlay on hover/active */
+#user-logout button {
+	cursor: pointer;
+	position: relative;
+}
+
+#user-logout button::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	background-color: black;
+	transition: opacity 0.25s linear;
+}
+
+#user-logout button:hover::before {
+	opacity: 0.2;
+}
+
+#user-logout button:active::before {
+	opacity: 0.4;
+	transition: opacity 0.05s linear;
+}
+
+@media screen and (min-width: 48em) {
+	#display-user {
+		margin-top: 1em;
+		display: grid;
+		grid-template-columns: 0.4fr 0.6fr;
+		grid-template-rows: 1fr;
+		grid-template-areas: "info comments";
+		justify-items: center;
+	}
+
+	#user-info {
+		grid-area: info;
+		font-size: 1.25em;
+	}
+
+	#display-comments {
+		grid-area: comments;
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#user-info {
+		font-size: 1.5em;
+	}
+}
+
+/* #region -------------------USER COMMENTS---------------------------------------------- */
+
+#display-comments .title-card {
+	margin: 1em 0;
+}
+
+.comment-footer {
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	padding: 0;
+}
+
+.comment-song {
+	font-size: 1em;
+	width: 100%;
+	text-align: left;
+	padding-left: 1em;
+}
+
+.comment-song-title,
+.comment-song-artist {
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+}
+
+/* #endregion ================USER COMMENTS============================================== */

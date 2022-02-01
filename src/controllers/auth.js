@@ -24,12 +24,22 @@ const registerUser = async (req, res, next) => {
 };
 
 const logout = (req, res) => {
+	delete req.session.lastVisited;
 	req.logout();
 	res.redirect("/");
 };
 
 const sendCurrentUser = (req, res) => {
-	res.send(req.user || false);
+	if (!req.user) {
+		res.send(false);
+	} else {
+		const { _id, username, email } = req.user;
+		res.send({
+			_id,
+			email,
+			username,
+		});
+	}
 };
 
 const authController = {

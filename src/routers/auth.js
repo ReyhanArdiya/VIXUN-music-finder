@@ -23,7 +23,6 @@ authRouter.route("/login")
 		goToLastVisited
 	);
 
-// TODO Add the logout button on the user's homepage
 authRouter.post("/logout", authController.logout);
 
 export default authRouter;

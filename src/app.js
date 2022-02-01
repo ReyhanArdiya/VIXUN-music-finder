@@ -10,6 +10,7 @@ import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
 import songsRouter from "./routers/songs.js";
+import userRouter from "./routers/user.js";
 import { addLocalVariables, requestLogger } from "./utils/middleware.js";
 import { dirname, join } from "path";
 
@@ -59,6 +60,7 @@ app.use(
 app.use("/", homeRouter);
 app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {

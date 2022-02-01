@@ -12,7 +12,7 @@ export const addLastVisitedToSes = (req, res, next) => {
 };
 
 export const goToLastVisited = (req, res) => {
-	res.redirect(req.session.lastVisited);
+	res.redirect(req.session.lastVisited || "/");
 	delete req.session.lastVisited;
 };
 
@@ -26,6 +26,6 @@ export const requestLogger = (req, res, next) => {
 	const log =
         "🌟 You got a new request! ( 🌸≧◡≦)~💌 \\(￣▽￣* )ゞ 🌟" +
         `⌚ ${date.toLocaleString()} ⌚`;
-	console.log(log, req.session.lastVisited);
+	console.log(log);
 	next();
 };
