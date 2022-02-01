@@ -3,6 +3,17 @@
 <link rel="stylesheet" href="/user/styles/display-user.css">
 `) %>
 
+<main id="display-user">
+    <img id="user-image" src="http://placekitten.com/200/300" alt="">
+    <section id="user-info">
+        <div id="user-name" class="title-card">
+            <h2><%= user.username %></h2>
+        </div>
 
+        <form id="user-logout" action="/auth/logout" method="post">
+            <button>Logout</button>
+        </form>
+    </section>
+</main>
 
 <% block("scripts").append(``) %>
