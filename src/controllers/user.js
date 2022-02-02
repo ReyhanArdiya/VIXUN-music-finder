@@ -21,9 +21,22 @@ const addFavorite = async (req, res, next) => {
 		const song = await Song.findById(id);
 		await User.findByIdAndUpdate(
 			req.user._id,
-			{ $addToSet : { favorites : song } },
-			{ new : true }
+			{ $addToSet : { favorites : song } }
 		);
+		res.end();
+	} catch (err) {
+		next(err);
+	}
+};
+
+const deleteFavorite = async (req, res, next) => {
+	try {
+		const { id } = req.params;
+		console.log(await User.findByIdAndUpdate(
+			req.user._id,
+			{ $pull : { favorites : id } },
+			{ new : true }
+		));
 		res.end();
 	} catch (err) {
 		next(err);
@@ -32,6 +45,7 @@ const addFavorite = async (req, res, next) => {
 
 const userController = {
 	addFavorite,
+	deleteFavorite,
 	renderHome,
 };
 
