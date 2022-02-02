@@ -16,6 +16,15 @@
         </form>
     </section>
 
+    <section id="display-favorites">
+        <h2>FAVORITES</h2>
+        <section id="display-favorites-list">
+            <% for (const song of favorites) { %>
+            <p><a href="/songs/<%= song._id %> "><%= song.title %> <%= song.album %> <%= song.artist %></a></p>
+            <% } %>
+        </section>
+    </section>
+
     <section id="display-comments">
         <div class="title-card">
             <h2>COMMENTS</h2>
