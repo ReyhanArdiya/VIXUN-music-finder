@@ -13,7 +13,7 @@ songsRouter.get("/top", songsController.sendTopHits);
 
 songsRouter.use("/:id/comments", checkLogin, commentsRouter);
 
-songsRouter.use("/:id/favorite", checkLogin, favoriteRouter);
+songsRouter.use("/:id/favorite", favoriteRouter);
 
 songsRouter.get("/:id", addLastVisitedToSes, songsController.getASong);
 
