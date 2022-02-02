@@ -49,6 +49,12 @@ share.addEventListener("click", async function() {
 	navigator.share({ url });
 });
 
+// Favorite button logic
+const fav = document.getElementById("favorite");
+fav.addEventListener("click", async function() {
+	axios.post(`${window.location.pathname}/favorite`);
+});
+
 let currentUser;
 
 // Comment form logic

@@ -15,7 +15,7 @@ const CommentSchema = new mongoose.Schema({
 	song : {
 		ref      : "Song",
 		required : true,
-		type     : mongoose.Types.ObjectId,
+		type     : mongoose.Schema.Types.ObjectId,
 	},
 	text : {
 		required : true,
@@ -24,7 +24,7 @@ const CommentSchema = new mongoose.Schema({
 	user : {
 		ref      : "User",
 		required : true,
-		type     : mongoose.Types.ObjectId
+		type     : mongoose.Schema.Types.ObjectId
 	},
 }, { strict : "throw" });
 

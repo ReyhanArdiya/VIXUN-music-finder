@@ -51,7 +51,7 @@ const SongSchema = new mongoose.Schema({
 	artistImage : String,
 	comments    : [ {
 		ref  : "Comment",
-		type : mongoose.Types.ObjectId
+		type : mongoose.Schema.Types.ObjectId
 	} ],
 
 	/*  CMT I could make this as an array of externals instead and have each

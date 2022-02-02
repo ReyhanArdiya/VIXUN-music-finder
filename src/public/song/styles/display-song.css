@@ -269,13 +269,32 @@
 	width: 100%;
 }
 
-/* back button overlay on hover/active */
-#display-song-buttons button {
+#favorite {
+	position: relative;
+}
+
+#favorite:disabled {
+	background: var(--semantic-gray-medium);
+}
+
+#favorite:disabled::before {
+	content: "";
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border-radius: inherit;
+	background: inherit;
+	opacity: 0.5;
+	z-index: 2;
+}
+
+/* song buttons overlay on hover/active */
+#display-song-buttons button:not(:disabled) {
 	cursor: pointer;
 	position: relative;
 }
 
-#display-song-buttons button::before {
+#display-song-buttons button:not(:disabled)::before {
 	border-radius: inherit;
 	content: "";
 	width: 100%;
@@ -288,11 +307,11 @@
 	transition: opacity 0.25s linear;
 }
 
-#display-song-buttons button:hover::before {
+#display-song-buttons button:not(:disabled):hover::before {
 	opacity: 0.2;
 }
 
-#display-song-buttons button:active::before {
+#display-song-buttons button:not(:disabled):active::before {
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
 }

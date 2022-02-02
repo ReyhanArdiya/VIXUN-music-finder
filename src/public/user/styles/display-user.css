@@ -85,36 +85,69 @@
 	transition: opacity 0.05s linear;
 }
 
-@media screen and (min-width: 48em) {
-	#display-user {
-		margin-top: 1em;
-		display: grid;
-		grid-template-columns: 0.4fr 0.6fr;
-		grid-template-rows: 1fr;
-		grid-template-areas: "info comments";
-		justify-items: center;
-	}
+/* #region -------------------USER FAVORITES---------------------------------------------- */
 
-	#user-info {
-		grid-area: info;
-		font-size: 1.25em;
-	}
-
-	#display-comments {
-		grid-area: comments;
-	}
+#display-favorites {
+	margin-top: 1em;
+	display: flex;
+	font: 1em "Quicksand";
+	text-align: center;
+	width: 80%;
+	height: max-content;
+	border-radius: var(--border-radius-rounded);
+	box-shadow: var(--shadow-floating-box-bottom);
+	flex-direction: column;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
+	background: white;
 }
 
-@media screen and (min-width: 90em) {
-	#user-info {
-		font-size: 1.5em;
-	}
+#display-favorites h2 {
+	background: var(--gradient-purple-red);
+	border-radius: inherit;
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	border-bottom: 0.1em solid var(--primary-pale-black);
+	color: white;
+	font: 700 1.75em "Quicksand";
+	grid-area: artist;
+	padding: 0.25em 0;
+	width: 100%;
 }
+
+#display-favorites-list {
+	display: flex;
+	font-size: 1em;
+	flex-direction: column;
+	row-gap: 0.5em;
+	padding-bottom: 0.25em;
+	overflow-x: scroll;
+	height: 30vh;
+	max-height: 130px;
+}
+
+#display-favorites-list p {
+	background: var(--gradient-purple-red);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	color: transparent;
+	font-weight: 700;
+	grid-area: title;
+	font-size: 1em;
+}
+
+/* #endregion ================USER FAVORITES============================================== */
 
 /* #region -------------------USER COMMENTS---------------------------------------------- */
 
 #display-comments .title-card {
 	margin: 1em 0;
+	padding: 0.5em;
+}
+
+#display-comments .title-card h2 {
+	font-size: 1.25em;
 }
 
 .comment-footer {
@@ -141,3 +174,46 @@
 }
 
 /* #endregion ================USER COMMENTS============================================== */
+
+@media screen and (min-width: 48em) {
+	#display-user {
+		margin-top: 1em;
+		display: grid;
+		grid-template-columns: 0.4fr 0.6fr;
+		grid-template-rows: 1fr;
+		grid-template-areas:
+			"info favorites"
+			"info comments";
+		justify-items: center;
+	}
+
+	#user-info {
+		grid-area: info;
+		font-size: 1.25em;
+	}
+
+	#display-favorites {
+		grid-area: favorites;
+		font-size: 1.25em;
+	}
+
+	#display-comments {
+		grid-area: comments;
+	}
+
+	#display-comments-render {
+		height: calc(
+			(var(--comment-height) + var(--top-bottom-space) * 2) * 0.825
+		);
+	}
+}
+
+@media screen and (min-width: 90em) {
+	#user-info {
+		font-size: 1.5em;
+	}
+
+	#display-favorites {
+		font-size: 1.5em;
+	}
+}
