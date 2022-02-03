@@ -32,12 +32,22 @@ const addFavorite = async (req, res, next) => {
 const deleteFavorite = async (req, res, next) => {
 	try {
 		const { id } = req.params;
-		console.log(await User.findByIdAndUpdate(
+		await User.findByIdAndUpdate(
 			req.user._id,
 			{ $pull : { favorites : id } },
 			{ new : true }
-		));
+		);
 		res.end();
+	} catch (err) {
+		next(err);
+	}
+};
+
+const deleteUser = async (req, res, next) => {
+	try {
+		await User.findByIdAndDelete(req.user._id);
+		// TODO flash message here later
+		res.redirect("/");
 	} catch (err) {
 		next(err);
 	}
@@ -46,7 +56,8 @@ const deleteFavorite = async (req, res, next) => {
 const userController = {
 	addFavorite,
 	deleteFavorite,
-	renderHome,
+	deleteUser,
+	renderHome
 };
 
 export default userController;
