@@ -39,6 +39,17 @@ CommentSchema.post("save", async function(comment) {
 	);
 });
 
+CommentSchema.post("findOneAndDelete", async function(comment) {
+	await Song.findByIdAndUpdate(
+		comment.song._id,
+		{ $pull : { comments : comment._id } }
+	);
+	await User.findByIdAndUpdate(
+		comment.user._id,
+		{ $pull : { comments : comment._id } }
+	);
+});
+
 class CommentSchemaMethods {}
 CommentSchema.loadClass(CommentSchemaMethods);
 
