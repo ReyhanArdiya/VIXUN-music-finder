@@ -15,6 +15,13 @@ songsRouter.use("/:id/comments", checkLogin, commentsRouter);
 
 songsRouter.use("/:id/favorite", favoriteRouter);
 
-songsRouter.get("/:id", addLastVisitedToSes, songsController.getASong);
+songsRouter.route("/:id")
+	.get(addLastVisitedToSes, songsController.getASong)
+
+/*
+DELETE http://localhost:9000/songs/61eeb4fa6b7fdaedb9d5da3e
+*/
+// TODO add is admin checker here
+	.delete(songsController.deleteSong);
 
 export default songsRouter;

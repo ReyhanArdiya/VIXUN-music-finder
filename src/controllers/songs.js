@@ -48,7 +48,17 @@ const getASong = async (req, res, next) => {
 	}
 };
 
+const deleteSong = async (req, res, next) => {
+	try {
+		await Song.findByIdAndDelete(req.params.id);
+		res.end();
+	} catch (err) {
+		next(err);
+	}
+};
+
 const songsController = {
+	deleteSong,
 	getASong,
 	index,
 	sendTopHits
