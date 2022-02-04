@@ -4,9 +4,10 @@ import userController from "../controllers/user.js";
 
 const userRouter = express.Router({ mergeParams : true });
 
-// TODO add checklogin here later after testing and implemented the client's button
+userRouter.use(checkLogin);
+
 userRouter.delete("/", userController.deleteUser);
 
-userRouter.get("/home", checkLogin, userController.renderHome);
+userRouter.get("/home", userController.renderHome);
 
 export default userRouter;

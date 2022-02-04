@@ -1,6 +1,15 @@
 import Comment from "../models/comment.js";
 import Song from "../models/song.js";
 
+const isSameUser = async (req, res, next) => {
+	try {
+		const comment = await Comment.findById(req.params.commentId);
+		comment.user.equals(req.user._id) ? next() : res.redirect("/auth/login");
+	} catch (err) {
+		next(err);
+	}
+};
+
 const createComment = async (req, res, next) => {
 	try {
 		const { text = "" } = req.body;
@@ -42,6 +51,7 @@ const updateComment = async (req, res, next) => {
 const commentsController = {
 	createComment,
 	deleteComment,
+	isSameUser,
 	updateComment
 };
 
