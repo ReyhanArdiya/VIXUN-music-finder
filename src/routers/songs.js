@@ -18,7 +18,7 @@ songsRouter.use("/:id/favorite", favoriteRouter);
 songsRouter.route("/:id")
 	.get(addLastVisitedToSes, songsController.getASong)
 	.delete(
-		// TODO add is admin checker here
+		songsController.isAdmin,
 		songsController.deleteSong
 	);
 
