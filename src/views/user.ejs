@@ -6,14 +6,12 @@
 
 <main id="display-user">
     <section id="user-info">
-        <img id="user-image" src="http://placekitten.com/200/300" alt="">
+        <img id="user-image" src="<%= user.profile.path.replace("/upload", "/upload/w_250") %>" alt="">
         <div id="user-name" class="title-card">
             <h2><%= user.username %></h2>
         </div>
-        <!-- TODO do ajax later -->
-        <!-- TODO i think imma make this a hidden field or sumn like song playback -->
-        <form action="/user/profile" enctype="multipart/form-data" method="post">
-            <input type="file" name="img" id="img">
+        <form action="/user/profile" enctype="multipart/form-data" method="post" id="form-profile">
+            <input type="file" name="img" id="form-profile-input">
             <button>submit</button>
         </form>
         <form id="user-logout" action="/auth/logout" method="post">
@@ -85,4 +83,6 @@
     </section>
 </main>
 
-<% block("scripts").append(``) %>
+<% block("scripts").append(`
+<script src="/user/scripts/profile.js"></script>
+`) %>

@@ -85,6 +85,12 @@
 	transition: opacity 0.05s linear;
 }
 
+#form-profile {
+	display: none;
+}
+
+/* TODO add user delete */
+
 /* #region -------------------USER FAVORITES---------------------------------------------- */
 
 #display-favorites {
