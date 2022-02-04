@@ -288,6 +288,10 @@
 	z-index: 2;
 }
 
+#favorite.added {
+	background: linear-gradient(90deg, #74ffa6 0%, #beff53 99.99%);
+}
+
 /* song buttons overlay on hover/active */
 #display-song-buttons button:not(:disabled) {
 	cursor: pointer;

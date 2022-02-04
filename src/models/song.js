@@ -1,5 +1,7 @@
 /*  eslint-disable jsdoc/require-returns-description*/
+import Comment from "./comment.js";
 import mongoose from "mongoose";
+import User from "./user.js";
 
 // eslint-disable-next-line
 const nothingFound = (field, fieldArg, caseSensitive) => {
@@ -87,6 +89,17 @@ const SongSchema = new mongoose.Schema({
 	},
 }, { strict : "throw" });
 
+
+SongSchema.post("findOneAndDelete", async function(song) {
+	for (const comment of song.comments) {
+		await Comment.findByIdAndDelete(comment);
+	}
+
+	const usersFaved = await User.find({ favorites : { $in : [ song._id ] } });
+	for (const user of usersFaved) {
+		await user.update({ $pull : { favorites : song._id } });
+	}
+});
 
 /**
  * Returns a string array from splitting `str` in half.

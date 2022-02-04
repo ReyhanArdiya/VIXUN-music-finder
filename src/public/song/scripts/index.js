@@ -1,3 +1,4 @@
+import buttonFavorite from "./favorite.js";
 import core from "../../common/scripts/index.js";
 import displayComments from "./comments.js";
 import navbarMain from "../../common/scripts/navbar-main.js";
@@ -50,10 +51,21 @@ share.addEventListener("click", async function() {
 });
 
 // Favorite button logic
-const fav = document.getElementById("favorite");
-fav.addEventListener("click", async function() {
-	axios.post(`${window.location.pathname}/favorite`);
-});
+const { el, } = buttonFavorite;
+const addAndDeleteSwitcheroo = () => {
+	let isAdded = el.classList.contains("added");
+
+	return async function() {
+		if (isAdded) {
+			await buttonFavorite.deleteFavorite();
+			isAdded = false;
+		} else {
+			await buttonFavorite.addFavorite();
+			isAdded = true;
+		}
+	};
+};
+el.addEventListener("click", addAndDeleteSwitcheroo());
 
 let currentUser;
 

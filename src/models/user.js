@@ -1,3 +1,4 @@
+import Comment from "./comment.js";
 import mongoose from "mongoose";
 import passportLocalMongoose from "passport-local-mongoose";
 
@@ -18,8 +19,11 @@ const UserSchema = new mongoose.Schema({
 
 UserSchema.plugin(passportLocalMongoose);
 
-class UserSchemaMethods {}
-UserSchema.loadClass(UserSchemaMethods);
+UserSchema.post("findOneAndDelete", async function(user) {
+	for (const comment of user.comments) {
+		await Comment.findByIdAndDelete(comment);
+	}
+});
 
 const User = mongoose.model("User", UserSchema);
 

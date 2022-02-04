@@ -4,6 +4,10 @@ import userController from "../controllers/user.js";
 
 const userRouter = express.Router({ mergeParams : true });
 
-userRouter.get("/home", checkLogin, userController.renderHome);
+userRouter.use(checkLogin);
+
+userRouter.delete("/", userController.deleteUser);
+
+userRouter.get("/home", userController.renderHome);
 
 export default userRouter;

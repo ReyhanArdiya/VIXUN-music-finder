@@ -48,9 +48,28 @@ const getASong = async (req, res, next) => {
 	}
 };
 
+const isAdmin = async (req, res, next) => {
+	try {
+		req.user?.isAdmin ? next() : res.redirect("/auth/login");
+	} catch (err) {
+		next(err);
+	}
+};
+
+const deleteSong = async (req, res, next) => {
+	try {
+		await Song.findByIdAndDelete(req.params.id);
+		res.end();
+	} catch (err) {
+		next(err);
+	}
+};
+
 const songsController = {
+	deleteSong,
 	getASong,
 	index,
+	isAdmin,
 	sendTopHits
 };
 

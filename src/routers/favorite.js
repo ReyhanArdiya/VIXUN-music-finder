@@ -8,4 +8,6 @@ favoriteRouter.use(checkLogin);
 
 favoriteRouter.post("/", userController.addFavorite);
 
+favoriteRouter.delete("/", userController.deleteFavorite);
+
 export default favoriteRouter;
