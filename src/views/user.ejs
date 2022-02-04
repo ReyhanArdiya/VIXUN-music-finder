@@ -10,7 +10,12 @@
         <div id="user-name" class="title-card">
             <h2><%= user.username %></h2>
         </div>
-
+        <!-- TODO do ajax later -->
+        <!-- TODO i think imma make this a hidden field or sumn like song playback -->
+        <form action="/user/profile" enctype="multipart/form-data" method="post">
+            <input type="file" name="img" id="img">
+            <button>submit</button>
+        </form>
         <form id="user-logout" action="/auth/logout" method="post">
             <button>Logout</button>
         </form>

@@ -14,7 +14,17 @@ const UserSchema = new mongoose.Schema({
 	favorites : [ {
 		ref  : "Song",
 		type : mongoose.Schema.Types.ObjectId
-	} ]
+	} ],
+	profile : {
+		filename : {
+			required : true,
+			type     : String
+		},
+		path : {
+			required : true,
+			type     : String
+		}
+	}
 }, { strict : "throw" });
 
 UserSchema.plugin(passportLocalMongoose);
