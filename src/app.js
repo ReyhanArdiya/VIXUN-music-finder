@@ -1,4 +1,4 @@
-import "./utils/load-env.js";
+import "dotenv/config";
 import User from "./models/user.js";
 import authRouter from "./routers/auth.js";
 import ejsEngine from "ejs-mate";
