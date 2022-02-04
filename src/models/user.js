@@ -16,14 +16,12 @@ const UserSchema = new mongoose.Schema({
 		type : mongoose.Schema.Types.ObjectId
 	} ],
 	profile : {
-		filename : {
-			required : true,
-			type     : String
-		},
-		path : {
-			required : true,
-			type     : String
+		filename : String,
+		path     : {
+			default : "http://placekitten.com/250/250",
+			type    : String
 		}
+
 	}
 }, { strict : "throw" });
 
