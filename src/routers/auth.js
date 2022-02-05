@@ -18,7 +18,11 @@ authRouter.route("/login")
 	.post(
 		passport.authenticate(
 			"local",
-			{ failureRedirect : "/auth/login" }
+			{
+				failureFlash    : true,
+				failureRedirect : "/auth/login",
+				successFlash    : true
+			}
 		),
 		goToLastVisited
 	);

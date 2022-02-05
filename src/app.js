@@ -2,6 +2,7 @@ import "dotenv/config";
 import User from "./models/user.js";
 import authRouter from "./routers/auth.js";
 import ejsEngine from "ejs-mate";
+import errHandlers from "./utils/error-handlers.js";
 import express from "express";
 import { fileURLToPath } from "url";
 import flash from "connect-flash";
@@ -65,18 +66,12 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
 // Error handlers
-app.all("*", (req, res) => {
-	res.status(404).send("404 Not found :(");
-});
+app.all("*", errHandlers.handleNotFound);
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-	const {
-		status = 500,
-		message = "Something went wrong :("
-	} = err;
-	res.status(status).send(message);
-});
+app.use(
+	errHandlers.handleSameUser,
+	errHandlers.handleAnyError
+);
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 
