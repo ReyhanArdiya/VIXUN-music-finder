@@ -6,7 +6,9 @@
 
 <main id="display-user">
     <section id="user-info">
-        <img id="user-image" src="<%= user.profile.path.replace("/upload", "/upload/w_250") %>" alt="">
+        <div id="user-image">
+            <img src="<%= user.profile.path.replace("/upload", "/upload/w_250") %>" alt="">
+        </div>
         <div id="user-name" class="title-card">
             <h2><%= user.username %></h2>
         </div>

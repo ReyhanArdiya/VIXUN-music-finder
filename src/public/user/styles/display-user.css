@@ -22,6 +22,19 @@
 	font-size: 1em;
 }
 
+#user-image img {
+	width: 100%;
+	height: 100%;
+	border-radius: inherit;
+}
+
+#user-image svg {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+}
+
 #user-info {
 	width: 100%;
 	align-items: center;
