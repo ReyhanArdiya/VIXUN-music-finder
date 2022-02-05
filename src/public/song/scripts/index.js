@@ -89,8 +89,13 @@ if (element) {
 				render.container.querySelector(".comment:last-of-type")
 			             .scrollIntoView(false);
 			} catch (err) {
-				// TODO flash a message here or popup or something instead
-				alert("Something went wrong :(");
+				// eslint-disable-next-line no-undef
+				Swal.fire({
+					confirmButtonText : "Okay",
+					icon              : "error",
+					text              : "Something went wrong! Try refreshing the page!",
+					title             : "Error!",
+				});
 			}
 		}
 	);
