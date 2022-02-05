@@ -4,6 +4,7 @@ import authRouter from "./routers/auth.js";
 import ejsEngine from "ejs-mate";
 import express from "express";
 import { fileURLToPath } from "url";
+import flash from "connect-flash";
 import homeRouter from "./routers/home.js";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
@@ -41,6 +42,7 @@ app.use(session({
 	secret            : process.env.SESSION_SECRET,
 }));
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // Passport stuff
 app.use(passport.initialize());
