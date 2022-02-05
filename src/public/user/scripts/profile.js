@@ -22,7 +22,6 @@ profileFormInput.addEventListener("change", async function() {
 	);
 
 	try {
-		// TODO do image file extension client validation
 		if (profileFormInput.files[0].size > 1_000_000) {
 			// eslint-disable-next-line no-undef
 			Swal.fire({
@@ -31,6 +30,8 @@ profileFormInput.addEventListener("change", async function() {
 				text              : "Image can't be larger than 1mb!",
 				title             : "Too Big!",
 			});
+		} else if (!profileFormInput.files[0].type.match(/^image\/(jpg|jpeg|png)$/)) {
+			throw new Error("File must be an image!");
 		} else if (profileFormInput.files.length) {
 			const imageData = new FormData();
 			imageData.append("img", profileFormInput.files[0]);
@@ -52,8 +53,8 @@ profileFormInput.addEventListener("change", async function() {
 		Swal.fire({
 			confirmButtonText : "Okay",
 			icon              : "error",
-			text              : "File must be an image!",
-			title             : "Wrong Type!",
+			text              : err.message,
+			title             : "Error!",
 		});
 	}
 
