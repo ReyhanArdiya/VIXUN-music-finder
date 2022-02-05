@@ -75,7 +75,7 @@ const appendSongs = async (q = "") => {
 			progressBar.destroy();
 			removeAllCards();
 
-			if (res.data.length) {
+			if (res.data && res.data.length) {
 				displayBrowse.songCard.addCards(res.data);
 				displayBrowse.songCard.info.observeOverflow(false, 0.8);
 			} else {

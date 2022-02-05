@@ -50,9 +50,6 @@ CommentSchema.post("findOneAndDelete", async function(comment) {
 	);
 });
 
-class CommentSchemaMethods {}
-CommentSchema.loadClass(CommentSchemaMethods);
-
 const Comment = mongoose.model("Comment", CommentSchema);
 
 export default Comment;
