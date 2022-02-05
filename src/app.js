@@ -62,9 +62,18 @@ app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
+// Error handlers
+app.all("*", (req, res) => {
+	res.status(404).send("404 Not found :(");
+});
+
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-	res.status(500).send(err.message);
+	const {
+		status = 500,
+		message = "Something went wrong :("
+	} = err;
+	res.status(status).send(message);
 });
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
