@@ -2,7 +2,6 @@ import { CloudinaryStorage } from "multer-storage-cloudinary";
 import { v2 as cloudinary } from "cloudinary";
 import multer from "multer";
 
-console.log(process.env.CLOUDINARY_API_KEY);
 cloudinary.config({
 	"api_key"    : process.env.CLOUDINARY_API_KEY,
 	"api_secret" : process.env.CLOUDINARY_API_SECRET,
