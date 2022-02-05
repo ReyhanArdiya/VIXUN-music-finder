@@ -296,8 +296,6 @@ class SongSchemaMethods {
 	 * ```
 	 */
 	static async findByLinksAvailability(option) {
-
-		// TODO gotta refactor this too since i moved the links to externals :D
 		// eslint-disable-next-line
 		option.toString = function() {
 		   return `{deezer : ${this.deezer}, spotify : ${this.spotify}`;
