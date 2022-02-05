@@ -51,7 +51,7 @@ share.addEventListener("click", async function() {
 });
 
 // Favorite button logic
-const { el, } = buttonFavorite;
+const { el } = buttonFavorite;
 const addAndDeleteSwitcheroo = () => {
 	let isAdded = el.classList.contains("added");
 
@@ -65,7 +65,12 @@ const addAndDeleteSwitcheroo = () => {
 		}
 	};
 };
-el.addEventListener("click", addAndDeleteSwitcheroo());
+
+el.addEventListener(
+	"click",
+	el.disabled ? buttonFavorite.notLoggedIn : addAndDeleteSwitcheroo()
+);
+
 
 let currentUser;
 
