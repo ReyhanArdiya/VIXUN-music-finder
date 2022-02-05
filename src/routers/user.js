@@ -9,8 +9,8 @@ userRouter.use(checkLogin);
 
 userRouter.post(
 	"/profile",
-	userController.deleteProfilePicture,
 	imageParser.single("img"),
+	userController.deleteProfilePicture,
 	userController.uploadProfilePicture
 );
 
