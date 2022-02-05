@@ -3,6 +3,9 @@
 
     <head>
         <%- include("partials/head") %>
+        <% if (err && err.length) { %>
+        <link rel="stylesheet" href="/common/styles/swal.css">
+        <% } %>
         <%- block("stylesheets").toString() %>
     </head>
 
@@ -15,16 +18,17 @@
 
         <%- body %>
 
+        <!-- PAGE FOOTER -->
+        <%- include("partials/page-footer") %>
+
         <% if (err && err.length) { %>
         <p id="error-text" style="display: none;"><%= err[0] %></p>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/common/scripts/swal-error.js" type="module"></script>
         <% } %>
 
-        <!-- PAGE FOOTER -->
-        <%- include("partials/page-footer") %>
         <script src="/common/scripts/vendor/progressbar.min.js" defer></script>
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script src="/common/scripts/navbar-main.js" type="module"></script>
         <%- block("scripts").toString() %>
     </body>
