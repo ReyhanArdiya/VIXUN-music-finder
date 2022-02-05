@@ -15,6 +15,11 @@
 
         <%- body %>
 
+        <% if (err.length) { %>
+        <p id="error-text" style="display: none;"><%= err[0] %></p>
+        <script src="/common/scripts/swal-error.js" type="module"></script>
+        <% } %>
+
         <!-- PAGE FOOTER -->
         <%- include("partials/page-footer") %>
         <script src="/common/scripts/vendor/progressbar.min.js" defer></script>
