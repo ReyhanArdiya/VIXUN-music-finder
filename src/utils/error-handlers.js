@@ -1,6 +1,7 @@
 /*  eslint-disable no-unused-vars */
 const handleNotFound = (req, res) => {
-	res.status(404).send("404 Not found :(");
+	req.flash("error", "Not found :(");
+	res.status(404).redirect("/");
 };
 
 const handleSameUser = (err, req, res, next) => {

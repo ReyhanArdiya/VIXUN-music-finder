@@ -6,7 +6,8 @@ const renderRegister = (req, res) => {
 };
 
 const renderLogin = (req, res) => {
-	res.render("auth/login");
+	const err = req.flash("error");
+	res.render("auth/login", { err });
 };
 
 const registerUser = async (req, res, next) => {

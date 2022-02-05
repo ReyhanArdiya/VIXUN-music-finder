@@ -41,7 +41,11 @@ const getASong = async (req, res, next) => {
 		if (accept === "application/json") {
 			res.send(song);
 		} else {
-			res.render("song", { song });
+			const err = req.flash("error");
+			res.render("song", {
+				err,
+				song
+			});
 		}
 	} catch (err) {
 		next(err);

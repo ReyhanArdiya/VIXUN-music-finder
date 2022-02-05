@@ -15,7 +15,7 @@
 
         <%- body %>
 
-        <% if (err.length) { %>
+        <% if (err && err.length) { %>
         <p id="error-text" style="display: none;"><%= err[0] %></p>
         <script src="/common/scripts/swal-error.js" type="module"></script>
         <% } %>
