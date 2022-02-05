@@ -1,7 +1,10 @@
+import { goToLastVisited } from "./middleware.js";
+
 /*  eslint-disable no-unused-vars */
 const handleNotFound = (req, res) => {
 	req.flash("error", "Not found :(");
-	res.status(404).redirect("/");
+	res.status(404);
+	goToLastVisited(req, res);
 };
 
 const handleSameUser = (err, req, res, next) => {
