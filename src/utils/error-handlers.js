@@ -13,6 +13,17 @@ const handleSameUser = (err, req, res, next) => {
 	}
 };
 
+const handleCastError = (err, req, res, next) => {
+	if (err.name === "CastError") {
+		// TODO should i just make the req.flash error thingy its own middlware that runs before all other ones
+		// Since it seems that every err h andler uses them
+		req.flash("error", "Song not found :(");
+		res.redirect("/");
+	} else {
+		next(err);
+	}
+};
+
 const handleAnyError = (err, req, res, next) => {
 	const {
 		status = 500,
@@ -23,6 +34,7 @@ const handleAnyError = (err, req, res, next) => {
 
 const errHandlers = {
 	handleAnyError,
+	handleCastError,
 	handleNotFound,
 	handleSameUser,
 };
