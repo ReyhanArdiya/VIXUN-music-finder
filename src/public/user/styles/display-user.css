@@ -47,10 +47,22 @@
 
 #user-name {
 	font: 700 1em "Mohave";
-	width: 0;
-	padding-left: 7em;
-	padding-right: 7em;
+	width: max-content;
+	max-width: 14em;
+	overflow-y: auto;
+	padding-left: 1em;
+	padding-right: 1em;
 	margin: 0;
+}
+
+#user-name::-webkit-scrollbar {
+	display: none;
+}
+
+#user-name h2 {
+	width: 100%;
+	height: 100%;
+	text-align: center;
 }
 
 #user-buttons {
