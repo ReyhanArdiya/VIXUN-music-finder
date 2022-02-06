@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
 		ref  : "Song",
 		type : mongoose.Schema.Types.ObjectId
 	} ],
+	isAdmin : Boolean,
 	profile : {
 		filename : String,
 		path     : {
