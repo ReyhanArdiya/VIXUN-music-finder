@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
 	}
 }, { strict : "throw" });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, { usernameQueryFields : [ "email" ] });
 
 UserSchema.post("findOneAndDelete", async function(user) {
 	for (const comment of user.comments) {
