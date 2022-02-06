@@ -320,6 +320,11 @@
 	transition: opacity 0.05s linear;
 }
 
+#form-delete-song {
+	position: fixed;
+	z-index: 20;
+}
+
 /* #endregion ================SONG BUTTONS==================================== */
 
 /* #region -------------------SONG CIRCLE DECORATIONS------------------------ */

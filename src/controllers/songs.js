@@ -71,7 +71,7 @@ const isAdmin = async (req, res, next) => {
 const deleteSong = async (req, res, next) => {
 	try {
 		await Song.findByIdAndDelete(req.params.id);
-		res.end();
+		res.redirect("/");
 	} catch (err) {
 		next(err);
 	}

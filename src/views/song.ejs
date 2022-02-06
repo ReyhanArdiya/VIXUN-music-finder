@@ -4,6 +4,12 @@
 <link rel="stylesheet" href="/song/styles/display-song.css">
 `) %>
 
+<% if (user?.isAdmin) { %>
+<form id="form-delete-song" action="/songs/<%= song._id %>?_method=DELETE" method="post">
+    <button>DELETE SONG</button>
+</form>
+<% } %>
+
 <main id="display-song">
     <div id="song-image">
         <svg id="song-play" width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
