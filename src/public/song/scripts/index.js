@@ -100,9 +100,18 @@ if (element) {
 				render.renderComments(currentUser, comment.data);
 				element.elements.text.value = "";
 				render.container.querySelector(".comment:last-of-type")
-			             .scrollIntoView(false);
+					.scrollIntoView(false);
+
+				// Need to do this so that it will scroll first before firing
+				setTimeout(() => {
+					Swal.fire({
+						confirmButtonText : "Okay",
+						icon              : "success",
+						text              : "Your comment has been created!",
+						title             : "Success!"
+					});
+				}, 200);
 			} catch (err) {
-				// eslint-disable-next-line no-undef
 				Swal.fire({
 					confirmButtonText : "Okay",
 					icon              : "error",

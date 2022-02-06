@@ -65,6 +65,7 @@ const displayComments = {
 						try {
 							e.preventDefault();
 							e.stopPropagation();
+
 							const commentText = newComment.querySelector(".comment-text");
 							const updateComment = (await axios.patch(
 								`${window.location.pathname}/comments/${comment._id}`,
@@ -72,7 +73,20 @@ const displayComments = {
 							)).data;
 
 							commentText.value = updateComment.text;
+
+							Swal.fire({
+								confirmButtonText : "Okay",
+								icon              : "success",
+								text              : "Your comment has been updated!",
+								title             : "Success!"
+							});
 						} catch (err) {
+							Swal.fire({
+								confirmButtonText : "Okay",
+								icon              : "error",
+								text              : err.message,
+								title             : "Error!"
+							});
 							console.error(err);
 						}
 					});
