@@ -43,6 +43,10 @@
 	flex: 1;
 } */
 
+#icon-account.admin path {
+	fill: rgb(255, 220, 67);
+}
+
 #icon-home {
 	height: 55%;
 	flex: 1;

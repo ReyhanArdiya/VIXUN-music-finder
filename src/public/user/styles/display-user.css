@@ -48,6 +48,7 @@
 #user-name {
 	font: 700 1em "Mohave";
 	width: max-content;
+	min-width: 14em;
 	max-width: 14em;
 	overflow-y: auto;
 	padding-left: 1em;
