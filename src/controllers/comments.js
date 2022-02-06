@@ -1,5 +1,6 @@
 import Comment from "../models/comment.js";
 import Song from "../models/song.js";
+import sanitizeHtml from "../utils/sanitize-html.js";
 
 const isSameUser = async (req, res, next) => {
 	try {
@@ -12,7 +13,9 @@ const isSameUser = async (req, res, next) => {
 
 const createComment = async (req, res, next) => {
 	try {
-		const { text = "" } = req.body;
+		let { text = "" } = req.body;
+		text = sanitizeHtml(text);
+
 		const song = await Song.findById(req.params.id);
 		const newComment = new Comment({
 			song,
@@ -36,7 +39,9 @@ const deleteComment = async (req, res, next) => {
 
 const updateComment = async (req, res, next) => {
 	try {
-		const { text } = req.body;
+		let { text } = req.body;
+		text = sanitizeHtml(text);
+
 		const comment = await Comment.findByIdAndUpdate(
 			req.params.commentId,
 			{ text },
