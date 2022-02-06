@@ -43,6 +43,12 @@ const getASong = async (req, res, next) => {
 		if (accept === "application/json") {
 			res.send(song);
 		} else {
+			if (!song) {
+				const noSongErr = new Error("Song not found! :(");
+				noSongErr.name = "NoSongError";
+				throw noSongErr;
+			}
+
 			const err = req.flash("error");
 			res.render("song", {
 				err,

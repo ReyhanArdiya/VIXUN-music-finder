@@ -7,6 +7,15 @@ const handleNotFound = (req, res) => {
 	goToLastVisited(req, res);
 };
 
+const handleNoSong = (err, req, res, next) => {
+	if (err.name === "NoSongError") {
+		req.flash("error", err.message);
+		res.redirect("/");
+	} else {
+		next(err);
+	}
+};
+
 const handleSameUser = (err, req, res, next) => {
 	if (err.name === "UserExistsError") {
 		req.flash("error", err.message);
@@ -38,8 +47,9 @@ const handleAnyError = (err, req, res, next) => {
 const errHandlers = {
 	handleAnyError,
 	handleCastError,
+	handleNoSong,
 	handleNotFound,
-	handleSameUser,
+	handleSameUser
 };
 
 export default errHandlers;

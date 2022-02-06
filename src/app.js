@@ -126,6 +126,7 @@ app.all("*", errHandlers.handleNotFound);
 app.use(
 	errHandlers.handleSameUser,
 	errHandlers.handleCastError,
+	errHandlers.handleNoSong,
 	errHandlers.handleAnyError
 );
 
