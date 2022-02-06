@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import flash from "connect-flash";
 import homeRouter from "./routers/home.js";
 import methodOverride from "method-override";
+import mongoSanitize from "express-mongo-sanitize";
 import mongoose from "mongoose";
 import passport from "passport";
 import session from "express-session";
@@ -34,8 +35,8 @@ const app = express();
 app.set("view engine", "ejs");
 app.engine("ejs", ejsEngine);
 app.set("views", join(__dirname, "views"));
-
 app.use(express.static(join(__dirname, "public")));
+
 app.use(session({
 	cookie : {
 		httpOnly : true,
@@ -47,6 +48,8 @@ app.use(session({
 	saveUninitialized : true,
 	secret            : process.env.SESSION_SECRET,
 }));
+app.use(mongoSanitize({ replaceWith : "_" }));
+
 app.use(methodOverride("_method"));
 app.use(flash());
 
