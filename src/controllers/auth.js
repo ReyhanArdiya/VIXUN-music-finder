@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import sanitizeHtml from "../utils/sanitize-html.js";
 
 const renderRegister = (req, res) => {
 	const err = req.flash("error");
@@ -12,12 +13,17 @@ const renderLogin = (req, res) => {
 
 const registerUser = async (req, res, next) => {
 	try {
-		const { email, username, password } = req.body;
+		let { email, password, username } = req.body;
+		email = sanitizeHtml(email);
+		password = sanitizeHtml(password);
+		username = sanitizeHtml(username);
+
 		const user = new User({
 			email,
 			username,
 		});
 		const newUser = await User.register(user, password);
+
 		req.login(newUser, err => err && console.error(err));
 		res.redirect("/");
 	} catch (err) {

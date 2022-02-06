@@ -15,6 +15,7 @@ const UserSchema = new mongoose.Schema({
 		ref  : "Song",
 		type : mongoose.Schema.Types.ObjectId
 	} ],
+	isAdmin : Boolean,
 	profile : {
 		filename : String,
 		path     : {
@@ -25,7 +26,7 @@ const UserSchema = new mongoose.Schema({
 	}
 }, { strict : "throw" });
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, { usernameQueryFields : [ "email" ] });
 
 UserSchema.post("findOneAndDelete", async function(user) {
 	for (const comment of user.comments) {
