@@ -53,7 +53,14 @@
 	margin: 0;
 }
 
-#user-logout {
+#user-buttons {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 2em;
+}
+
+#user-buttons > * {
 	align-items: center;
 	background: var(--gradient-purple-red);
 	border-radius: var(--border-radius-rounded);
@@ -62,22 +69,22 @@
 	justify-content: center;
 }
 
-#user-logout button {
+#user-buttons > * button {
 	border: none;
 	outline: none;
 	padding: 0.75em;
-	font: 700 1.5em "Quicksand";
+	font: 700 1.25em "Quicksand";
 	background: none;
 	color: white;
 }
 
 /* user logout button overlay on hover/active */
-#user-logout button {
+#user-buttons > * button {
 	cursor: pointer;
 	position: relative;
 }
 
-#user-logout button::before {
+#user-buttons > * button::before {
 	content: "";
 	width: 100%;
 	height: 100%;
@@ -89,11 +96,11 @@
 	transition: opacity 0.25s linear;
 }
 
-#user-logout button:hover::before {
+#user-buttons > * button:hover::before {
 	opacity: 0.2;
 }
 
-#user-logout button:active::before {
+#user-buttons > * button:active::before {
 	opacity: 0.4;
 	transition: opacity 0.05s linear;
 }

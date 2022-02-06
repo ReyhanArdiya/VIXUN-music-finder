@@ -16,9 +16,14 @@
             <input type="file" name="img" id="form-profile-input">
             <button>submit</button>
         </form>
-        <form id="user-logout" action="/auth/logout" method="post">
-            <button>Logout</button>
-        </form>
+        <footer id="user-buttons">
+            <form id="user-logout" action="/auth/logout" method="post">
+                <button>Logout</button>
+            </form>
+            <form id="user-delete" action="/user?_method=DELETE" method="post">
+                <button>Delete</button>
+            </form>
+        </footer>
     </section>
 
     <section id="display-favorites">
@@ -87,4 +92,5 @@
 
 <% block("scripts").append(`
 <script src="/user/scripts/profile.js"></script>
+<script src="/user/scripts/swal-delete-user.js"></script>
 `) %>

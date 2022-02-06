@@ -50,6 +50,12 @@ share.addEventListener("click", async function() {
 	try {
 		navigator.share({ url });
 	} catch (err) {
+		Swal.fire({
+			confirmButtonText : "Okay",
+			icon              : "error",
+			text              : "Something went wrong! Try refreshing the page!",
+			title             : "Error!",
+		});
 		console.error(err);
 	}
 });
@@ -69,6 +75,12 @@ const addAndDeleteSwitcheroo = () => {
 				isAdded = true;
 			}
 		} catch (err) {
+			Swal.fire({
+				confirmButtonText : "Okay",
+				icon              : "error",
+				text              : "Something went wrong! Try refreshing the page!",
+				title             : "Error!",
+			});
 			console.error(err);
 		}
 	};
@@ -100,15 +112,25 @@ if (element) {
 				render.renderComments(currentUser, comment.data);
 				element.elements.text.value = "";
 				render.container.querySelector(".comment:last-of-type")
-			             .scrollIntoView(false);
+					.scrollIntoView(false);
+
+				// Need to do this so that it will scroll first before firing
+				setTimeout(() => {
+					Swal.fire({
+						confirmButtonText : "Okay",
+						icon              : "success",
+						text              : "Your comment has been created!",
+						title             : "Success!"
+					});
+				}, 200);
 			} catch (err) {
-				// eslint-disable-next-line no-undef
 				Swal.fire({
 					confirmButtonText : "Okay",
 					icon              : "error",
 					text              : "Something went wrong! Try refreshing the page!",
 					title             : "Error!",
 				});
+				console.error(err);
 			}
 		}
 	);
@@ -146,6 +168,12 @@ window.addEventListener("load", async function() {
 		progressBar.destroy();
 		render.renderComments(currentUser, ...song.data.comments);
 	} catch (err) {
+		Swal.fire({
+			confirmButtonText : "Okay",
+			icon              : "error",
+			text              : "Something went wrong! Try refreshing the page!",
+			title             : "Error!",
+		});
 		console.error(err);
 	}
 });

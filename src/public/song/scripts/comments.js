@@ -31,10 +31,32 @@ const displayComments = {
 						try {
 							e.preventDefault();
 							e.stopPropagation();
-
-							await axios.delete(`${window.location.pathname}/comments/${comment._id}`);
-							newComment.remove();
+							const result = await Swal.fire({
+								cancelButtonColor  : "#d33",
+								confirmButtonColor : "#3085d6",
+								confirmButtonText  : "Confirm",
+								icon               : "warning",
+								showCancelButton   : true,
+								text               : "You won't be able to revert this!",
+								title              : "Delete your comment?",
+							});
+							if (result.isConfirmed) {
+								await axios.delete(`${window.location.pathname}/comments/${comment._id}`);
+								newComment.remove();
+								Swal.fire({
+									confirmButtonText : "Okay",
+									icon              : "success",
+									text              : "Your comment has been deleted!",
+									title             : "Success!"
+								});
+							}
 						} catch (err) {
+							Swal.fire({
+								confirmButtonText : "Okay",
+								icon              : "error",
+								text              : err.message,
+								title             : "Error!"
+							});
 							console.error(err);
 						}
 					});
@@ -43,6 +65,7 @@ const displayComments = {
 						try {
 							e.preventDefault();
 							e.stopPropagation();
+
 							const commentText = newComment.querySelector(".comment-text");
 							const updateComment = (await axios.patch(
 								`${window.location.pathname}/comments/${comment._id}`,
@@ -50,7 +73,20 @@ const displayComments = {
 							)).data;
 
 							commentText.value = updateComment.text;
+
+							Swal.fire({
+								confirmButtonText : "Okay",
+								icon              : "success",
+								text              : "Your comment has been updated!",
+								title             : "Success!"
+							});
 						} catch (err) {
+							Swal.fire({
+								confirmButtonText : "Okay",
+								icon              : "error",
+								text              : err.message,
+								title             : "Error!"
+							});
 							console.error(err);
 						}
 					});
