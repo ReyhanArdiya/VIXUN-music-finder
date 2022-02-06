@@ -37,7 +37,12 @@ app.set("views", join(__dirname, "views"));
 
 app.use(express.static(join(__dirname, "public")));
 app.use(session({
-	cookie            : { maxAge : 1000 * 60 * 60 * 24 * 7 },
+	cookie : {
+		httpOnly : true,
+		// secure: true,
+		maxAge   : 1000 * 60 * 60 * 24 * 7,
+	},
+	name              : process.env.SESSION_NAME || "connect.sid",
 	resave            : false,
 	saveUninitialized : true,
 	secret            : process.env.SESSION_SECRET,
