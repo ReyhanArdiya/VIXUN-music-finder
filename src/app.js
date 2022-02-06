@@ -1,4 +1,5 @@
 import "dotenv/config";
+import MongoStore from "connect-mongo";
 import User from "./models/user.js";
 import authRouter from "./routers/auth.js";
 import ejsEngine from "ejs-mate";
@@ -23,8 +24,9 @@ const __dirname = dirname(__filename);
 
 // Mongoose stuff
 const mongoDatabase = process.env.MONGODB;
+const mongoUrl = process.env.NODE_ENV !== "production" ? `mongodb://localhost:27017/${mongoDatabase}` : process.env.ATLAS_URL;
 try {
-	await mongoose.connect(`mongodb://localhost:27017/${mongoDatabase}`);
+	await mongoose.connect(mongoUrl);
 	console.log(`Connected to ${mongoDatabase}!🍃`);
 } catch (err) {
 	console.log(`Error! Can't connect to ${mongoDatabase}!🍂`, err);
@@ -86,6 +88,7 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use(session({
 	cookie : {
+		expires  : Date.now() + (1000 * 60 * 60 * 24 * 7),
 		httpOnly : true,
 		// secure: true,
 		maxAge   : 1000 * 60 * 60 * 24 * 7,
@@ -94,6 +97,12 @@ app.use(session({
 	resave            : false,
 	saveUninitialized : true,
 	secret            : process.env.SESSION_SECRET,
+	store             : MongoStore.create(
+		{
+			mongoUrl,
+			touchAfter : 24 * 60 * 60
+		}
+	)
 }));
 app.use(mongoSanitize({ replaceWith : "_" }));
 
