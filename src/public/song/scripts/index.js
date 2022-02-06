@@ -47,25 +47,38 @@ audio.addEventListener("ended", function() {
 const share = document.getElementById("share");
 const url = window.location.href;
 share.addEventListener("click", async function() {
-	navigator.share({ url });
+	try {
+		navigator.share({ url });
+	} catch (err) {
+		console.error(err);
+	}
 });
 
 // Favorite button logic
-const { el, } = buttonFavorite;
+const { el } = buttonFavorite;
 const addAndDeleteSwitcheroo = () => {
 	let isAdded = el.classList.contains("added");
 
 	return async function() {
-		if (isAdded) {
-			await buttonFavorite.deleteFavorite();
-			isAdded = false;
-		} else {
-			await buttonFavorite.addFavorite();
-			isAdded = true;
+		try {
+			if (isAdded) {
+				await buttonFavorite.deleteFavorite();
+				isAdded = false;
+			} else {
+				await buttonFavorite.addFavorite();
+				isAdded = true;
+			}
+		} catch (err) {
+			console.error(err);
 		}
 	};
 };
-el.addEventListener("click", addAndDeleteSwitcheroo());
+
+el.addEventListener(
+	"click",
+	el.disabled ? buttonFavorite.notLoggedIn : addAndDeleteSwitcheroo()
+);
+
 
 let currentUser;
 
@@ -89,8 +102,13 @@ if (element) {
 				render.container.querySelector(".comment:last-of-type")
 			             .scrollIntoView(false);
 			} catch (err) {
-				// TODO flash a message here or popup or something instead
-				alert("Something went wrong :(");
+				// eslint-disable-next-line no-undef
+				Swal.fire({
+					confirmButtonText : "Okay",
+					icon              : "error",
+					text              : "Something went wrong! Try refreshing the page!",
+					title             : "Error!",
+				});
 			}
 		}
 	);
@@ -102,28 +120,32 @@ if (element) {
 
 // Render comments logic
 window.addEventListener("load", async function() {
-	const progressBar = new ProgressBar.Circle(
-		displayComments.render.container,
-		{
-			color    : "#ff0000",
-			duration : 2500,
-			easing   : "easeInOut",
-			from     : { color : "#ff0000" },
-			step(state, circle) {
-				circle.path.setAttribute("stroke", state.color);
-			},
-			strokeWidth : 5,
-			svgStyle    : {
-				display : "block",
-				height  : "100%",
-				width   : "100%"
-			},
-			to : { color : "#a129ff" },
-		}
-	);
-	progressBar.animate(1);
-	const song = await axios.get(window.location, { headers : { accept : "application/json" } });
-	currentUser = (await axios.get("/auth")).data;
-	progressBar.destroy();
-	render.renderComments(currentUser, ...song.data.comments);
+	try {
+		const progressBar = new ProgressBar.Circle(
+			displayComments.render.container,
+			{
+				color    : "#ff0000",
+				duration : 2500,
+				easing   : "easeInOut",
+				from     : { color : "#ff0000" },
+				step(state, circle) {
+					circle.path.setAttribute("stroke", state.color);
+				},
+				strokeWidth : 5,
+				svgStyle    : {
+					display : "block",
+					height  : "100%",
+					width   : "100%"
+				},
+				to : { color : "#a129ff" },
+			}
+		);
+		progressBar.animate(1);
+		const song = await axios.get(window.location, { headers : { accept : "application/json" } });
+		currentUser = (await axios.get("/auth")).data;
+		progressBar.destroy();
+		render.renderComments(currentUser, ...song.data.comments);
+	} catch (err) {
+		console.error(err);
+	}
 });

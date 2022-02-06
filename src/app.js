@@ -2,8 +2,10 @@ import "dotenv/config";
 import User from "./models/user.js";
 import authRouter from "./routers/auth.js";
 import ejsEngine from "ejs-mate";
+import errHandlers from "./utils/error-handlers.js";
 import express from "express";
 import { fileURLToPath } from "url";
+import flash from "connect-flash";
 import homeRouter from "./routers/home.js";
 import methodOverride from "method-override";
 import mongoose from "mongoose";
@@ -41,6 +43,7 @@ app.use(session({
 	secret            : process.env.SESSION_SECRET,
 }));
 app.use(methodOverride("_method"));
+app.use(flash());
 
 // Passport stuff
 app.use(passport.initialize());
@@ -62,10 +65,14 @@ app.use("/songs", songsRouter);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, next) => {
-	res.status(500).send(err.message);
-});
+// Error handlers
+app.all("*", errHandlers.handleNotFound);
+
+app.use(
+	errHandlers.handleSameUser,
+	errHandlers.handleCastError,
+	errHandlers.handleAnyError
+);
 
 app.listen(port, () => console.log(`Listening on 🚢 ${port} (●'◡'●)`));
 

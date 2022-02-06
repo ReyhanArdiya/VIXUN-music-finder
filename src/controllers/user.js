@@ -11,8 +11,10 @@ const renderHome = async (req, res) => {
 			populate : { path : "song" }
 		});
 
+	const err = req.flash("error");
 	res.render("user", {
 		comments,
+		err,
 		favorites
 	});
 };

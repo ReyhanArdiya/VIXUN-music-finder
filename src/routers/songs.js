@@ -7,7 +7,7 @@ import songsController from "../controllers/songs.js";
 const songsRouter = express.Router();
 songsRouter.use(express.urlencoded({ extended : true }));
 
-songsRouter.get("/", songsController.index);
+songsRouter.get("/", songsController.querySongs);
 
 songsRouter.get("/top", songsController.sendTopHits);
 

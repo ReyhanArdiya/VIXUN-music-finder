@@ -2,9 +2,10 @@ import Song from "../models/song.js";
 import { aggregatorAPIs } from "./request-songs/song-aggregator/index.js";
 import requestSongs from "./request-songs/index.js";
 
-const index = async (req, res, next) => {
+const querySongs = async (req, res, next) => {
 	try {
 		let songs;
+
 		if (req.query.q) {
 			songs = await requestSongs(req.query.q);
 		} else {
@@ -14,7 +15,8 @@ const index = async (req, res, next) => {
 			                     .skip(random)
 			                     .limit(15);
 		}
-		res.send(songs);
+
+		res.send(songs.length ? songs : null);
 	} catch (err) {
 		next(err);
 	}
@@ -41,7 +43,11 @@ const getASong = async (req, res, next) => {
 		if (accept === "application/json") {
 			res.send(song);
 		} else {
-			res.render("song", { song });
+			const err = req.flash("error");
+			res.render("song", {
+				err,
+				song
+			});
 		}
 	} catch (err) {
 		next(err);
@@ -68,8 +74,8 @@ const deleteSong = async (req, res, next) => {
 const songsController = {
 	deleteSong,
 	getASong,
-	index,
 	isAdmin,
+	querySongs,
 	sendTopHits
 };
 

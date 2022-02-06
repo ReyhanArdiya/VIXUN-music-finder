@@ -1,11 +1,13 @@
 import User from "../models/user.js";
 
 const renderRegister = (req, res) => {
-	res.render("auth/register");
+	const err = req.flash("error");
+	res.render("auth/register", { err });
 };
 
 const renderLogin = (req, res) => {
-	res.render("auth/login");
+	const err = req.flash("error");
+	res.render("auth/login", { err });
 };
 
 const registerUser = async (req, res, next) => {

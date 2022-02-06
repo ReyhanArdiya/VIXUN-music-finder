@@ -12,8 +12,11 @@ const render = async (req, res, next) => {
 
 			return currentI === foundI;
 		});
-
-		res.render("home", { artists });
+		const err = req.flash("error");
+		res.render("home", {
+			artists,
+			err
+		});
 	} catch (err) {
 		next(err);
 	}

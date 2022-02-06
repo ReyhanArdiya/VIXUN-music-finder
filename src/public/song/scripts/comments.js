@@ -28,23 +28,31 @@ const displayComments = {
 					const confirmButt = newComment.querySelector(".comment-confirm");
 
 					deleteButt.addEventListener("submit", async function(e) {
-						e.preventDefault();
-						e.stopPropagation();
+						try {
+							e.preventDefault();
+							e.stopPropagation();
 
-						await axios.delete(`${window.location.pathname}/comments/${comment._id}`);
-						newComment.remove();
+							await axios.delete(`${window.location.pathname}/comments/${comment._id}`);
+							newComment.remove();
+						} catch (err) {
+							console.error(err);
+						}
 					});
 
 					confirmButt.addEventListener("submit", async function(e) {
-						e.preventDefault();
-						e.stopPropagation();
-						const commentText = newComment.querySelector(".comment-text");
-						const updateComment = (await axios.patch(
-							`${window.location.pathname}/comments/${comment._id}`,
-							{ text : commentText.value }
-						)).data;
+						try {
+							e.preventDefault();
+							e.stopPropagation();
+							const commentText = newComment.querySelector(".comment-text");
+							const updateComment = (await axios.patch(
+								`${window.location.pathname}/comments/${comment._id}`,
+								{ text : commentText.value }
+							)).data;
 
-						commentText.value = updateComment.text;
+							commentText.value = updateComment.text;
+						} catch (err) {
+							console.error(err);
+						}
 					});
 				} else {
 					newComment = this.templateFixed.cloneNode(true);

@@ -23,8 +23,15 @@ profileFormInput.addEventListener("change", async function() {
 
 	try {
 		if (profileFormInput.files[0].size > 1_000_000) {
-			// TODO style this i guess
-			alert("Image can't be larger than 1mb!");
+			// eslint-disable-next-line no-undef
+			Swal.fire({
+				confirmButtonText : "Okay",
+				icon              : "error",
+				text              : "Image can't be larger than 1mb!",
+				title             : "Too Big!",
+			});
+		} else if (!profileFormInput.files[0].type.match(/^image\/(jpg|jpeg|png)$/)) {
+			throw new Error("File must be an image!");
 		} else if (profileFormInput.files.length) {
 			const imageData = new FormData();
 			imageData.append("img", profileFormInput.files[0]);
@@ -42,7 +49,13 @@ profileFormInput.addEventListener("change", async function() {
 			userProfile.src = newProfile.data.path.replace("/upload", "/upload/w_250");
 		}
 	} catch (err) {
-		alert(err.response?.data);
+		// eslint-disable-next-line no-undef
+		Swal.fire({
+			confirmButtonText : "Okay",
+			icon              : "error",
+			text              : err.message,
+			title             : "Error!",
+		});
 	}
 
 	progressBar.destroy();

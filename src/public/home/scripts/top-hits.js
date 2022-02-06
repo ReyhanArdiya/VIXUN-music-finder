@@ -70,7 +70,6 @@ window.addEventListener("load", async function() {
 			[ ...tracksExt, ...albumsExt, ...artistsExt ]
 		);
 	} catch (err) {
-		console.error(err);
 		progressBar.destroy();
 		displayTopHits.grid.classList.add("top-hits-error");
 	}
