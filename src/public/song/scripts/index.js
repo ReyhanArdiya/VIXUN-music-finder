@@ -50,6 +50,12 @@ share.addEventListener("click", async function() {
 	try {
 		navigator.share({ url });
 	} catch (err) {
+		Swal.fire({
+			confirmButtonText : "Okay",
+			icon              : "error",
+			text              : "Something went wrong! Try refreshing the page!",
+			title             : "Error!",
+		});
 		console.error(err);
 	}
 });
@@ -69,6 +75,12 @@ const addAndDeleteSwitcheroo = () => {
 				isAdded = true;
 			}
 		} catch (err) {
+			Swal.fire({
+				confirmButtonText : "Okay",
+				icon              : "error",
+				text              : "Something went wrong! Try refreshing the page!",
+				title             : "Error!",
+			});
 			console.error(err);
 		}
 	};
@@ -118,6 +130,7 @@ if (element) {
 					text              : "Something went wrong! Try refreshing the page!",
 					title             : "Error!",
 				});
+				console.error(err);
 			}
 		}
 	);
@@ -155,6 +168,12 @@ window.addEventListener("load", async function() {
 		progressBar.destroy();
 		render.renderComments(currentUser, ...song.data.comments);
 	} catch (err) {
+		Swal.fire({
+			confirmButtonText : "Okay",
+			icon              : "error",
+			text              : "Something went wrong! Try refreshing the page!",
+			title             : "Error!",
+		});
 		console.error(err);
 	}
 });

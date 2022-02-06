@@ -13,6 +13,12 @@ const buttonFavorite = {
 			await axios.delete(`${window.location.pathname}/favorite`);
 			this.el.classList.remove("added");
 		} catch (err) {
+			Swal.fire({
+				confirmButtonText : "Okay",
+				icon              : "error",
+				text              : "Something went wrong! Try refreshing the page!",
+				title             : "Error!",
+			});
 			console.error(err);
 		}
 	},
