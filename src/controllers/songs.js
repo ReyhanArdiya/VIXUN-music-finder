@@ -10,7 +10,10 @@ const querySongs = async (req, res, next) => {
 			songs = await requestSongs(req.query.q);
 		} else {
 			const count = await Song.estimatedDocumentCount();
-			const random = Math.floor(Math.random() * (count - 14));
+			let random = Math.floor(Math.random() * (count - 14));
+			if (random < 0) {
+				random = 0;
+			}
 			songs = await Song.find()
 			                     .skip(random)
 			                     .limit(15);

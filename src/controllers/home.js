@@ -3,7 +3,10 @@ import Song from "../models/song.js";
 const render = async (req, res, next) => {
 	try {
 		const count = await Song.estimatedDocumentCount();
-		const randomArt = Math.floor(Math.random() * (count - 29));
+		let randomArt = Math.floor(Math.random() * (count - 29));
+		if (randomArt < 0) {
+			randomArt = 0;
+		}
 		const artistsCol = await Song.find()
 			                       .skip(randomArt)
 			                       .limit(30);
