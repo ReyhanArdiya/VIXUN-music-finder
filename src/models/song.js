@@ -1,5 +1,7 @@
 /*  eslint-disable jsdoc/require-returns-description*/
+import Comment from "./comment.js";
 import mongoose from "mongoose";
+import User from "./user.js";
 
 // eslint-disable-next-line
 const nothingFound = (field, fieldArg, caseSensitive) => {
@@ -49,23 +51,24 @@ const SongSchema = new mongoose.Schema({
 		type     : String,
 	},
 	artistImage : String,
+	comments    : [ {
+		ref  : "Comment",
+		type : mongoose.Schema.Types.ObjectId
+	} ],
 
 	/*  CMT I could make this as an array of externals instead and have each
 	external have a source string prop. THis could be better (is it tho?) if i
 	introduce more sources in the future but right now is YAGNI */
 	externals : {
 		amazonMusic : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},
 		deezer : {
-			// eslint-disable-next-line
-			default: {},
+			default : {},
 			type    : SongExternalSchema
 		},
 		spotify : {
-			// eslint-disable-next-line
 			default : {},
 			type    : SongExternalSchema
 		},
@@ -86,6 +89,17 @@ const SongSchema = new mongoose.Schema({
 	},
 }, { strict : "throw" });
 
+
+SongSchema.post("findOneAndDelete", async function(song) {
+	for (const comment of song.comments) {
+		await Comment.findByIdAndDelete(comment);
+	}
+
+	const usersFaved = await User.find({ favorites : { $in : [ song._id ] } });
+	for (const user of usersFaved) {
+		await user.update({ $pull : { favorites : song._id } });
+	}
+});
 
 /**
  * Returns a string array from splitting `str` in half.
@@ -282,8 +296,6 @@ class SongSchemaMethods {
 	 * ```
 	 */
 	static async findByLinksAvailability(option) {
-
-		// TODO gotta refactor this too since i moved the links to externals :D
 		// eslint-disable-next-line
 		option.toString = function() {
 		   return `{deezer : ${this.deezer}, spotify : ${this.spotify}`;

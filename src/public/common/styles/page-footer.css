@@ -1,9 +1,10 @@
+/* TODO make footer stick to bottom of page for some pages */
 #page-footer {
 	background: var(--primary-pale-black);
 	align-items: center;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-between;
 	min-height: 182px;
 	font-size: 1em;
 	height: max-content;
@@ -24,8 +25,9 @@
 }
 
 #contacts-footer {
-	margin-top: 0.5em;
 	font-size: 1em;
+	flex-grow: 0.1;
+	width: 100%;
 }
 
 #contacts-footer * {
@@ -33,8 +35,7 @@
 }
 
 #page-footer h2:last-of-type {
-	font-size: 1.5em;
-	margin-top: 0.8em;
+	font-size: 2em;
 }
 
 @media screen and (max-width: 47.9em) {
@@ -74,81 +75,6 @@
 }
 
 /* #endregion ================#PAGE-FOOTER UPPER CIRCLE DECORATIONS========== */
-
-/* #region -------------------FOOTER SIGNUP FORM------------------- */
-
-#form-signup {
-	border-radius: 0.35em;
-	display: grid;
-	grid-template-columns: 0.8fr 0.2fr;
-	grid-template-rows: 1fr;
-	margin-bottom: 1em;
-	margin-top: 0.6em;
-	position: relative;
-	z-index: 3;
-}
-
-#form-signup,
-#form-signup input,
-#form-signup button {
-	max-height: 42px;
-}
-
-#form-signup input,
-#form-signup button,
-#form-signup button::before {
-	border-radius: inherit;
-	border: none;
-	outline: none;
-}
-
-#form-signup input {
-	border-bottom-right-radius: 0;
-	border-top-right-radius: 0;
-	font: 700 1em "Quicksand";
-	padding: 0 0.5em;
-}
-
-#form-signup button {
-	cursor: pointer;
-	background: var(--gradient-purple-red);
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
-	position: relative;
-	align-items: center;
-	display: flex;
-	justify-content: center;
-	font: 700 1em "Mohave";
-	color: white;
-	width: max-content;
-	padding: 0.2em 0.5em;
-}
-
-/* Footer signup form button overlay on hover/active */
-#form-signup button::before {
-	content: "";
-	width: 100%;
-	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
-	background-color: var(--primary-pale-black);
-	transition: opacity 0.25s linear;
-	border-bottom-left-radius: 0;
-	border-top-left-radius: 0;
-}
-
-#form-signup button:hover::before {
-	opacity: 0.2;
-}
-
-#form-signup button:active::before {
-	opacity: 0.4;
-	transition: opacity 0.05s linear;
-}
-
-/* #endregion ================FOOTER SIGNUP FORM=================== */
 
 /* #region -------------------#PAGE-FOOTER FORM CIRCLE DECORATIONS---------- */
 

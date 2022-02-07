@@ -148,27 +148,6 @@ window.addEventListener("load", () => {
 	navbarMain.dropdown.moveText(navbarMain.dropdown.whereIsTextOnLoad);
 });
 
-/**
- * If `#navbar-main` exist on the page, then this will become {@link navbarMain}
- * . Else it will become a string warning and `console.warn`'s it.
- *
- * @returns {navbarMain | string} {@link navbarMain} Or a warning string.
- *
- * @example
- * ```
- * // Expect navbar-main to exist
- * import checkNavbar from "./navbar-main.js";
- * const navbarMain = checkNavbar(); // Returns the navbarMain object
- * ```
- */
-export default () => {
-	if (document.querySelector("#navbar-main")) {
-		return navbarMain;
-	} else {
-		const msg = "#navbar-main not found!";
-		console.warn(msg);
 
-		return msg;
-	}
-};
+export default navbarMain;
 

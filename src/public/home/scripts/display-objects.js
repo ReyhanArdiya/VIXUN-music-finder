@@ -197,6 +197,8 @@ export const displayBrowse = {
 			for (const song of songArr) {
 				const card = template.cloneNode(true);
 				const [ image, artist, info, price ] = card.children;
+
+				card.href = `/songs/${song._id}`;
 				image.src = song.image;
 				artist.innerText = song.artist.split(" ")
 					                           .slice(0, 2)

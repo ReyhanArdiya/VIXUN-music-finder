@@ -1,9 +1,9 @@
-import addMainNavbar from "./navbar-main.js";
 import animation from "./animation.js";
 import localSongDatabase from "./song-database-local-storage.js";
+import navbarMain from "./navbar-main.js";
 
 export default {
 	animation,
-	addMainNavbar,
-	localSongDatabase
+	localSongDatabase,
+	navbarMain
 };

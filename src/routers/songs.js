@@ -1,40 +1,25 @@
-import Song from "../models/song.js";
-import { aggregatorAPIs } from "../database/song-aggregator/index.js";
+import { addLastVisitedToSes } from "../utils/middleware.js";
+import commentsRouter from "./comments.js";
 import express from "express";
-import requestSongs from "../database/index.js";
+import favoriteRouter from "./favorite.js";
+import songsController from "../controllers/songs.js";
 
 const songsRouter = express.Router();
 songsRouter.use(express.urlencoded({ extended : true }));
 
-songsRouter.get("/", async (req, res, next) => {
-	try {
-		let songs;
-		if (req.query.q) {
-			songs = await requestSongs(req.query.q);
-		} else {
-			const count = await Song.estimatedDocumentCount();
-			const random = Math.floor(Math.random() * (count - 14));
-			songs = await Song.find()
-			                     .skip(random)
-			                     .limit(15);
-		}
-		res.send(songs);
-	} catch (err) {
-		next(err);
-	}
-});
+songsRouter.get("/", songsController.querySongs);
 
-songsRouter.get("/top", async (req, res, next) => {
-	try {
-		const topSongs = await aggregatorAPIs.deezer.searchDeezerChart("/");
-		res.send(topSongs);
-	} catch (err) {
-		next(err);
-	}
-});
+songsRouter.get("/top", songsController.sendTopHits);
 
-songsRouter.use((err, req, res) => {
-	res.status(500).send("Error! :(");
-});
+songsRouter.use("/:id/comments", commentsRouter);
+
+songsRouter.use("/:id/favorite", favoriteRouter);
+
+songsRouter.route("/:id")
+	.get(addLastVisitedToSes, songsController.getASong)
+	.delete(
+		songsController.isAdmin,
+		songsController.deleteSong
+	);
 
 export default songsRouter;

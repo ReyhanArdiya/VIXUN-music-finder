@@ -1,12 +1,4 @@
 import axios from "axios";
-import { config } from "dotenv";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-config({ path : join(__dirname, "..", "..", "..", "process.env") });
 
 /**
  * **This function uses `process.env.SPOTIFY_CLIENT_ID` and
@@ -19,6 +11,9 @@ config({ path : join(__dirname, "..", "..", "..", "process.env") });
  * Set to `true` to return `"Bearer token"`, false to return `"token"` only.
  * Defaults to `true`.
  *
+ * @param {number} timeout
+ * Number for the request's timeout. Defaults to `5000`.
+ *
  * @returns {Promise<string>} `"Bearer token"` or `"token"`.
  *
  * @example
@@ -26,7 +21,7 @@ config({ path : join(__dirname, "..", "..", "..", "process.env") });
  * await searchSpotify(await getSpotifyToken(), "The Hours");
  * ```
  */
-const getSpotifyToken = async (bearer = true) => {
+const getSpotifyToken = async (bearer = true, timeout = 5000) => {
 	const res = await axios("https://accounts.spotify.com/api/token", {
 		headers : {
 			Authorization : `Basic ${Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`)
@@ -34,7 +29,8 @@ const getSpotifyToken = async (bearer = true) => {
 			"Content-Type" : "application/x-www-form-urlencoded"
 		},
 		method : "POST",
-		params : { "grant_type" : "client_credentials" }
+		params : { "grant_type" : "client_credentials" },
+		timeout
 	});
 
 	return bearer ? `Bearer ${res.data["access_token"]}` : res.data["access_token"];

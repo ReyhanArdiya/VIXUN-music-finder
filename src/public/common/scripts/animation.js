@@ -251,7 +251,7 @@ export const animationEffects = {
 };
 
 export default {
+	animationEffects,
 	mediaQuery,
 	movementDetector,
-	animationEffects
 };

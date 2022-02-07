@@ -1,16 +1,16 @@
 import "./append-songs.js";
 import "./top-hits.js";
-import checkNavbar from "../../common/scripts/navbar-main.js";
 import core from "../../common/scripts/index.js";
 import makeStatusToggler from "./toggle-status.js";
 import { mediaQuery } from "../../common/scripts/animation.js";
+import navbarMain from "../../common/scripts/navbar-main.js";
 import {
 	displayAds,
 	displayBrowse
 } from "./display-objects.js";
 
 const { animation: { animationEffects } } = core;
-const navbarMain = checkNavbar();
+
 // TODO seperate each regions into modules
 
 // #region -------------------DISPLAY ADS LOGIC---------------------------------

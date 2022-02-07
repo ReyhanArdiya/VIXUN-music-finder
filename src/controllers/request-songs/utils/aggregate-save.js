@@ -1,4 +1,4 @@
-import Song from "../../models/song.js";
+import Song from "../../../models/song.js";
 import amazonMusic from "../song-aggregator/amazon-music.js";
 import songAggregator from "../song-aggregator/index.js";
 
@@ -62,6 +62,8 @@ const aggregateAndSave = async (
 					scrapeAmazonMusicOptions
 				);
 
+				/*  XXX i tried using update method here but it didn't work form some
+				reason, so i use save method. */
 				newSong.externals.amazonMusic = { link : amazonMusicRes.link };
 				newSong.price =
 					`$${amazonMusicRes.foundPrices
