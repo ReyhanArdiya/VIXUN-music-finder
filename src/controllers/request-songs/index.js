@@ -3,7 +3,7 @@ import aggregateAndSave from "./utils/aggregate-save.js";
 import newPageRandomUA from "./utils/user-agent.js";
 import puppeteer from "puppeteer";
 
-const browser = await puppeteer.launch();
+const browser = await puppeteer.launch({ args : [ "--no-sandbox", "--disable-setuid-sandbox" ] });
 
 /**
  * This function will aggregate the song's data found from querying `q` and
