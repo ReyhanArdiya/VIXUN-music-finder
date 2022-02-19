@@ -36,7 +36,10 @@ try {
 const port = process.env.PORT;
 const app = express();
 
-app.use(helmet({ crossOriginEmbedderPolicy : false }));
+app.use(helmet({
+	crossOriginEmbedderPolicy : false,
+	frameguard                : false
+}));
 app.use(helmet.contentSecurityPolicy({
 	directives : {
 		connectSrc : [ "'self'" ],
