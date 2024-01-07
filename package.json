@@ -6,7 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "node .",
-        "dev": "docker compose -f docker-compose.dev.yaml up -d; nodemon ."
+        "dev": "docker compose -f docker-compose.dev.yaml up -d; nodemon .",
+        "build": "docker build -t vixun:$npm_package_version .",
+        "build:env": "./make-env.sh"
     },
     "type": "module",
     "keywords": [
