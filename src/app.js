@@ -24,7 +24,8 @@ const __dirname = dirname(__filename);
 
 // Mongoose stuff
 const mongoDatabase = process.env.MONGODB;
-const mongoUrl = process.env.NODE_ENV !== "production" ? `mongodb://localhost:27017/${mongoDatabase}` : process.env.ATLAS_URL;
+const mongoUrl = process.env.MONGO_URL;
+
 try {
 	await mongoose.connect(mongoUrl);
 	console.log(`Connected to ${mongoDatabase}!🍃`);
@@ -36,77 +37,72 @@ try {
 const port = process.env.PORT;
 const app = express();
 
-app.use(helmet({
-	crossOriginEmbedderPolicy : false,
-	frameguard                : false
-}));
-app.use(helmet.contentSecurityPolicy({
-	directives : {
-		connectSrc : [ "'self'" ],
-		defaultSrc : [ "self" ],
-		fontSrc    : [ "'self'", "https://fonts.gstatic.com/" ],
-		imgSrc     : [
-			"'self'",
-			"blob:",
-			"data:",
-			"http:",
-			`https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`,
-			"https://images.unsplash.com/",
-			"https://e-cdn-images.dzcdn.net/",
-			"https://e-cdns-images.dzcdn.net/images/",
-			"http://e-cdn-images.dzcdn.net/",
-			"http://e-cdns-images.dzcdn.net/images/",
-			"https://i.scdn.co/image/",
-			"https://placekitten.com/",
-			"http://i.scdn.co/image/",
-			"http://placekitten.com/",
-		],
-		mediaSrc : [
-			"'self'",
-			"blob:",
-			"http:",
-			"https:",
-		],
-		scriptSrc : [
-			"'unsafe-inline'",
-			"'self'",
-			"https://cdn.jsdelivr.net/",
-			"http://cdn.jsdelivr.net/",
-			"https://unpkg.com/"
-		],
-		styleSrc : [
-			"'self'",
-			"'unsafe-inline'",
-			"https://fonts.googleapis.com/"
-		],
-		workerSrc : [ "'self'", "blob:" ],
-	},
-	useDefaults : false,
-}));
+app.use(
+	helmet({
+		crossOriginEmbedderPolicy : false,
+		frameguard                : false
+	})
+);
+app.use(
+	helmet.contentSecurityPolicy({
+		directives : {
+			connectSrc : [ "'self'" ],
+			defaultSrc : [ "self" ],
+			fontSrc    : [ "'self'", "https://fonts.gstatic.com/" ],
+			imgSrc     : [
+				"'self'",
+				"blob:",
+				"data:",
+				"http:",
+				`https://res.cloudinary.com/${process.env.CLOUDINARY_CLOUD_NAME}/`,
+				"https://images.unsplash.com/",
+				"https://e-cdn-images.dzcdn.net/",
+				"https://e-cdns-images.dzcdn.net/images/",
+				"http://e-cdn-images.dzcdn.net/",
+				"http://e-cdns-images.dzcdn.net/images/",
+				"https://i.scdn.co/image/",
+				"https://placekitten.com/",
+				"http://i.scdn.co/image/",
+				"http://placekitten.com/"
+			],
+			mediaSrc  : [ "'self'", "blob:", "http:", "https:" ],
+			scriptSrc : [
+				"'unsafe-inline'",
+				"'self'",
+				"https://cdn.jsdelivr.net/",
+				"http://cdn.jsdelivr.net/",
+				"https://unpkg.com/"
+			],
+			styleSrc  : [ "'self'", "'unsafe-inline'", "https://fonts.googleapis.com/" ],
+			workerSrc : [ "'self'", "blob:" ]
+		},
+		useDefaults : false
+	})
+);
 
 app.set("view engine", "ejs");
 app.engine("ejs", ejsEngine);
 app.set("views", join(__dirname, "views"));
 app.use(express.static(join(__dirname, "public")));
 
-app.use(session({
-	cookie : {
-		expires  : Date.now() + (1000 * 60 * 60 * 24 * 7),
-		httpOnly : true,
-		// secure: true,
-		maxAge   : 1000 * 60 * 60 * 24 * 7,
-	},
-	name              : process.env.SESSION_NAME || "connect.sid",
-	resave            : false,
-	saveUninitialized : true,
-	secret            : process.env.SESSION_SECRET,
-	store             : MongoStore.create(
-		{
+app.use(
+	session({
+		cookie : {
+			expires  : Date.now() + 1000 * 60 * 60 * 24 * 7,
+			httpOnly : true,
+			// secure: true,
+			maxAge   : 1000 * 60 * 60 * 24 * 7
+		},
+		name              : process.env.SESSION_NAME || "connect.sid",
+		resave            : false,
+		saveUninitialized : true,
+		secret            : process.env.SESSION_SECRET,
+		store             : MongoStore.create({
 			mongoUrl,
 			touchAfter : 24 * 60 * 60
-		}
-	)
-}));
+		})
+	})
+);
 app.use(mongoSanitize({ replaceWith : "_" }));
 
 app.use(methodOverride("_method"));
@@ -121,10 +117,7 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 // Setup app middlewares
-app.use(
-	addLocalVariables,
-	requestLogger
-);
+app.use(addLocalVariables, requestLogger);
 
 // Using routers
 app.use("/", homeRouter);

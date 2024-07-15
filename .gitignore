@@ -4,3 +4,4 @@ request-log.txt
 *.mongodb
 *.restbook
 *.env
+secrets/
