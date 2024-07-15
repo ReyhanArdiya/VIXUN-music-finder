@@ -3,7 +3,9 @@ import aggregateAndSave from "./utils/aggregate-save.js";
 import newPageRandomUA from "./utils/user-agent.js";
 import puppeteer from "puppeteer";
 
-const browser = await puppeteer.launch({ args : [ "--no-sandbox", "--disable-setuid-sandbox" ] });
+const browser = await puppeteer.launch({
+    args: ["--no-sandbox", "--disable-setuid-sandbox"]
+});
 
 /**
  * This function will aggregate the song's data found from querying `q` and
@@ -44,12 +46,14 @@ const browser = await puppeteer.launch({ args : [ "--no-sandbox", "--disable-set
  * ```
  */
 const requestSongs = async (q, page) => {
-	try {
-		page ??= await newPageRandomUA(browser);
-		await aggregateAndSave(q, page);
-	} catch (err) { /* nothing */ }
+    try {
+        page ??= await newPageRandomUA(browser);
+        await aggregateAndSave(q, page);
+    } catch (err) {
+        /* nothing */
+    }
 
-	return await Song.querySongs(q);
+    return await Song.querySongs(q);
 };
 
 export default requestSongs;
